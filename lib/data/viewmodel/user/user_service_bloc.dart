@@ -7,14 +7,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class UserServiceBloc extends Bloc<UserServiceEvent, UserServiceState> {
   UserServiceBloc() : super(InitUserServiceState()) {
-    on<AddUser>((event, emit) async {
+    on<AddUser>((event, emit) {
       UserProvider userProvider = UserProvider();
 
-      await userProvider.addUser(event.user, (resource) {
+      userProvider.addUser(event.user, (resource) {
         Log.test("user_service_bloc status", message: resource.status.name);
         Log.test("user_service_bloc data", message: resource.data.toString());
         emit(UserServiceState(userData: resource));
       });
+
     });
   }
 }
