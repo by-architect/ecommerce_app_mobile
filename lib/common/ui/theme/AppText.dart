@@ -6,11 +6,15 @@ class AppText{
   static const commonNext = "Next";
 
   //user
+  static const name = "Name";
+  static const surname = "Surname";
+  static const age = "Age";
   static const username = "Username";
   static const password = "Password";
-  static const login = "Login";
-  static const register = "Register";
+  static const signIn = "Sign In";
+  static const signUp = "Sign Up";
   static const phoneNo = "Phone Number";
+  static const email = "Email";
 
 
   //warnings
@@ -24,6 +28,9 @@ class AppText{
   static const welcomePageTwoTitle = "Shop Smarter, Not Harder";
   static const welcomePageTwoContent = "Explore personalized recommendations, easy search options, and secure checkout processes designed to enhance your shopping experience.";
   static const welcomePageThreeTitle = "Ready to Shop?";
-  static const welcomePAgeThreeContent = "Sign up or log in now to start your shopping journey. Enjoy exclusive member benefits, track your orders, and more!";
+  static const welcomePageThreeContent = "Sign up or log in now to start your shopping journey. Enjoy exclusive member benefits, track your orders, and more!";
+
+
+
 
 }

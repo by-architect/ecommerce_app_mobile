@@ -13,6 +13,7 @@ class AppSizes {
   static const spaceBtwVerticalFields = 16.0;
   static const spaceBtwHorizontalFieldsLarge = 16.0;
   static const spaceBtwVerticalFieldsLarge = 64.0;
+  static const buttonBottomSpace = 20.0;
 
 
 }

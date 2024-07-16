@@ -18,5 +18,7 @@ class AppColors {
   // Additional Color
   static const Color additionalColor = Color.fromARGB(255, 220, 160, 95);
   static const Color complementaryColor = Color.fromARGB(255,148, 147, 217);
-  static Color hiddenGrey = Colors.grey.withOpacity(0.4);
+  static Color grey = Colors.grey.withOpacity(1);
+  static Color hiddenGrey = Colors.grey.withOpacity(0.5);
+  static Color hiddenBlack = Colors.black.withOpacity(0.8);
 }

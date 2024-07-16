@@ -9,7 +9,7 @@ class AppTheme {
     brightness: Brightness.light,
     primaryColor: AppColors.lightPrimary,
     primaryColorDark: AppColors.lightSecondary,
-    scaffoldBackgroundColor: AppColors.lightPrimary,
+    scaffoldBackgroundColor: AppColors.lightBackground,
     cardColor: AppColors.lightTertiaryColor,
     textTheme: TextTheme(
       headlineMedium: AppStyles.titleMediumLight,
@@ -24,7 +24,7 @@ class AppTheme {
     brightness: Brightness.dark,
     primaryColor: AppColors.darkPrimary,
     primaryColorDark: AppColors.darkSecondary,
-    scaffoldBackgroundColor: AppColors.darkPrimary,
+    scaffoldBackgroundColor: AppColors.darkBackground,
     cardColor: AppColors.darkTertiaryColor,
     textTheme: TextTheme(
       headlineMedium: AppStyles.titleMediumDark,
