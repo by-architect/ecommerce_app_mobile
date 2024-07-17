@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "240812689676",
+    "project_id": "ecommerce-demo-f7a07",
+    "storage_bucket": "ecommerce-demo-f7a07.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:240812689676:android:89ad560bbbda5ad3552129",
+        "android_client_info": {
+          "package_name": "com.emindev.ecommerce.ecommerce_app_mobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCyFdzzCCdAGYRRlIQ9KP5EolR3DzdZZP0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
