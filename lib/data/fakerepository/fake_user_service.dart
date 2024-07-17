@@ -10,4 +10,8 @@ class FakeUserService implements UserService {
     await Future.delayed(const Duration(seconds: 5));
     resource(Resource.success(FakeUserModels.emin));
   }
+
+  @override
+  login(User user, Function(Resource<User>) resource) {
+  }
 }

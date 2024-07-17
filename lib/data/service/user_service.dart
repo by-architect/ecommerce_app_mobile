@@ -5,5 +5,5 @@ import '../model/user.dart';
 
 abstract class UserService {
    addUser(User user,Function(Resource<User>) resource);
-
+   login(User user,Function(Resource<User>) resource);
 }

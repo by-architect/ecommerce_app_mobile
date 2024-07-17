@@ -9,5 +9,6 @@ class UserProvider {
 
   addUser(User user,Function(Resource<User>) resource) {
     service.addUser(user,resource);
+
   }
 }

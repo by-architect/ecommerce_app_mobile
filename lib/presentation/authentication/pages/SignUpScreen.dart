@@ -14,6 +14,9 @@ import 'package:ecommerce_app_mobile/presentation/common/widgets/ButtonPrimary.d
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../data/service/impl/user_service_impl.dart';
+import '../../../data/service/user_service.dart';
+
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
 
@@ -89,8 +92,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
               GestureDetector(
                   onTap: () {
                     Log.test("started");
+                    UserService userService = UserServiceImpl();
+                    userService.addUser(FakeUserModels.admin, (a){});
+/*
                     BlocProvider.of<UserServiceBloc>(context)
                         .add(AddUser(FakeUserModels.test));
+*/
                   },
                   child: const ButtonPrimary(text: AppText.commonNext))
             ],
