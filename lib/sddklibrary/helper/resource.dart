@@ -3,6 +3,8 @@ abstract class Resource<T> {
 
   String? get message;
 
+  bool get stable;
+
   const Resource();
 
   Status get status {
@@ -12,6 +14,7 @@ abstract class Resource<T> {
     if (data != null) {
       return Status.success;
     }
+    if(stable) return Status.stable;
     return Status.loading;
   }
 
@@ -19,9 +22,10 @@ abstract class Resource<T> {
   factory Resource.loading() = Loading<T>;
   factory Resource.success(T data) = Success<T>;
   factory Resource.fail(String message) = Fail<T>;
+  factory Resource.stable() = Stable<T>;
 }
 
-enum Status { success, fail, loading }
+enum Status { success, fail, loading ,stable}
 
 class Loading<T> extends Resource<T> {
   const Loading();
@@ -31,6 +35,9 @@ class Loading<T> extends Resource<T> {
 
   @override
   String? get message => null;
+
+  @override
+  bool get stable => false;
 }
 
 class Success<T> extends Resource<T> {
@@ -43,6 +50,9 @@ class Success<T> extends Resource<T> {
 
   @override
   String? get message => null;
+
+  @override
+  bool get stable => false;
 }
 
 class Fail<T> extends Resource<T> {
@@ -55,4 +65,19 @@ class Fail<T> extends Resource<T> {
 
   @override
   String? get message => _message;
+
+  @override
+  bool get stable => false;
+}
+
+class Stable<T> extends Resource<T>{
+
+  @override
+  T? get data => null;
+
+  @override
+  String? get message => null;
+
+  @override
+  bool get stable => true;
 }

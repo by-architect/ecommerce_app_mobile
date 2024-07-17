@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main(){
  test("userService_addUserTest", (){
   UserService userService = UserServiceImpl();
-  userService.addUser(FakeUserModels.admin, (res){});
+  userService.addUser(FakeUserModels.admin);
   expect(true, true) ;
  });
 }

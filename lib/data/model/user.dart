@@ -1,16 +1,54 @@
-import 'dart:ffi';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class User{
- final String name;
- final String surname;
- final String email;
- final String password;
- final String phoneNo;
+import 'user_response.dart';
 
- User(this.name, this.surname, this.email, this.password, this.phoneNo);
+class User {
+  final String id;
+  final String name;
+  final String surname;
+  final String email;
+  final String password;
+  final BigInt phoneNo;
 
- @override
+  User(
+    this.id,
+    this.name,
+    this.surname,
+    this.email,
+    this.password,
+    this.phoneNo,
+  );
+
+  @override
   String toString() {
-    return 'User{name: $name, surname: $surname, email: $email, password: $password, phoneNo: $phoneNo}';
+    return 'User{id: $id, name: $name, surname: $surname, email: $email, password: $password, phoneNo: $phoneNo}';
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'surname': surname,
+      'email': email,
+      'password': password,
+      'phoneNo': phoneNo,
+    };
+  }
+
+  User copyWith(
+      {String? id,
+      String? name,
+      String? surname,
+      String? email,
+      String? password,
+      BigInt? phoneNo}) {
+    return User(
+      id ?? this.id,
+      name ?? this.name,
+      surname ?? this.surname,
+      email ?? this.email,
+      password ?? this.password,
+      phoneNo ?? this.phoneNo,
+    );
   }
 }

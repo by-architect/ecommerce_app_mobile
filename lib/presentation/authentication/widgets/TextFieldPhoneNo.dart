@@ -5,7 +5,8 @@ import '../../../common/ui/theme/AppColors.dart';
 import '../../../common/ui/theme/AppSizes.dart';
 
 class TextFieldPhoneNo extends StatefulWidget {
-  const TextFieldPhoneNo({super.key});
+   final Function(String) onChanged;
+  const TextFieldPhoneNo({super.key, required this.onChanged});
 
   @override
   State<TextFieldPhoneNo> createState() => _TextFieldPhoneNoState();
@@ -16,6 +17,7 @@ class _TextFieldPhoneNoState extends State<TextFieldPhoneNo> {
   Widget build(BuildContext context) {
     return TextFormField(
       keyboardType: TextInputType.phone,
+      onChanged: widget.onChanged,
       autocorrect: false,
       inputFormatters: [
         MaskedInputFormatter(

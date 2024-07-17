@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 class ButtonPrimary extends StatelessWidget {
   final String text;
   final bool primaryDecoration;
+  final bool loading; // New loading variable
 
   const ButtonPrimary({
     required this.text,
     this.primaryDecoration = true,
+    this.loading = false, // Default value for loading
     super.key,
   });
 
@@ -17,34 +19,41 @@ class ButtonPrimary extends StatelessWidget {
       height: 60,
       decoration: primaryDecoration
           ? BoxDecoration(
-              color: Theme.of(context).primaryColorDark,
-              borderRadius: const BorderRadius.all(Radius.circular(20)),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 1,
-                  blurRadius: 2,
-                  offset: const Offset(0, 0), // changes position of shadow
-                ),
-              ],
-            )
+        color: Theme.of(context).primaryColorDark,
+        borderRadius: const BorderRadius.all(Radius.circular(20)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 1,
+            blurRadius: 2,
+            offset: const Offset(0, 0),
+          ),
+        ],
+      )
           : BoxDecoration(
-              color: Theme.of(context).scaffoldBackgroundColor,
-              borderRadius: const BorderRadius.all(Radius.circular(20)),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 1,
-                  blurRadius: 2,
-                  offset: const Offset(0, 0), // changes position of shadow
-                ),
-              ],
-            ),
+        color: Theme.of(context).scaffoldBackgroundColor,
+        borderRadius: const BorderRadius.all(Radius.circular(20)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 1,
+            blurRadius: 2,
+            offset: const Offset(0, 0),
+          ),
+        ],
+      ),
       child: Center(
-        child: Text(
+        child: loading // Check if loading is true
+            ? CircularProgressIndicator(
+          valueColor: AlwaysStoppedAnimation<Color>(
+              primaryDecoration ? Colors.white : Colors.black),
+        )
+            : Text(
           text,
           style: TextStyle(
-              color: primaryDecoration == true ? Colors.white : Colors.black.withOpacity(0.7)),
+              color: primaryDecoration
+                  ? Colors.white
+                  : Colors.black.withOpacity(0.7)),
         ),
       ),
     );

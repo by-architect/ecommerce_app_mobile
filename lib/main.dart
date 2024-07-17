@@ -44,8 +44,12 @@ class MyApp extends StatelessWidget {
               Screens.signInScreen: (context) => const SignInScreen(),
               Screens.signUpScreen: (context) => const SignUpScreen(),
             },
-            home: const WelcomeScreen()),
+            home: const SignUpScreen() ),
       ),
     );
   }
 }
+
+//todo: button wait duration
+//todo: threads with async functions
+//todo: password unvisible

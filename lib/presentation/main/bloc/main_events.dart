@@ -1,5 +1,4 @@
-import 'package:ecommerce_app_mobile/common/helper/Log.dart';
-import 'package:ecommerce_app_mobile/common/helper/UIHelper.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/helper/UIHelper.dart';
 import 'package:flutter/material.dart';
 
 class MainEvents{}

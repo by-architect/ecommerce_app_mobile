@@ -4,19 +4,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
   UserBloc() : super(UserState()) {
-    on<AddName>((event, emit) {
+    on<NameEvent>((event, emit) {
       emit(state.copyWith(name: event.name));
     });
-    on<AddSurname>((event, emit) {
+    on<SurnameEvent>((event, emit) {
       emit(state.copyWith(surname: event.surname));
     });
-    on<AddEmail>((event, emit) {
+    on<EmailEvent>((event, emit) {
       emit(state.copyWith(email: event.email));
     });
-    on<AddPassword>((event, emit) {
+    on<PasswordEvent>((event, emit) {
       emit(state.copyWith(password: event.password));
     });
-    on<AddPhoneNo>((event, emit) {
+    on<PhoneNoEvent>((event, emit) {
       emit(state.copyWith(phoneNo: event.phoneNo));
     });
   }

@@ -18,7 +18,15 @@ class AppText{
 
 
   //warnings
-  static const warningEmptyPhone = "Please fill phone no";
+  static const errorEmptyPhone = "Please fill phone no";
+  static const errorEmailHasTaken = "This email has taken";
+  static const errorFetchingData = "Error occurred while fetching data from server";
+  static const errorTimeout = "Connection timed out"; // bağlantı zaman aşımına uğradı
+  static const errorNetworkRequestFailed = "Network request failed, please check your connection";
+  static const errorEmptyField = "Please fill the blank fields";
+  static const errorEmailIsNotValid = "Email is not valid ";
+  static var errorPasswordLength = "Password length must be between 8 - 16";
+  static const errorPhoneNoIsNotValid = "Phone no is not valid";
 
   //errors
 
@@ -29,6 +37,14 @@ class AppText{
   static const welcomePageTwoContent = "Explore personalized recommendations, easy search options, and secure checkout processes designed to enhance your shopping experience.";
   static const welcomePageThreeTitle = "Ready to Shop?";
   static const welcomePageThreeContent = "Sign up or log in now to start your shopping journey. Enjoy exclusive member benefits, track your orders, and more!";
+
+
+
+
+
+
+
+
 
 
 

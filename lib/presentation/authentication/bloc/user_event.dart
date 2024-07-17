@@ -2,32 +2,32 @@ import 'package:flutter/services.dart';
 
 class UserEvent {}
 
-class AddName extends UserEvent {
+class NameEvent extends UserEvent {
   final String name;
 
-  AddName(this.name);
+  NameEvent(this.name);
 }
 
-class AddSurname extends UserEvent {
+class SurnameEvent extends UserEvent {
   final String surname;
 
-  AddSurname(this.surname);
+  SurnameEvent(this.surname);
 }
 
-class AddEmail extends UserEvent {
+class EmailEvent extends UserEvent {
   final String email;
 
-  AddEmail(this.email);
+  EmailEvent(this.email);
 }
 
-class AddPassword extends UserEvent {
+class PasswordEvent extends UserEvent {
   final String password;
 
-  AddPassword(this.password);
+  PasswordEvent(this.password);
 }
 
-class AddPhoneNo extends UserEvent{
+class PhoneNoEvent extends UserEvent{
   final String phoneNo;
 
-  AddPhoneNo(this.phoneNo);
+  PhoneNoEvent(this.phoneNo);
 }

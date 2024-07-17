@@ -2,8 +2,8 @@ import '../../model/user.dart';
 
 class UserServiceEvent{}
 
-class AddUser extends UserServiceEvent {
+class AddUserEvent extends UserServiceEvent {
  final User user ;
 
- AddUser(this.user);
+ AddUserEvent(this.user);
 }

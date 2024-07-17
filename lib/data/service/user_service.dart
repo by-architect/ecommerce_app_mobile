@@ -1,9 +1,10 @@
+import 'package:ecommerce_app_mobile/data/model/user_response.dart';
 
-
-import '../../common/helper/resource.dart';
+import '../../sddklibrary/helper/resource.dart';
 import '../model/user.dart';
 
 abstract class UserService {
-   addUser(User user,Function(Resource<User>) resource);
-   login(User user,Function(Resource<User>) resource);
+  Future<Resource<UserResponse>> addUser(User user);
+
+  login(User user, Function(Resource<User>) resource);
 }

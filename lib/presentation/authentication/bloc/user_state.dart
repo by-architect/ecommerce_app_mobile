@@ -1,3 +1,5 @@
+import 'package:ecommerce_app_mobile/sddklibrary/helper/Helper.dart';
+
 import '../../../data/model/user.dart';
 
 class UserState {
@@ -6,6 +8,7 @@ class UserState {
   final String email;
   final String password;
   final String phoneNo;
+
 
 
   UserState({this.name = "", this.surname = "", this.email = "", this.password = "", this.phoneNo = ""});
@@ -24,5 +27,8 @@ class UserState {
       password: password??this.password,
       phoneNo: phoneNo??this.phoneNo
     );
+  }
+  User toUser(){
+    return User("0", name, surname, email, password, phoneNo.toLongPhone);
   }
 }
