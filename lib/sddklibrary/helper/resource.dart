@@ -1,3 +1,5 @@
+import 'package:ecommerce_app_mobile/sddklibrary/helper/Log.dart';
+
 abstract class Resource<T> {
   T? get data;
 
@@ -58,7 +60,9 @@ class Success<T> extends Resource<T> {
 class Fail<T> extends Resource<T> {
   final String _message;
 
-  const Fail(this._message);
+  Fail(this._message){
+    Log.test("Resource",message: _message);
+  }
 
   @override
   T? get data => null;

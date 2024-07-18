@@ -16,11 +16,9 @@ class UserServiceBloc extends Bloc<UserServiceEvent, UserServiceState> {
       UserService fakeUserService = FakeUserService();
 
       emit(UserServiceState(userData: Resource.loading()));
-      // await userService.addUser(event.user).then((resource) => emit(UserServiceState(userData: resource)));
+      await userService.addUser(event.user).then((resource) => emit(UserServiceState(userData: resource)));
 
-     await fakeUserService.addUser(event.user).then((resource) => emit(UserServiceState(userData: resource)));
-
-
+      // await fakeUserService.addUser(event.user).then((resource) => emit(UserServiceState(userData: resource)));
     });
   }
 }

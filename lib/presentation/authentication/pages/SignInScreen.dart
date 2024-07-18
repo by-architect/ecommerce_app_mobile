@@ -46,6 +46,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TextFieldAuthentication(
+                    icon: Icons.email,
                     label: AppText.email,
                     onChanged: (value){},
                   ),
@@ -53,6 +54,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     height: AppSizes.spaceBtwVerticalFields,
                   ),
                   TextFieldAuthentication(
+                    icon: Icons.password,
                     label: AppText.password,
                     onChanged: (value){},
                   ),

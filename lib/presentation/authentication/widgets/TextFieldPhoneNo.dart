@@ -2,7 +2,6 @@ import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:flutter/material.dart';
 
 import '../../../common/ui/theme/AppColors.dart';
-import '../../../common/ui/theme/AppSizes.dart';
 
 class TextFieldPhoneNo extends StatefulWidget {
    final Function(String) onChanged;

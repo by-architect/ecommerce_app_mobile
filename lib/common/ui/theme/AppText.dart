@@ -27,6 +27,7 @@ class AppText{
   static const errorEmailIsNotValid = "Email is not valid ";
   static var errorPasswordLength = "Password length must be between 8 - 16";
   static const errorPhoneNoIsNotValid = "Phone no is not valid";
+  static const errorNetworkDeviceIsDown = "Network device is down, please open your wifi or mobile hotspot";
 
   //errors
 
@@ -37,6 +38,7 @@ class AppText{
   static const welcomePageTwoContent = "Explore personalized recommendations, easy search options, and secure checkout processes designed to enhance your shopping experience.";
   static const welcomePageThreeTitle = "Ready to Shop?";
   static const welcomePageThreeContent = "Sign up or log in now to start your shopping journey. Enjoy exclusive member benefits, track your orders, and more!";
+
 
 
 

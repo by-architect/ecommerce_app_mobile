@@ -10,11 +10,9 @@ class Log {
   static const String _yellow = "\x1B[33m";
   static const String _blue = "\x1B[34m";
 
-  static void log(String title, String message,
-      {LogLevel level = LogLevel.DEBUG}) {
+  static void log(String title, String message, {LogLevel level = LogLevel.DEBUG}) {
     final timestamp = _getCurrentTime();
-    final coloredMessage =
-        "$timestamp ${_getColoredMessage("$title $message", level)}";
+    final coloredMessage = "$timestamp ${_getColoredMessage("$title $message", level)}";
 
     if (kReleaseMode) {
       // In production, send logs to a remote server or a file
@@ -40,9 +38,8 @@ class Log {
     }
   }
 
-  static void test(String title,{ String message = ""}) {
-    final log =
-        "$_yellow${_getCurrentTime()}$_reset $_blue$title$_reset $_green$message$_reset";
+  static void test(String title, {String message = ""}) {
+    final log = "$_yellow${_getCurrentTime()}$_reset $_blue$title$_reset $_green$message$_reset";
     debugPrint(log);
   }
 

@@ -19,9 +19,10 @@ class User {
     this.phoneNo,
   );
 
+
   @override
   String toString() {
-    return 'User{id: $id, name: $name, surname: $surname, email: $email, password: $password, phoneNo: $phoneNo}';
+    return 'User{id: $id, name: $name, surname: $surname, email: $email, password: $password, phoneNo: ${phoneNo.toString()}}';
   }
 
   Map<String, dynamic> toMap() {
@@ -31,7 +32,7 @@ class User {
       'surname': surname,
       'email': email,
       'password': password,
-      'phoneNo': phoneNo,
+      'phoneNo': phoneNo.toString(),
     };
   }
 
