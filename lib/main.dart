@@ -5,7 +5,6 @@ import 'package:ecommerce_app_mobile/firebase_options.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/pages/SignInScreen.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/pages/SignUpScreen.dart';
-import 'package:ecommerce_app_mobile/presentation/authentication/pages/VerificationScreen.dart';
 import 'package:ecommerce_app_mobile/presentation/home/page/HomeScreen.dart';
 import 'package:ecommerce_app_mobile/presentation/main/bloc/main_blocs.dart';
 import 'package:ecommerce_app_mobile/presentation/main/bloc/main_states.dart';
@@ -41,7 +40,6 @@ class MyApp extends StatelessWidget {
             routes: {
               Screens.signInScreen: (context) => const SignInScreen(),
               Screens.signUpScreen: (context) => const SignUpScreen(),
-              Screens.verificationScreen: (context) => const VerificationScreen(),
               Screens.homeScreen: (context) => const HomeScreen(),
             },
             home: const SignUpScreen() ),

@@ -4,6 +4,8 @@ class AppText{
   static const marketName = "Perfect Market";
   static const commonContinue = "Continue";
   static const commonNext = "Next";
+  static const dismiss = "Dismiss";
+  static const loading = "Loading";
 
   //user
   static const name = "Name";
@@ -17,7 +19,7 @@ class AppText{
   static const email = "Email";
 
 
-  //warnings
+  //errors
   static const errorEmptyPhone = "Please fill phone no";
   static const errorEmailHasTaken = "This email has taken";
   static const errorFetchingData = "Error occurred while fetching data from server";
@@ -25,11 +27,13 @@ class AppText{
   static const errorNetworkRequestFailed = "Network request failed, please check your connection";
   static const errorEmptyField = "Please fill the blank fields";
   static const errorEmailIsNotValid = "Email is not valid ";
-  static var errorPasswordLength = "Password length must be between 8 - 16";
+  static const errorPasswordLength = "Password length must be between 8 - 16";
   static const errorPhoneNoIsNotValid = "Phone no is not valid";
   static const errorNetworkDeviceIsDown = "Network device is down, please open your wifi or mobile hotspot";
+  static const verificationEmail = "Email Verification";
+  static const errorVerificationCodeIsWrong = "Verification code is wrong, please check it again";
+  static const errorSomethingWentWrong = "Something went wrong";
 
-  //errors
 
   //welcome Page
   static const welcomePageOneTitle = "Welcome to $marketName";
@@ -38,6 +42,15 @@ class AppText{
   static const welcomePageTwoContent = "Explore personalized recommendations, easy search options, and secure checkout processes designed to enhance your shopping experience.";
   static const welcomePageThreeTitle = "Ready to Shop?";
   static const welcomePageThreeContent = "Sign up or log in now to start your shopping journey. Enjoy exclusive member benefits, track your orders, and more!";
+
+  //verification page
+  static const verificationEmailTitle = "Please enter the verification code";
+  static const verificationEmailBody = "We sent six digit code to your email";
+
+
+
+
+
 
 
 

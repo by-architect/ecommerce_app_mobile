@@ -7,10 +7,16 @@ import 'package:ecommerce_app_mobile/data/service/user_service.dart';
 import '../model/user.dart';
 
 class UserProvider {
-  UserService service = UserServiceImpl();
+  final UserService _service = UserServiceImpl();
+  final UserService _fakeUserService= FakeUserService();
 
-  void addUser(User user, Function(Resource<UserResponse>) resource) async {
-    Resource.loading();
-    await service.addUser(user).then((userResource) => resource(userResource));
+  void addUser(User user, String code,Function(Resource<UserResponse>) resource) async {
+    resource(Resource.loading());
+    await _service.addUser(user,code).then((userResource) => resource(userResource));
+  }
+  
+  Future<void> sendEmailVerificationCode(User user, Function(Resource) resource) async {
+    resource(Resource.loading());
+    await _fakeUserService.sendEmailVerificationCode(user.email).then((responseResource) => resource(responseResource));
   }
 }

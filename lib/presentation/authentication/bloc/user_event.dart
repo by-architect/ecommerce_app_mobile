@@ -4,7 +4,6 @@ class UserEvent {}
 
 class NameEvent extends UserEvent {
   final String name;
-
   NameEvent(this.name);
 }
 

@@ -1,16 +1,16 @@
-import 'package:ecommerce_app_mobile/sddklibrary/helper/Log.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/helper/error.dart';
 
 abstract class Resource<T> {
   T? get data;
 
-  String? get message;
+  DefaultError? get error;
 
   bool get stable;
 
   const Resource();
 
   Status get status {
-    if (message != null) {
+    if (error != null) {
       return Status.fail;
     }
     if (data != null) {
@@ -23,7 +23,7 @@ abstract class Resource<T> {
 
   factory Resource.loading() = Loading<T>;
   factory Resource.success(T data) = Success<T>;
-  factory Resource.fail(String message) = Fail<T>;
+  factory Resource.fail(DefaultError exception) = Fail<T>;
   factory Resource.stable() = Stable<T>;
 }
 
@@ -36,7 +36,7 @@ class Loading<T> extends Resource<T> {
   T? get data => null;
 
   @override
-  String? get message => null;
+  DefaultError? get error => null;
 
   @override
   bool get stable => false;
@@ -51,24 +51,24 @@ class Success<T> extends Resource<T> {
   T? get data => _data;
 
   @override
-  String? get message => null;
+  DefaultError? get error => null;
 
   @override
   bool get stable => false;
 }
 
 class Fail<T> extends Resource<T> {
-  final String _message;
+  final DefaultError _error;
 
-  Fail(this._message){
-    Log.test("Resource",message: _message);
+  Fail(this._error){
+    // Log.test("Resource",message: _message);
   }
 
   @override
   T? get data => null;
 
   @override
-  String? get message => _message;
+  DefaultError? get error =>_error ;
 
   @override
   bool get stable => false;
@@ -80,7 +80,7 @@ class Stable<T> extends Resource<T>{
   T? get data => null;
 
   @override
-  String? get message => null;
+  DefaultError? get error => null;
 
   @override
   bool get stable => true;
