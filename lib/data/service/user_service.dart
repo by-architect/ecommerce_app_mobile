@@ -1,11 +1,11 @@
-import 'package:ecommerce_app_mobile/data/model/user_response.dart';
+import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_state.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../sddklibrary/helper/resource.dart';
-import '../model/user.dart';
 
 abstract class UserService {
-  Future<Resource<UserResponse>> addUser(User user,String verificationCode);
-  Future verifyEmail(String code);
+  Future<Resource<User>> addUser(UserState user);
+  Future isEmailVerified(User user);
   Future<Resource> sendEmailVerificationCode(String email);
 
 

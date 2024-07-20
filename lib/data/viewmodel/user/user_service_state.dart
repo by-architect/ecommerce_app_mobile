@@ -1,7 +1,6 @@
-import 'package:ecommerce_app_mobile/data/model/user_response.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/error.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/resource.dart';
-import 'package:ecommerce_app_mobile/data/model/user.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class UserServiceState {}
 

@@ -3,6 +3,7 @@ class AppSizes {
 
 //button sizes
   static const buttonFontSize = 20.0;
+  static var buttonHeight = 60.0;
 
   //radius
   static const defaultCornerRadius = 12.0;
@@ -14,6 +15,7 @@ class AppSizes {
   static const spaceBtwHorizontalFieldsLarge = 16.0;
   static const spaceBtwVerticalFieldsLarge = 64.0;
   static const buttonBottomSpace = 20.0;
+
 
 
 }

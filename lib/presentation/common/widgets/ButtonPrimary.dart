@@ -1,3 +1,5 @@
+import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
+import 'package:ecommerce_app_mobile/common/ui/theme/AppStyles.dart';
 import 'package:flutter/material.dart';
 
 class ButtonPrimary extends StatelessWidget {
@@ -19,33 +21,10 @@ class ButtonPrimary extends StatelessWidget {
     return GestureDetector(
       onTap: onTap ?? () {},
       child: Container(
-        width: 350,
-        height: 60,
+        height: AppSizes.buttonHeight,
         decoration: primaryDecoration
-            ? BoxDecoration(
-                color: Theme.of(context).primaryColorDark,
-                borderRadius: const BorderRadius.all(Radius.circular(20)),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 1,
-                    blurRadius: 2,
-                    offset: const Offset(0, 0),
-                  ),
-                ],
-              )
-            : BoxDecoration(
-                color: Theme.of(context).scaffoldBackgroundColor,
-                borderRadius: const BorderRadius.all(Radius.circular(20)),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 1,
-                    blurRadius: 2,
-                    offset: const Offset(0, 0),
-                  ),
-                ],
-              ),
+            ? AppStyles.buttonContainerDecorationPrimary(context)
+            : AppStyles.buttonContainerDecorationSecondary(context),
         child: Center(
           child: loading // Check if loading is true
               ? CircularProgressIndicator(

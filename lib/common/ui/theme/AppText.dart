@@ -20,6 +20,7 @@ class AppText{
 
 
   //errors
+  static const errorTitle = "Error"; //todo: make it more soft
   static const errorEmptyPhone = "Please fill phone no";
   static const errorEmailHasTaken = "This email has taken";
   static const errorFetchingData = "Error occurred while fetching data from server";
@@ -30,7 +31,6 @@ class AppText{
   static const errorPasswordLength = "Password length must be between 8 - 16";
   static const errorPhoneNoIsNotValid = "Phone no is not valid";
   static const errorNetworkDeviceIsDown = "Network device is down, please open your wifi or mobile hotspot";
-  static const verificationEmail = "Email Verification";
   static const errorVerificationCodeIsWrong = "Verification code is wrong, please check it again";
   static const errorSomethingWentWrong = "Something went wrong";
 
@@ -44,8 +44,14 @@ class AppText{
   static const welcomePageThreeContent = "Sign up or log in now to start your shopping journey. Enjoy exclusive member benefits, track your orders, and more!";
 
   //verification page
-  static const verificationEmailTitle = "Please enter the verification code";
-  static const verificationEmailBody = "We sent six digit code to your email";
+  static const verificationEmail = "Email Verification";
+  static const verificationPageEmailTitle = "Please enter the verification code";
+  static const verificationPageEmailBody = "We sent six digit code to your email";
+  static var verificationPageCheckYourEmail = "Check your emails, We are waiting for you";
+  static var verificationPageSendEmailAgain = "Send email again";
+
+
+
 
 
 

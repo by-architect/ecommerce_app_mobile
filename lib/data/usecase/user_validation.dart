@@ -1,11 +1,9 @@
-import 'dart:ffi';
 
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_state.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/Helper.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/validation_result.dart';
 
-import '../model/user.dart';
 
 class UserValidation {
   static ValidationResult validate(UserState userState) {

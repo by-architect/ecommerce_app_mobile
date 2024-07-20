@@ -2,7 +2,6 @@ import 'package:ecommerce_app_mobile/data/fakerepository/fake_user_service.dart'
 import 'package:ecommerce_app_mobile/data/service/impl/user_service_impl.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/Log.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/resource.dart';
-import 'package:ecommerce_app_mobile/data/provider/user_provider.dart';
 import 'package:ecommerce_app_mobile/data/viewmodel/user/user_service_event.dart';
 import 'package:ecommerce_app_mobile/data/viewmodel/user/user_service_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,7 +16,8 @@ class UserServiceBloc extends Bloc<UserServiceEvent, UserServiceState> {
     on<AddUserEvent>((event, emit) async {
       emit(AddUserLoadingState());
 
-      final resource = await fakeUserService.addUser(event.user, event.verificationCode);
+      final resource = await userService.addUser(event.user);
+
 
       switch (resource.status) {
         case Status.success:

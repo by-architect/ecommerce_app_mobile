@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
 
-import '../../data/model/user.dart';
 
 extension UIHelper on BuildContext {
   bool get isDarkMode {

@@ -1,13 +1,12 @@
-import 'package:ecommerce_app_mobile/sddklibrary/helper/error.dart';
 
-import '../../model/user.dart';
+
+import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_state.dart';
 
 class UserServiceEvent {}
 
 class AddUserEvent extends UserServiceEvent {
-  final User user;
-  final String verificationCode;
-  AddUserEvent(this.user,this.verificationCode);
+  final UserState user;
+  AddUserEvent(this.user);
 }
 
 class SendVerificationCodeEvent extends UserServiceEvent {

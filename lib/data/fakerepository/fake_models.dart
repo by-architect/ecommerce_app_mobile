@@ -1,11 +1,10 @@
-import 'package:ecommerce_app_mobile/data/model/user.dart';
+
+import '../../presentation/authentication/bloc/user_state.dart';
 
 class FakeUserModels{
-  static User emin = User("234","emin", "demir", "emindemir1541@proton.me", "testpassword",BigInt.from(324324));
-  static User test = User("324","test", "test", "test", "test",BigInt.from(353452)  );
-
-  static User admin = User("sdfl","admin", "admin", "admin@mail.com", "adminTest", BigInt.from(353452));
-
-  static User testValidUser = User("32432srdf","admin", "admin", "admin@mail.com", "adminTest", BigInt.from(5556473748));
+  static UserState emin = UserState(name: "emin",surname:  "demir",email:  "emindemir1541@proton.me",password:  "testpassword",phoneNo:"555 345-4334" );
+  static UserState test = UserState(name: "test", surname: "test",email:  "test",password:  "test",  phoneNo:"555 345-4334" );
+  static UserState admin = UserState(name: "admin",surname:  "admin",email:  "admin@mail.com",password:  "adminTest",phoneNo:"555 345-4334" );
+  static UserState testValidUser = UserState(name: "admin",surname:  "admin",email:  "admin@mail.com",password:  "adminTest",phoneNo:"555 345-4334"  );
 
 }

@@ -6,5 +6,6 @@ class AppImages{
 
   static const  shoppingBags  = '${_basePath}shopping_bags$_formatSvg';
   static const  windowShopping  = '${_basePath}window_shopping$_formatSvg';
+  static const  openedEmail  = '${_basePath}opened_email$_formatSvg';
   static const  signIn  = '${_basePath}sign_in$_formatSvg';
 }

@@ -1,18 +1,16 @@
 import 'dart:math';
 
-import 'package:ecommerce_app_mobile/data/model/user_response.dart';
+import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_state.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/error.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/resource.dart';
-import 'package:ecommerce_app_mobile/data/model/user.dart';
 import 'package:ecommerce_app_mobile/data/service/user_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class FakeUserService implements UserService {
   @override
-  Future<Resource<UserResponse>> addUser(User user,String verificationCode) async {
+  Future<Resource<User>> addUser(UserState user) async {
 
     await Future.delayed(const Duration(seconds: 2));
-
-    await verifyEmail(verificationCode);
 
 /*
     for(int i = 0; i<5;i++){ Log.test("core test");
@@ -20,9 +18,7 @@ class FakeUserService implements UserService {
     }
 */
     var random = Random();
-    return random.nextBool()
-        ? Resource.success(UserResponse.fromUser(user, token: 32,accessToken: "sdlkfj"))
-        : Resource.fail(DefaultError(userMessage: "Response fail situation",exception:" Response Fail situation" ),);
+    return Resource.fail(DefaultError(userMessage: "Cant return firebase user so",exception:"" ),);
   }
 
   @override
@@ -43,6 +39,12 @@ class FakeUserService implements UserService {
     return random.nextBool()
         ? Resource.success("Success")
         : Resource.fail(DefaultError(userMessage: "fail",exception: "fail"));
+  }
+
+  @override
+  Future isEmailVerified(User user) {
+    // TODO: implement isEmailVerified
+    throw UnimplementedError();
   }
 
 }
