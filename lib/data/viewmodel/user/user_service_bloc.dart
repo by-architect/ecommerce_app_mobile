@@ -1,6 +1,4 @@
-import 'package:ecommerce_app_mobile/data/fakerepository/fake_user_service.dart';
 import 'package:ecommerce_app_mobile/data/service/impl/user_service_impl.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/helper/Log.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/resource.dart';
 import 'package:ecommerce_app_mobile/data/viewmodel/user/user_service_event.dart';
 import 'package:ecommerce_app_mobile/data/viewmodel/user/user_service_state.dart';
@@ -11,13 +9,12 @@ import '../../service/user_service.dart';
 class UserServiceBloc extends Bloc<UserServiceEvent, UserServiceState> {
   UserServiceBloc() : super(AddUserInitState()) {
     UserService userService = UserServiceImpl();
-    UserService fakeUserService = FakeUserService();
+    // UserService fakeUserService = FakeUserService();
 
     on<AddUserEvent>((event, emit) async {
       emit(AddUserLoadingState());
 
       final resource = await userService.addUser(event.user);
-
 
       switch (resource.status) {
         case Status.success:
@@ -29,14 +26,12 @@ class UserServiceBloc extends Bloc<UserServiceEvent, UserServiceState> {
         case Status.stable:
           emit(AddUserInitState());
       }
-
-      // await _fakeUserService.addUser(event.user).then((resource) => emit(UserServiceState(userData: resource)));
     });
 
     on<SendVerificationCodeEvent>((event, emit) async {
       emit(SendVerificationCodeLoadingState());
 
-      final resource = await userService.sendEmailVerificationCode(event.email);
+      final resource = await userService.sendVerificationEmail(event.user);
       switch (resource.status) {
         case Status.success:
           emit(SendVerificationCodeSuccessState());
@@ -46,6 +41,23 @@ class UserServiceBloc extends Bloc<UserServiceEvent, UserServiceState> {
           emit(SendVerificationCodeLoadingState());
         case Status.stable:
           emit(SendVerificationCodeInitState());
+      }
+    });
+
+    on<IsUserVerifiedEvent>((event, emit) async {
+      final resource = await userService.isEmailVerified();
+
+      switch (resource.status) {
+        case Status.success:
+          if (resource.data!) {
+            emit(EmailVerifiedState());
+          } else {
+            emit(EmailNotVerifiedState());
+          }
+        case Status.fail:
+          emit(EmailVerificationFailState(resource.error!));
+        case Status.loading:
+        case Status.stable:
       }
     });
   }

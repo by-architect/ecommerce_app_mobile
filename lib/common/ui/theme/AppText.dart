@@ -49,6 +49,8 @@ class AppText{
   static const verificationPageEmailBody = "We sent six digit code to your email";
   static var verificationPageCheckYourEmail = "Check your emails, We are waiting for you";
   static var verificationPageSendEmailAgain = "Send email again";
+  static const accountCreatedSuccessfully= "Account created successfully";
+
 
 
 

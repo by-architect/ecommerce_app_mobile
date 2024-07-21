@@ -6,7 +6,7 @@ import 'package:ecommerce_app_mobile/sddklibrary/helper/validation_result.dart';
 
 
 class UserValidation {
-  static ValidationResult validate(UserState userState) {
+  static ValidationResult validate(UserRequestState userState) {
     if (userState.name.isEmpty || userState.surname.isEmpty || userState.email.isEmpty || userState.password.isEmpty || userState.phoneNo.isEmpty) {
       return ValidationResult(false, message: AppText.errorEmptyField);
     }

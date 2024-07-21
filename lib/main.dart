@@ -10,6 +10,7 @@ import 'package:ecommerce_app_mobile/presentation/home/page/HomeScreen.dart';
 import 'package:ecommerce_app_mobile/presentation/main/bloc/main_blocs.dart';
 import 'package:ecommerce_app_mobile/presentation/main/bloc/main_states.dart';
 import 'package:ecommerce_app_mobile/presentation/splash/bloc/welcome_blocs.dart';
+import 'package:ecommerce_app_mobile/presentation/splash/pages/welcome.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,8 +45,10 @@ class MyApp extends StatelessWidget {
               Screens.homeScreen: (context) => const HomeScreen(),
               Screens.emailVerificationScreen: (context) => const EmailVerificationScreen(),
             },
-            home: const EmailVerificationScreen() ),
+            home: const SignUpScreen() ),
       ),
     );
   }
 }
+
+//todo: welcome screen size and fit small screen problems

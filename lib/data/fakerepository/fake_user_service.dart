@@ -8,7 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class FakeUserService implements UserService {
   @override
-  Future<Resource<User>> addUser(UserState user) async {
+  Future<Resource<User>> addUser(UserRequestState user) async {
 
     await Future.delayed(const Duration(seconds: 2));
 
@@ -32,7 +32,7 @@ class FakeUserService implements UserService {
   }
 
   @override
-  Future<Resource> sendEmailVerificationCode(String email) async {
+  Future<Resource> sendVerificationEmail(User user) async {
     await Future.delayed(const Duration(seconds: 4));
 
     var random = Random();
@@ -41,10 +41,39 @@ class FakeUserService implements UserService {
         : Resource.fail(DefaultError(userMessage: "fail",exception: "fail"));
   }
 
+
   @override
-  Future isEmailVerified(User user) {
-    // TODO: implement isEmailVerified
+  Future<Resource> changePassword(User user) {
+    // TODO: implement changePassword
     throw UnimplementedError();
   }
 
+  @override
+  Future<Resource<User>> changeUserSettings(User user) {
+    // TODO: implement changeUserSettings
+    throw UnimplementedError();
+  }
+
+  @override
+  bool isUserAuthenticated() {
+    // TODO: implement isUserAuthenticated
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Resource<User>> signIn() {
+    // TODO: implement signIn
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Resource> signOut() {
+    // TODO: implement signOut
+    throw UnimplementedError();
+  }
+
+
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 }

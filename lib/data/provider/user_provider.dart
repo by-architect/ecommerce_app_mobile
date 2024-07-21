@@ -10,13 +10,13 @@ class UserProvider {
   final UserService _service = UserServiceImpl();
   final UserService _fakeUserService= FakeUserService();
 
-  void addUser(UserState user,Function(Resource<User>) resource) async {
+  void addUser(UserRequestState user,Function(Resource<User>) resource) async {
     resource(Resource.loading());
     await _service.addUser(user).then((userResource) => resource(userResource));
   }
   
-  Future<void> sendEmailVerificationCode(UserState user, Function(Resource) resource) async {
+  Future<void> sendEmailVerificationCode(UserRequestState user, Function(Resource) resource) async {
     resource(Resource.loading());
-    await _fakeUserService.sendEmailVerificationCode(user.email).then((responseResource) => resource(responseResource));
+    // await _fakeUserService.sendVerificationEmail(user).then((responseResource) => resource(responseResource));
   }
 }

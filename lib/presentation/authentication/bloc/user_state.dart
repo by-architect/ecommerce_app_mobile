@@ -1,22 +1,25 @@
 
+import 'package:firebase_auth/firebase_auth.dart';
 
-class UserState {
+class UserState{}
+
+class UserRequestState extends UserState {
   final String name;
   final String surname;
   final String email;
   final String password;
   final String phoneNo;
 
-  UserState({this.name = "", this.surname = "", this.email = "", this.password = "", this.phoneNo = ""});
+  UserRequestState({this.name = "", this.surname = "", this.email = "", this.password = "", this.phoneNo = ""});
 
-  UserState copyWith({
+  UserRequestState copyWith({
     String? name,
     String? surname,
     String? email,
     String? password,
     String? phoneNo,
 }) {
-    return UserState(
+    return UserRequestState(
       name: name??this.name,
       surname: surname??this.surname,
       email: email??this.email,

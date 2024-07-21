@@ -12,7 +12,6 @@ import 'package:ecommerce_app_mobile/presentation/authentication/widgets/TextFie
 import 'package:ecommerce_app_mobile/presentation/authentication/widgets/TextFieldPhoneNo.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/AppBarPopUp.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/ButtonPrimary.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/helper/Log.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/ui/dialog_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,7 +27,7 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  late UserState globalUser;
+  late UserRequestState globalUser;
 
   @override
   void initState() {
@@ -49,34 +48,32 @@ class _SignUpScreenState extends State<SignUpScreen> {
         BlocProvider.of<UserServiceBloc>(context).add(AddUserEvent(globalUser));
 
         late StreamSubscription<UserServiceState> subscription;
-        subscription = BlocProvider
-            .of<UserServiceBloc>(context)
-            .stream
-            .listen((state) {
+        subscription = BlocProvider.of<UserServiceBloc>(context).stream.listen((state) {
           switch (state) {
-            case AddUserLoadingState _:
-              break;
-            case AddUserSuccessState _:
-               Navigator.of(context).pushNamed(Screens.emailVerificationScreen);
-            Log.test("success?");
-              subscription.cancel();
+            case AddUserSuccessState userSuccessState:
+              BlocProvider.of<UserServiceBloc>(context).add(SendVerificationCodeEvent(userSuccessState.user));
               break;
             case AddUserFailState failState:
               dialogUtil.info(AppText.errorTitle, failState.error.userMessage);
               subscription.cancel();
               break;
+            case SendVerificationCodeSuccessState _:
+              Navigator.of(context).pushNamed(Screens.emailVerificationScreen);
+              subscription.cancel();
+              break;
+            case SendVerificationCodeFailState failState:
+              dialogUtil.info(AppText.errorTitle, failState.error.userMessage);
+              subscription.cancel();
             default:
               break;
           }
         });
-
       } else {
         dialogUtil.toast(userValidation.message);
       }
     }
 
     return Scaffold(
-
       appBar: const AppBarPopUp(
         text: AppText.signUp,
       ),
@@ -86,7 +83,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         child: Flex(
           direction: Axis.vertical,
           children: [
-            const Expanded(flex:1,child: SizedBox()),
+            const Expanded(flex: 1, child: SizedBox()),
             Expanded(
               flex: 6,
               child: Column(
@@ -156,7 +153,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 child: BlocBuilder<UserServiceBloc, UserServiceState>(builder: (BuildContext context, UserServiceState state) {
                   return ButtonPrimary(
                     text: AppText.commonNext,
-                    loading: state is AddUserLoadingState,
+                    loading: state is AddUserLoadingState || state is SendVerificationCodeLoadingState,
                     onTap: verifyUser,
                   );
                 }),
@@ -236,6 +233,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 }*/
 //todo: on back pressed go to previous page view with controller or put back button
+//todo: double password confirmation
 /*
             Stack(
               children: [

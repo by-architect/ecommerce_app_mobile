@@ -2,8 +2,8 @@ import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_event
 import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class UserBloc extends Bloc<UserEvent, UserState> {
-  UserBloc() : super(UserState()) {
+class UserBloc extends Bloc<UserEvent, UserRequestState> {
+  UserBloc() : super(UserRequestState()) {
     on<NameEvent>((event, emit) {
       emit(state.copyWith(name: event.name));
     });

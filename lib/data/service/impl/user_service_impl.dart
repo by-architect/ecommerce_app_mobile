@@ -21,7 +21,7 @@ class UserServiceImpl extends UserService {
   late final _fireStore = FirebaseFirestore.instance;
 
   @override
-  Future<Resource<User>> addUser(UserState user) async {
+  Future<Resource<User>> addUser(UserRequestState user) async {
     try {
       //check network connection
       final networkConnection = await NetworkHelper().isConnectedToNetwork();
@@ -43,65 +43,114 @@ class UserServiceImpl extends UserService {
 
       //catch exceptions
     } catch (exception) {
-      if (exception is FirebaseAuthException) {
-        Log.error(exception.code, exception.message ?? "");
-        switch (exception.code) {
-          case FirebaseExceptions.emailAlreadyInUse:
-            return (Resource.fail(
-                DefaultError(userMessage: AppText.errorEmailHasTaken, exception: exception.message, errorCode: exception.code)));
-          case ExceptionHandler.nullUserId:
-            return (Resource.fail(
-                DefaultError(userMessage: AppText.errorFetchingData, exception: exception.message, errorCode: exception.code)));
-          case FirebaseExceptions.networkRequestFailed:
-            return (Resource.fail(
-                DefaultError(userMessage: AppText.errorNetworkRequestFailed, exception: exception.message, errorCode: exception.code)));
-          case FirebaseExceptions.invalidVerificationCode:
-            return Resource.fail(
-                DefaultError(userMessage: AppText.errorVerificationCodeIsWrong, exception: exception.message, errorCode: exception.code));
-          case FirebaseExceptions.apiNotAvailable:
-            return Resource.fail(
-                DefaultError(userMessage: AppText.errorFetchingData, exception: exception.message, errorCode: exception.code));
-          default:
-            return (Resource.fail(
-                DefaultError(userMessage: AppText.errorFetchingData, exception: exception.message, errorCode: exception.code)));
-        }
-      } else if (exception is TimeoutException) {
-        Log.error("Time out:", exception.message ?? "");
-        return (Resource.fail(DefaultError(userMessage: AppText.errorTimeout, exception: exception.message)));
-      } else if (exception is NetworkDeviceDisconnectedException) {
-        Log.error("Network Device Down", exception.message);
-        return Resource.fail(DefaultError(userMessage: AppText.errorNetworkDeviceIsDown, exception: exception.message));
-      } else {
-        Log.error("Unknown Error", exception.toString());
-        return (Resource.fail(DefaultError(userMessage: AppText.errorFetchingData, exception: exception.toString())));
-      }
+      return _exceptionHandler(exception);
     }
   }
 
-  Future<Resource> verifyEmail(String code) {
-    throw UnimplementedError();
-  }
-
   @override
-  Future<Resource> sendEmailVerificationCode(String email) async {
-/*
+  Future<Resource> sendVerificationEmail(User user) async {
     try {
       var networkConnection = await NetworkHelper().isConnectedToNetwork();
       if (!networkConnection.isConnected) throw NetworkDeviceDisconnectedException("Network Device is down");
 
       await user.sendEmailVerification();
+
       return Resource.success("Success");
-    } catch (e) {
-      return Resource.fail(DefaultError(userMessage: AppText.errorFetchingData));
+    } catch (exception) {
+      return _exceptionHandler(exception);
     }
-*/
-  throw UnimplementedError();
   }
 
   @override
-  Future isEmailVerified(User user) {
-    // TODO: implement isEmailVerified
+  Future<Resource> changePassword(User user) {
+    // TODO: implement changePassword
     throw UnimplementedError();
   }
 
+  @override
+  Future<Resource<User>> changeUserSettings(User user) {
+    // TODO: implement changeUserSettings
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Resource<bool>> isEmailVerified() async {
+    try {
+      final networkConnection = await NetworkHelper().isConnectedToNetwork();
+      if (!networkConnection.isConnected) throw NetworkDeviceDisconnectedException("Network Device is down");
+
+      if (_firebaseAuth.currentUser == null) throw FirebaseAuthException(code: ExceptionHandler.nullUserId);
+      await _firebaseAuth.currentUser?.reload();
+      User user = _firebaseAuth.currentUser!;
+      return Resource.success(user.emailVerified);
+    } catch (exception) {
+      return _exceptionHandler(exception);
+    }
+  }
+
+  @override
+  Future<Resource<User>> signIn() {
+    // TODO: implement signIn
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Resource> signOut() {
+    // TODO: implement signOut
+    throw UnimplementedError();
+  }
+
+  @override
+  bool isUserAuthenticated() {
+    return _firebaseAuth.currentUser != null;
+  }
+
+  @override
+  Future<Resource<User>> getUser() async {
+    try {
+      final networkConnection = await NetworkHelper().isConnectedToNetwork();
+      if (!networkConnection.isConnected) throw NetworkDeviceDisconnectedException("Network Device is down");
+
+      _firebaseAuth.currentUser?.reload();
+      if (_firebaseAuth.currentUser == null) throw FirebaseAuthException(code: ExceptionHandler.nullUserId);
+      return Resource.success(_firebaseAuth.currentUser!);
+    } catch (exception) {
+      return _exceptionHandler(exception);
+    }
+  }
+
+  Resource<T> _exceptionHandler<T>(Object exception) {
+    if (exception is FirebaseAuthException) {
+      Log.error(exception.code, exception.message ?? "");
+      switch (exception.code) {
+        case FirebaseExceptions.emailAlreadyInUse:
+          return (Resource.fail(
+              DefaultError(userMessage: AppText.errorEmailHasTaken, exception: exception.message, errorCode: exception.code)));
+        case ExceptionHandler.nullUserId:
+          return (Resource.fail(
+              DefaultError(userMessage: AppText.errorFetchingData, exception: exception.message, errorCode: exception.code)));
+        case FirebaseExceptions.networkRequestFailed:
+          return (Resource.fail(
+              DefaultError(userMessage: AppText.errorNetworkRequestFailed, exception: exception.message, errorCode: exception.code)));
+        case FirebaseExceptions.invalidVerificationCode:
+          return Resource.fail(
+              DefaultError(userMessage: AppText.errorVerificationCodeIsWrong, exception: exception.message, errorCode: exception.code));
+        case FirebaseExceptions.apiNotAvailable:
+          return Resource.fail(
+              DefaultError(userMessage: AppText.errorFetchingData, exception: exception.message, errorCode: exception.code));
+        default:
+          return (Resource.fail(
+              DefaultError(userMessage: AppText.errorFetchingData, exception: exception.message, errorCode: exception.code)));
+      }
+    } else if (exception is TimeoutException) {
+      Log.error("Time out:", exception.message ?? "");
+      return (Resource.fail(DefaultError(userMessage: AppText.errorTimeout, exception: exception.message)));
+    } else if (exception is NetworkDeviceDisconnectedException) {
+      Log.error("Network Device Down", exception.message);
+      return Resource.fail(DefaultError(userMessage: AppText.errorNetworkDeviceIsDown, exception: exception.message));
+    } else {
+      Log.error("Unknown Error", exception.toString());
+      return (Resource.fail(DefaultError(userMessage: AppText.errorFetchingData, exception: exception.toString())));
+    }
+  }
 }
