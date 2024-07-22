@@ -14,7 +14,7 @@ abstract class UserService {
   Future<Resource> signOut();
   Future<Resource> changePassword(User user);
   Future<Resource<User>> changeUserSettings(User user);
-  Future<Resource<bool>> isEmailVerified();
+  Future<Resource<User>> isEmailVerified();
 
 
 }

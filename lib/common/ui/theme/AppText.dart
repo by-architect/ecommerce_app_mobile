@@ -33,6 +33,8 @@ class AppText{
   static const errorNetworkDeviceIsDown = "Network device is down, please open your wifi or mobile hotspot";
   static const errorVerificationCodeIsWrong = "Verification code is wrong, please check it again";
   static const errorSomethingWentWrong = "Something went wrong";
+  static var errorAuthenticate = "Please Authenticate Again";
+  static var errorEmailNotVerified = "Email not verified";
 
 
   //welcome Page
@@ -50,6 +52,8 @@ class AppText{
   static var verificationPageCheckYourEmail = "Check your emails, We are waiting for you";
   static var verificationPageSendEmailAgain = "Send email again";
   static const accountCreatedSuccessfully= "Account created successfully";
+
+
 
 
 

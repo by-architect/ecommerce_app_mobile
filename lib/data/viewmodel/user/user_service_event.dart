@@ -16,5 +16,5 @@ class SendVerificationCodeEvent extends UserServiceEvent {
   SendVerificationCodeEvent(this.user);
 }
 
-class IsUserVerifiedEvent extends UserServiceEvent{
-}
+class IsUserVerifiedEvent extends UserServiceEvent{}
+class GetUserEvent extends UserServiceEvent{}

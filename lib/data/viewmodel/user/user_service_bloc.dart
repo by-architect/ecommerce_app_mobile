@@ -1,4 +1,6 @@
+import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/service/impl/user_service_impl.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/helper/error.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/resource.dart';
 import 'package:ecommerce_app_mobile/data/viewmodel/user/user_service_event.dart';
 import 'package:ecommerce_app_mobile/data/viewmodel/user/user_service_state.dart';
@@ -9,7 +11,6 @@ import '../../service/user_service.dart';
 class UserServiceBloc extends Bloc<UserServiceEvent, UserServiceState> {
   UserServiceBloc() : super(AddUserInitState()) {
     UserService userService = UserServiceImpl();
-    // UserService fakeUserService = FakeUserService();
 
     on<AddUserEvent>((event, emit) async {
       emit(AddUserLoadingState());
@@ -49,8 +50,8 @@ class UserServiceBloc extends Bloc<UserServiceEvent, UserServiceState> {
 
       switch (resource.status) {
         case Status.success:
-          if (resource.data!) {
-            emit(EmailVerifiedState());
+          if (resource.data!.emailVerified) {
+            emit(EmailVerifiedState(resource.data!));
           } else {
             emit(EmailNotVerifiedState());
           }
@@ -58,6 +59,25 @@ class UserServiceBloc extends Bloc<UserServiceEvent, UserServiceState> {
           emit(EmailVerificationFailState(resource.error!));
         case Status.loading:
         case Status.stable:
+      }
+    });
+
+    on<GetUserEvent>((event, emit) async {
+      emit(GetUserLoadingState());
+      final userAuthenticated = userService.isUserAuthenticated();
+      if (userAuthenticated) {
+        final resource = await userService.getUser();
+        switch (resource.status) {
+          case Status.success:
+            emit(GetUserSuccessState(resource.data!));
+          case Status.fail:
+            emit(GetUserFailState(resource.error!));
+          case Status.loading:
+            emit(GetUserLoadingState());
+          case Status.stable:
+        }
+      }else{
+        emit(GetUserFailState(DefaultError(userMessage: AppText.errorAuthenticate)));
       }
     });
   }

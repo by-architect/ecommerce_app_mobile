@@ -74,7 +74,7 @@ class UserServiceImpl extends UserService {
   }
 
   @override
-  Future<Resource<bool>> isEmailVerified() async {
+  Future<Resource<User>> isEmailVerified() async {
     try {
       final networkConnection = await NetworkHelper().isConnectedToNetwork();
       if (!networkConnection.isConnected) throw NetworkDeviceDisconnectedException("Network Device is down");
@@ -82,7 +82,7 @@ class UserServiceImpl extends UserService {
       if (_firebaseAuth.currentUser == null) throw FirebaseAuthException(code: ExceptionHandler.nullUserId);
       await _firebaseAuth.currentUser?.reload();
       User user = _firebaseAuth.currentUser!;
-      return Resource.success(user.emailVerified);
+      return Resource.success(user);
     } catch (exception) {
       return _exceptionHandler(exception);
     }

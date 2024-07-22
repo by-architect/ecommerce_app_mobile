@@ -1,41 +1,48 @@
-import 'package:ecommerce_app_mobile/data/service/impl/user_service_impl.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/error.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/helper/resource.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class UserServiceState {}
 
-/*
-class UserResponseState extends UserServiceState{
-  final User userAuthCredentials;
 
-  UserResponseState(this.userAuthCredentials);
+class UserServiceSuccessState extends UserServiceState {
+  final User user;
+  UserServiceSuccessState(this.user);
 }
-*/
+class UserServiceFailState extends UserServiceState{
+  final DefaultError error;
+  UserServiceFailState(this.error);
+}
+
 
 class AddUserInitState extends UserServiceState {}
-class AddUserLoadingState extends UserServiceState{}
-class AddUserSuccessState extends UserServiceState{
-  final User user;
-  AddUserSuccessState(this.user);
+class AddUserLoadingState extends UserServiceState {}
+class AddUserSuccessState extends UserServiceSuccessState {
+  AddUserSuccessState(super.user);
 }
-class AddUserFailState extends UserServiceState{
-  final DefaultError error;
-  AddUserFailState(this.error);
+class AddUserFailState extends UserServiceFailState {
+  AddUserFailState(super.error);
 }
 
-class SendVerificationCodeInitState extends UserServiceState{}
-class SendVerificationCodeLoadingState extends UserServiceState{}
-class SendVerificationCodeSuccessState extends UserServiceState{}
-class SendVerificationCodeFailState extends UserServiceState{
-  final DefaultError error;
-  SendVerificationCodeFailState(this.error);
+class SendVerificationCodeInitState extends UserServiceState {}
+class SendVerificationCodeLoadingState extends UserServiceState {}
+class SendVerificationCodeSuccessState extends UserServiceState {}
+class SendVerificationCodeFailState extends UserServiceFailState {
+  SendVerificationCodeFailState(super.error);
 }
 
-class EmailVerifiedState extends UserServiceState{}
-class EmailNotVerifiedState extends UserServiceState{
+class EmailVerifiedState extends UserServiceSuccessState {
+  EmailVerifiedState(super.user);
 }
-class EmailVerificationFailState extends UserServiceState{
-  final DefaultError error;
-  EmailVerificationFailState(this.error);
+class EmailNotVerifiedState extends UserServiceState {}
+class EmailVerificationFailState extends UserServiceFailState {
+  EmailVerificationFailState(super.error);
 }
+
+
+class GetUserSuccessState extends UserServiceSuccessState {
+  GetUserSuccessState(super.user);
+}
+class GetUserFailState extends UserServiceFailState {
+  GetUserFailState(super.error);
+}
+class GetUserLoadingState extends UserServiceState {}
