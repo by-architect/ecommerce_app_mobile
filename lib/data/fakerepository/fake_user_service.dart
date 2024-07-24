@@ -32,12 +32,12 @@ class FakeUserService implements UserService {
   }
 
   @override
-  Future<Resource> sendVerificationEmail(User user) async {
+  Future<Resource<User>> sendVerificationEmail(User user) async {
     await Future.delayed(const Duration(seconds: 4));
 
     var random = Random();
     return random.nextBool()
-        ? Resource.success("Success")
+        ? Resource.success(user)
         : Resource.fail(DefaultError(userMessage: "fail",exception: "fail"));
   }
 

@@ -1,20 +1,27 @@
-
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_state.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/Helper.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/validation_result.dart';
 
+import '../../common/constant/gender.dart';
 
 class UserValidation {
   static ValidationResult validate(UserRequestState userState) {
-    if (userState.name.isEmpty || userState.surname.isEmpty || userState.email.isEmpty || userState.password.isEmpty || userState.phoneNo.isEmpty) {
+    if (userState.name.isEmpty ||
+        userState.surname.isEmpty ||
+        userState.email.isEmpty ||
+        userState.password.isEmpty ||
+        userState.birthYear == 0 ||
+        userState.gender == Gender.unselected) {
       return ValidationResult(false, message: AppText.errorEmptyField);
     }
+
+    if (userState.password != userState.passwordConfirm) return ValidationResult(false, message: AppText.errorPasswordsAreNotMatching);
     if (!_isValidEmail(userState.email)) return ValidationResult(false, message: AppText.errorEmailIsNotValid);
     if (userState.password.length < 8 || userState.password.length > 16) {
       return ValidationResult(false, message: AppText.errorPasswordLength);
     }
-    if (!_isValidPhoneNo(userState.phoneNo)) return ValidationResult(false, message: AppText.errorPhoneNoIsNotValid);
+    // if (!_isValidPhoneNo(userState.phoneNo)) return ValidationResult(false, message: AppText.errorPhoneNoIsNotValid);
 
     return ValidationResult(true);
   }

@@ -1,5 +1,7 @@
 import 'package:flutter/services.dart';
 
+import '../../../common/constant/gender.dart';
+
 class UserEvent {}
 
 class NameEvent extends UserEvent {
@@ -24,9 +26,25 @@ class PasswordEvent extends UserEvent {
 
   PasswordEvent(this.password);
 }
+class PasswordConfirmEvent extends UserEvent{
+  final String passwordConfirm;
+
+  PasswordConfirmEvent(this.passwordConfirm);
+}
 
 class PhoneNoEvent extends UserEvent{
   final String phoneNo;
 
   PhoneNoEvent(this.phoneNo);
+}
+
+class GenderEvent extends UserEvent{
+  final Gender gender;
+
+  GenderEvent(this.gender);
+}
+class BirthYearEvent extends UserEvent{
+  final int birthYear;
+
+  BirthYearEvent(this.birthYear);
 }

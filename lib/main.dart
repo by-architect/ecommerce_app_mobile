@@ -3,7 +3,6 @@ import 'package:ecommerce_app_mobile/common/ui/theme/AppTheme.dart';
 import 'package:ecommerce_app_mobile/data/viewmodel/user/user_service_bloc.dart';
 import 'package:ecommerce_app_mobile/firebase_options.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_bloc.dart';
-import 'package:ecommerce_app_mobile/presentation/authentication/pages/email_verification_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/pages/sign_in_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/pages/sign_up_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/home/page/HomeScreen.dart';
@@ -42,7 +41,6 @@ class MyApp extends StatelessWidget {
               Screens.signInScreen: (context) => const SignInScreen(),
               Screens.signUpScreen: (context) => const SignUpScreen(),
               Screens.homeScreen: (context) => const HomeScreen(),
-              Screens.emailVerificationScreen: (context) => const EmailVerificationScreen(),
             },
             home: const SignUpScreen() ),
       ),

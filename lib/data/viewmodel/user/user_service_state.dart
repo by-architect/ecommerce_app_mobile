@@ -23,11 +23,13 @@ class AddUserFailState extends UserServiceFailState {
   AddUserFailState(super.error);
 }
 
-class SendVerificationCodeInitState extends UserServiceState {}
-class SendVerificationCodeLoadingState extends UserServiceState {}
-class SendVerificationCodeSuccessState extends UserServiceState {}
-class SendVerificationCodeFailState extends UserServiceFailState {
-  SendVerificationCodeFailState(super.error);
+class SendVerificationEmailInitState extends UserServiceState {}
+class SendVerificationEmailLoadingState extends UserServiceState {}
+class SendVerificationEmailSuccessState extends UserServiceSuccessState {
+  SendVerificationEmailSuccessState(super.user);
+}
+class SendVerificationEmailFailState extends UserServiceFailState {
+  SendVerificationEmailFailState(super.error);
 }
 
 class EmailVerifiedState extends UserServiceSuccessState {

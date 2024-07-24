@@ -1,32 +1,41 @@
 
-import 'package:firebase_auth/firebase_auth.dart';
+import '../../../common/constant/gender.dart';
 
-class UserState{}
+class UserState {}
 
 class UserRequestState extends UserState {
   final String name;
   final String surname;
   final String email;
   final String password;
-  final String phoneNo;
+  final String passwordConfirm;
+  final int birthYear;
+  final Gender gender;
 
-  UserRequestState({this.name = "", this.surname = "", this.email = "", this.password = "", this.phoneNo = ""});
+  // final String phoneNo;
 
-  UserRequestState copyWith({
-    String? name,
-    String? surname,
-    String? email,
-    String? password,
-    String? phoneNo,
-}) {
+  UserRequestState({
+    this.name = "",
+    this.surname = "",
+    this.email = "",
+    this.password = "",
+    this.passwordConfirm = "",
+    this.birthYear = 0,
+    this.gender = Gender.unselected,
+  });
+
+  UserRequestState copyWith(
+      {String? name, String? surname, String? email, String? password, String? passwordConfirm, int? birthYear, Gender? gender}) {
     return UserRequestState(
-      name: name??this.name,
-      surname: surname??this.surname,
-      email: email??this.email,
-      password: password??this.password,
-      phoneNo: phoneNo??this.phoneNo
-    );
+        name: name ?? this.name,
+        surname: surname ?? this.surname,
+        email: email ?? this.email,
+        password: password ?? this.password,
+        passwordConfirm: passwordConfirm ?? this.passwordConfirm,
+        birthYear: birthYear ?? this.birthYear,
+        gender: gender ?? this.gender);
   }
+
   Map<String, dynamic> toMap(String uid) {
     return {
       'id': uid,
@@ -34,7 +43,8 @@ class UserRequestState extends UserState {
       'surname': surname,
       'email': email,
       'password': password,
-      'phoneNo': phoneNo,
+      'birthYear': birthYear,
+      'gender': gender.text
     };
   }
 }

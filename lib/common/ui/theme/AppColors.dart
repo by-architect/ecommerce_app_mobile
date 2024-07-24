@@ -21,4 +21,5 @@ class AppColors {
   static Color grey = Colors.grey.withOpacity(1);
   static Color hiddenGrey = Colors.grey.withOpacity(0.5);
   static Color hiddenBlack = Colors.black.withOpacity(0.8);
+  static const Color linkColor = Color.fromARGB(255, 0, 0, 238);
 }

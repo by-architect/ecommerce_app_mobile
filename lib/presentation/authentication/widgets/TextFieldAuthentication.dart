@@ -1,4 +1,5 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
+import 'package:ecommerce_app_mobile/common/ui/theme/AppStyles.dart';
 import 'package:flutter/material.dart';
 
 class TextFieldAuthentication extends StatefulWidget {
@@ -19,31 +20,8 @@ class _TextFieldAuthenticationState extends State<TextFieldAuthentication> {
     return TextField(
       obscureText: widget.isPassword,
       onChanged: widget.onChanged,
-      decoration: InputDecoration(
-        prefixIcon: Icon(widget.icon),
-        prefixIconColor: AppColors.hiddenGrey,
-        labelText: widget.label,
-        labelStyle: Theme.of(context).textTheme.bodyMedium,
-        border: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(12.0)),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: AppColors.hiddenGrey,
-            // Change this to your desired color
-            width: 2.0,
-          ),
-          borderRadius: const BorderRadius.all(Radius.circular(12.0)),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Theme.of(context).primaryColorDark,
-            // Change this to your desired color
-            width: 2.0,
-          ),
-          borderRadius: const BorderRadius.all(Radius.circular(12.0)),
-        ),
-      ),
+      decoration: AppStyles.defaultInputDecoration(context, widget.icon, widget.label),
+
     );
   }
 }

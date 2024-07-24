@@ -6,6 +6,7 @@ class AppText{
   static const commonNext = "Next";
   static const dismiss = "Dismiss";
   static const loading = "Loading";
+  static const unselected = "Unselected";
 
   //user
   static const name = "Name";
@@ -13,10 +14,15 @@ class AppText{
   static const age = "Age";
   static const username = "Username";
   static const password = "Password";
+  static const passwordConfirm = "Confirm Password";
   static const signIn = "Sign In";
   static const signUp = "Sign Up";
   static const phoneNo = "Phone Number";
   static const email = "Email";
+  static const birthYear = "Birth year";
+  static const gender = "Gender";
+  static const man= "Man";
+  static const woman= "Woman";
 
 
   //errors
@@ -33,8 +39,9 @@ class AppText{
   static const errorNetworkDeviceIsDown = "Network device is down, please open your wifi or mobile hotspot";
   static const errorVerificationCodeIsWrong = "Verification code is wrong, please check it again";
   static const errorSomethingWentWrong = "Something went wrong";
-  static var errorAuthenticate = "Please Authenticate Again";
-  static var errorEmailNotVerified = "Email not verified";
+  static const errorAuthenticate = "Please Authenticate Again";
+  static const errorEmailNotVerified = "Email not verified";
+  static const errorPasswordsAreNotMatching = "Passwords are not matching";
 
 
   //welcome Page
@@ -45,13 +52,22 @@ class AppText{
   static const welcomePageThreeTitle = "Ready to Shop?";
   static const welcomePageThreeContent = "Sign up or log in now to start your shopping journey. Enjoy exclusive member benefits, track your orders, and more!";
 
+
+  //sign up screen
+  static const signUpScreenAlreadyHaveAnAccount = "Already have an account? ";
+
   //verification page
   static const verificationEmail = "Email Verification";
   static const verificationPageEmailTitle = "Please enter the verification code";
   static const verificationPageEmailBody = "We sent six digit code to your email";
-  static var verificationPageCheckYourEmail = "Check your emails, We are waiting for you";
-  static var verificationPageSendEmailAgain = "Send email again";
+  static const verificationPageCheckYourEmail = "Check your emails, We are waiting for you";
+  static const verificationPageSendEmailAgain = "Send email again";
   static const accountCreatedSuccessfully= "Account created successfully";
+
+
+
+
+
 
 
 

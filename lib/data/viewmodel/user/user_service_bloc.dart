@@ -30,18 +30,18 @@ class UserServiceBloc extends Bloc<UserServiceEvent, UserServiceState> {
     });
 
     on<SendVerificationCodeEvent>((event, emit) async {
-      emit(SendVerificationCodeLoadingState());
+      emit(SendVerificationEmailLoadingState());
 
       final resource = await userService.sendVerificationEmail(event.user);
       switch (resource.status) {
         case Status.success:
-          emit(SendVerificationCodeSuccessState());
+          emit(SendVerificationEmailSuccessState(resource.data!));
         case Status.fail:
-          emit(SendVerificationCodeFailState(resource.error!));
+          emit(SendVerificationEmailFailState(resource.error!));
         case Status.loading:
-          emit(SendVerificationCodeLoadingState());
+          emit(SendVerificationEmailLoadingState());
         case Status.stable:
-          emit(SendVerificationCodeInitState());
+          emit(SendVerificationEmailInitState());
       }
     });
 

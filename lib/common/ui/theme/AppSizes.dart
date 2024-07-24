@@ -5,8 +5,9 @@ class AppSizes {
   static const buttonFontSize = 20.0;
   static var buttonHeight = 60.0;
 
-  //radius
+  //decoration
   static const defaultCornerRadius = 12.0;
+  static const defaultBoxWidth = 2.0;
 
 // space
   static const defaultSpace = 24.0;

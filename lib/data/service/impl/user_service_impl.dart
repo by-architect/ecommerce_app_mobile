@@ -48,14 +48,14 @@ class UserServiceImpl extends UserService {
   }
 
   @override
-  Future<Resource> sendVerificationEmail(User user) async {
+  Future<Resource<User>> sendVerificationEmail(User user) async {
     try {
       var networkConnection = await NetworkHelper().isConnectedToNetwork();
       if (!networkConnection.isConnected) throw NetworkDeviceDisconnectedException("Network Device is down");
 
       await user.sendEmailVerification();
 
-      return Resource.success("Success");
+      return Resource.success(user);
     } catch (exception) {
       return _exceptionHandler(exception);
     }
