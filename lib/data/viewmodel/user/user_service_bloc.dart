@@ -33,7 +33,7 @@ class UserServiceBloc extends Bloc<UserServiceEvent, UserServiceState> {
       }
     });
 
-    on<SendVerificationCodeEvent>((event, emit) async {
+    on<SendVerificationEmailEvent>((event, emit) async {
       emit(SendVerificationEmailLoadingState());
 
       final resource = await userService.sendVerificationEmail(event.user);

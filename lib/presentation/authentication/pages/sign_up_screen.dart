@@ -55,7 +55,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
           switch (state) {
             case AddUserSuccessState userSuccessState:
-              BlocProvider.of<UserServiceBloc>(context).add(SendVerificationCodeEvent(userSuccessState.user));
+              BlocProvider.of<UserServiceBloc>(context).add(SendVerificationEmailEvent(userSuccessState.user));
               break;
             case AddUserFailState failState:
               dialogUtil.info(AppText.errorTitle, failState.error.userMessage);
@@ -244,3 +244,4 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
 //todo: errors in textfields
 //todo: expend user for firestore
+//todo: isim ve soyismi kaydolurken baş harflerini büyük yap

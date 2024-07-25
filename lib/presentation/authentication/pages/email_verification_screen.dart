@@ -135,7 +135,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                             onTap: () {
                               if (seconds == 0) {
                                 startTimer();
-                                 BlocProvider.of<UserServiceBloc>(context).add(SendVerificationCodeEvent(widget.user));
+                                 BlocProvider.of<UserServiceBloc>(context).add(SendVerificationEmailEvent(widget.user));
                               }
                             },
                           ),

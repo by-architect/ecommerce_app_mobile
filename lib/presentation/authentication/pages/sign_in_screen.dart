@@ -21,6 +21,7 @@ import '../../../common/constant/Screens.dart';
 import '../../../common/ui/theme/AppColors.dart';
 import '../../../data/usecase/user_validation.dart';
 import '../bloc/user_bloc.dart';
+import 'email_verification_screen.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -45,13 +46,25 @@ class _SignInScreenState extends State<SignInScreen> {
         late StreamSubscription<UserServiceState> streamSubscription;
         streamSubscription = BlocProvider.of<UserServiceBloc>(context).stream.listen((state) {
           switch (state) {
-            case LoginUserSuccessState _:
-              Navigator.of(context).pushNamedAndRemoveUntil(
-                Screens.homeScreen,
-                (route) => false,
-              );
+            case LoginUserSuccessState userSuccessState:
+              if (userSuccessState.user.firebaseUser.emailVerified) {
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                  Screens.homeScreen,
+                  (route) => false,
+                );
+                streamSubscription.cancel();
+              } else {
+                BlocProvider.of<UserServiceBloc>(context).add(SendVerificationEmailEvent(userSuccessState.user));
+              }
               break;
             case LoginUserFailState failState:
+              dialogUtil.info(AppText.errorTitle, failState.error.userMessage);
+              break;
+            case SendVerificationEmailSuccessState successState:
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => EmailVerificationScreen(user: successState.user)));
+              streamSubscription.cancel();
+              break;
+            case SendVerificationEmailFailState failState:
               dialogUtil.info(AppText.errorTitle, failState.error.userMessage);
               break;
           }

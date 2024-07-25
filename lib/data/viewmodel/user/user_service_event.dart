@@ -15,10 +15,10 @@ class LoginEvent extends UserServiceEvent{
 
   LoginEvent(this.user);
 }
-class SendVerificationCodeEvent extends UserServiceEvent {
+class SendVerificationEmailEvent extends UserServiceEvent {
   final User user;
 
-  SendVerificationCodeEvent(this.user);
+  SendVerificationEmailEvent(this.user);
 }
 
 class IsUserVerifiedEvent extends UserServiceEvent{}
