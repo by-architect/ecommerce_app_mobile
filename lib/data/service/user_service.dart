@@ -1,12 +1,15 @@
+
 import 'dart:async';
 
 import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_state.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 
 import '../../sddklibrary/helper/resource.dart';
+import '../model/User.dart';
+
 
 abstract class UserService {
-  Future<Resource<User>> addUser(UserRequestState user);
+  Future<Resource<User>> addUser(UserRequestState userState);
   Future<Resource<User>> getUser();
   Future<Resource<User>> sendVerificationEmail(User user);
   bool isUserAuthenticated();

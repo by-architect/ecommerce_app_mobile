@@ -12,34 +12,37 @@ import 'package:ecommerce_app_mobile/sddklibrary/helper/network_helper.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/resource.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/service/user_service.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 
 import '../../../sddklibrary/constant/exceptions/firebase_exception_codes.dart';
+import '../../model/User.dart';
 
 class UserServiceImpl extends UserService {
-  late final _firebaseAuth = FirebaseAuth.instance;
+  late final _firebaseAuth = firebase_auth.FirebaseAuth.instance;
   late final _fireStore = FirebaseFirestore.instance;
 
   @override
-  Future<Resource<User>> addUser(UserRequestState user) async {
+  Future<Resource<User>> addUser(UserRequestState userState) async {
     try {
       //check network connection
       final networkConnection = await NetworkHelper().isConnectedToNetwork();
       if (!networkConnection.isConnected) throw NetworkDeviceDisconnectedException("Network Device is down");
 
       //request user creation
-      final authResponse =
-          await _firebaseAuth.createUserWithEmailAndPassword(email: user.email, password: user.password).timeout(Timeouts.postTimeout);
+      final authResponse = await _firebaseAuth
+          .createUserWithEmailAndPassword(email: userState.email, password: userState.password)
+          .timeout(Timeouts.postTimeout);
       final responseUser = authResponse.user;
-      if (responseUser == null) throw FirebaseAuthException(code: ExceptionHandler.nullUserId);
+      if (responseUser == null) throw firebase_auth.FirebaseAuthException(code: ExceptionHandler.nullUserId);
 
       //create user to fire store
       await _fireStore
           .collection(FireStoreCollections.users)
           .doc(responseUser.uid)
-          .set(user.toMap(responseUser.uid))
+          .set(userState.toMap(responseUser.uid))
           .timeout(Timeouts.postTimeout);
-      return Resource.success(responseUser);
+      final User userFinal = User.fromUserState(userState, responseUser, authResponse.credential);
+      return Resource.success(userFinal);
 
       //catch exceptions
     } catch (exception) {
@@ -53,7 +56,7 @@ class UserServiceImpl extends UserService {
       var networkConnection = await NetworkHelper().isConnectedToNetwork();
       if (!networkConnection.isConnected) throw NetworkDeviceDisconnectedException("Network Device is down");
 
-      await user.sendEmailVerification();
+      await user.firebaseUser.sendEmailVerification();
 
       return Resource.success(user);
     } catch (exception) {
@@ -79,9 +82,13 @@ class UserServiceImpl extends UserService {
       final networkConnection = await NetworkHelper().isConnectedToNetwork();
       if (!networkConnection.isConnected) throw NetworkDeviceDisconnectedException("Network Device is down");
 
-      if (_firebaseAuth.currentUser == null) throw FirebaseAuthException(code: ExceptionHandler.nullUserId);
       await _firebaseAuth.currentUser?.reload();
-      User user = _firebaseAuth.currentUser!;
+
+      final userResponse = await getUser();
+      if (userResponse.status == Status.fail) {
+        return Resource.fail(userResponse.error ?? DefaultError(userMessage: AppText.errorFetchingData));
+      }
+      User user = userResponse.data!;
       return Resource.success(user);
     } catch (exception) {
       return _exceptionHandler(exception);
@@ -112,15 +119,24 @@ class UserServiceImpl extends UserService {
       if (!networkConnection.isConnected) throw NetworkDeviceDisconnectedException("Network Device is down");
 
       _firebaseAuth.currentUser?.reload();
-      if (_firebaseAuth.currentUser == null) throw FirebaseAuthException(code: ExceptionHandler.nullUserId);
-      return Resource.success(_firebaseAuth.currentUser!);
+      if (_firebaseAuth.currentUser == null) throw firebase_auth.FirebaseAuthException(code: ExceptionHandler.nullUserId);
+      final firebaseUser = _firebaseAuth.currentUser!;
+
+      final fireStoreUserMap =
+          await _fireStore.collection(FireStoreCollections.users).doc(firebaseUser.uid).get().timeout(Timeouts.postTimeout);
+      if (!fireStoreUserMap.exists || fireStoreUserMap.data() == null) {
+        return Resource.fail(DefaultError(
+            userMessage: AppText.errorFetchingData, exception: "Can't get metadata from firestore while request user, it is empty"));
+      }
+      final user = User.fromMap(fireStoreUserMap.data()!, firebaseUser);
+      return Resource.success(user);
     } catch (exception) {
       return _exceptionHandler(exception);
     }
   }
 
   Resource<T> _exceptionHandler<T>(Object exception) {
-    if (exception is FirebaseAuthException) {
+    if (exception is firebase_auth.FirebaseAuthException) {
       Log.error(exception.code, exception.message ?? "");
       switch (exception.code) {
         case FirebaseExceptions.emailAlreadyInUse:

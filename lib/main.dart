@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
               Screens.signUpScreen: (context) => const SignUpScreen(),
               Screens.homeScreen: (context) => const HomeScreen(),
             },
-            home: const SignUpScreen() ),
+            home: const SignInScreen() ),
       ),
     );
   }

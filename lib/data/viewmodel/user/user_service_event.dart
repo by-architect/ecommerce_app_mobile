@@ -1,7 +1,8 @@
 
 
 import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_state.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
+import '../../model/User.dart';
 
 class UserServiceEvent {}
 

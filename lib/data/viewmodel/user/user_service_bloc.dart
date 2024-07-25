@@ -50,7 +50,7 @@ class UserServiceBloc extends Bloc<UserServiceEvent, UserServiceState> {
 
       switch (resource.status) {
         case Status.success:
-          if (resource.data!.emailVerified) {
+          if (resource.data!.firebaseUser.emailVerified) {
             emit(EmailVerifiedState(resource.data!));
           } else {
             emit(EmailNotVerifiedState());

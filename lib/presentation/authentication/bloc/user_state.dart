@@ -9,7 +9,7 @@ class UserRequestState extends UserState {
   final String email;
   final String password;
   final String passwordConfirm;
-  final int birthYear;
+  final String birthYear;
   final Gender gender;
 
   // final String phoneNo;
@@ -20,12 +20,12 @@ class UserRequestState extends UserState {
     this.email = "",
     this.password = "",
     this.passwordConfirm = "",
-    this.birthYear = 0,
+    this.birthYear = "",
     this.gender = Gender.unselected,
   });
 
   UserRequestState copyWith(
-      {String? name, String? surname, String? email, String? password, String? passwordConfirm, int? birthYear, Gender? gender}) {
+      {String? name, String? surname, String? email, String? password, String? passwordConfirm, String? birthYear, Gender? gender}) {
     return UserRequestState(
         name: name ?? this.name,
         surname: surname ?? this.surname,
@@ -44,7 +44,12 @@ class UserRequestState extends UserState {
       'email': email,
       'password': password,
       'birthYear': birthYear,
-      'gender': gender.text
+      'gender': gender.name
     };
+  }
+
+  @override
+  String toString() {
+    return 'UserRequestState{name: $name, surname: $surname, email: $email, password: $password, passwordConfirm: $passwordConfirm, birthYear: $birthYear, gender: $gender}';
   }
 }

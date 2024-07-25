@@ -5,6 +5,8 @@ extension StringHelper on String{
     BigInt phoneNumber = BigInt.parse(numbersOnly);
     return phoneNumber;
   }
+  bool get isDigit => RegExp(r'^-?[0-9]+$').hasMatch(this);
+  int get toInt => int.parse(this);
 }
 
 class Helper  {

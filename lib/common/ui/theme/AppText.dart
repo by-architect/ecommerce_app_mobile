@@ -42,6 +42,7 @@ class AppText{
   static const errorAuthenticate = "Please Authenticate Again";
   static const errorEmailNotVerified = "Email not verified";
   static const errorPasswordsAreNotMatching = "Passwords are not matching";
+  static const errorBirthYearIsNotValid = "Please enter valid date of birth";
 
 
   //welcome Page
@@ -56,6 +57,9 @@ class AppText{
   //sign up screen
   static const signUpScreenAlreadyHaveAnAccount = "Already have an account? ";
 
+  //sign in screen
+  static const signInPageDoNotHaveAnAccount = "Don't have an account?";
+
   //verification page
   static const verificationEmail = "Email Verification";
   static const verificationPageEmailTitle = "Please enter the verification code";
@@ -63,6 +67,8 @@ class AppText{
   static const verificationPageCheckYourEmail = "Check your emails, We are waiting for you";
   static const verificationPageSendEmailAgain = "Send email again";
   static const accountCreatedSuccessfully= "Account created successfully";
+
+
 
 
 

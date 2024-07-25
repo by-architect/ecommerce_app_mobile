@@ -7,6 +7,7 @@ import '../ui/theme/AppText.dart';
 
 class ExceptionHandler extends FirebaseExceptions {
   static const nullUserId = "null-user-id";
+  static const metadataNotExist = "metadata-not-exist";
 
   static Resource<T> firebaseExceptionHandler<T>(FirebaseAuthException exception) {
     switch (exception.code) {

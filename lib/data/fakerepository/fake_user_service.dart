@@ -1,3 +1,4 @@
+/*
 import 'dart:math';
 
 import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_state.dart';
@@ -12,11 +13,13 @@ class FakeUserService implements UserService {
 
     await Future.delayed(const Duration(seconds: 2));
 
+*/
 /*
     for(int i = 0; i<5;i++){ Log.test("core test");
       await Future.delayed(const Duration(seconds: 1));
     }
-*/
+*//*
+
     var random = Random();
     return Resource.fail(DefaultError(userMessage: "Cant return firebase user so",exception:"" ),);
   }
@@ -77,3 +80,4 @@ class FakeUserService implements UserService {
   @override
   dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 }
+*/

@@ -44,7 +44,7 @@ class GenderEvent extends UserEvent{
   GenderEvent(this.gender);
 }
 class BirthYearEvent extends UserEvent{
-  final int birthYear;
+  final String birthYear;
 
   BirthYearEvent(this.birthYear);
 }

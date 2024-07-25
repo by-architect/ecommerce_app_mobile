@@ -1,28 +1,40 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_state.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/Helper.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/helper/Log.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/validation_result.dart';
 
 import '../../common/constant/gender.dart';
 
 class UserValidation {
-  static ValidationResult validate(UserRequestState userState) {
+  static ValidationResult validateRegistration(UserRequestState userState) {
     if (userState.name.isEmpty ||
         userState.surname.isEmpty ||
         userState.email.isEmpty ||
         userState.password.isEmpty ||
-        userState.birthYear == 0 ||
+        userState.birthYear.isEmpty ||
         userState.gender == Gender.unselected) {
       return ValidationResult(false, message: AppText.errorEmptyField);
     }
 
     if (userState.password != userState.passwordConfirm) return ValidationResult(false, message: AppText.errorPasswordsAreNotMatching);
     if (!_isValidEmail(userState.email)) return ValidationResult(false, message: AppText.errorEmailIsNotValid);
+    if (userState.password.length < 8 || userState.password.length > 16)
+      return ValidationResult(false, message: AppText.errorPasswordLength);
+    if (!userState.birthYear.isDigit) return ValidationResult(false, message: AppText.errorBirthYearIsNotValid);
+    if (userState.birthYear.toInt < 1900 || userState.birthYear.toInt > DateTime.now().year - 5)
+      return ValidationResult(false, message: AppText.errorBirthYearIsNotValid);
+    // if (!_isValidPhoneNo(userState.phoneNo)) return ValidationResult(false, message: AppText.errorPhoneNoIsNotValid);
+
+    return ValidationResult(true);
+  }
+
+  static ValidationResult validateLogin(UserRequestState userState) {
+    if (userState.email.isEmpty || userState.password.isEmpty) return ValidationResult(false, message: AppText.errorEmptyField);
+    if (!_isValidEmail(userState.email)) return ValidationResult(false, message: AppText.errorEmailIsNotValid);
     if (userState.password.length < 8 || userState.password.length > 16) {
       return ValidationResult(false, message: AppText.errorPasswordLength);
     }
-    // if (!_isValidPhoneNo(userState.phoneNo)) return ValidationResult(false, message: AppText.errorPhoneNoIsNotValid);
-
     return ValidationResult(true);
   }
 

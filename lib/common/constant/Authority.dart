@@ -1,0 +1,3 @@
+enum Authority{
+  admin,user
+}

@@ -43,7 +43,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
     Future<void> verifyUser() async {
       final userState = BlocProvider.of<UserBloc>(context).state;
-      final userValidation = UserValidation.validate(userState);
+      final userValidation = UserValidation.validateRegistration(userState);
 
       if (userValidation.success) {
         globalUser = userState;
@@ -129,7 +129,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           icon: Icons.date_range,
                           label: AppText.birthYear,
                           onChanged: (value) {
-                            BlocProvider.of<UserBloc>(context).add(NameEvent(value));
+                            BlocProvider.of<UserBloc>(context).add(BirthYearEvent(value));
                           },
                         ),
                       ),
@@ -140,9 +140,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           padding: const EdgeInsets.only(left: AppSizes.spaceBtwHorizontalFields / 2),
                           child: Container(
                             alignment: Alignment.center,
-                           decoration: AppStyles.defaultBoxDecoration(),
+                            decoration: AppStyles.defaultBoxDecoration(),
                             child: DropdownButton<Gender>(
-                              style: BlocProvider.of<UserBloc>(context).state.gender == Gender.unselected ? AppStyles.bodyMediumLight : AppStyles.bodyMediumLight.copyWith(color: Colors.black),
+                              style: BlocProvider.of<UserBloc>(context).state.gender == Gender.unselected
+                                  ? AppStyles.bodyMediumLight
+                                  : AppStyles.bodyMediumLight.copyWith(color: Colors.black),
                               underline: const SizedBox.shrink(),
                               value: BlocProvider.of<UserBloc>(context).state.gender,
                               hint: Text(BlocProvider.of<UserBloc>(context).state.gender.text),
@@ -224,7 +226,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ],
             ),
             SizedBox(
-              height: 60,
               child: BlocBuilder<UserServiceBloc, UserServiceState>(builder: (BuildContext context, UserServiceState state) {
                 return ButtonPrimary(
                   text: AppText.commonNext,
