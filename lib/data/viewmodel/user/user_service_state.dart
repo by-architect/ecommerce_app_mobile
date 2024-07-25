@@ -24,6 +24,14 @@ class AddUserFailState extends UserServiceFailState {
   AddUserFailState(super.error);
 }
 
+class LoginUserLoadingState extends UserServiceState{}
+class LoginUserSuccessState extends UserServiceSuccessState{
+  LoginUserSuccessState(super.user);
+}
+class LoginUserFailState extends UserServiceFailState{
+  LoginUserFailState(super.error);
+}
+
 class SendVerificationEmailInitState extends UserServiceState {}
 class SendVerificationEmailLoadingState extends UserServiceState {}
 class SendVerificationEmailSuccessState extends UserServiceSuccessState {

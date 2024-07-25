@@ -13,7 +13,7 @@ abstract class UserService {
   Future<Resource<User>> getUser();
   Future<Resource<User>> sendVerificationEmail(User user);
   bool isUserAuthenticated();
-  Future<Resource<User>> signIn(); //if token not exist, sign in
+  Future<Resource<User>> signIn(UserRequestState userRequest); //if token not exist, sign in
   Future<Resource> signOut();
   Future<Resource> changePassword(User user);
   Future<Resource<User>> changeUserSettings(User user);

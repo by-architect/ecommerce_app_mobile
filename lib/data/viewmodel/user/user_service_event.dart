@@ -10,7 +10,11 @@ class AddUserEvent extends UserServiceEvent {
   final UserRequestState user;
   AddUserEvent(this.user);
 }
+class LoginEvent extends UserServiceEvent{
+  final UserRequestState user;
 
+  LoginEvent(this.user);
+}
 class SendVerificationCodeEvent extends UserServiceEvent {
   final User user;
 

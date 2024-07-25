@@ -20,12 +20,16 @@ class UserServiceBloc extends Bloc<UserServiceEvent, UserServiceState> {
       switch (resource.status) {
         case Status.success:
           emit(AddUserSuccessState(resource.data!));
+          break;
         case Status.fail:
           emit(AddUserFailState(resource.error!));
+          break;
         case Status.loading:
           emit(AddUserLoadingState());
+          break;
         case Status.stable:
           emit(AddUserInitState());
+          break;
       }
     });
 
@@ -36,12 +40,16 @@ class UserServiceBloc extends Bloc<UserServiceEvent, UserServiceState> {
       switch (resource.status) {
         case Status.success:
           emit(SendVerificationEmailSuccessState(resource.data!));
+          break;
         case Status.fail:
           emit(SendVerificationEmailFailState(resource.error!));
+          break;
         case Status.loading:
           emit(SendVerificationEmailLoadingState());
+          break;
         case Status.stable:
           emit(SendVerificationEmailInitState());
+          break;
       }
     });
 
@@ -55,10 +63,14 @@ class UserServiceBloc extends Bloc<UserServiceEvent, UserServiceState> {
           } else {
             emit(EmailNotVerifiedState());
           }
+          break;
         case Status.fail:
           emit(EmailVerificationFailState(resource.error!));
+          break;
         case Status.loading:
+          break;
         case Status.stable:
+        break;
       }
     });
 
@@ -70,15 +82,37 @@ class UserServiceBloc extends Bloc<UserServiceEvent, UserServiceState> {
         switch (resource.status) {
           case Status.success:
             emit(GetUserSuccessState(resource.data!));
+            break;
           case Status.fail:
             emit(GetUserFailState(resource.error!));
+            break;
           case Status.loading:
             emit(GetUserLoadingState());
+            break;
           case Status.stable:
+            break;
         }
       }else{
         emit(GetUserFailState(DefaultError(userMessage: AppText.errorAuthenticate)));
       }
+    });
+    on<LoginEvent>((event,emit) async {
+     emit(LoginUserLoadingState());
+     final userLoginResource = await userService.signIn(event.user);
+     switch(userLoginResource.status){
+
+       case Status.success:
+         emit(LoginUserSuccessState(userLoginResource.data!));
+         break;
+       case Status.fail:
+         emit(LoginUserFailState(userLoginResource.error!));
+         break;
+       case Status.loading:
+         emit(LoginUserLoadingState());
+         break;
+       case Status.stable:
+         break;
+     }
     });
   }
 }

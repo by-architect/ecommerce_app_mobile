@@ -1,4 +1,6 @@
 
+import 'dart:io';
+
 extension StringHelper on String{
   BigInt get toLongPhone {
     String numbersOnly = replaceAll(RegExp(r'\D'), '');
@@ -10,4 +12,5 @@ extension StringHelper on String{
 }
 
 class Helper  {
+  static String get systemLanguageCode => Platform.localeName.split('_')[0];
 }

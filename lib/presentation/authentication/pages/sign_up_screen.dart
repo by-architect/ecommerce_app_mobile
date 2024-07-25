@@ -52,6 +52,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
         late StreamSubscription<UserServiceState> subscription;
         subscription = BlocProvider.of<UserServiceBloc>(context).stream.listen((state) {
+
           switch (state) {
             case AddUserSuccessState userSuccessState:
               BlocProvider.of<UserServiceBloc>(context).add(SendVerificationCodeEvent(userSuccessState.user));

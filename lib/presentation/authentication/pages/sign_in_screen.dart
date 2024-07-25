@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/viewmodel/user/user_service_bloc.dart';
+import 'package:ecommerce_app_mobile/data/viewmodel/user/user_service_event.dart';
 import 'package:ecommerce_app_mobile/data/viewmodel/user/user_service_state.dart';
+import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_event.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_state.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/widgets/TextFieldAuthentication.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/AppBarDefault.dart';
@@ -31,21 +35,34 @@ class _SignInScreenState extends State<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
-   DialogUtil dialogUtil = DialogUtil(context) ;
-    
-    void verifyUser(){
+    DialogUtil dialogUtil = DialogUtil(context);
+
+    void verifyUser() {
       final userState = BlocProvider.of<UserBloc>(context).state;
       final userValidation = UserValidation.validateLogin(userState);
-      if(userValidation.success){
-
+      if (userValidation.success) {
+        BlocProvider.of<UserServiceBloc>(context).add(LoginEvent(userState));
+        late StreamSubscription<UserServiceState> streamSubscription;
+        streamSubscription = BlocProvider.of<UserServiceBloc>(context).stream.listen((state) {
+          switch (state) {
+            case LoginUserSuccessState _:
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                Screens.homeScreen,
+                (route) => false,
+              );
+              break;
+            case LoginUserFailState failState:
+              dialogUtil.info(AppText.errorTitle, failState.error.userMessage);
+              break;
+          }
+        });
+      } else {
+        dialogUtil.toast(userValidation.message);
       }
-      else{
-
-      }
-      
     }
-    
+
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: const AppBarDefault(
         text: AppText.signIn,
       ),
@@ -75,7 +92,9 @@ class _SignInScreenState extends State<SignInScreen> {
                   TextFieldAuthentication(
                     icon: Icons.email,
                     label: AppText.email,
-                    onChanged: (value) {},
+                    onChanged: (value) {
+                      BlocProvider.of<UserBloc>(context).add(EmailEvent(value));
+                    },
                   ),
                   const SizedBox(
                     height: AppSizes.spaceBtwVerticalFields,
@@ -83,7 +102,10 @@ class _SignInScreenState extends State<SignInScreen> {
                   TextFieldAuthentication(
                     icon: Icons.password,
                     label: AppText.password,
-                    onChanged: (value) {},
+                    isPassword: true,
+                    onChanged: (value) {
+                      BlocProvider.of<UserBloc>(context).add(PasswordEvent(value));
+                    },
                   ),
                   const SizedBox(
                     height: AppSizes.spaceBtwVerticalFieldsLarge,
@@ -109,10 +131,12 @@ class _SignInScreenState extends State<SignInScreen> {
                   )
                 ],
               )),
-              BlocBuilder<UserServiceBloc,UserServiceState>(
-                builder: (BuildContext context, state) => 
-                    GestureDetector(onTap: verifyUser,
-                    child: const ButtonPrimary(text: AppText.signIn)),
+              BlocBuilder<UserServiceBloc, UserServiceState>(
+                builder: (BuildContext context, state) => ButtonPrimary(
+                  text: AppText.signIn,
+                  loading: state is LoginUserLoadingState,
+                  onTap: verifyUser,
+                ),
               ),
             ],
           )),

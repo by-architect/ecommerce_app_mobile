@@ -1,4 +1,7 @@
+import 'package:ecommerce_app_mobile/sddklibrary/constant/firebase_error_messages.dart';
+
 class AppText{
+
 
   //common
   static const marketName = "Perfect Market";
@@ -63,39 +66,8 @@ class AppText{
   //verification page
   static const verificationEmail = "Email Verification";
   static const verificationPageEmailTitle = "Please enter the verification code";
-  static const verificationPageEmailBody = "We sent six digit code to your email";
+  static const verificationPageEmailBody = "We sent a link to your email";
   static const verificationPageCheckYourEmail = "Check your emails, We are waiting for you";
   static const verificationPageSendEmailAgain = "Send email again";
   static const accountCreatedSuccessfully= "Account created successfully";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

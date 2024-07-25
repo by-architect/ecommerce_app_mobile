@@ -14,7 +14,7 @@ class User {
   late Authority authority;
   late Gender gender;
   late firebase_auth.User firebaseUser;
-  late firebase_auth.AuthCredential? userCredential;
+  late firebase_auth.UserCredential? userCredential;
 
   User(this.uid, this.name, this.surname, this.email, this.birthYear,this.gender, this.firebaseUser, this.userCredential);
 
@@ -34,7 +34,7 @@ class User {
     surname = userMap['surname'];
     email = userMap['email'];
     birthYear = userMap['birthYear'];
-    authority = userMap['authority'];
+    authority =Authority.fromString(userMap['authority']);
     gender = Gender.fromString(userMap['gender']);
   }
 }

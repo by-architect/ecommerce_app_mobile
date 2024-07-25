@@ -9,6 +9,7 @@ class ExceptionHandler extends FirebaseExceptions {
   static const nullUserId = "null-user-id";
   static const metadataNotExist = "metadata-not-exist";
 
+/*
   static Resource<T> firebaseExceptionHandler<T>(FirebaseAuthException exception) {
     switch (exception.code) {
       case FirebaseExceptions.emailAlreadyInUse:
@@ -23,11 +24,10 @@ class ExceptionHandler extends FirebaseExceptions {
       case FirebaseExceptions.invalidVerificationCode:
         return Resource.fail(
             DefaultError(userMessage: AppText.errorVerificationCodeIsWrong, exception: exception.message, errorCode: exception.code));
-      case FirebaseExceptions.apiNotAvailable:
-        return Resource.fail(DefaultError(userMessage: AppText.errorFetchingData, exception: exception.message, errorCode: exception.code));
       default:
         return (Resource.fail(
             DefaultError(userMessage: AppText.errorFetchingData, exception: exception.message, errorCode: exception.code)));
     }
   }
+*/
 }

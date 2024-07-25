@@ -1,4 +1,7 @@
 
+import 'package:ecommerce_app_mobile/common/constant/Authority.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/helper/Helper.dart';
+
 import '../../../common/constant/gender.dart';
 
 class UserState {}
@@ -43,7 +46,8 @@ class UserRequestState extends UserState {
       'surname': surname,
       'email': email,
       'password': password,
-      'birthYear': birthYear,
+      'birthYear': birthYear.toInt,
+      'authority': Authority.user.name,
       'gender': gender.name
     };
   }
