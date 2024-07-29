@@ -203,7 +203,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 }),
             */
                 const SizedBox(
-                  height: 50,
+                  height: AppSizes.spaceBtwVerticalFields,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -243,5 +243,4 @@ class _SignUpScreenState extends State<SignUpScreen> {
 }
 
 //todo: errors in textfields
-//todo: expend user for firestore
 //todo: isim ve soyismi kaydolurken baş harflerini büyük yap

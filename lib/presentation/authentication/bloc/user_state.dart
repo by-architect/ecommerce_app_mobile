@@ -1,5 +1,5 @@
 
-import 'package:ecommerce_app_mobile/common/constant/Authority.dart';
+import 'package:ecommerce_app_mobile/common/constant/authority.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/Helper.dart';
 
 import '../../../common/constant/gender.dart';

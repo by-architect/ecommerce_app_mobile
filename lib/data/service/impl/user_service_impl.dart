@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ecommerce_app_mobile/common/constant/FireStoreCollections.dart';
+import 'package:ecommerce_app_mobile/common/constant/firestore_collections.dart';
 import 'package:ecommerce_app_mobile/common/constant/exception_handler.dart';
 import 'package:ecommerce_app_mobile/common/constant/timeouts.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_state.dart';
@@ -16,8 +16,7 @@ import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/service/user_service.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 
-import '../../../sddklibrary/constant/exceptions/firebase_exception_codes.dart';
-import '../../model/User.dart';
+import '../../model/user.dart';
 
 class UserServiceImpl extends UserService {
   late final _firebaseAuth = firebase_auth.FirebaseAuth.instance;
@@ -48,7 +47,7 @@ class UserServiceImpl extends UserService {
 
       //catch exceptions
     } catch (exception) {
-      return _exceptionHandler(exception);
+      return ExceptionHandler.firebaseResourceExceptionHandler(exception);
     }
   }
 
@@ -62,7 +61,7 @@ class UserServiceImpl extends UserService {
 
       return Resource.success(user);
     } catch (exception) {
-      return _exceptionHandler(exception);
+      return ExceptionHandler.firebaseResourceExceptionHandler(exception);
     }
   }
 
@@ -93,7 +92,7 @@ class UserServiceImpl extends UserService {
       User user = userResponse.data!;
       return Resource.success(user);
     } catch (exception) {
-      return _exceptionHandler(exception);
+      return ExceptionHandler.firebaseResourceExceptionHandler(exception);
     }
   }
 
@@ -112,7 +111,7 @@ class UserServiceImpl extends UserService {
 
       return Resource.success(user);
     } catch (exception) {
-      return _exceptionHandler(exception);
+      return ExceptionHandler.firebaseResourceExceptionHandler(exception);
     }
   }
 
@@ -146,54 +145,8 @@ class UserServiceImpl extends UserService {
       final user = User.fromMap(fireStoreUserMap.data()!, firebaseUser, userCredential: userCredential);
       return Resource.success(user);
     } catch (exception) {
-      return _exceptionHandler(exception);
+      return ExceptionHandler.firebaseResourceExceptionHandler(exception);
     }
   }
 
-  Resource<T> _exceptionHandler<T>(Object exception) {
-    if (exception is firebase_auth.FirebaseAuthException) {
-      Log.error(exception.code, exception.message ?? "");
-      switch (exception.code) {
-        case FirebaseExceptions.emailAlreadyInUse:
-          return (Resource.fail(DefaultError(
-              userMessage: FirebaseErrorMessages.errorFirebaseEmailAlreadyInUse, exception: exception.message, errorCode: exception.code)));
-        case ExceptionHandler.nullUserId:
-          return (Resource.fail(
-              DefaultError(userMessage: AppText.errorFetchingData, exception: exception.message, errorCode: exception.code)));
-        case FirebaseExceptions.networkRequestFailed:
-          return (Resource.fail(DefaultError(
-              userMessage: FirebaseErrorMessages.errorFirebaseNetworkRequestFailed,
-              exception: exception.message,
-              errorCode: exception.code)));
-        case FirebaseExceptions.invalidVerificationCode:
-          return Resource.fail(DefaultError(
-              userMessage: FirebaseErrorMessages.errorFirebaseInvalidVerificationCode,
-              exception: exception.message,
-              errorCode: exception.code));
-        case FirebaseExceptions.appNotInstalled:
-          return Resource.fail(DefaultError(
-              userMessage: FirebaseErrorMessages.errorFirebaseAppNotInstalled, exception: exception.message, errorCode: exception.code));
-        case FirebaseExceptions.wrongPassword:
-          return Resource.fail(DefaultError(
-              userMessage: FirebaseErrorMessages.errorFirebaseWrongPassword, exception: exception.message, errorCode: exception.code));
-        default:
-          if (Helper.systemLanguageCode == 'en') {
-            return Resource.fail(
-                DefaultError(userMessage: exception.message ?? "", exception: exception.message, errorCode: exception.code));
-          } else {
-            return (Resource.fail(
-                DefaultError(userMessage: AppText.errorFetchingData, exception: exception.message, errorCode: exception.code)));
-          }
-      }
-    } else if (exception is TimeoutException) {
-      Log.error("Time out:", exception.message ?? "");
-      return (Resource.fail(DefaultError(userMessage: AppText.errorTimeout, exception: exception.message)));
-    } else if (exception is NetworkDeviceDisconnectedException) {
-      Log.error("Network Device Down", exception.message);
-      return Resource.fail(DefaultError(userMessage: AppText.errorNetworkDeviceIsDown, exception: exception.message));
-    } else {
-      Log.error("Unknown Error", exception.toString());
-      return (Resource.fail(DefaultError(userMessage: AppText.errorFetchingData, exception: exception.toString())));
-    }
-  }
 }

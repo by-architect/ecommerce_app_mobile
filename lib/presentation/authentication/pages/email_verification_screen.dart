@@ -12,7 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../common/ui/theme/AppSizes.dart';
-import '../../../data/model/User.dart';
+import '../../../data/model/user.dart';
 import '../../../data/viewmodel/user/user_service_bloc.dart';
 import '../../../data/viewmodel/user/user_service_event.dart';
 

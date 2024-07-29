@@ -3,7 +3,7 @@ import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_state
 import 'package:ecommerce_app_mobile/sddklibrary/helper/Helper.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 
-import '../../common/constant/Authority.dart';
+import '../../common/constant/authority.dart';
 
 class User {
   late String uid;

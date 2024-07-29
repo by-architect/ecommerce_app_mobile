@@ -2,7 +2,7 @@
 
 import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_state.dart';
 
-import '../../model/User.dart';
+import '../../model/user.dart';
 
 class UserServiceEvent {}
 

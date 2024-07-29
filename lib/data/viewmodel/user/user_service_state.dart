@@ -1,6 +1,6 @@
 import 'package:ecommerce_app_mobile/sddklibrary/helper/error.dart';
 
-import '../../model/User.dart';
+import '../../model/user.dart';
 
 class UserServiceState {}
 

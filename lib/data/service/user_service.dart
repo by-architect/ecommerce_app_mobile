@@ -5,7 +5,7 @@ import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_state
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 
 import '../../sddklibrary/helper/resource.dart';
-import '../model/User.dart';
+import '../model/user.dart';
 
 
 abstract class UserService {

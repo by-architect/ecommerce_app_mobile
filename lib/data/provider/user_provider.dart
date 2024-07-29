@@ -4,7 +4,7 @@ import 'package:ecommerce_app_mobile/sddklibrary/helper/resource.dart';
 import 'package:ecommerce_app_mobile/data/fakerepository/fake_user_service.dart';
 import 'package:ecommerce_app_mobile/data/service/user_service.dart';
 
-import '../model/User.dart';
+import '../model/user.dart';
 
 
 class UserProvider {
