@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce_app_mobile/common/constant/firestore_collections.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/constant/exceptions/exception_handler.dart';
-import 'package:ecommerce_app_mobile/common/constant/timeouts.dart';
+import 'package:ecommerce_app_mobile/common/constant/app_durations.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_state.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/error.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/network_helper.dart';
@@ -29,7 +29,7 @@ class UserServiceImpl extends UserService {
       //request user creation
       final authResponse = await _firebaseAuth
           .createUserWithEmailAndPassword(email: userState.email, password: userState.password)
-          .timeout(Timeouts.postTimeout);
+          .timeout(AppDurations.postTimeout);
       final responseUser = authResponse.user;
       if (responseUser == null) throw firebase_auth.FirebaseAuthException(code: ExceptionHandler.nullUserId);
 
@@ -38,7 +38,7 @@ class UserServiceImpl extends UserService {
           .collection(FireStoreCollections.users)
           .doc(responseUser.uid)
           .set(userState.toMap(responseUser.uid))
-          .timeout(Timeouts.postTimeout);
+          .timeout(AppDurations.postTimeout);
       final User userFinal = User.fromUserState(userState, responseUser, authResponse);
       return Resource.success(userFinal);
 
@@ -134,7 +134,7 @@ class UserServiceImpl extends UserService {
       final firebaseUser = _firebaseAuth.currentUser!;
 
       final fireStoreUserMap =
-          await _fireStore.collection(FireStoreCollections.users).doc(firebaseUser.uid).get().timeout(Timeouts.postTimeout);
+          await _fireStore.collection(FireStoreCollections.users).doc(firebaseUser.uid).get().timeout(AppDurations.postTimeout);
       if (!fireStoreUserMap.exists || fireStoreUserMap.data() == null) {
         return Resource.fail(DefaultError(
             userMessage: AppText.errorFetchingData, exception: "Can't get metadata from firestore while request user, it is empty"));

@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/constant/exceptions/exception_handler.dart';
 import 'package:ecommerce_app_mobile/common/constant/firestore_collections.dart';
-import 'package:ecommerce_app_mobile/common/constant/timeouts.dart';
+import 'package:ecommerce_app_mobile/common/constant/app_durations.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/model/category.dart';
 import 'package:ecommerce_app_mobile/data/model/product.dart';
@@ -23,7 +23,7 @@ class ProductServiceImpl extends ProductService {
       final networkConnection = await NetworkHelper().isConnectedToNetwork();
       if (!networkConnection.isConnected) throw NetworkDeviceDisconnectedException("Network Device is down");
 
-      final data = await _firestore.collection(FireStoreCollections.categories).get().timeout(Timeouts.postTimeout);
+      final data = await _firestore.collection(FireStoreCollections.categories).get().timeout(AppDurations.postTimeout);
       data.docs.forEach((doc) {
         categoryList.add(Category.fromMap(doc.data()));
       });
@@ -40,7 +40,7 @@ class ProductServiceImpl extends ProductService {
       final networkConnection = await NetworkHelper().isConnectedToNetwork();
       if (!networkConnection.isConnected) throw NetworkDeviceDisconnectedException("Network Device is down");
 
-      final productFeaturesResponse = await _firestore.collection(FireStoreCollections.productFeatures).get().timeout(Timeouts.postTimeout);
+      final productFeaturesResponse = await _firestore.collection(FireStoreCollections.productFeatures).get().timeout(AppDurations.postTimeout);
       productFeaturesResponse.docs.forEach((doc) {
         productFeatureList.add(ProductFeature.fromMap(doc.data()));
       });
@@ -65,7 +65,7 @@ class ProductServiceImpl extends ProductService {
       final productFeatureList  = productFeatureResponse.data!;
 
       //get products
-      final productResponse = await _firestore.collection(FireStoreCollections.products).get().timeout(Timeouts.postTimeout);
+      final productResponse = await _firestore.collection(FireStoreCollections.products).get().timeout(AppDurations.postTimeout);
       productResponse.docs.forEach((doc) {
         productList.add(Product.fromMap(doc.data(),productFeatureList));
       });
@@ -89,7 +89,7 @@ class ProductServiceImpl extends ProductService {
       final productFeatureList  = productFeatureResponse.data!;
 
       //get products
-      final productResponse = await _firestore.collection(FireStoreCollections.products).doc(id).get().timeout(Timeouts.postTimeout);
+      final productResponse = await _firestore.collection(FireStoreCollections.products).doc(id).get().timeout(AppDurations.postTimeout);
       if (!productResponse.exists) return Resource.fail(DefaultError(userMessage: AppText.errorProductDoesNotExist));
       final Product product = Product.fromMap(productResponse.data()!,  productFeatureList);
 

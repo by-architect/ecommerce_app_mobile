@@ -1,3 +1,4 @@
+import 'package:ecommerce_app_mobile/common/constant/app_durations.dart';
 import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
@@ -32,7 +33,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               onButtonOneTap: () {
                 pageController.animateToPage(
                   pageController.page!.toInt() + 1,
-                  duration: const Duration(milliseconds: 300),
+                  duration: AppDurations.splashAnimation,
                   curve: Curves.easeInOut,
                 );
               }),
@@ -45,7 +46,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 Log.test("page test");
                 pageController.animateToPage(
                   pageController.page!.toInt() + 1,
-                  duration: const Duration(milliseconds: 300),
+                  duration: AppDurations.splashAnimation,
                   curve: Curves.easeInOut,
                 );
               }),
