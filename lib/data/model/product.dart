@@ -1,5 +1,4 @@
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/helper/Log.dart';
 
 class Product {
   late final String productId;
@@ -33,7 +32,6 @@ class Product {
     productFeatures = [];
 
     final list = map['feature'] as List<dynamic>;
-    Log.test("item count", message: list.length.toString());
 
     list.forEach((item) {
       final optionMap = item as Map<String, dynamic>;

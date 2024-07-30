@@ -2,13 +2,9 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce_app_mobile/common/constant/firestore_collections.dart';
-import 'package:ecommerce_app_mobile/common/constant/exception_handler.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/constant/exceptions/exception_handler.dart';
 import 'package:ecommerce_app_mobile/common/constant/timeouts.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_state.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/constant/exceptions/network_exceptions.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/constant/firebase_error_messages.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/helper/Helper.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/helper/Log.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/error.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/network_helper.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/resource.dart';
@@ -16,6 +12,7 @@ import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/service/user_service.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 
+import '../../../sddklibrary/constant/exceptions/exceptions.dart';
 import '../../model/user.dart';
 
 class UserServiceImpl extends UserService {
@@ -46,8 +43,8 @@ class UserServiceImpl extends UserService {
       return Resource.success(userFinal);
 
       //catch exceptions
-    } catch (exception) {
-      return ExceptionHandler.firebaseResourceExceptionHandler(exception);
+    } catch (exception,stackTrace) {
+      return ExceptionHandler.firebaseResourceExceptionHandler(exception,stackTrace);
     }
   }
 
@@ -60,8 +57,8 @@ class UserServiceImpl extends UserService {
       await user.firebaseUser.sendEmailVerification();
 
       return Resource.success(user);
-    } catch (exception) {
-      return ExceptionHandler.firebaseResourceExceptionHandler(exception);
+    } catch (exception,stackTrace) {
+      return ExceptionHandler.firebaseResourceExceptionHandler(exception,stackTrace);
     }
   }
 
@@ -91,8 +88,8 @@ class UserServiceImpl extends UserService {
       }
       User user = userResponse.data!;
       return Resource.success(user);
-    } catch (exception) {
-      return ExceptionHandler.firebaseResourceExceptionHandler(exception);
+    } catch (exception,stackTrace) {
+      return ExceptionHandler.firebaseResourceExceptionHandler(exception,stackTrace);
     }
   }
 
@@ -110,8 +107,8 @@ class UserServiceImpl extends UserService {
       User user = userResponse.data!;
 
       return Resource.success(user);
-    } catch (exception) {
-      return ExceptionHandler.firebaseResourceExceptionHandler(exception);
+    } catch (exception,stackTrace) {
+      return ExceptionHandler.firebaseResourceExceptionHandler(exception,stackTrace);
     }
   }
 
@@ -144,8 +141,8 @@ class UserServiceImpl extends UserService {
       }
       final user = User.fromMap(fireStoreUserMap.data()!, firebaseUser, userCredential: userCredential);
       return Resource.success(user);
-    } catch (exception) {
-      return ExceptionHandler.firebaseResourceExceptionHandler(exception);
+    } catch (exception,stackTrace) {
+      return ExceptionHandler.firebaseResourceExceptionHandler(exception,stackTrace);
     }
   }
 

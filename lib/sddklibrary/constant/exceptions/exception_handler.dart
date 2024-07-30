@@ -2,22 +2,24 @@ import 'dart:async';
 
 import 'package:ecommerce_app_mobile/sddklibrary/constant/exceptions/firebase_exception_codes.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:flutter/cupertino.dart';
 
-import '../../sddklibrary/constant/exceptions/network_exceptions.dart';
-import '../../sddklibrary/constant/firebase_error_messages.dart';
-import '../../sddklibrary/helper/Helper.dart';
-import '../../sddklibrary/helper/Log.dart';
-import '../../sddklibrary/helper/error.dart';
-import '../../sddklibrary/helper/resource.dart';
-import '../ui/theme/AppText.dart';
+import 'exceptions.dart';
+import 'firebase_error_messages.dart';
+import '../../helper/Helper.dart';
+import '../../helper/Log.dart';
+import '../../helper/error.dart';
+import '../../helper/resource.dart';
+import '../../../common/ui/theme/AppText.dart';
 
 class ExceptionHandler extends FirebaseExceptions {
   static const nullUserId = "null-user-id";
   static const metadataNotExist = "metadata-not-exist";
 
-  static Resource<T> firebaseResourceExceptionHandler<T>(Object exception) {
+
+  static Resource<T> firebaseResourceExceptionHandler<T>(Object exception,StackTrace stackTrace) {
     if (exception is firebase_auth.FirebaseAuthException) {
-      Log.error(exception.code, exception.message ?? "");
+      // Log.error(exception.code, exception.message ?? "");
       switch (exception.code) {
         case FirebaseExceptions.emailAlreadyInUse:
           return (Resource.fail(DefaultError(
@@ -51,23 +53,18 @@ class ExceptionHandler extends FirebaseExceptions {
           }
       }
     } else if (exception is TimeoutException) {
-      Log.error("Time out:", exception.message ?? "");
+      // Log.error("Time out:", exception.message ?? "");
       return (Resource.fail(DefaultError(userMessage: AppText.errorTimeout, exception: exception.message)));
     } else if (exception is NetworkDeviceDisconnectedException) {
-      Log.error("Network Device Down", exception.message);
+      // Log.error("Network Device Down", exception.message);
       return Resource.fail(DefaultError(userMessage: AppText.errorNetworkDeviceIsDown, exception: exception.message));
     }
       else if(exception is NullDataException){
        return Resource.fail(DefaultError(userMessage: AppText.errorFetchingData,exception: exception.message));
     } else {
-      Log.error("Unknown Error", exception.toString());
+      // Log.error("Unknown Error", exception.toString());
       return (Resource.fail(DefaultError(userMessage: AppText.errorFetchingData, exception: exception.toString())));
     }
   }
 }
 
-class NullDataException implements Exception{
-  final message;
-
-  NullDataException(this.message);
-}

@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ecommerce_app_mobile/common/constant/exception_handler.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/constant/exceptions/exception_handler.dart';
 import 'package:ecommerce_app_mobile/common/constant/firestore_collections.dart';
 import 'package:ecommerce_app_mobile/common/constant/timeouts.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
@@ -10,7 +10,7 @@ import 'package:ecommerce_app_mobile/data/service/product_service.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/error.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/resource.dart';
 
-import '../../../sddklibrary/constant/exceptions/network_exceptions.dart';
+import '../../../sddklibrary/constant/exceptions/exceptions.dart';
 import '../../../sddklibrary/helper/network_helper.dart';
 
 class ProductServiceImpl extends ProductService {
@@ -28,8 +28,8 @@ class ProductServiceImpl extends ProductService {
         categoryList.add(Category.fromMap(doc.data()));
       });
       return Resource.success(categoryList);
-    } catch (exception) {
-      return ExceptionHandler.firebaseResourceExceptionHandler(exception);
+    } catch (exception,stackTrace) {
+      return ExceptionHandler.firebaseResourceExceptionHandler(exception,stackTrace);
     }
   }
 
@@ -45,8 +45,8 @@ class ProductServiceImpl extends ProductService {
         productFeatureList.add(ProductFeature.fromMap(doc.data()));
       });
       return Resource.success(productFeatureList);
-    } catch (exception) {
-      ExceptionHandler.firebaseResourceExceptionHandler(exception);
+    } catch (exception,stackTrace) {
+      ExceptionHandler.firebaseResourceExceptionHandler(exception,stackTrace);
     }
     return Resource.loading();
   }
@@ -70,8 +70,8 @@ class ProductServiceImpl extends ProductService {
         productList.add(Product.fromMap(doc.data(),productFeatureList));
       });
       return Resource.success(productList);
-    } catch (exception) {
-      ExceptionHandler.firebaseResourceExceptionHandler(exception);
+    } catch (exception,stackTrace) {
+      ExceptionHandler.firebaseResourceExceptionHandler(exception,stackTrace);
     }
     return Resource.loading();
   }
@@ -94,8 +94,8 @@ class ProductServiceImpl extends ProductService {
       final Product product = Product.fromMap(productResponse.data()!,  productFeatureList);
 
       return Resource.success(product);
-    } catch (exception) {
-      ExceptionHandler.firebaseResourceExceptionHandler(exception);
+    } catch (exception,stackTrace) {
+      ExceptionHandler.firebaseResourceExceptionHandler(exception,stackTrace);
     }
     return Resource.loading();
   }

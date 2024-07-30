@@ -1,4 +1,4 @@
-import 'package:ecommerce_app_mobile/sddklibrary/constant/firebase_error_messages.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/constant/exceptions/firebase_error_messages.dart';
 
 class AppText{
 
