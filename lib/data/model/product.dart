@@ -11,6 +11,7 @@ class Product {
 
   //product list
   late final int totalCount;
+  late final String barcode;
   late final String id;
   late final int waitingOnCartCount;
   late final double price;
@@ -25,6 +26,7 @@ class Product {
     cargoPrice = map['cargoPrice'];
     totalCount = map['totalCount'];
     id = map['id'];
+    barcode = map['barcode'];
     waitingOnCartCount = map['waitingOnCartCount'];
     price = map['price'];
     discount = map['discount'];
@@ -67,5 +69,5 @@ class Product {
 
   @override
   String toString() {
-    return 'Product{productId: $productId, name: $name, categoriesId: $categoriesId, explanation: $explanation, cargoPrice: $cargoPrice, totalCount: $totalCount, id: $id, waitingOnCartCount: $waitingOnCartCount, price: $price, productFeatures: ${productFeatures.toString()}, discount: $discount}'; }
+    return 'Product{productId: $productId, name: $name, categoriesId: $categoriesId, barcode: $barcode explanation: $explanation, cargoPrice: $cargoPrice, totalCount: $totalCount, id: $id, waitingOnCartCount: $waitingOnCartCount, price: $price, productFeatures: ${productFeatures.toString()}, discount: $discount}'; }
 }
