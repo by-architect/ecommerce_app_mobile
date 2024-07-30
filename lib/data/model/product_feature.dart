@@ -1,22 +1,34 @@
 class ProductFeature {
   late final String id;
   late final String optionName;
-  late final _ProductFeatureType productFeatureType;
-  late final List<_Option> options;
-  _Option? selectedOption;
+  late final ProductFeatureType productFeatureType;
+  late final List<ProductFeatureOption> options;
+  ProductFeatureOption? selectedOption;
 
-  ProductFeature(this.id, this.optionName, this.options,this.productFeatureType);
+  ProductFeature(this.id, this.optionName, this.options, this.productFeatureType, {this.selectedOption});
 
   ProductFeature.fromMap(Map<String, dynamic> map) {
     id = map['id'];
     optionName = map['name'];
-    productFeatureType = _ProductFeatureType.fromString(map['type']);
+    productFeatureType = ProductFeatureType.fromString(map['type']);
     options = (map['options'] as List<dynamic>)
-        .map((option) => _Option(
-              option['id'].toString(),
-              option['name'],
-            ))
+        .map((option) =>
+        ProductFeatureOption(
+          option['id'].toString(),
+          option['name'],
+        ))
         .toList();
+  }
+
+  ProductFeature copyWith({String? id, String? optionName, ProductFeatureType? productFeatureType, List<
+      ProductFeatureOption>? options, ProductFeatureOption? selectedOption}) {
+    return ProductFeature(
+        id ?? this.id,
+        optionName ?? this.optionName,
+        options ?? this.options,
+        productFeatureType ?? this.productFeatureType,
+      selectedOption: selectedOption ?? this.selectedOption
+    );
   }
 
   @override
@@ -25,24 +37,24 @@ class ProductFeature {
   }
 }
 
-enum _ProductFeatureType {
+enum ProductFeatureType {
   text,
   color;
 
-  static _ProductFeatureType fromString(String type) {
-    if(type == "text") {
-      return _ProductFeatureType.text;
+  static ProductFeatureType fromString(String type) {
+    if (type == "text") {
+      return ProductFeatureType.text;
     } else {
-      return _ProductFeatureType.color;
+      return ProductFeatureType.color;
     }
   }
 }
 
-class _Option {
+class ProductFeatureOption {
   final String id;
   final String name;
 
-  _Option(this.id, this.name);
+  ProductFeatureOption(this.id, this.name);
 
   @override
   String toString() {

@@ -18,6 +18,10 @@ class Product {
   late final List<ProductFeature> productFeatures;
   late final double discount;
 
+
+  Product(this.productId, this.name, this.categoriesId, this.explanation, this.cargoPrice, this.totalCount, this.barcode, this.id,
+      this.waitingOnCartCount, this.price, this.productFeatures, this.discount);
+
   Product.fromMap(Map<String, dynamic> map, List<ProductFeature> allFeatures) {
     productId = map['productId'];
     name = map['name'];
@@ -39,14 +43,12 @@ class Product {
       final optionMap = item as Map<String, dynamic>;
       final originalFeature = allFeatures.lastWhere((feature) => feature.id == optionMap['featureId'].toString());
 
-      final ProductFeature productFeature = ProductFeature(
-          originalFeature.id,
-          originalFeature.optionName,
-          List.from(originalFeature.options),
-          originalFeature.productFeatureType
-      );
 
-      productFeature.selectedOption = productFeature.options.lastWhere((option) => option.id == optionMap['optionId'].toString());
+      final productFeature = originalFeature.copyWith(
+          selectedOption: originalFeature.options.lastWhere((option) => option.id == optionMap['optionId'].toString()));
+
+      throw UnimplementedError("look if product feature is workin");
+
 
 /*
       Log.test("selected option in loop",
@@ -64,10 +66,11 @@ class Product {
 */
 
 
-
   }
 
   @override
   String toString() {
-    return 'Product{productId: $productId, name: $name, categoriesId: $categoriesId, barcode: $barcode explanation: $explanation, cargoPrice: $cargoPrice, totalCount: $totalCount, id: $id, waitingOnCartCount: $waitingOnCartCount, price: $price, productFeatures: ${productFeatures.toString()}, discount: $discount}'; }
+    return 'Product{productId: $productId, name: $name, categoriesId: $categoriesId, barcode: $barcode explanation: $explanation, cargoPrice: $cargoPrice, totalCount: $totalCount, id: $id, waitingOnCartCount: $waitingOnCartCount, price: $price, productFeatures: ${productFeatures
+        .toString()}, discount: $discount}';
+  }
 }
