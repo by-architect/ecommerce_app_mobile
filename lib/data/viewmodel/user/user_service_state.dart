@@ -1,4 +1,4 @@
-import 'package:ecommerce_app_mobile/sddklibrary/helper/error.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/helper/fail.dart';
 
 import '../../model/user.dart';
 
@@ -10,7 +10,7 @@ class UserServiceSuccessState extends UserServiceState {
   UserServiceSuccessState(this.user);
 }
 class UserServiceFailState extends UserServiceState{
-  final DefaultError error;
+  final Fail error;
   UserServiceFailState(this.error);
 }
 

@@ -7,7 +7,7 @@ import 'package:ecommerce_app_mobile/data/model/category.dart';
 import 'package:ecommerce_app_mobile/data/model/product.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
 import 'package:ecommerce_app_mobile/data/service/product_service.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/helper/error.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/helper/fail.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/resource.dart';
 
 import '../../../sddklibrary/constant/exceptions/exceptions.dart';
@@ -89,7 +89,7 @@ class ProductServiceImpl extends ProductService {
 
       //get products
       final productResponse = await _firestore.collection(FireStoreCollections.products).doc(id).get().timeout(AppDurations.postTimeout);
-      if (!productResponse.exists) return ResourceStatus.fail(DefaultError(userMessage: AppText.errorProductDoesNotExist));
+      if (!productResponse.exists) return ResourceStatus.fail(Fail(userMessage: AppText.errorProductDoesNotExist));
       final Product product = Product.fromMap(productResponse.data()!, productFeatureList);
 
       return ResourceStatus.success(product);

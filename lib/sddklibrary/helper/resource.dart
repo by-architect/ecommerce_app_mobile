@@ -1,9 +1,10 @@
-import 'package:ecommerce_app_mobile/sddklibrary/helper/error.dart';
+
+import 'fail.dart';
 
 abstract class Resource<T> {
   T? get data;
 
-  DefaultError? get error;
+  Fail? get error;
 
   bool get stable;
 
@@ -18,66 +19,66 @@ abstract class Resource<T> {
     return Status.loading;
   }
 
-  factory Resource.loading() = Loading<T>;
+  factory Resource.loading() = _Loading<T>;
 
-  factory Resource.stable() = Stable<T>;
+  factory Resource.stable() = _Stable<T>;
 
   factory Resource.success(T data) = ResourceStatus<T>.success;
 
-  factory Resource.fail(DefaultError error) = ResourceStatus<T>.fail;
+  factory Resource.fail(Fail error) = ResourceStatus<T>.fail;
 }
 
 enum Status { success, fail, loading, stable }
 
-class Loading<T> extends Resource<T> {
-  const Loading();
+class _Loading<T> extends Resource<T> {
+  const _Loading();
 
   @override
   T? get data => null;
 
   @override
-  DefaultError? get error => null;
+  Fail? get error => null;
 
   @override
   bool get stable => false;
 }
 
-class Success<T> extends Resource<T> {
+class _Success<T> extends Resource<T> {
   final T _data;
 
-  const Success(this._data);
+  const _Success(this._data);
 
   @override
   T? get data => _data;
 
   @override
-  DefaultError? get error => null;
+  Fail? get error => null;
 
   @override
   bool get stable => false;
 }
 
-class Fail<T> extends Resource<T> {
-  final DefaultError _error;
+class _Fail<T> extends Resource<T> {
+  final Fail _error;
 
-  Fail(this._error);
+  _Fail(this._error);
 
   @override
   T? get data => null;
 
   @override
-  DefaultError? get error => _error;
+  Fail? get error => _error;
 
   @override
   bool get stable => false;
 }
 
-class Stable<T> extends Resource<T> {
+class _Stable<T> extends Resource<T> {
   @override
   T? get data => null;
 
   @override
-  DefaultError? get error => null;
+  Fail? get error => null;
 
   @override
   bool get stable => true;
@@ -85,7 +86,7 @@ class Stable<T> extends Resource<T> {
 
 class ResourceStatus<T> extends Resource<T> {
   final T? data;
-  final DefaultError? error;
+  final Fail? error;
 
   const ResourceStatus.success(this.data) : error = null;
 
@@ -100,9 +101,9 @@ class ResourceStatus<T> extends Resource<T> {
      return this;
    }
 
-  ResourceStatus<T> onFailure(Function(DefaultError fail) failAction){
+  ResourceStatus<T> onFailure(Function(Fail fail) failAction){
     if(!isSuccess){
-      failAction(error as DefaultError);
+      failAction(error as Fail);
     }
     return this;
   }

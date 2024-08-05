@@ -1,5 +1,6 @@
 import 'package:ecommerce_app_mobile/common/constant/Screens.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppTheme.dart';
+import 'package:ecommerce_app_mobile/data/viewmodel/category/category_service_bloc.dart';
 import 'package:ecommerce_app_mobile/data/viewmodel/user/user_service_bloc.dart';
 import 'package:ecommerce_app_mobile/firebase_options.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_bloc.dart';
@@ -16,8 +17,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 Future<void> main() async {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized(); // for use firebase before loading
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -32,6 +34,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (BuildContext context) => WelcomeBlocs()),
         BlocProvider(create: (BuildContext context) => UserBloc()),
         BlocProvider(create: (BuildContext context) => UserServiceBloc()),
+        BlocProvider(create: (BuildContext context) => CategoryServiceBloc()),
       ],
       child: BlocBuilder<MainBlocs, MainStates>(
         builder: (BuildContext context, MainStates state) => MaterialApp(

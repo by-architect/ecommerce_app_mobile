@@ -47,7 +47,6 @@ class Product {
       final productFeature = originalFeature.copyWith(
           selectedOption: originalFeature.options.lastWhere((option) => option.id == optionMap['optionId'].toString()));
 
-      throw UnimplementedError("look if product feature is workin");
 
 
 /*

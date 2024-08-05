@@ -2,7 +2,7 @@
 import 'dart:math';
 
 import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_state.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/helper/error.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/helper/fail.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/resource.dart';
 import 'package:ecommerce_app_mobile/data/service/user_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';

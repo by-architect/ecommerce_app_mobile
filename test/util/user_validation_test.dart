@@ -10,7 +10,7 @@ void main() {
     var user = FakeUserModels.testValidUser;
     var userState = UserRequestState(name: user.name,surname: user.surname,email: user.email,password: user.password,);
     var validation = UserValidation.validateRegistration(userState);
-    Log.info(validation.message,title: "user_validation:",);
+    Log.info(message:validation.message,title: "user_validation:",);
     expect(validation.success, true);
   });
     test("userValidation_validateUser_mistakenEmail", () {

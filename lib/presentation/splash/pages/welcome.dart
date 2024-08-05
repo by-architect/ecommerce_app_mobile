@@ -43,7 +43,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               image: AppImages.windowShopping,
               buttonOneText: AppText.commonNext,
               onButtonOneTap: () {
-                Log.test("page test");
+                Log.test(title: "page test");
                 pageController.animateToPage(
                   pageController.page!.toInt() + 1,
                   duration: AppDurations.splashAnimation,

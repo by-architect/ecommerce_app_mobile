@@ -30,7 +30,7 @@ class UserValidation {
   }
 
   static ValidationResult validateLogin(UserRequestState userState) {
-    Log.test(userState.toString());
+    Log.test(data:userState.toString());
     if (userState.email.isEmpty || userState.password.isEmpty) return ValidationResult(false, message: AppText.errorEmptyField);
     if (!_isValidEmail(userState.email)) return ValidationResult(false, message: AppText.errorEmailIsNotValid);
     if (userState.password.length < 8 || userState.password.length > 16) {

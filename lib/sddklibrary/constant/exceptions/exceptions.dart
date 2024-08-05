@@ -14,3 +14,4 @@ class NetworkDeviceDisconnectedException implements Exception {
     return "Network Error: $message";
   }
 }
+
