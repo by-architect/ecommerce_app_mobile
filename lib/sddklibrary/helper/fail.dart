@@ -14,6 +14,6 @@ class Fail {
     this.stackTrace,
   }){
 
-    Log.error(error: this,title: "Default Error");
+    Log.error(error: this,title: "Fail");
   }
 }

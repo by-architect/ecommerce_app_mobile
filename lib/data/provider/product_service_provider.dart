@@ -10,7 +10,7 @@ import '../../sddklibrary/helper/resource.dart';
 import '../model/product.dart';
 
 class ProductServiceProvider {
-  ProductService productService = FakeProductService();
+  ProductService productService = ProductServiceImpl();
 
   Future<Resource<List<List<Category>>>> getCategoriesByLayer() async {
     try {

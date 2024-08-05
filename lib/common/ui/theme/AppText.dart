@@ -47,6 +47,7 @@ class AppText{
   static const errorPasswordsAreNotMatching = "Passwords are not matching";
   static const errorBirthYearIsNotValid = "Please enter valid date of birth";
   static const errorProductDoesNotExist = "Product doesn't exist";
+  static const errorLoadingCategories = "Error loading categories";
 
 
   //welcome Page
@@ -71,5 +72,6 @@ class AppText{
   static const verificationPageCheckYourEmail = "Check your emails, We are waiting for you";
   static const verificationPageSendEmailAgain = "Send email again";
   static const accountCreatedSuccessfully= "Account created successfully";
+
 
 }

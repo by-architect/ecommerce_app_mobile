@@ -1,9 +1,13 @@
+import 'package:ecommerce_app_mobile/common/util/category_util.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/helper/resource.dart';
+
+import 'category.dart';
 
 class Product {
   late final String productId;
   late final String name;
-  late final String categoriesId;
+  late final String categoryId;
 
   // late final String addedDate;
   late final String explanation;
@@ -18,14 +22,13 @@ class Product {
   late final List<ProductFeature> productFeatures;
   late final double discount;
 
-
-  Product(this.productId, this.name, this.categoriesId, this.explanation, this.cargoPrice, this.totalCount, this.barcode, this.id,
+  Product(this.productId, this.name, this.categoryId, this.explanation, this.cargoPrice, this.totalCount, this.barcode, this.id,
       this.waitingOnCartCount, this.price, this.productFeatures, this.discount);
 
   Product.fromMap(Map<String, dynamic> map, List<ProductFeature> allFeatures) {
     productId = map['productId'];
     name = map['name'];
-    categoriesId = map['categoriesId'];
+    categoryId = map['categoryId'];
     explanation = map['explanation'];
     cargoPrice = map['cargoPrice'];
     totalCount = map['totalCount'];
@@ -43,33 +46,18 @@ class Product {
       final optionMap = item as Map<String, dynamic>;
       final originalFeature = allFeatures.lastWhere((feature) => feature.id == optionMap['featureId'].toString());
 
-
       final productFeature = originalFeature.copyWith(
           selectedOption: originalFeature.options.lastWhere((option) => option.id == optionMap['optionId'].toString()));
 
-
-
-/*
-      Log.test("selected option in loop",
-          message: "product feature id: ${productFeature.selectedOption?.id}, name: ${productFeature.selectedOption?.name}");
-*/
-
       productFeatures.add(productFeature);
     });
-
-/*
-    productFeatures.forEach((productFeature){
-      Log.test("selected option",
-          message: "product feature id: ${productFeature.selectedOption?.id}, name: ${productFeature.selectedOption?.name}");
-    });
-*/
-
-
   }
+
+  ResourceStatus<List<Category>> categoryNode(List<List<Category>> categoryLayers) =>
+      CategoryUtil().getNodeFromLastCategoryId(categoryId, categoryLayers);
 
   @override
   String toString() {
-    return 'Product{productId: $productId, name: $name, categoriesId: $categoriesId, barcode: $barcode explanation: $explanation, cargoPrice: $cargoPrice, totalCount: $totalCount, id: $id, waitingOnCartCount: $waitingOnCartCount, price: $price, productFeatures: ${productFeatures
-        .toString()}, discount: $discount}';
+    return 'Product{productId: $productId, name: $name, categoriesId: $categoryId, barcode: $barcode explanation: $explanation, cargoPrice: $cargoPrice, totalCount: $totalCount, id: $id, waitingOnCartCount: $waitingOnCartCount, price: $price, productFeatures: ${productFeatures.toString()}, discount: $discount}';
   }
 }
