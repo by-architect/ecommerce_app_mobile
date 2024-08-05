@@ -12,42 +12,42 @@ class FakeProductService implements ProductService {
   Random random = Random();
 
   @override
-  Future<Resource<List<Category>>> getCategories() async {
+  Future<ResourceStatus<List<Category>>> getCategories() async {
     Resource.loading();
     Future.delayed(const Duration(seconds: 2));
     List<Category> categories = [];
 
     return random.nextBool()
-        ? Resource.success(categories)
-        : Resource.fail(DefaultError(userMessage: "Fake product service fail situation"));
+        ? ResourceStatus.success(categories)
+        : ResourceStatus.fail(DefaultError(userMessage: "Fake product service fail situation"));
   }
 
   @override
-  Future<Resource<Product>> getProductById(String id) async {
+  Future<ResourceStatus<Product>> getProductById(String id) async {
     Resource.loading();
     Future.delayed(const Duration(seconds: 2));
     return random.nextBool()
-        ? Resource.success(FakeProductModels.product1)
-        : Resource.fail(DefaultError(userMessage: "Fake product service fail situation"));
+        ? ResourceStatus.success(FakeProductModels.product1)
+        : ResourceStatus.fail(DefaultError(userMessage: "Fake product service fail situation"));
   }
 
   @override
-  Future<Resource<List<ProductFeature>>> getProductFeatures() async {
+  Future<ResourceStatus<List<ProductFeature>>> getProductFeatures() async {
     Resource.loading();
     Future.delayed(const Duration(seconds: 2));
     final List<ProductFeature> productFeatures = [FakeProductModels.productFeatureSize, FakeProductModels.productFeatureColor];
     return random.nextBool()
-        ? Resource.success(productFeatures)
-        : Resource.fail(DefaultError(userMessage: "Fake product service fail situation"));
+        ? ResourceStatus.success(productFeatures)
+        : ResourceStatus.fail(DefaultError(userMessage: "Fake product service fail situation"));
   }
 
   @override
-  Future<Resource<List<Product>>> getProducts() async {
-    Resource.loading();
+  Future<ResourceStatus<List<Product>>> getProducts() async {
+
     Future.delayed(const Duration(seconds: 2));
     final List<Product> productList = [FakeProductModels.product1, FakeProductModels.product2];
     return random.nextBool()
-        ? Resource.success(productList)
-        : Resource.fail(DefaultError(userMessage: "Fake product service fail situation"));
+        ? ResourceStatus.success(productList)
+        : ResourceStatus.fail(DefaultError(userMessage: "Fake product service fail situation"));
   }
 }

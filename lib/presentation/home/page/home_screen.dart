@@ -1,10 +1,15 @@
 import 'dart:async';
 
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
+import 'package:ecommerce_app_mobile/data/fakerepository/fake_product_service.dart';
+import 'package:ecommerce_app_mobile/data/service/product_service.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/ButtonPrimary.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/Log.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/helper/resource.dart';
 import 'package:flutter/material.dart';
 
+import '../../../data/model/product.dart';
+import '../../../data/service/impl/product_service_impl.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -23,9 +28,9 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             ButtonPrimary(
               text: "out",
-              onTap: () {
+              onTap: () async {
 
-/*
+
                 ProductService productService = ProductServiceImpl();
                 productService.getProductById("cJK0pkjArGPurrG3OnFO").then((resource) {
                   switch (resource.status) {
@@ -40,7 +45,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     // TODO: Handle this case.
                   }
                 });
-*/
               },
             ),
           ],

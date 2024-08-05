@@ -17,7 +17,7 @@ class ProductServiceImpl extends ProductService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   @override
-  Future<Resource<List<Category>>> getCategories() async {
+  Future<ResourceStatus<List<Category>>> getCategories() async {
     List<Category> categoryList = [];
     try {
       final networkConnection = await NetworkHelper().isConnectedToNetwork();
@@ -27,32 +27,32 @@ class ProductServiceImpl extends ProductService {
       data.docs.forEach((doc) {
         categoryList.add(Category.fromMap(doc.data()));
       });
-      return Resource.success(categoryList);
-    } catch (exception,stackTrace) {
-      return ExceptionHandler.firebaseResourceExceptionHandler(exception,stackTrace);
+      return ResourceStatus.success(categoryList);
+    } catch (exception, stackTrace) {
+      return ExceptionHandler.firebaseResourceExceptionHandler(exception, stackTrace);
     }
   }
 
   @override
-  Future<Resource<List<ProductFeature>>> getProductFeatures() async {
+  Future<ResourceStatus<List<ProductFeature>>> getProductFeatures() async {
     List<ProductFeature> productFeatureList = [];
     try {
       final networkConnection = await NetworkHelper().isConnectedToNetwork();
       if (!networkConnection.isConnected) throw NetworkDeviceDisconnectedException("Network Device is down");
 
-      final productFeaturesResponse = await _firestore.collection(FireStoreCollections.productFeatures).get().timeout(AppDurations.postTimeout);
+      final productFeaturesResponse =
+          await _firestore.collection(FireStoreCollections.productFeatures).get().timeout(AppDurations.postTimeout);
       productFeaturesResponse.docs.forEach((doc) {
         productFeatureList.add(ProductFeature.fromMap(doc.data()));
       });
-      return Resource.success(productFeatureList);
-    } catch (exception,stackTrace) {
-      ExceptionHandler.firebaseResourceExceptionHandler(exception,stackTrace);
+      return ResourceStatus.success(productFeatureList);
+    } catch (exception, stackTrace) {
+      return ExceptionHandler.firebaseResourceExceptionHandler(exception, stackTrace);
     }
-    return Resource.loading();
   }
 
   @override
-  Future<Resource<List<Product>>> getProducts() async {
+  Future<ResourceStatus<List<Product>>> getProducts() async {
     List<Product> productList = [];
     try {
       //check internet connection
@@ -61,23 +61,22 @@ class ProductServiceImpl extends ProductService {
 
       //get product feature list
       final productFeatureResponse = await getProductFeatures();
-      if(productFeatureResponse.status == Status.fail) return Resource.fail(productFeatureResponse.error!);
-      final productFeatureList  = productFeatureResponse.data!;
+      if (productFeatureResponse.status == Status.fail) return ResourceStatus.fail(productFeatureResponse.error!);
+      final productFeatureList = productFeatureResponse.data!;
 
       //get products
       final productResponse = await _firestore.collection(FireStoreCollections.products).get().timeout(AppDurations.postTimeout);
       productResponse.docs.forEach((doc) {
-        productList.add(Product.fromMap(doc.data(),productFeatureList));
+        productList.add(Product.fromMap(doc.data(), productFeatureList));
       });
-      return Resource.success(productList);
-    } catch (exception,stackTrace) {
-      ExceptionHandler.firebaseResourceExceptionHandler(exception,stackTrace);
+      return ResourceStatus.success(productList);
+    } catch (exception, stackTrace) {
+      return ExceptionHandler.firebaseResourceExceptionHandler(exception, stackTrace);
     }
-    return Resource.loading();
   }
 
   @override
-  Future<Resource<Product>> getProductById(String id) async {
+  Future<ResourceStatus<Product>> getProductById(String id) async {
     try {
       //check internet connection
       final networkConnection = await NetworkHelper().isConnectedToNetwork();
@@ -85,20 +84,17 @@ class ProductServiceImpl extends ProductService {
 
       //get product feature list
       final productFeatureResponse = await getProductFeatures();
-      if(productFeatureResponse.status == Status.fail) return Resource.fail(productFeatureResponse.error!);
-      final productFeatureList  = productFeatureResponse.data!;
+      if (productFeatureResponse.status == Status.fail) return ResourceStatus.fail(productFeatureResponse.error!);
+      final productFeatureList = productFeatureResponse.data!;
 
       //get products
       final productResponse = await _firestore.collection(FireStoreCollections.products).doc(id).get().timeout(AppDurations.postTimeout);
-      if (!productResponse.exists) return Resource.fail(DefaultError(userMessage: AppText.errorProductDoesNotExist));
-      final Product product = Product.fromMap(productResponse.data()!,  productFeatureList);
+      if (!productResponse.exists) return ResourceStatus.fail(DefaultError(userMessage: AppText.errorProductDoesNotExist));
+      final Product product = Product.fromMap(productResponse.data()!, productFeatureList);
 
-      return Resource.success(product);
-    } catch (exception,stackTrace) {
-      ExceptionHandler.firebaseResourceExceptionHandler(exception,stackTrace);
+      return ResourceStatus.success(product);
+    } catch (exception, stackTrace) {
+      return ExceptionHandler.firebaseResourceExceptionHandler(exception, stackTrace);
     }
-    return Resource.loading();
   }
-
-
 }

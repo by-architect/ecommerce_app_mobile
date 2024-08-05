@@ -5,9 +5,9 @@ import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
 import '../../sddklibrary/helper/resource.dart';
 
 abstract class ProductService{
-  Future<Resource<List<Category>>> getCategories();
-  Future<Resource<List<ProductFeature>>> getProductFeatures();
-  Future<Resource<List<Product>>> getProducts();
-  Future<Resource<Product>> getProductById(String id);
+  Future<ResourceStatus<List<Category>>> getCategories();
+  Future<ResourceStatus<List<ProductFeature>>> getProductFeatures();
+  Future<ResourceStatus<List<Product>>> getProducts();
+  Future<ResourceStatus<Product>> getProductById(String id);
 
 }

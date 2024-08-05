@@ -9,15 +9,15 @@ import '../model/user.dart';
 
 
 abstract class UserService {
-  Future<Resource<User>> addUser(UserRequestState userState);
-  Future<Resource<User>> getUser();
-  Future<Resource<User>> sendVerificationEmail(User user);
+  Future<ResourceStatus<User>> addUser(UserRequestState userState);
+  Future<ResourceStatus<User>> getUser();
+  Future<ResourceStatus<User>> sendVerificationEmail(User user);
   bool isUserAuthenticated();
-  Future<Resource<User>> signIn(UserRequestState userRequest); //if token not exist, sign in
-  Future<Resource> signOut();
-  Future<Resource> changePassword(User user);
-  Future<Resource<User>> changeUserSettings(User user);
-  Future<Resource<User>> isEmailVerified();
+  Future<ResourceStatus<User>> signIn(UserRequestState userRequest); //if token not exist, sign in
+  Future<ResourceStatus> signOut();
+  Future<ResourceStatus> changePassword(User user);
+  Future<ResourceStatus<User>> changeUserSettings(User user);
+  Future<ResourceStatus<User>> isEmailVerified();
 
 
 }
