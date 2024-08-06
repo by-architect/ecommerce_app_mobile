@@ -8,6 +8,7 @@ abstract class ProductService{
   Future<ResourceStatus<List<Category>>> getCategories();
   Future<ResourceStatus<List<ProductFeature>>> getProductFeatures();
   Future<ResourceStatus<List<Product>>> getProducts();
-  Future<ResourceStatus<Product>> getProductById(String id);
+  Future<ResourceStatus<List<Product>>> getProductsByCategory(String categoryId);
+  Future<ResourceStatus<Product>> getProductsById(String id);
 
 }

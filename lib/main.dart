@@ -1,6 +1,7 @@
 import 'package:ecommerce_app_mobile/common/constant/Screens.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppTheme.dart';
 import 'package:ecommerce_app_mobile/data/viewmodel/category/category_service_bloc.dart';
+import 'package:ecommerce_app_mobile/data/viewmodel/product/product_service_bloc.dart';
 import 'package:ecommerce_app_mobile/data/viewmodel/user/user_service_bloc.dart';
 import 'package:ecommerce_app_mobile/firebase_options.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_bloc.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (BuildContext context) => UserBloc()),
         BlocProvider(create: (BuildContext context) => UserServiceBloc()),
         BlocProvider(create: (BuildContext context) => CategoryServiceBloc()),
+        BlocProvider(create: (BuildContext context) => ProductServiceBloc()),
       ],
       child: BlocBuilder<MainBlocs, MainStates>(
         builder: (BuildContext context, MainStates state) => MaterialApp(

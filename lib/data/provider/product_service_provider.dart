@@ -38,6 +38,10 @@ class ProductServiceProvider {
   }
 
   Future<Resource<Product>> getProductById(String id) async {
-    return productService.getProductById(id);
+    return productService.getProductsById(id);
+  }
+
+  Future<Resource<List<Product>>> getProductsByCategory(String categoryId) async {
+    return productService.getProductsByCategory(categoryId);
   }
 }

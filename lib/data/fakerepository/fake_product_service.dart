@@ -31,7 +31,7 @@ class FakeProductService implements ProductService {
   }
 
   @override
-  Future<ResourceStatus<Product>> getProductById(String id) async {
+  Future<ResourceStatus<Product>> getProductsById(String id) async {
     await Future.delayed(const Duration(seconds: 2));
     return random.nextBool()
         ? ResourceStatus.success(FakeProductModels.product1)
@@ -50,5 +50,12 @@ class FakeProductService implements ProductService {
     await Future.delayed(const Duration(seconds: 2));
     final List<Product> productList = [FakeProductModels.product1, FakeProductModels.product2];
     return random.nextBool() ? ResourceStatus.success(productList) : ResourceStatus.fail(Fail(userMessage: "Fake product service fail situation"));
+  }
+
+  @override
+  Future<ResourceStatus<List<Product>>> getProductsByCategory(String categoryId) async {
+    await Future.delayed(const Duration(seconds: 2));
+    final List<Product> productList = [FakeProductModels.product1, FakeProductModels.product2];
+    return random.nextBool() ? ResourceStatus.success(productList.where((product) => product.categoryId == categoryId,).toList()) : ResourceStatus.fail(Fail(userMessage: "Fake product service fail situation"));
   }
 }

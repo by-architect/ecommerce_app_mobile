@@ -13,7 +13,7 @@ class CategoryServiceBloc extends Bloc<CategoryServiceEvent, CategoryServiceStat
   CategoryServiceBloc() : super(GetCategoriesByLayerInitState()) {
     final ProductServiceProvider service = ProductServiceProvider();
 
-    on<GetCategoriesEvent>((event, emit) async {
+    on<GetCategoriesByLayerEvent>((event, emit) async {
       emit(GetCategoriesByLayerLoadingState());
       final resource = await service.getCategoriesByLayer();
       switch (resource.status) {

@@ -76,7 +76,7 @@ class ProductServiceImpl extends ProductService {
   }
 
   @override
-  Future<ResourceStatus<Product>> getProductById(String id) async {
+  Future<ResourceStatus<Product>> getProductsById(String id) async {
     try {
       //check internet connection
       final networkConnection = await NetworkHelper().isConnectedToNetwork();
@@ -95,6 +95,33 @@ class ProductServiceImpl extends ProductService {
       return ResourceStatus.success(product);
     } catch (exception, stackTrace) {
       return ExceptionHandler.firebaseResourceExceptionHandler(exception, stackTrace);
+    }
+  }
+
+  @override
+  Future<ResourceStatus<List<Product>>> getProductsByCategory(String categoryId) async {
+    List<Product> productList = [];
+    try {
+      final networkConnection = await NetworkHelper().isConnectedToNetwork();
+      if (!networkConnection.isConnected) throw NetworkDeviceDisconnectedException("Network Device is down");
+
+      //get product feature list
+      final productFeatureResponse = await getProductFeatures();
+      if (productFeatureResponse.status == Status.fail) return ResourceStatus.fail(productFeatureResponse.error!);
+      final productFeatureList = productFeatureResponse.data!;
+
+      //get products
+      final productResponse = await _firestore
+          .collection(FireStoreCollections.products)
+          .where("categoryId", isEqualTo: categoryId)
+          .get()
+          .timeout(AppDurations.postTimeout);
+      productResponse.docs.forEach((doc) {
+        productList.add(Product.fromMap(doc.data(), productFeatureList));
+      });
+      return ResourceStatus.success(productList); //get product feature list
+    } catch (e, s) {
+      return ExceptionHandler.firebaseResourceExceptionHandler(e, s);
     }
   }
 }

@@ -1,6 +1,9 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/data/viewmodel/category/category_service_bloc.dart';
 import 'package:ecommerce_app_mobile/data/viewmodel/category/category_service_state.dart';
+import 'package:ecommerce_app_mobile/data/viewmodel/product/product_service_bloc.dart';
+import 'package:ecommerce_app_mobile/data/viewmodel/product/product_service_event.dart';
+import 'package:ecommerce_app_mobile/data/viewmodel/product/product_service_state.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/ButtonPrimary.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/constant/exceptions/product_exceptions.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/fail.dart';
@@ -28,21 +31,24 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    BlocProvider.of<CategoryServiceBloc>(context).add(GetCategoriesEvent());
+    BlocProvider.of<CategoryServiceBloc>(context).add(GetCategoriesByLayerEvent());
+
+    BlocProvider.of<ProductServiceBloc>(context).stream.listen((event) {
+      switch (event) {
+        case GetProductsByCategorySuccessState successState:
+          Log.test(title: "product", data: successState.products.toString());
+          Log.test(title: "categories", data: categoriesByLayer.toString());
+          break;
+        default:
+          Log.test(title: "default");
+          break;
+      }
+    });
+
     BlocProvider.of<CategoryServiceBloc>(context).stream.listen((category) {
       switch (category) {
         case GetCategoriesByLayerSuccessState successState:
           categoriesByLayer = successState.categories;
-/*
-          try{
-            CategoryNode categoryNode = CategoryNode.fromLastCategoryId("LvmixFlLo1HLDvXAaFBQ", successState.categories);
-            Log.test(message: "category node", data: categoryNode.categories.toString());
-          }catch(exc,st){
-            if(exc is CategoryException) {
-              Fail(exception: exc.message,userMessage: "" );
-            }
-          }
-*/
           break;
         case GetCategoriesByLayerFailState failState:
           break;
@@ -71,22 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   CategoryServiceState() => ""
                 },
                 onTap: () {
-                  ProductService productService = ProductServiceImpl();
-                  productService.getProductById("cJK0pkjArGPurrG3OnFO").then((resource) {
-                    switch (resource.status) {
-                      case Status.success:
-                        Product product = resource.data!;
-                        Log.test(title: "product", data: product.toString());
-                        Log.test(title: "categories", data: categoriesByLayer.toString());
-                        ResourceStatus<List<Category>> categoryNode = product.categoryNode(categoriesByLayer);
-                        Log.test(title: "category node of product", data: categoryNode.data?[0].toString());
-                      case Status.fail:
-                      case Status.loading:
-                      // TODO: Handle this case.
-                      case Status.stable:
-                      // TODO: Handle this case.
-                    }
-                  });
+                  BlocProvider.of<ProductServiceBloc>(context).add(GetProductsByCategoryEvent(""));
                 },
               ),
             )

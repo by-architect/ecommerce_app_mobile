@@ -6,5 +6,8 @@ class GetProductByIdEvent extends ProductServiceEvent {
   final String productId;
   GetProductByIdEvent(this.productId);
 }
-class GetCategoriesEvent extends ProductServiceEvent {}
-class GetProductFeaturesEvent extends ProductServiceEvent {}
+class GetProductsByCategoryEvent extends ProductServiceEvent{
+  final String categoryId;
+
+  GetProductsByCategoryEvent(this.categoryId);
+}

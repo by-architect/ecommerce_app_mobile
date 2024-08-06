@@ -1,2 +1,2 @@
 class CategoryServiceEvent {}
-class GetCategoriesEvent extends CategoryServiceEvent{}
+class GetCategoriesByLayerEvent extends CategoryServiceEvent{}
