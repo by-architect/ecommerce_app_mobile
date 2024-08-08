@@ -10,6 +10,8 @@ class AppText{
   static const dismiss = "Dismiss";
   static const loading = "Loading";
   static const unselected = "Unselected";
+  static const refresh = "Refresh";
+
 
   //user
   static const name = "Name";
@@ -49,6 +51,11 @@ class AppText{
   static const errorProductDoesNotExist = "Product doesn't exist";
   static const errorLoadingCategories = "Error loading categories";
 
+  //navigation
+  static const navigationHome = "Home";
+  static const navigationDiscover = "Discover";
+  static const navigationCart = "Cart";
+  static const navigationAccount = "Account";
 
   //welcome Page
   static const welcomePageOneTitle = "Welcome to $marketName";
@@ -72,6 +79,13 @@ class AppText{
   static const verificationPageCheckYourEmail = "Check your emails, We are waiting for you";
   static const verificationPageSendEmailAgain = "Send email again";
   static const accountCreatedSuccessfully= "Account created successfully";
+
+
+  //Discover page
+  static const discoverPageFindSomething = "Find Something...";
+  static const discoverPageCategories = "Categories";
+
+
 
 
 }

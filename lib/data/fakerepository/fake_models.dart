@@ -1,5 +1,7 @@
+import 'package:ecommerce_app_mobile/common/util/category_util.dart';
 import 'package:ecommerce_app_mobile/data/model/product.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
+import 'package:flutter/material.dart';
 
 import '../../presentation/authentication/bloc/user_state.dart';
 import '../model/category.dart';
@@ -36,6 +38,10 @@ class FakeProductModels {
   static Category category231 = Category("15", "Deri Bot", "14", 2);
   static Category category3 = Category("2", "Bileklikler", "", 0);
   static Category category4 = Category("3", "Pantolonlar", "", 0);
+
+  static List<Category> categories = [category1, category2, category21, category22, category23, category231, category3, category4];
+
+  static List<List<Category>> categoriesByLayer = CategoryUtil().sortCategoriesByLayer(categories);
 
   static final ProductFeatureOption _option1 = ProductFeatureOption("0", "Small");
   static final ProductFeatureOption _option2 = ProductFeatureOption("1", "Medium");

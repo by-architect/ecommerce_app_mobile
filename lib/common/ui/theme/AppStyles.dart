@@ -1,11 +1,7 @@
-import 'dart:ui';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/rendering.dart';
 
 class AppStyles {
 //light
@@ -77,4 +73,52 @@ class AppStyles {
         color: AppColors.hiddenGrey,
         width: AppSizes.defaultBoxWidth,
       ));
+
+  static InputDecorationTheme lightInputDecorationTheme = InputDecorationTheme(
+    fillColor: AppColors.hiddenGrey,
+    filled: true,
+    hintStyle: TextStyle(color: AppColors.grey),
+    border: AppStyles.outlineInputBorder,
+    enabledBorder: outlineInputBorder,
+    focusedBorder: focusedOutlineInputBorder,
+    errorBorder: errorOutlineInputBorder,
+  );
+
+  static InputDecorationTheme darkInputDecorationTheme = InputDecorationTheme(
+    fillColor: AppColors.hiddenBlack,
+    filled: true,
+    hintStyle: const TextStyle(color: Colors.white),
+    border: outlineInputBorder,
+    enabledBorder: outlineInputBorder,
+    focusedBorder: focusedOutlineInputBorder,
+    errorBorder: errorOutlineInputBorder,
+  );
+
+  static OutlineInputBorder outlineInputBorder = const OutlineInputBorder(
+    borderRadius: BorderRadius.all(Radius.circular(AppSizes.defaultCornerRadius)),
+    borderSide: BorderSide(
+      color: Colors.transparent,
+    ),
+  );
+
+  static OutlineInputBorder focusedOutlineInputBorder = const OutlineInputBorder(
+    borderRadius: BorderRadius.all(Radius.circular(AppSizes.defaultCornerRadius)),
+    borderSide: BorderSide(color: AppColors.lightPrimary),
+  );
+
+  static OutlineInputBorder errorOutlineInputBorder = const OutlineInputBorder(
+    borderRadius: BorderRadius.all(Radius.circular(AppSizes.defaultCornerRadius)),
+    borderSide: BorderSide(
+      color: Colors.red,
+    ),
+  );
+
+  static OutlineInputBorder secondaryOutlineInputBorder(BuildContext context) {
+    return OutlineInputBorder(
+      borderRadius: const BorderRadius.all(Radius.circular(AppSizes.defaultCornerRadius)),
+      borderSide: BorderSide(
+        color: AppColors.hiddenGrey,
+      ),
+    );
+  }
 }

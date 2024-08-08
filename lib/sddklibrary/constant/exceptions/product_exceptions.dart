@@ -2,6 +2,8 @@ class CategoryException implements Exception{
   final String message;
 
   CategoryException(this.message);
+
+
 }
 
 class CategoryNotFoundException implements CategoryException{
@@ -11,4 +13,9 @@ class CategoryNotFoundException implements CategoryException{
   String get message => "Category Not Found: $_message";
 
   CategoryNotFoundException(this._message);
+
+  @override
+  String toString() {
+    return message;
+  }
 }

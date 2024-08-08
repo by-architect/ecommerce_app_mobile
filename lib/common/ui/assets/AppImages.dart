@@ -8,4 +8,6 @@ class AppImages{
   static const  windowShopping  = '${_basePath}window_shopping$_formatSvg';
   static const  openedEmail  = '${_basePath}opened_email$_formatSvg';
   static const  signIn  = '${_basePath}sign_in$_formatSvg';
+  static const signalSearching = '${_basePath}signal_searching$_formatSvg';
+  static const bugFixing = '${_basePath}bug_fixing$_formatSvg';
 }

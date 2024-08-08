@@ -112,7 +112,7 @@ class Log {
   }
 
   static void test({String? message, String title = "", StackTrace? stackTrace, String? userMessage, String? data,Fail? error}) {
-    log(LogLevel.TEST, message: error?.exception ?? message , stackTrace:error?.stackTrace ?? stackTrace, title: title, data: data,userMessage: error?.userMessage ?? userMessage);
+    log(LogLevel.TEST, message: error?.exception.toString() ?? message , stackTrace:error?.stackTrace ?? stackTrace, title: title, data: data,userMessage: error?.userMessage ?? userMessage);
   }
 
   static void info({String? message, String title = "", StackTrace? stackTrace, String? data}) {
@@ -124,7 +124,7 @@ class Log {
   }
 
   static void error({String? message, String title = "", StackTrace? stackTrace, String? userMessage, String? data,Fail? error}) {
-    log(LogLevel.ERROR, message: error?.exception ?? message , stackTrace:error?.stackTrace ?? stackTrace, title: title, data: data,userMessage: error?.userMessage ?? userMessage);
+    log(LogLevel.ERROR, message: error?.exception.toString() ?? message , stackTrace:error?.stackTrace ?? stackTrace, title: title, data: data,userMessage: error?.userMessage ?? userMessage);
 
   }
 

@@ -2,7 +2,7 @@ import 'package:ecommerce_app_mobile/sddklibrary/helper/Log.dart';
 
 class Fail {
   final String userMessage;
-  final String? exception;
+  final Object? exception;
   final String? errorCode;
   final StackTrace? stackTrace;
   final DateTime? dateTime = DateTime.now();
