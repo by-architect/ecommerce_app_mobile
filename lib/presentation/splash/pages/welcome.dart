@@ -1,10 +1,16 @@
+
 import 'package:ecommerce_app_mobile/common/constant/app_durations.dart';
 import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
+import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/ButtonPrimary.dart';
+import 'package:ecommerce_app_mobile/presentation/common/widgets/button_secondary.dart';
+import 'package:ecommerce_app_mobile/presentation/main/bloc/main_blocs.dart';
+import 'package:ecommerce_app_mobile/presentation/main/bloc/main_events.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/Log.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../common/constant/Screens.dart';
@@ -103,10 +109,11 @@ class _Page extends StatelessWidget {
           Column(
             children: [
               Text(title, textAlign: TextAlign.center, style: Theme.of(context).textTheme.headlineMedium),
+              const SizedBox(height: 12,),
               Text(
                 content,
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyMedium,
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.greyColor),
               ),
             ],
           ),
@@ -120,10 +127,9 @@ class _Page extends StatelessWidget {
                     const SizedBox(
                       height: AppSizes.spaceBtwVerticalFields,
                     ),
-                    ButtonPrimary(
+                    ButtonSecondary(
                       text: buttonTwoText!,
                       onTap: onButtonTwoTap,
-                      primaryDecoration: false,
                     )
                   ],
                 )

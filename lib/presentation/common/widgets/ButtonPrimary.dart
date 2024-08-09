@@ -1,21 +1,31 @@
-import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
-import 'package:ecommerce_app_mobile/common/ui/theme/AppStyles.dart';
+import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/helper/UIHelper.dart';
 import 'package:flutter/material.dart';
 
 class ButtonPrimary extends StatelessWidget {
   final String text;
-  final bool primaryDecoration;
-  final bool loading; // New loading variable
+  final bool loading;
   final Function()? onTap;
 
   const ButtonPrimary({
     required this.text,
-    this.primaryDecoration = true,
-    this.loading = false, // Default value for loading
+    this.loading = false,
     this.onTap,
     super.key,
   });
 
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+        onPressed: onTap,
+        child: loading
+            ? CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(context.isDarkMode ? AppColors.blackColor : AppColors.whiteColor),
+              )
+            : Text(text));
+  }
+
+/*
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -38,4 +48,5 @@ class ButtonPrimary extends StatelessWidget {
       ),
     );
   }
+*/
 }

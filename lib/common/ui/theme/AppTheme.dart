@@ -1,50 +1,43 @@
-import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppStyles.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'AppColors.dart';
 
 class AppTheme {
-  static final lightTheme = ThemeData(
-    brightness: Brightness.light,
-    primaryColor: AppColors.lightPrimary,
-    primaryColorDark: AppColors.lightSecondary,
-    scaffoldBackgroundColor: AppColors.lightBackground,
-    cardColor: AppColors.lightTertiaryColor,
-    navigationBarTheme: const NavigationBarThemeData(
-      backgroundColor: Colors.transparent,
-      indicatorColor: AppColors.lightPrimary,
-      elevation: AppSizes.defaultCornerRadius
-    ),
-    textTheme: TextTheme(
-      headlineMedium: AppStyles.titleMediumLight,
-      bodyMedium: AppStyles.bodyMediumLight,
-    ),
-    cardTheme: const CardTheme(
-      color: AppColors.lightTertiaryColor,
-    ),
-  );
+  get lightTheme => ThemeData(
+      brightness: Brightness.light,
+      primaryColor: AppColors.blueColor,
+      primarySwatch: AppColors.blueMaterialColor,
+      fontFamily: "PlusJakarta",
+      scaffoldBackgroundColor: Colors.white,
+      iconTheme: const IconThemeData(color: Colors.black),
+      textTheme: const TextTheme(bodyMedium: TextStyle(color: AppColors.blackColor40)),
+      elevatedButtonTheme: AppStyles.elevatedButtonThemeData,
+      textButtonTheme: AppStyles.textButtonThemeData,
+      outlinedButtonTheme: AppStyles.outlinedButtonTheme(),
+      inputDecorationTheme: AppStyles.lightInputDecorationTheme,
+      dialogTheme: AppStyles.dialogLightTheme,
+      checkboxTheme: AppStyles.checkboxThemeData.copyWith(side: const BorderSide(color: AppColors.blackColor40)),
+      bottomNavigationBarTheme: AppStyles.defaultNavigationBarThemeLight,
+      appBarTheme: AppStyles.appBarLightTheme,
+      scrollbarTheme: AppStyles.scrollbarThemeData,
+      dataTableTheme: AppStyles.dataTableLightThemeData);
 
-  static final darkTheme = ThemeData(
-    brightness: Brightness.dark,
-    primaryColor: AppColors.darkPrimary,
-    primaryColorDark: AppColors.darkSecondary,
-    scaffoldBackgroundColor: AppColors.darkBackground,
-    cardColor: AppColors.darkTertiaryColor,
-    navigationBarTheme: const NavigationBarThemeData(
-        backgroundColor: Colors.transparent,
-        indicatorColor: AppColors.darkPrimary,
-        elevation: AppSizes.defaultCornerRadius
-    ), //todo: handle navigation bar theme
-    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        selectedItemColor: Colors.blue
-    ),
-    textTheme: TextTheme(
-      headlineMedium: AppStyles.titleMediumDark,
-      bodyMedium: AppStyles.bodyMediumDark,
-    ),
-    cardTheme: const CardTheme(
-      color: AppColors.darkTertiaryColor,
-    ),
-  );
+  get darkTheme => ThemeData(
+      brightness: Brightness.dark,
+      primaryColor: AppColors.blueColor,
+      primarySwatch: AppColors.blueMaterialColor,
+      fontFamily: "PlusJakarta",
+      scaffoldBackgroundColor: Colors.black,
+      iconTheme: const IconThemeData(color: Colors.white),
+      textTheme: const TextTheme(bodyMedium: TextStyle(color: AppColors.whileColor40)),
+      elevatedButtonTheme: AppStyles.elevatedButtonThemeData,
+      textButtonTheme: AppStyles.textButtonThemeData,
+      outlinedButtonTheme: AppStyles.outlinedButtonTheme(),
+      inputDecorationTheme: AppStyles.darkInputDecorationTheme,
+      checkboxTheme: AppStyles.checkboxThemeData.copyWith(side: const BorderSide(color: AppColors.whileColor40)),
+      appBarTheme: AppStyles.appBarDarkTheme,
+      scrollbarTheme: AppStyles.scrollbarThemeData,
+      dataTableTheme: AppStyles.dataTableDarkThemeData);
 }

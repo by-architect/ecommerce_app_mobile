@@ -4,8 +4,8 @@ import 'package:ecommerce_app_mobile/common/constant/Screens.dart';
 import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/viewmodel/user/user_service_state.dart';
-import 'package:ecommerce_app_mobile/presentation/common/widgets/AppBarPopUp.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/ButtonPrimary.dart';
+import 'package:ecommerce_app_mobile/presentation/common/widgets/button_secondary.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/ui/dialog_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,6 +18,7 @@ import '../../../data/viewmodel/user/user_service_event.dart';
 
 class EmailVerificationScreen extends StatefulWidget {
   final User user;
+
   const EmailVerificationScreen({super.key, required this.user});
 
   @override
@@ -87,9 +88,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: const AppBarPopUp(
-          text: AppText.verificationEmail,
-        ),
+      //todo: appbar to verification screen
         resizeToAvoidBottomInset: false,
         body: Padding(
           padding: const EdgeInsets.all(AppSizes.defaultSpace),
@@ -129,16 +128,25 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                         flex: 2,
                         child: Padding(
                           padding: const EdgeInsets.all(AppSizes.spaceBtwHorizontalFields / 2),
-                          child: ButtonPrimary(
-                            text: seconds == 0 ? AppText.verificationPageSendEmailAgain : seconds.toString(),
-                            primaryDecoration: seconds == 0,
-                            onTap: () {
-                              if (seconds == 0) {
-                                startTimer();
-                                 BlocProvider.of<UserServiceBloc>(context).add(SendVerificationEmailEvent(widget.user));
-                              }
-                            },
-                          ),
+                          child: seconds == 0
+                              ? ButtonPrimary(
+                                  text: seconds == 0 ? AppText.verificationPageSendEmailAgain : seconds.toString(),
+                                  onTap: () {
+                                    if (seconds == 0) {
+                                      startTimer();
+                                      BlocProvider.of<UserServiceBloc>(context).add(SendVerificationEmailEvent(widget.user));
+                                    }
+                                  },
+                                )
+                              : ButtonSecondary(
+                                  text: seconds == 0 ? AppText.verificationPageSendEmailAgain : seconds.toString(),
+                                  onTap: () {
+                                    if (seconds == 0) {
+                                      startTimer();
+                                      BlocProvider.of<UserServiceBloc>(context).add(SendVerificationEmailEvent(widget.user));
+                                    }
+                                  },
+                                ),
                         )),
                   ],
                 ),

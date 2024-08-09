@@ -44,7 +44,7 @@ class VerificationCodeWidget extends HookWidget {
             decoration: const InputDecoration(
               counterText: '', // Hide the counter text
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(AppSizes.defaultCornerRadius)),
+                borderRadius: BorderRadius.all(Radius.circular(AppSizes.defaultBorderRadius)),
               ),
             ),
           ),

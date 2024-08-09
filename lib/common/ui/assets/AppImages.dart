@@ -1,13 +1,17 @@
 class AppImages{
-  static const String _basePath = 'assets/images/';
+  static const String _imagePath = 'assets/images/';
+  static const String _iconPath = 'assets/icons/';
   static const String _formatJpg = '.jpg';
   static const String _formatPng = '.png';
   static const String _formatSvg = '.svg';
 
-  static const  shoppingBags  = '${_basePath}shopping_bags$_formatSvg';
-  static const  windowShopping  = '${_basePath}window_shopping$_formatSvg';
-  static const  openedEmail  = '${_basePath}opened_email$_formatSvg';
-  static const  signIn  = '${_basePath}sign_in$_formatSvg';
-  static const signalSearching = '${_basePath}signal_searching$_formatSvg';
-  static const bugFixing = '${_basePath}bug_fixing$_formatSvg';
+  static const  shoppingBags  = '${_imagePath}shopping_bags$_formatSvg';
+  static const  windowShopping  = '${_imagePath}window_shopping$_formatSvg';
+  static const  openedEmail  = '${_imagePath}opened_email$_formatSvg';
+  static const  signIn  = '${_imagePath}sign_in$_formatSvg';
+  static const signalSearching = '${_imagePath}signal_searching$_formatSvg';
+  static const bugFixing = '${_imagePath}bug_fixing$_formatSvg';
+
+  static const searchIcon = "${_iconPath}Search$_formatSvg";
+  static const notificationIcon = "${_iconPath}Notification$_formatSvg";
 }

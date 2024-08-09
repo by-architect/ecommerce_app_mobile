@@ -12,8 +12,10 @@ import 'package:ecommerce_app_mobile/data/viewmodel/user/user_service_bloc.dart'
 import 'package:ecommerce_app_mobile/data/viewmodel/user/user_service_state.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/pages/email_verification_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/widgets/TextFieldAuthentication.dart';
-import 'package:ecommerce_app_mobile/presentation/common/widgets/AppBarPopUp.dart';
+import 'package:ecommerce_app_mobile/presentation/authentication/widgets/dropdown_default.dart';
+import 'package:ecommerce_app_mobile/presentation/common/widgets/app_bar_authentication.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/ButtonPrimary.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/helper/UIHelper.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/ui/dialog_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,7 +44,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
     DialogUtil dialogUtil = DialogUtil(context);
 
     Future<void> verifyUser() async {
-      final userState = BlocProvider.of<UserBloc>(context).state;
+      final userState = BlocProvider
+          .of<UserBloc>(context)
+          .state;
       final userValidation = UserValidation.validateRegistration(userState);
 
       if (userValidation.success) {
@@ -51,8 +55,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
         BlocProvider.of<UserServiceBloc>(context).add(AddUserEvent(globalUser));
 
         late StreamSubscription<UserServiceState> subscription;
-        subscription = BlocProvider.of<UserServiceBloc>(context).stream.listen((state) {
-
+        subscription = BlocProvider
+            .of<UserServiceBloc>(context)
+            .stream
+            .listen((state) {
           switch (state) {
             case AddUserSuccessState userSuccessState:
               BlocProvider.of<UserServiceBloc>(context).add(SendVerificationEmailEvent(userSuccessState.user));
@@ -79,7 +85,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     }
 
     return Scaffold(
-      appBar: const AppBarPopUp(
+      appBar: const AppBarAuthentication(
         text: AppText.signUp,
       ),
       resizeToAvoidBottomInset: false,
@@ -136,32 +142,34 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                     ),
                     BlocBuilder<UserBloc, UserState>(
-                      builder: (BuildContext context, UserState state) => Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: AppSizes.spaceBtwHorizontalFields / 2),
-                          child: Container(
-                            alignment: Alignment.center,
-                            decoration: AppStyles.defaultBoxDecoration(),
-                            child: DropdownButton<Gender>(
-                              style: BlocProvider.of<UserBloc>(context).state.gender == Gender.unselected
-                                  ? AppStyles.bodyMediumLight
-                                  : AppStyles.bodyMediumLight.copyWith(color: Colors.black),
-                              underline: const SizedBox.shrink(),
-                              value: BlocProvider.of<UserBloc>(context).state.gender,
-                              hint: Text(BlocProvider.of<UserBloc>(context).state.gender.text),
-                              onChanged: (Gender? newValue) {
-                                BlocProvider.of<UserBloc>(context).add(GenderEvent(newValue ?? Gender.unselected));
-                              },
-                              items: Gender.toList().map<DropdownMenuItem<Gender>>((Gender gender) {
-                                return DropdownMenuItem<Gender>(
-                                  value: gender,
-                                  child: Text(gender.text),
-                                );
-                              }).toList(),
+                      builder: (BuildContext context, UserState state) =>
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: AppSizes.spaceBtwHorizontalFields / 2),
+                              child: DropdownDefault(
+                                value: BlocProvider.of<UserBloc>(context).state.gender,
+                                hint: BlocProvider.of<UserBloc>(context).state.gender.text,
+                                onChanged: (Gender? newValue) {
+                                  BlocProvider.of<UserBloc>(context).add(GenderEvent(newValue ?? Gender.unselected));
+                                },
+                                items: Gender.toList().map<DropdownMenuItem<Gender>>((Gender gender) {
+                                  return DropdownMenuItem<Gender>(
+                                    value: gender,
+                                    child: Text(
+                                      gender.text,
+                                      style: Theme
+                                          .of(context)
+                                          .textTheme
+                                          .bodyLarge
+                                          ?.copyWith(
+                                          color: gender == Gender.unselected ? AppColors.greyColor : (context.isDarkMode ? AppColors
+                                              .whiteColor : AppColors.blackColor)),
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
                             ),
                           ),
-                        ),
-                      ),
                     ),
                   ],
                 ),
@@ -210,7 +218,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   children: [
                     Text(
                       AppText.signUpScreenAlreadyHaveAnAccount,
-                      style: Theme.of(context).textTheme.bodyMedium,
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .bodyMedium,
                     ),
                     const SizedBox(
                       width: AppSizes.spaceBtwHorizontalFields,
@@ -219,7 +230,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       onTap: () => Navigator.of(context).pushNamed(Screens.signInScreen),
                       child: Text(
                         AppText.signIn,
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.linkColor),
+                        style: Theme
+                            .of(context)
+                            .textTheme
+                            .bodyMedium
+                            ?.copyWith(color: AppColors.linkColor),
                       ),
                     ),
                   ],

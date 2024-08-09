@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class DialogUtil {
   final BuildContext _context;
-  bool _loadingDialog = false;
+  bool _showingADialog = false;
 
   DialogUtil(this._context);
 
@@ -17,7 +17,9 @@ class DialogUtil {
   }
 
   void alert(String title, String content, String positiveButtonText, String negativeButtonText, Function() onClick) {
-    showDialog(
+    if(!_showingADialog) {
+      _showingADialog = true;
+      showDialog(
       context: _context,
       builder: (BuildContext context) {
         return AlertDialog(
@@ -27,6 +29,7 @@ class DialogUtil {
             TextButton(
               onPressed: () {
                 onClick();
+                _showingADialog = false;
                 Navigator.of(context).pop();
               },
               child: Text(positiveButtonText),
@@ -41,10 +44,13 @@ class DialogUtil {
         );
       },
     );
+    }
   }
 
   void info(String title, String content) {
-    showDialog(
+    if(!_showingADialog) {
+      _showingADialog = true;
+      showDialog(
       context: _context,
       builder: (BuildContext context) {
         return AlertDialog(
@@ -53,6 +59,7 @@ class DialogUtil {
           actions: <Widget>[
             TextButton(
               onPressed: () {
+                _showingADialog = false;
                 Navigator.of(context).pop();
               },
               child: const Text(AppText.dismiss),
@@ -61,11 +68,12 @@ class DialogUtil {
         );
       },
     );
+    }
   }
 
   void loading() {
-    if (_loadingDialog) return;
-    _loadingDialog = true;
+    if (_showingADialog) return;
+    _showingADialog = true;
     showDialog(
         barrierDismissible: false,
         context: _context,
@@ -78,8 +86,8 @@ class DialogUtil {
   }
 
   void closeLoadingDialog() {
-    if (!_loadingDialog) return;
+    if (!_showingADialog) return;
     Navigator.pop(_context);
-    _loadingDialog = false;
+    _showingADialog = false;
   }
 }

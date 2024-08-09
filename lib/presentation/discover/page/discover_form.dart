@@ -44,11 +44,11 @@ class _DiscoverFormState extends State<DiscoverForm> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
 
-                const Flexible(flex: 2, child: Padding(padding: EdgeInsets.all(AppSizes.defaultSpace), child: SearchWidget())),
+                const Flexible(flex: 2, child: TextFieldSearch()),
                 Expanded(
                   flex: 2,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: AppSizes.defaultSpace, vertical: AppSizes.defaultSpace / 2),
+                    padding: const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding, vertical: AppSizes.defaultPadding / 2),
                     child: Row(
                       children: [
                         discoverState.categoryNode.length < 2
@@ -122,7 +122,7 @@ class _CategoryItem extends StatelessWidget {
             ),
             Text(
               category.name,
-              style: Theme.of(context).textTheme.headlineLarge?.copyWith(fontWeight: FontWeight.normal),
+              style: Theme.of(context).textTheme.headlineLarge?.copyWith(fontWeight: FontWeight.normal,fontStyle: FontStyle.italic,fontSize: 30),
             ),
           ],
         ),

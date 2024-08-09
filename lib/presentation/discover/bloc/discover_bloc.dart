@@ -31,9 +31,6 @@ class DiscoverBloc extends Bloc<DiscoverEvent, DiscoverState> {
       }
     });
     on<NextCategoryLayerEvent>((event, emit) {
-      Log.test(title: "next, category node",data: state.categoryNode.toString());
-      Log.test(title: "next selected category layers",data: state.selectedCategoryLayers.toString());
-      Log.test(title: "next current category layer",data: state.currentLayer.toString());
       emit(CategoryLoadingState(state.categoriesByLayer, state.categoryNode, state.selectedCategoryLayers));
       final List<Category> nodeList = state.categoryNode;
       nodeList.add(event.selectedCategory);
@@ -41,24 +38,15 @@ class DiscoverBloc extends Bloc<DiscoverEvent, DiscoverState> {
       final nextLayer = CategoryUtil().getNextCategoryLayer(state.categoriesByLayer[state.currentLayer + 1], event.selectedCategory);
       selectedCategoryLayers.add(nextLayer);
       emit(CategorySuccessState(state.categoriesByLayer, nodeList, selectedCategoryLayers));
-      Log.test(title: "next, category node",data: state.categoryNode.toString());
-      Log.test(title: "next selected category layers",data: state.selectedCategoryLayers.toString());
-      Log.test(title: "next current category layer",data: state.currentLayer.toString());
     });
 
     on<PreviousCategoryLayerEvent>((event, emit) {
-      Log.test(title: "previous, category node",data: state.categoryNode.toString());
-      Log.test(title: "previous selected category layers",data: state.selectedCategoryLayers.toString());
-      Log.test(title: "previous current category layer",data: state.currentLayer.toString());
       emit(CategoryLoadingState(state.categoriesByLayer, state.categoryNode, state.selectedCategoryLayers));
       List<Category> nodeList = state.categoryNode;
       nodeList.removeLast();
       final List<List<Category>> selectedCategoryLayers = state.selectedCategoryLayers;
       selectedCategoryLayers.removeLast();
       emit(CategorySuccessState(state.categoriesByLayer, nodeList, selectedCategoryLayers));
-      Log.test(title: "previous, category node",data: state.categoryNode.toString());
-      Log.test(title: "previous selected category layers",data: state.selectedCategoryLayers.toString());
-      Log.test(title: "previous current category layer",data: state.currentLayer.toString());
     });
   }
 }

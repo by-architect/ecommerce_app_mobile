@@ -69,7 +69,7 @@ class CategoryUtil {
       if (nodeString.isEmpty) {
         nodeString = category.name;
       } else {
-        nodeString = " $nodeString > ${category.name}";
+        nodeString = "  $nodeString  >  ${category.name}";
       }
     });
     return nodeString;

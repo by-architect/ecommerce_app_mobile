@@ -4,8 +4,8 @@ import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:flutter/material.dart';
 
 
-class SearchWidget extends StatelessWidget {
-  const SearchWidget({
+class TextFieldSearch extends StatelessWidget {
+  const TextFieldSearch({
     super.key,
     this.formKey,
     this.isEnabled = true,
@@ -38,14 +38,14 @@ class SearchWidget extends StatelessWidget {
         onFieldSubmitted: onFieldSubmitted,
         validator: validator,
         textInputAction: TextInputAction.search,
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           hintText: AppText.discoverPageFindSomething,
           filled: false,
-          border: AppStyles.secondaryOutlineInputBorder(context),
-          enabledBorder: AppStyles.secondaryOutlineInputBorder(context),
+          // border: AppStyles.secondaryOutlineInputBorder(context),
+          // enabledBorder: AppStyles.secondaryOutlineInputBorder(context),
           prefixIcon: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Icon(Icons.search,color: AppColors.hiddenGrey,),
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            child: Icon(Icons.search,color: AppColors.greyColor,),
           ),
 /*
           suffixIcon: SizedBox(

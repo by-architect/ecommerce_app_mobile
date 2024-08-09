@@ -34,7 +34,7 @@ class _FailForm extends StatelessWidget {
       children: [
         Expanded(flex:5,child: SvgPicture.asset(image)),
         Flexible(flex:1,child: Text(fail.userMessage,style: Theme.of(context).textTheme.titleMedium,)),
-        Flexible(flex: 1,child: ButtonPrimary(text: AppText.refresh,primaryDecoration: false,onTap: onTap,))
+        Flexible(flex: 1,child: ButtonPrimary(text: AppText.refresh,onTap: onTap,))
       ],
     );
   }

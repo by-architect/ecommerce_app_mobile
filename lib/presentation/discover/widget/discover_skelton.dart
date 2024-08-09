@@ -27,7 +27,7 @@ class _DiscoverCategorySkeleton extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Padding(
       padding: EdgeInsets.symmetric(
-          horizontal: AppSizes.defaultSpace, vertical: AppSizes.defaultSpace * 0.75),
+          horizontal: AppSizes.defaultPadding, vertical: AppSizes.defaultPadding * 0.75),
       child: Row(
         children: [
           Skeleton(
@@ -35,7 +35,7 @@ class _DiscoverCategorySkeleton extends StatelessWidget {
             width: 32,
             radious: 8,
           ),
-          SizedBox(width: AppSizes.defaultSpace),
+          SizedBox(width: AppSizes.defaultPadding),
           Expanded(
             flex: 2,
             child: Skeleton(),

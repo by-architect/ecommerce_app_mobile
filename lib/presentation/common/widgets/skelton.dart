@@ -8,7 +8,7 @@ class Skeleton extends StatelessWidget {
         this.height,
         this.width,
         this.layer = 1,
-        this.radious = AppSizes.defaultSpace});
+        this.radious = AppSizes.defaultPadding});
 
   final double? height, width;
   final int layer;
@@ -19,7 +19,7 @@ class Skeleton extends StatelessWidget {
     return Container(
       height: height,
       width: width,
-      padding: const EdgeInsets.all(AppSizes.defaultSpace / 2),
+      padding: const EdgeInsets.all(AppSizes.defaultPadding / 2),
       decoration: BoxDecoration(
           color: Theme.of(context).iconTheme.color!.withOpacity(0.04 * layer),
           borderRadius: BorderRadius.all(Radius.circular(radious))),

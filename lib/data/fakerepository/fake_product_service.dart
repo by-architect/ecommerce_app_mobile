@@ -25,8 +25,8 @@ class FakeProductService implements ProductService {
       FakeProductModels.category231
     ];
 
-    // return ResourceStatus.success(categories);
-    return ResourceStatus.fail(Fail(userMessage: "Fake product service fail situation"));
+    return ResourceStatus.success(categories);
+    // return ResourceStatus.fail(Fail(userMessage: "Fake product service fail situation"));
 
     return random.nextBool()
         ? ResourceStatus.success(categories)
