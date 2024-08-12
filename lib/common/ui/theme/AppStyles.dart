@@ -17,7 +17,7 @@ class AppStyles {
     ),
   );
   static const defaultNavigationBarThemeLight = BottomNavigationBarThemeData(
-    backgroundColor: Colors.white,
+    backgroundColor: AppColors.whiteColor,
     selectedItemColor: AppColors.primaryColor,
     unselectedItemColor: AppColors.blackColor,
     selectedIconTheme: IconThemeData(color: AppColors.primaryColor),

@@ -37,6 +37,7 @@ class AppTheme {
       outlinedButtonTheme: AppStyles.outlinedButtonTheme(),
       inputDecorationTheme: AppStyles.darkInputDecorationTheme,
       checkboxTheme: AppStyles.checkboxThemeData.copyWith(side: const BorderSide(color: AppColors.whileColor40)),
+      bottomNavigationBarTheme: AppStyles.defaultNavigationBarThemeDark,
       appBarTheme: AppStyles.appBarDarkTheme,
       scrollbarTheme: AppStyles.scrollbarThemeData,
       dataTableTheme: AppStyles.dataTableDarkThemeData);

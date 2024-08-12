@@ -30,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
           appBar: const AppBarMain(),
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: selectedIndex,
+            landscapeLayout: BottomNavigationBarLandscapeLayout.spread,
             onTap: (int index) {
               setState(() {
                 selectedIndex = index;
