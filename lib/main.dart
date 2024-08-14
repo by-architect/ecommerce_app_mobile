@@ -10,6 +10,8 @@ import 'package:ecommerce_app_mobile/presentation/discover/bloc/discover_bloc.da
 import 'package:ecommerce_app_mobile/presentation/home/page/home_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/main/bloc/main_blocs.dart';
 import 'package:ecommerce_app_mobile/presentation/main/bloc/main_states.dart';
+import 'package:ecommerce_app_mobile/presentation/search/bloc/search_bloc.dart';
+import 'package:ecommerce_app_mobile/presentation/search/page/search_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/splash/bloc/welcome_blocs.dart';
 import 'package:ecommerce_app_mobile/presentation/splash/pages/welcome.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -35,6 +37,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (BuildContext context) => UserServiceBloc()),
         BlocProvider(create: (BuildContext context) => ProductServiceBloc()),
         BlocProvider(create: (BuildContext context) => DiscoverBloc()),
+        BlocProvider(create: (BuildContext context) => SearchBloc()),
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
@@ -44,6 +47,7 @@ class MyApp extends StatelessWidget {
             Screens.signInScreen: (context) => const SignInScreen(),
             Screens.signUpScreen: (context) => const SignUpScreen(),
             Screens.homeScreen: (context) => const HomeScreen(),
+            Screens.searchScreen: (context) => const SearchScreen(),
           },
           home: const HomeScreen() ),
     );

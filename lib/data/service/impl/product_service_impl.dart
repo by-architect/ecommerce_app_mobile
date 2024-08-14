@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecommerce_app_mobile/data/model/recent_search.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/constant/exceptions/exception_handler.dart';
 import 'package:ecommerce_app_mobile/common/constant/firestore_collections.dart';
 import 'package:ecommerce_app_mobile/common/constant/app_durations.dart';
@@ -124,4 +125,32 @@ class ProductServiceImpl extends ProductService {
       return ExceptionHandler.firebaseResourceExceptionHandler(e, s);
     }
   }
+
+  @override
+  Future<ResourceStatus<List<Product>>> getProductsBySearchEvents(
+      {String? searchText, List<ProductFeatureOption>? selectedFeatureOptions, Category? selectedCategory}) {
+    // TODO: implement getProductByFields
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<ResourceStatus<RecentSearch>> addRecentSearch(String recentSearch) {
+    // TODO: implement addRecentSearch
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<ResourceStatus> clearAllRecentSearch() {
+    // TODO: implement clearAllRecentSearch
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<ResourceStatus> clearRecentSearch(RecentSearch recentSearchList) {
+    // TODO: implement clearRecentSearch
+    throw UnimplementedError();
+  }
+
+
+
 }

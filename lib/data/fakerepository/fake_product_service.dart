@@ -4,6 +4,7 @@ import 'package:ecommerce_app_mobile/data/fakerepository/fake_models.dart';
 import 'package:ecommerce_app_mobile/data/model/category.dart';
 import 'package:ecommerce_app_mobile/data/model/product.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
+import 'package:ecommerce_app_mobile/data/model/recent_search.dart';
 import 'package:ecommerce_app_mobile/data/service/product_service.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/fail.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/resource.dart';
@@ -69,6 +70,39 @@ class FakeProductService implements ProductService {
               (product) => product.categoryId == categoryId,
             )
             .toList())
+        : ResourceStatus.fail(Fail(userMessage: "Fake product service fail situation"));
+  }
+
+  @override
+  Future<ResourceStatus<List<Product>>> getProductsBySearchEvents(
+      {String? searchText, List<ProductFeatureOption>? selectedFeatureOptions, Category? selectedCategory}) async {
+    await Future.delayed(const Duration(seconds: 2));
+
+    return ResourceStatus.success(FakeProductModels.products);
+    // return ResourceStatus.fail(Fail(userMessage: "Fake product service fail situation"));
+
+    return random.nextBool()
+        ? ResourceStatus.success(FakeProductModels.products)
+        : ResourceStatus.fail(Fail(userMessage: "Fake product service fail situation"));
+  }
+
+  @override
+  Future<ResourceStatus<RecentSearch>> addRecentSearch(String recentSearch) async {
+    await Future.delayed(const Duration(seconds: 1));
+    return ResourceStatus.success(RecentSearch(random.nextDouble().toString(), "", recentSearch));
+  }
+
+  @override
+  Future<ResourceStatus> clearAllRecentSearch() async{
+    return random.nextBool()
+        ? const ResourceStatus.success("")
+        : ResourceStatus.fail(Fail(userMessage: "Fake product service fail situation"));
+  }
+
+  @override
+  Future<ResourceStatus> clearRecentSearch(RecentSearch recentSearchList) async{
+    return random.nextBool()
+        ? const ResourceStatus.success("")
         : ResourceStatus.fail(Fail(userMessage: "Fake product service fail situation"));
   }
 }

@@ -1,7 +1,9 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/common/util/category_util.dart';
+import 'package:ecommerce_app_mobile/data/fakerepository/fake_models.dart';
 import 'package:ecommerce_app_mobile/data/fakerepository/fake_product_service.dart';
 import 'package:ecommerce_app_mobile/data/model/category.dart';
+import 'package:ecommerce_app_mobile/data/model/recent_search.dart';
 import 'package:ecommerce_app_mobile/data/service/impl/product_service_impl.dart';
 import 'package:ecommerce_app_mobile/data/service/product_service.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/Log.dart';
@@ -9,6 +11,7 @@ import 'package:ecommerce_app_mobile/sddklibrary/helper/fail.dart';
 
 import '../../sddklibrary/helper/resource.dart';
 import '../model/product.dart';
+import '../model/product_feature.dart';
 
 class ProductServiceProvider {
   ProductService productService = FakeProductService();
@@ -35,5 +38,26 @@ class ProductServiceProvider {
 
   Future<Resource<List<Product>>> getProductsByCategory(String categoryId) async {
     return productService.getProductsByCategory(categoryId);
+  }
+
+  Future<Resource<List<Product>>> getProductsBySearchEvent(
+      {String? searchText, List<ProductFeatureOption>? selectedFeatureOptions, Category? selectedCategory}) async {
+    return productService.getProductsBySearchEvents(selectedFeatureOptions: selectedFeatureOptions,selectedCategory: selectedCategory,searchText: searchText);
+  }
+  Future<ResourceStatus<RecentSearch>> addRecentSearch(String recentSearch){
+  return productService.addRecentSearch(recentSearch);
+  }
+  Future<ResourceStatus> clearRecentSearch(RecentSearch recentSearch){
+    return productService.clearRecentSearch(recentSearch);
+  }
+
+  Future<ResourceStatus> clearAllRecentSearch(){
+    return productService.clearAllRecentSearch();
+  }
+
+  Future<ResourceStatus> deleteSearchHistory(List<RecentSearch> search) async {
+    //todo: unimplemented
+    const Duration(seconds: 1);
+    return const ResourceStatus.success("");
   }
 }

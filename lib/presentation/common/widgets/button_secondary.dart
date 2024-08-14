@@ -16,12 +16,8 @@ class ButtonSecondary extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
+    return OutlinedButton(
         onPressed: onTap,
-        style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-            backgroundColor: context.isDarkMode
-                ? const WidgetStatePropertyAll(AppColors.blackColor)
-                : const WidgetStatePropertyAll(AppColors.whiteColor)),
         child: Text(
           text,
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: context.isDarkMode ? AppColors.whiteColor : AppColors.blackColor),

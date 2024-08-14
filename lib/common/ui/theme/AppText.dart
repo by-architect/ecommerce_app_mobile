@@ -11,6 +11,8 @@ class AppText{
   static const loading = "Loading";
   static const unselected = "Unselected";
   static const refresh = "Refresh";
+  static const done = "Done";
+  static const color = "Color";
 
 
   //user
@@ -57,6 +59,7 @@ class AppText{
   static const navigationCart = "Cart";
   static const navigationAccount = "Account";
 
+
   //welcome Page
   static const welcomePageOneTitle = "Welcome to $marketName";
   static const welcomePageOneContent = "Discover a world of exclusive deals and top-quality products at your fingertips. Shop with ease and enjoy seamless browsing";
@@ -64,7 +67,6 @@ class AppText{
   static const welcomePageTwoContent = "Explore personalized recommendations, easy search options, and secure checkout processes designed to enhance your shopping experience.";
   static const welcomePageThreeTitle = "Ready to Shop?";
   static const welcomePageThreeContent = "Sign up or log in now to start your shopping journey. Enjoy exclusive member benefits, track your orders, and more!";
-
 
   //sign up screen
   static const signUpScreenAlreadyHaveAnAccount = "Already have an account? ";
@@ -78,12 +80,25 @@ class AppText{
   static const verificationPageEmailBody = "We sent a link to your email";
   static const verificationPageCheckYourEmail = "Check your emails, We are waiting for you";
   static const verificationPageSendEmailAgain = "Send email again";
-  static const accountCreatedSuccessfully= "Account created successfully";
+  static const verificationPageAccountCreatedSuccessfully= "Account created successfully";
 
 
   //Discover page
   static const discoverPageFindSomething = "Find Something...";
   static const discoverPageCategories = "Categories";
+
+  //search screen
+  static const searchPageRecentSearches = "Recent Searches";
+
+  //product card
+  static var productCardOff = "off"; // indirim
+
+  //filter page
+  static const filterPageAvailableInStock = "Available in stock";
+
+  //pages common
+  static const commonPageFilter = "Filter";
+  static const commonPageClearAll = "Clear All";
 
 
 

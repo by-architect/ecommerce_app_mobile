@@ -1,12 +1,16 @@
+import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppStyles.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 
 class TextFieldSearch extends StatelessWidget {
   const TextFieldSearch({
     super.key,
+    this.isFilterIconActive = false,
+    this.textEditingController,
     this.formKey,
     this.isEnabled = true,
     this.onSaved,
@@ -25,6 +29,8 @@ class TextFieldSearch extends StatelessWidget {
   final VoidCallback? onTabFilter;
   final FocusNode? focusNode;
   final bool autofocus;
+  final bool isFilterIconActive;
+  final TextEditingController? textEditingController;
 
   @override
   Widget build(BuildContext context) {
@@ -35,20 +41,20 @@ class TextFieldSearch extends StatelessWidget {
         enabled: isEnabled,
         onChanged: onChanged,
         onSaved: onSaved,
+        controller:  textEditingController,
         onFieldSubmitted: onFieldSubmitted,
         validator: validator,
         textInputAction: TextInputAction.search,
-        decoration: const InputDecoration(
+        decoration: InputDecoration(
           hintText: AppText.discoverPageFindSomething,
           filled: false,
           // border: AppStyles.secondaryOutlineInputBorder(context),
           // enabledBorder: AppStyles.secondaryOutlineInputBorder(context),
-          prefixIcon: Padding(
+          prefixIcon: const Padding(
             padding: EdgeInsets.symmetric(horizontal: 10),
             child: Icon(Icons.search,color: AppColors.greyColor,),
           ),
-/*
-          suffixIcon: SizedBox(
+          suffixIcon: isFilterIconActive ? SizedBox(
             width: 40,
             child: Row(
               children: [
@@ -60,16 +66,15 @@ class TextFieldSearch extends StatelessWidget {
                   child: IconButton(
                     onPressed: onTabFilter,
                     icon: SvgPicture.asset(
-                      "assets/icons/Filter.svg",
+                      AppImages.filterIcon,
                       height: 24,
-                      color: Theme.of(context).iconTheme.color,
+                      color: AppColors.greyColor,
                     ),
                   ),
                 ),
               ],
             ),
-          ),
-*/
+          ): const SizedBox.shrink(),
         ),
       ),
     );

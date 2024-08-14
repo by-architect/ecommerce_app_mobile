@@ -7,7 +7,7 @@ class Category {
   late final int layer;
 
 
-  Category(this.id, this.name, this.superId, this.layer);
+  Category({required this.id,required this.name,required this.superId,required this.layer});
 
   Category.fromMap(Map<String, dynamic> map) {
     id = map['id'];

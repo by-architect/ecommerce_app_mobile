@@ -1,3 +1,4 @@
+
 import 'package:ecommerce_app_mobile/common/util/category_util.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/resource.dart';
@@ -12,18 +13,38 @@ class Product {
   // late final String addedDate;
   late final String explanation;
   late final double cargoPrice;
+  late final String? brandName;
+  late final String image;
 
   //product list
   late final int totalCount;
   late final String barcode;
   late final String id;
-  late final int waitingOnCartCount;
   late final double price;
-  late final List<ProductFeature> productFeatures;
+  late final List<String> featureOptionIds;
   late final double discount;
 
-  Product(this.productId, this.name, this.categoryId, this.explanation, this.cargoPrice, this.totalCount, this.barcode, this.id,
-      this.waitingOnCartCount, this.price, this.productFeatures, this.discount);
+  int get discountPercent => ((discount / price) * 100).toInt();
+
+  bool get availableInStock => totalCount != 0;
+
+  double get priceAfterDiscounting => price - discount;
+
+  Product(
+      {
+        required this.productId,
+      required this.name,
+      required this.categoryId,
+      required this.explanation,
+      required this.cargoPrice,
+      required this.totalCount,
+      required this.barcode,
+      required this.image,
+      required this.id,
+      required this.featureOptionIds,
+      required this.price,
+      required this.discount,
+      this.brandName});
 
   Product.fromMap(Map<String, dynamic> map, List<ProductFeature> allFeatures) {
     productId = map['productId'];
@@ -34,30 +55,53 @@ class Product {
     totalCount = map['totalCount'];
     id = map['id'];
     barcode = map['barcode'];
-    waitingOnCartCount = map['waitingOnCartCount'];
     price = map['price'];
     discount = map['discount'];
+    brandName = map['brandName'];
 
-    productFeatures = [];
+    //todo: get the image from server
 
-    final list = map['feature'] as List<dynamic>;
+    featureOptionIds = map['feature'] as List<String>;
 
+/*
     list.forEach((item) {
       final optionMap = item as Map<String, dynamic>;
       final originalFeature = allFeatures.lastWhere((feature) => feature.id == optionMap['featureId'].toString());
 
-      final productFeature = originalFeature.copyWith(
-          selectedOption: originalFeature.options.lastWhere((option) => option.id == optionMap['optionId'].toString()));
+      ProductFeatureWithSelectedOption productFeatureSelectedOption = ProductFeatureWithSelectedOption(
+          originalFeature.copyWith(), originalFeature.options.lastWhere((option) => option.id == optionMap['optionId'].toString()));
 
-      productFeatures.add(productFeature);
+      featuresWithSelectedOptions.add(productFeatureSelectedOption);
     });
+*/
   }
+
+
+
+  Map<String, dynamic> toMap() {
+    return {
+      "productId": productId,
+      "name": name,
+      "categoryId": categoryId,
+      "explanation": explanation,
+      "cargoPrice": cargoPrice,
+      "totalCount": totalCount,
+      "barcode": barcode,
+      "image": image,
+      "id": id,
+      "featureOptionIds": featureOptionIds,
+      "price": price,
+      "discount": discount,
+      "brandName": brandName,
+    };
+  }
+  
 
   ResourceStatus<List<Category>> categoryNode(List<List<Category>> categoryLayers) =>
       CategoryUtil().getNodeFromLastCategoryId(categoryId, categoryLayers);
 
   @override
   String toString() {
-    return 'Product{productId: $productId, name: $name, categoriesId: $categoryId, barcode: $barcode explanation: $explanation, cargoPrice: $cargoPrice, totalCount: $totalCount, id: $id, waitingOnCartCount: $waitingOnCartCount, price: $price, productFeatures: ${productFeatures.toString()}, discount: $discount}';
+    return 'Product{productId: $productId, name: $name, categoriesId: $categoryId, barcode: $barcode explanation: $explanation, cargoPrice: $cargoPrice, totalCount: $totalCount, id: $id, price: $price,  discount: $discount}';
   }
 }

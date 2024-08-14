@@ -19,12 +19,12 @@ class UserBloc extends Bloc<UserEvent, UserRequestState> {
     on<PasswordConfirmEvent>((event, emit) {
       emit(state.copyWith(passwordConfirm: event.passwordConfirm));
     });
-    on<GenderEvent>((event,emit){
-     emit(state.copyWith(gender:event.gender));
+    on<GenderEvent>((event, emit) {
+      emit(state.copyWith(gender: event.gender));
     });
 
-    on<BirthYearEvent>((event,emit){
-      emit(state.copyWith(birthYear:event.birthYear));
+    on<BirthYearEvent>((event, emit) {
+      emit(state.copyWith(birthYear: event.birthYear));
     });
   }
 }

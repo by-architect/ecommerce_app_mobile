@@ -1,7 +1,7 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:flutter/material.dart';
 
-import '../../common/widgets/skelton.dart';
+import '../../common/skeleton/skelton.dart';
 
 
 class DiscoverCategoriesSkeleton extends StatelessWidget {

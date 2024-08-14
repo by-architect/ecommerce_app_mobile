@@ -44,7 +44,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
     subscription = BlocProvider.of<UserServiceBloc>(context).stream.listen((event) {
       switch (event) {
         case EmailVerifiedState _:
-          DialogUtil(context).toast(AppText.accountCreatedSuccessfully);
+          DialogUtil(context).toast(AppText.verificationPageAccountCreatedSuccessfully);
           Navigator.of(context).pushNamedAndRemoveUntil(
             Screens.homeScreen,
             (route) => false,

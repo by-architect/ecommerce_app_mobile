@@ -53,6 +53,7 @@ class AppColors {
 // const Color greyColor5 = Color(0xFFFBFBFC);
 
   static const Color purpleColor = Color(0xFF7B61FF);
+  static const Color cyanColor = Colors.cyan;
   static const Color blueColor = Color.fromARGB(255, 9, 4, 70);
   static const Color successColor = Color(0xFF2ED573);
   static const Color warningColor = Color(0xFFFFBE21);

@@ -1,3 +1,5 @@
+import 'package:flutter/src/widgets/icon_data.dart';
+
 class AppImages{
   static const String _imagePath = 'assets/images/';
   static const String _iconPath = 'assets/icons/';
@@ -14,4 +16,8 @@ class AppImages{
 
   static const searchIcon = "${_iconPath}Search$_formatSvg";
   static const notificationIcon = "${_iconPath}Notification$_formatSvg";
+  static const closeIcon = "${_iconPath}Close$_formatSvg";
+  static const filterIcon = "${_iconPath}Filter$_formatSvg";
+  static const clockIcon = "${_iconPath}Clock$_formatSvg";
+
 }

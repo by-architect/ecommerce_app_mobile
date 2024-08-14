@@ -44,7 +44,7 @@ dependencies:
   connectivity_plus: ^6.0.3
   flutter_hooks: ^0.20.5
   #for test
-  mockito: ^5.0.0
+  mockito: ^5.4.4
   build_runner: ^2.0.0
 
 dev_dependencies:

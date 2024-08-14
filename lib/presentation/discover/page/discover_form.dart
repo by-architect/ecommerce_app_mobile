@@ -1,4 +1,4 @@
-import 'package:ecommerce_app_mobile/presentation/common/widgets/fail_skeleton.dart';
+import 'package:ecommerce_app_mobile/presentation/common/widgets/fail_form.dart';
 import 'package:ecommerce_app_mobile/presentation/discover/bloc/discover_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/discover/bloc/discover_state.dart';
 import 'package:ecommerce_app_mobile/presentation/discover/widget/discover_skelton.dart';
@@ -34,7 +34,7 @@ class _DiscoverFormState extends State<DiscoverForm> {
       child: BlocBuilder<DiscoverBloc, DiscoverState>(builder: (BuildContext context, DiscoverState discoverState) {
         return switch (discoverState) {
           CategoryLoadingState _ => const DiscoverCategoriesSkeleton(),
-          CategoryFailState failState => FailSkeleton(
+          CategoryFailState failState => FailForm(
               fail: failState.fail,
               onRefreshTap: () {
                 BlocProvider.of<DiscoverBloc>(context).add(LoadCategoriesEvent());

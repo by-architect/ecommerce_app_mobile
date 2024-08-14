@@ -37,6 +37,24 @@ class AppStyles {
     backgroundColor: AppColors.whiteColor,
   );
 
+  static const chipThemeLight = ChipThemeData(
+    brightness: Brightness.light,
+    backgroundColor: AppColors.whiteColor,
+    labelStyle: TextStyle(fontSize: 12,color: AppColors.blackColor) ,
+    secondarySelectedColor: AppColors.whiteColor,
+    secondaryLabelStyle: TextStyle(color: AppColors.cyanColor),
+    side: BorderSide(
+      color: AppColors.greyColor,
+    ),
+  );
+  static const chipThemeDark = ChipThemeData(
+    brightness: Brightness.dark,
+    labelStyle: TextStyle(fontSize: 12,color: AppColors.greyColor) ,
+    side: BorderSide(
+      color: AppColors.greyColor,
+    ),
+  );
+
   static OutlinedButtonThemeData outlinedButtonTheme({Color borderColor = AppColors.blackColor10}) {
     return OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
@@ -49,7 +67,6 @@ class AppStyles {
       ),
     );
   }
-
 
   static final textButtonThemeData = TextButtonThemeData(
     style: TextButton.styleFrom(foregroundColor: AppColors.primaryColor),
