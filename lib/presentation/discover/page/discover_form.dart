@@ -1,4 +1,5 @@
 import 'package:ecommerce_app_mobile/presentation/common/widgets/fail_form.dart';
+import 'package:ecommerce_app_mobile/presentation/common/widgets/row_classic.dart';
 import 'package:ecommerce_app_mobile/presentation/discover/bloc/discover_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/discover/bloc/discover_state.dart';
 import 'package:ecommerce_app_mobile/presentation/discover/widget/discover_skelton.dart';
@@ -43,7 +44,6 @@ class _DiscoverFormState extends State<DiscoverForm> {
           CategorySuccessState successState => Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
                 const Flexible(flex: 2, child: TextFieldSearch()),
                 Expanded(
                   flex: 2,
@@ -111,7 +111,20 @@ class _CategoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return RowItemDefault(
+            text: Row(
+          children: [
+            const SizedBox(
+              width: 50,
+            ),
+            Text(
+              category.name,
+              style: Theme.of(context).textTheme.headlineLarge?.copyWith(fontWeight: FontWeight.normal,fontStyle: FontStyle.italic,fontSize: 30),
+            ),
+          ],
+        ),
+            onTap: onTap)
+        /*GestureDetector(
       onTap: onTap,
       child: SizedBox(
         height: 70.0,
@@ -127,6 +140,7 @@ class _CategoryItem extends StatelessWidget {
           ],
         ),
       ),
-    );
+    )*/
+        ;
   }
 }
