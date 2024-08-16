@@ -1,5 +1,5 @@
-import 'dart:ui';
 
+import 'package:ecommerce_app_mobile/data/model/category.dart';
 import 'package:ecommerce_app_mobile/data/model/recent_search.dart';
 
 import '../../../data/model/product_feature.dart';
@@ -11,6 +11,17 @@ class SearchTextEvent extends SearchEvent{
   final String text ;
   SearchTextEvent(this.text);
 }
+class SelectedCategoriesEvent extends SearchEvent{
+  final List<Category> categories;
+
+  SelectedCategoriesEvent(this.categories);
+}
+class FocusSearchTextEvent extends SearchEvent{
+  final bool isFocused;
+
+  FocusSearchTextEvent(this.isFocused);
+}
+
 class SelectedFeatureOptionsEvent extends SearchEvent{
   final List<ProductFeatureOption> selectedFeatureOptions;
 
@@ -27,7 +38,6 @@ class AddRecentSearchEvent extends SearchEvent{
 
   AddRecentSearchEvent(this.recentSearch);
 }
-class ToggleContainerEvent extends SearchEvent{}
 
 
 /*
@@ -37,9 +47,13 @@ class SearchTextGetProductsEvent extends SearchEvent{
 }
 */
 class GetProductsEvent extends SearchEvent{}
+class GetRecentSearchesEvent extends SearchEvent{}
 class ClearAllRecentSearchEvent extends SearchEvent{}
 class ClearSelectedRecentSearchEvent extends SearchEvent{
   final RecentSearch recentSearch;
   ClearSelectedRecentSearchEvent(this.recentSearch);
 }
+class GetProductFeaturesEvent extends SearchEvent{}
+class GetCategoriesEvent extends SearchEvent{}
+class GetCategories extends SearchEvent{}
 

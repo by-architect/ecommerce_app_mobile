@@ -41,6 +41,7 @@ class TextFieldSearch extends StatelessWidget {
         enabled: isEnabled,
         onChanged: onChanged,
         onSaved: onSaved,
+
         controller:  textEditingController,
         onFieldSubmitted: onFieldSubmitted,
         validator: validator,

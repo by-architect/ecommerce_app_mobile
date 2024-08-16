@@ -3,7 +3,6 @@ import 'package:ecommerce_app_mobile/data/model/recent_search.dart';
 import 'package:ecommerce_app_mobile/data/provider/product_service_provider.dart';
 import 'package:ecommerce_app_mobile/presentation/search/bloc/search_event.dart';
 import 'package:ecommerce_app_mobile/presentation/search/bloc/search_state.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/helper/Log.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/resource.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,13 +12,27 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
     on<ClearStateEvent>(
       (event, emit) {
-        emit(InitSearchState());
+        emit(state.copyWith(
+            searchText: "",
+            selectedCategories: [],
+            features: state.features,
+            recentSearches: state.recentSearches,
+            products: [],
+            selectedFeatureOptions: []));
       },
     );
 
     on<SearchTextEvent>(
       (event, emit) {
-        emit(state.copyWith(searchText: event.text));
+        emit(state.copyWith(
+          searchText: event.text,
+        ));
+      },
+    );
+
+    on<FocusSearchTextEvent>(
+      (event, emit) {
+        emit(state.copyWith(isSearchFocused: event.isFocused));
       },
     );
 
@@ -27,11 +40,9 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       emit(state.copyWith(selectedFeatureOptions: event.selectedFeatureOptions));
     });
 
-    on<ToggleContainerEvent>(
-      (event, emit) {
-        emit(state.copyWith(isFilterContainerActive: !state.isFilterContainerActive));
-      },
-    );
+    on<SelectedCategoriesEvent>((event, emit) {
+      emit(state.copyWith(selectedCategories: event.categories));
+    });
 
     on<ClearAllRecentSearchEvent>(
       (event, emit) {
@@ -43,7 +54,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       (event, emit) {
         service.clearRecentSearch(event.recentSearch);
         List<RecentSearch> recentSearches = state.recentSearches;
-        Log.test(title: "recent search",data: event.recentSearch.toString());
         recentSearches.removeWhere(
           (recentSearch) => recentSearch.id == event.recentSearch.id,
         );
@@ -57,6 +67,10 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
         resource.onSuccess((recentSearch) {
           List<RecentSearch> recentSearches = state.recentSearches;
+          if (recentSearches.length > 5) {
+            service.clearRecentSearch(recentSearches[0]);
+            recentSearches.removeAt(0);
+          }
           recentSearches.add(recentSearch);
           emit(state.copyWith(recentSearches: recentSearches));
         });
@@ -80,26 +94,98 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         emit(state.copyWith(selectedFeatureOptions: selectedFeatureOptions));
       },
     );
+
+    on<GetRecentSearchesEvent>(
+      (event, emit) async {
+        if (state.recentSearches.isEmpty) {
+          final resource = await service.getRecentSearches();
+          resource.onSuccess(
+            (data) {
+              emit(state.copyWith(recentSearches: data));
+            },
+          );
+        }
+      },
+    );
+    on<GetCategoriesEvent>(
+      (event, emit) async {
+        if (state.categoriesByLayer.isEmpty) {
+          final resource = await service.getCategoriesByLayer();
+          resource.onSuccess(
+            (data) {
+              emit(state.copyWith(categories: data));
+            },
+          );
+          resource.onFailure(
+                (fail) {
+              emit(ProductFailState(
+                  searchText: state.searchText,
+                  features: state.features,
+                  categoriesByLayer: state.categoriesByLayer,
+                  isSearchFocused: state.isSearchFocused,
+                  recentSearches: state.recentSearches,
+                  products: state.products,
+                  selectedCategories: state.selectedCategories,
+                  selectedFeatureOptions: state.selectedFeatureOptions,
+                  fail: fail));
+            },
+          );
+        }
+      },
+    );
+    on<GetProductFeaturesEvent>(
+      (event, emit) async {
+        if (state.features.isEmpty) {
+          final resource = await service.getProductFeatures();
+          resource.onSuccess(
+            (data) {
+              emit(state.copyWith(features: data));
+            },
+          );
+          resource.onFailure(
+            (fail) {
+              emit(ProductFailState(
+                  searchText: state.searchText,
+                  features: state.features,
+                  categoriesByLayer: state.categoriesByLayer,
+                  isSearchFocused: state.isSearchFocused,
+                  recentSearches: state.recentSearches,
+                  products: state.products,
+                  selectedCategories: state.selectedCategories,
+                  selectedFeatureOptions: state.selectedFeatureOptions,
+                  fail: fail));
+            },
+          );
+        }
+      },
+    );
+
     on<GetProductsEvent>(
       (event, emit) async {
         emit(ProductLoadingState(
             searchText: state.searchText,
             features: state.features,
-            isFilterContainerActive: state.isFilterContainerActive,
+            isSearchFocused: state.isSearchFocused,
+            categoriesByLayer: state.categoriesByLayer,
             recentSearches: state.recentSearches,
+            selectedCategories: state.selectedCategories,
             products: state.products,
             selectedFeatureOptions: state.selectedFeatureOptions));
 
-        final response =
-            await service.getProductsBySearchEvent(searchText: state.searchText, selectedFeatureOptions: state.selectedFeatureOptions);
+        final response = await service.getProductsBySearchEvent(
+            searchText: state.searchText,
+            selectedFeatureOptions: state.selectedFeatureOptions,
+            selectedCategories: state.selectedCategories);
 
         switch (response.status) {
           case Status.success:
             emit(ProductSuccessState(
                 searchText: state.searchText,
                 features: state.features,
-                isFilterContainerActive: state.isFilterContainerActive,
+                categoriesByLayer: state.categoriesByLayer,
                 recentSearches: state.recentSearches,
+                isSearchFocused: state.isSearchFocused,
+                selectedCategories: state.selectedCategories,
                 products: response.data!,
                 selectedFeatureOptions: state.selectedFeatureOptions));
             break;
@@ -107,8 +193,10 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
             emit(ProductFailState(
                 searchText: state.searchText,
                 features: state.features,
-                isFilterContainerActive: state.isFilterContainerActive,
                 recentSearches: state.recentSearches,
+                categoriesByLayer: state.categoriesByLayer,
+                isSearchFocused: state.isSearchFocused,
+                selectedCategories: state.selectedCategories,
                 products: state.products,
                 selectedFeatureOptions: state.selectedFeatureOptions,
                 fail: response.error!));
@@ -117,8 +205,10 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
             emit(ProductLoadingState(
                 searchText: state.searchText,
                 features: state.features,
-                isFilterContainerActive: state.isFilterContainerActive,
+                categoriesByLayer: state.categoriesByLayer,
+                isSearchFocused: state.isSearchFocused,
                 recentSearches: state.recentSearches,
+                selectedCategories: state.selectedCategories,
                 products: state.products,
                 selectedFeatureOptions: state.selectedFeatureOptions));
             break;

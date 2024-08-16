@@ -3,7 +3,11 @@ import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+
+import '../../search/bloc/search_bloc.dart';
+import '../../search/bloc/search_event.dart';
 class AppBarMain extends StatelessWidget implements PreferredSizeWidget{
   const AppBarMain({super.key});
 
@@ -22,6 +26,7 @@ class AppBarMain extends StatelessWidget implements PreferredSizeWidget{
         IconButton(
           onPressed: () {
             Navigator.pushNamed(context, Screens.searchScreen);
+            BlocProvider.of<SearchBloc>(context).add(FocusSearchTextEvent(true));
           },
           icon: SvgPicture.asset(
             AppImages.searchIcon,

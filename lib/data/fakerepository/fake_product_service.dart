@@ -14,7 +14,7 @@ class FakeProductService implements ProductService {
 
   @override
   Future<ResourceStatus<List<Category>>> getCategories() async {
-    await Future.delayed(const Duration(seconds: 2));
+    // await Future.delayed(const Duration(seconds: 2));
     List<Category> categories = [
       FakeProductModels.category1,
       FakeProductModels.category2,
@@ -46,6 +46,7 @@ class FakeProductService implements ProductService {
   Future<ResourceStatus<List<ProductFeature>>> getProductFeatures() async {
     await Future.delayed(const Duration(seconds: 2));
     final List<ProductFeature> productFeatures = [FakeProductModels.productFeatureSize, FakeProductModels.productFeatureColor];
+    return ResourceStatus.success(productFeatures);
     return random.nextBool()
         ? ResourceStatus.success(productFeatures)
         : ResourceStatus.fail(Fail(userMessage: "Fake product service fail situation"));
@@ -75,7 +76,7 @@ class FakeProductService implements ProductService {
 
   @override
   Future<ResourceStatus<List<Product>>> getProductsBySearchEvents(
-      {String? searchText, List<ProductFeatureOption>? selectedFeatureOptions, Category? selectedCategory}) async {
+      {String? searchText, List<ProductFeatureOption>? selectedFeatureOptions, List<Category>? selectedCategories}) async {
     await Future.delayed(const Duration(seconds: 2));
 
     return ResourceStatus.success(FakeProductModels.products);
@@ -103,6 +104,14 @@ class FakeProductService implements ProductService {
   Future<ResourceStatus> clearRecentSearch(RecentSearch recentSearchList) async{
     return random.nextBool()
         ? const ResourceStatus.success("")
+        : ResourceStatus.fail(Fail(userMessage: "Fake product service fail situation"));
+  }
+
+  @override
+  Future<ResourceStatus<List<RecentSearch>>> getRecentSearches() async{
+    return ResourceStatus.success(FakeProductModels.recentSearches);
+    return random.nextBool()
+        ? ResourceStatus.success(FakeProductModels.recentSearches)
         : ResourceStatus.fail(Fail(userMessage: "Fake product service fail situation"));
   }
 }

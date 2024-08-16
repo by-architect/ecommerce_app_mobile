@@ -1,10 +1,12 @@
 import 'package:ecommerce_app_mobile/common/helper/map_helper.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
+import 'package:ecommerce_app_mobile/data/model/category.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/ButtonPrimary.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/button_secondary.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/row_classic.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/text_button_default.dart';
+import 'package:ecommerce_app_mobile/presentation/discover/bloc/discover_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,11 +15,17 @@ import '../bloc/search_bloc.dart';
 import '../bloc/search_event.dart';
 import '../bloc/search_state.dart';
 
-class FilterBottomSheet extends StatelessWidget {
+class FilterBottomSheet extends StatefulWidget {
   const FilterBottomSheet({
     super.key,
   });
 
+  @override
+  State<FilterBottomSheet> createState() => _FilterBottomSheetState();
+}
+
+class _FilterBottomSheetState extends State<FilterBottomSheet> {
+  bool filterSelected = true;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -49,36 +57,66 @@ class FilterBottomSheet extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: AppSizes.defaultSpace),
-            child: Row(
+            child: filterSelected ?
+            Row(
               children: [
                 Expanded(
-                  child: ButtonPrimary(
-                    text: AppText.commonPageFilter,
-                    onTap: () {
-                      BlocProvider.of<SearchBloc>(context).add(GetProductsEvent());
-                    },
-                  ),
-                ),
-                const SizedBox(height: AppSizes.spaceBtwVerticalFields),
-                /*
-                Expanded(
-                  child: OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: AppSizes.spaceBtwHorizontalFields/2),
+                    child: ButtonPrimary(
+                      text: AppText.commonPageFilter,
+                      onTap: () {
+                      },
                     ),
-                    onPressed: () {},
-                    child: Text('Sort'),
                   ),
                 ),
-                */
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: AppSizes.spaceBtwHorizontalFields/2),
+                    child: ButtonSecondary(
+                      onTap: () {
+                        setState(() {
+                          filterSelected = false;
+                        });
+                      },
+                      text: AppText.commonPageCategory,
+                    ),
+                  ),
+                ),
+              ],
+            ): Row(
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: AppSizes.spaceBtwHorizontalFields/2),
+                    child: ButtonSecondary(
+                      text: AppText.commonPageFilter,
+                      onTap: () {
+                        setState(() {
+                          filterSelected = true;
+                        });
+                      },
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: AppSizes.spaceBtwHorizontalFields/2),
+                    child: ButtonPrimary(
+                      onTap: () {},
+                      text: AppText.commonPageCategory,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
           const SizedBox(height: AppSizes.spaceBtwVerticalFields),
+
+          //todo: get categories and select
+
           BlocBuilder<SearchBloc, SearchState>(
-            builder: (BuildContext context, SearchState state) => Expanded(
+            builder: (BuildContext context, SearchState state) => filterSelected ?Expanded(
               child: ListView.builder(
                 itemCount: state.features.length,
                 itemBuilder: (context, index) => _FilterRow(
@@ -92,7 +130,21 @@ class FilterBottomSheet extends StatelessWidget {
                       );
                     }),
               ),
-            ),
+            ):/*state.categoriesByLayer.isNotEmpty ?  Expanded(
+              child: ListView.builder(
+                itemCount: state.categoriesByLayer.first.length,
+                itemBuilder: (context, index) => _CategoryRow(
+                    category: state.categoriesByLayer.first[index],
+                    onTap: () {
+                      showModalBottomSheet(
+                        context: context,
+                        builder: (context) => _BottomSheetOption(
+                          feature: state.features[index],
+                        ),
+                      );
+                    }),
+              ),
+            ):*/const SizedBox.shrink() ,
           ),
           const SizedBox(height: AppSizes.spaceBtwVerticalFields),
         ],
@@ -130,6 +182,31 @@ class _FilterRow extends StatelessWidget {
   }
 }
 
+class _CategoryRow extends StatelessWidget {
+  final Category category;
+  final Function() onTap;
+
+
+  const _CategoryRow({required this.category,required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return RowItemDefault(
+      text: Padding(
+        padding: const EdgeInsets.only(left: AppSizes.defaultPadding),
+        child: Text(
+          category.name,
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
+      ),
+      onTap: onTap,
+      lastIcon: const Padding(
+        padding: EdgeInsets.only(right: AppSizes.defaultPadding),
+        child: Icon(Icons.chevron_right),
+      ),
+    );
+  }
+}
 class _BottomSheetOption extends StatelessWidget {
   final ProductFeature feature;
 

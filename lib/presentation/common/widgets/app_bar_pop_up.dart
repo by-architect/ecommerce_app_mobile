@@ -3,13 +3,13 @@ import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../common/constant/Screens.dart';
 import '../../../common/ui/assets/AppImages.dart';
 import '../../../common/ui/theme/AppText.dart';
 
 class AppBarPopUp extends StatefulWidget implements PreferredSizeWidget {
 
-  const AppBarPopUp({super.key,});
+  final Function()? onCloseTap;
+  const AppBarPopUp({super.key, this.onCloseTap,});
 
   @override
   State<AppBarPopUp> createState() => _AppBarPopUpState();
@@ -31,7 +31,7 @@ class _AppBarPopUpState extends State<AppBarPopUp> {
         Padding(
           padding: const EdgeInsets.all(AppSizes.spaceBtwHorizontalFields),
           child: IconButton(
-            onPressed: () {
+            onPressed: widget.onCloseTap ?? () {
               Navigator.of(context).pop();
             },
             icon: SvgPicture.asset(

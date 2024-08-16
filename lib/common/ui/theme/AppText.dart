@@ -99,6 +99,8 @@ class AppText{
   //pages common
   static const commonPageFilter = "Filter";
   static const commonPageClearAll = "Clear All";
+  static const commonPageCategory = "Category";
+
 
 
 

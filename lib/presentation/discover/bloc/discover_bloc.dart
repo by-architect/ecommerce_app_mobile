@@ -3,7 +3,6 @@ import 'package:ecommerce_app_mobile/data/model/category.dart';
 import 'package:ecommerce_app_mobile/data/provider/product_service_provider.dart';
 import 'package:ecommerce_app_mobile/presentation/discover/bloc/discover_event.dart';
 import 'package:ecommerce_app_mobile/presentation/discover/bloc/discover_state.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/helper/Log.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../sddklibrary/helper/resource.dart';

@@ -22,6 +22,8 @@ abstract class ProductService {
 
   Future<ResourceStatus> clearAllRecentSearch();
 
+  Future<ResourceStatus<List<RecentSearch>>> getRecentSearches();
+
   Future<ResourceStatus<List<Product>>> getProductsBySearchEvents(
-      {String? searchText, List<ProductFeatureOption>? selectedFeatureOptions, Category? selectedCategory});
+      {String? searchText, List<ProductFeatureOption>? selectedFeatureOptions, List<Category>? selectedCategories});
 }

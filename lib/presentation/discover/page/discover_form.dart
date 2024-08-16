@@ -1,8 +1,11 @@
+import 'package:ecommerce_app_mobile/common/constant/Screens.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/fail_form.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/row_classic.dart';
 import 'package:ecommerce_app_mobile/presentation/discover/bloc/discover_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/discover/bloc/discover_state.dart';
 import 'package:ecommerce_app_mobile/presentation/discover/widget/discover_skelton.dart';
+import 'package:ecommerce_app_mobile/presentation/search/bloc/search_bloc.dart';
+import 'package:ecommerce_app_mobile/presentation/search/bloc/search_event.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -10,7 +13,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../common/ui/theme/AppSizes.dart';
 import '../../../data/model/category.dart';
-import '../../../sddklibrary/ui/dialog_util.dart';
 import '../../home/widget/search_widget.dart';
 import '../bloc/discover_event.dart';
 
@@ -87,8 +89,11 @@ class _DiscoverFormState extends State<DiscoverForm> {
                           BlocProvider.of<DiscoverBloc>(context)
                               .add(NextCategoryLayerEvent(discoverState.selectedCategoryLayers.last[index]));
                         } else {
-                          //todo: go to products
-                          DialogUtil(context).toast("Go do product page");
+                          Navigator.of(context).pushNamed(Screens.searchScreen);
+                          BlocProvider.of<SearchBloc>(context).add(FocusSearchTextEvent(false));
+                          BlocProvider.of<SearchBloc>(context)
+                              .add(SelectedCategoriesEvent([discoverState.selectedCategoryLayers.last[index]]));
+                          BlocProvider.of<SearchBloc>(context).add(GetProductsEvent());
                         }
                       },
                     ),
@@ -113,16 +118,19 @@ class _CategoryItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return RowItemDefault(
             text: Row(
-          children: [
-            const SizedBox(
-              width: 50,
+              children: [
+                const SizedBox(
+                  width: 50,
+                ),
+                Text(
+                  category.name,
+                  style: Theme.of(context)
+                      .textTheme
+                      .headlineLarge
+                      ?.copyWith(fontWeight: FontWeight.normal, fontStyle: FontStyle.italic, fontSize: 30),
+                ),
+              ],
             ),
-            Text(
-              category.name,
-              style: Theme.of(context).textTheme.headlineLarge?.copyWith(fontWeight: FontWeight.normal,fontStyle: FontStyle.italic,fontSize: 30),
-            ),
-          ],
-        ),
             onTap: onTap)
         /*GestureDetector(
       onTap: onTap,

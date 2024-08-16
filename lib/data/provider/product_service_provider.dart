@@ -1,6 +1,5 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/common/util/category_util.dart';
-import 'package:ecommerce_app_mobile/data/fakerepository/fake_models.dart';
 import 'package:ecommerce_app_mobile/data/fakerepository/fake_product_service.dart';
 import 'package:ecommerce_app_mobile/data/model/category.dart';
 import 'package:ecommerce_app_mobile/data/model/recent_search.dart';
@@ -16,15 +15,15 @@ import '../model/product_feature.dart';
 class ProductServiceProvider {
   ProductService productService = FakeProductService();
 
-  Future<Resource<List<List<Category>>>> getCategoriesByLayer() async {
+  Future<ResourceStatus<List<List<Category>>>> getCategoriesByLayer() async {
     try {
       final categoriesResource = await productService.getCategories();
-      if (categoriesResource.status == Status.fail) return Resource.fail(categoriesResource.error!);
+      if (categoriesResource.status == Status.fail) return ResourceStatus.fail(categoriesResource.error!);
 
       final categories = categoriesResource.data!;
-      return Resource.success(CategoryUtil().sortCategoriesByLayer(categories));
+      return ResourceStatus.success(CategoryUtil().sortCategoriesByLayer(categories));
     } catch (e, s) {
-      return Resource.fail(Fail(userMessage: AppText.errorFetchingData, stackTrace: s, exception: e.toString()));
+      return ResourceStatus.fail(Fail(userMessage: AppText.errorFetchingData, stackTrace: s, exception: e.toString()));
     }
   }
 
@@ -41,8 +40,8 @@ class ProductServiceProvider {
   }
 
   Future<Resource<List<Product>>> getProductsBySearchEvent(
-      {String? searchText, List<ProductFeatureOption>? selectedFeatureOptions, Category? selectedCategory}) async {
-    return productService.getProductsBySearchEvents(selectedFeatureOptions: selectedFeatureOptions,selectedCategory: selectedCategory,searchText: searchText);
+      {String? searchText, List<ProductFeatureOption>? selectedFeatureOptions, List<Category>? selectedCategories}) async {
+    return productService.getProductsBySearchEvents(selectedFeatureOptions: selectedFeatureOptions,selectedCategories: selectedCategories,searchText: searchText);
   }
   Future<ResourceStatus<RecentSearch>> addRecentSearch(String recentSearch){
   return productService.addRecentSearch(recentSearch);
@@ -55,9 +54,17 @@ class ProductServiceProvider {
     return productService.clearAllRecentSearch();
   }
 
+  Future<ResourceStatus<List<RecentSearch>>> getRecentSearches(){
+   return productService.getRecentSearches() ;
+  }
+
   Future<ResourceStatus> deleteSearchHistory(List<RecentSearch> search) async {
     //todo: unimplemented
     const Duration(seconds: 1);
     return const ResourceStatus.success("");
+  }
+
+  Future<ResourceStatus<List<ProductFeature>>> getProductFeatures() {
+    return productService.getProductFeatures();
   }
 }

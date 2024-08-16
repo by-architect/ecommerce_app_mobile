@@ -16,6 +16,7 @@ import 'package:ecommerce_app_mobile/presentation/search/bloc/search_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/search/bloc/search_event.dart';
 import 'package:ecommerce_app_mobile/presentation/search/bloc/search_state.dart';
 import 'package:ecommerce_app_mobile/presentation/search/widget/bottom_sheet_filter.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/helper/Log.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -33,147 +34,173 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   TextEditingController textEditingController = TextEditingController();
+  FocusNode focusNode = FocusNode();
 
   @override
   void initState() {
-    BlocProvider.of<SearchBloc>(context).add(ClearStateEvent());
+    BlocProvider.of<SearchBloc>(context).add(GetRecentSearchesEvent());
+    BlocProvider.of<SearchBloc>(context).add(GetProductFeaturesEvent());
+    BlocProvider.of<SearchBloc>(context).add(GetCategoriesEvent());
+
+    focusNode.addListener(
+      () {
+        BlocProvider.of<SearchBloc>(context).add(FocusSearchTextEvent(focusNode.hasFocus));
+      },
+    );
+
+/*
+    BlocProvider.of<SearchBloc>(context).stream.listen(
+          (state) {
+            Log.test(title: "state",data: state.runtimeType.toString());
+            if(state is ProductLoadingState  || state is ProductSuccessState || state is ProductFailState){
+              setState(() {
+                focusNode.unfocus();
+                isTextFieldSearchFocused = false;
+              });
+            }
+          },
+        );
+*/
     super.initState();
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: const AppBarPopUp(),
-      body: BlocBuilder<SearchBloc, SearchState>(
-        builder: (BuildContext context, SearchState state) => Padding(
-          padding: const EdgeInsets.all(AppSizes.defaultSpace),
-          child: Column(
-            children: [
-              TextFieldSearch(
-                isFilterIconActive: state is ProductSuccessState,
-                autofocus: true,
-                textEditingController: textEditingController,
-                onFieldSubmitted: (text) {
-                  BlocProvider.of<SearchBloc>(context).add(GetProductsEvent());
-                },
-                onChanged: (text) {
-                  BlocProvider.of<SearchBloc>(context).add(SearchTextEvent(text ?? ""));
-                },
-                onTabFilter: () {
-                  showModalBottomSheet(
-                    context: context,
-                    builder: (context) => const FilterBottomSheet(),
-                  );
-                  // BlocProvider.of<SearchBloc>(context).add(ToggleContainerEvent());
-                },
-              ),
-              const SizedBox(
-                height: AppSizes.spaceBtwVerticalFields,
-              ),
-/*
-              AnimatedContainer(
-                duration: AppDurations.containerAnimation,
-                height: state.isFilterContainerActive ? null : 0,
-                child: Column(
-                  children: [
-                    const _FilterContainer(),
-                    const SizedBox(
-                      height: AppSizes.spaceBtwVerticalFields,
-                    ),
-                    SizedBox(
-                        width: 100,
-                        child: ButtonSecondary(
-                          text: AppText.searchPageFilter,
-                          onTap: () {
-                            BlocProvider.of<SearchBloc>(context).add(ToggleContainerEvent());
-                            BlocProvider.of<SearchBloc>(context).add(GetProductsEvent());
-                          },
-                        )),
-                    const SizedBox(
-                      height: AppSizes.spaceBtwVerticalFields,
-                    )
-                  ],
-                ),
-              ),
-*/
-              //RECENT SEARCHES
+  void deactivate() {
+    BlocProvider.of<SearchBloc>(context).add(ClearStateEvent());
+    super.deactivate();
+  }
 
-              state is InitSearchState
-                  ? Expanded(
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                AppText.searchPageRecentSearches,
-                                style: Theme.of(context).textTheme.titleSmall,
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<SearchBloc, SearchState>(
+      builder: (BuildContext context, SearchState state) => PopScope(
+        canPop: !state.isSearchFocused,
+        onPopInvoked: (didPop) {
+          if (state.isSearchFocused) {
+            focusNode.unfocus();
+          }
+        },
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          appBar: AppBarPopUp(
+            onCloseTap: () {
+              if (state.isSearchFocused) {
+                focusNode.unfocus();
+              } else {
+                Navigator.of(context).pop();
+              }
+            },
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(AppSizes.defaultSpace),
+            child: Column(
+              children: [
+                TextFieldSearch(
+                  isFilterIconActive: state is ProductSuccessState,
+                  autofocus: state.isSearchFocused,
+                  focusNode: focusNode,
+                  textEditingController: textEditingController,
+                  onFieldSubmitted: (text) {
+                    BlocProvider.of<SearchBloc>(context).add(GetProductsEvent());
+                    if (text != null) BlocProvider.of<SearchBloc>(context).add(AddRecentSearchEvent(text));
+                    focusNode.unfocus();
+                  },
+                  onChanged: (text) {
+                    BlocProvider.of<SearchBloc>(context).add(SearchTextEvent(text ?? ""));
+                  },
+                  onTabFilter: () {
+                    showModalBottomSheet(
+                      context: context,
+                      builder: (context) => const FilterBottomSheet(),
+                    );
+                    // BlocProvider.of<SearchBloc>(context).add(ToggleContainerEvent());
+                  },
+                ),
+                const SizedBox(
+                  height: AppSizes.spaceBtwVerticalFields,
+                ),
+                //RECENT SEARCHES
+
+                state.isSearchFocused
+                    ? Expanded(
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  AppText.searchPageRecentSearches,
+                                  style: Theme.of(context).textTheme.titleSmall,
+                                ),
+                                TextButtonDefault(
+                                    text: AppText.commonPageClearAll,
+                                    onPressed: () {
+                                      BlocProvider.of<SearchBloc>(context).add(ClearAllRecentSearchEvent());
+                                    }),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: AppSizes.spaceBtwVerticalFieldsSmall,
+                            ),
+                            Expanded(
+                              child: ListView.builder(
+                                  itemCount: state.recentSearches.length,
+                                  itemBuilder: (context, index) => _RecentSearchRow(
+                                      text: state.getSearchReversed[index].text,
+                                      onTap: () {
+                                        textEditingController.text = state.getSearchReversed[index].text;
+                                        BlocProvider.of<SearchBloc>(context).add(SearchTextEvent(state.getSearchReversed[index].text));
+                                        BlocProvider.of<SearchBloc>(context).add(GetProductsEvent());
+                                        focusNode.unfocus();
+                                      },
+                                      onDeleteTap: () {
+                                        BlocProvider.of<SearchBloc>(context)
+                                            .add(ClearSelectedRecentSearchEvent(state.getSearchReversed[index]));
+                                      })),
+                            )
+                          ],
+                        ),
+                      )
+                    : switch (state) {
+                        ProductLoadingState() =>
+                          Expanded(child: ListView.builder(itemCount: 6, itemBuilder: (context, index) => const ProductsSkeleton())),
+                        ProductFailState failState => Expanded(
+                            child: FailForm(
+                                fail: failState.fail,
+                                onRefreshTap: () {
+                                  BlocProvider.of<SearchBloc>(context).add(GetProductFeaturesEvent());
+                                  BlocProvider.of<SearchBloc>(context).add(GetCategoriesEvent());
+                                  BlocProvider.of<SearchBloc>(context).add(GetProductsEvent());
+                                }),
+                          ),
+                        ProductSuccessState _ || SearchState _ => Expanded(
+                            child: GridView.builder(
+                              itemCount: state.products.length,
+                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                childAspectRatio: 0.75,
+                                mainAxisSpacing: 10,
+                                crossAxisSpacing: 10,
                               ),
-                              TextButtonDefault(
-                                  text: AppText.commonPageClearAll,
-                                  onPressed: () {
-                                    BlocProvider.of<SearchBloc>(context).add(ClearAllRecentSearchEvent());
-                                  }),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: AppSizes.spaceBtwVerticalFieldsSmall,
-                          ),
-                          Expanded(
-                            child: ListView.builder(
-                                itemCount: state.recentSearches.length,
-                                itemBuilder: (context, index) => _RecentSearchRow(
-                                    text: state.recentSearches[index].text,
-                                    onTap: () {
-                                      textEditingController.text = state.recentSearches[index].text;
-                                      BlocProvider.of<SearchBloc>(context).add(SearchTextEvent(state.recentSearches[index].text));
-                                      BlocProvider.of<SearchBloc>(context).add(GetProductsEvent());
-                                    },
-                                    onDeleteTap: () {
-                                      BlocProvider.of<SearchBloc>(context).add(ClearSelectedRecentSearchEvent(state.recentSearches[index]));
-                                    })),
-                          )
-                        ],
-                      ),
-                    )
-                  : switch (state) {
-                      ProductLoadingState() =>
-                        Expanded(child: ListView.builder(itemCount: 6, itemBuilder: (context, index) => const ProductsSkeleton())),
-                      ProductFailState failState => Expanded(
-                          child: FailForm(
-                              fail: failState.fail,
-                              onRefreshTap: () {
-                                BlocProvider.of<SearchBloc>(context).add(GetProductsEvent());
-                              }),
-                        ),
-                      ProductSuccessState _ || SearchState _ => Expanded(
-                          child: GridView.builder(
-                            itemCount: state.products.length,
-                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              childAspectRatio: 0.75,
-                              mainAxisSpacing: 10,
-                              crossAxisSpacing: 10,
-                            ),
-                            itemBuilder: (context, index) => ProductCard(
-                              product: state.products[index],
-                              press: () {
-                                // Navigate to product details page
-/*
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ProductDetailsPage(product: state.products[index]),
-                                  ),
-                                );
-*/
-                              },
+                              itemBuilder: (context, index) => ProductCard(
+                                product: state.products[index],
+                                press: () {
+                                  // Navigate to product details page
+                                  /*
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ProductDetailsPage(product: state.products[index]),
+                                    ),
+                                  );
+      */
+                                },
+                              ),
                             ),
                           ),
-                        ),
-                    }
-            ],
+                      }
+              ],
+            ),
           ),
         ),
       ),

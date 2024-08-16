@@ -128,7 +128,7 @@ class ProductServiceImpl extends ProductService {
 
   @override
   Future<ResourceStatus<List<Product>>> getProductsBySearchEvents(
-      {String? searchText, List<ProductFeatureOption>? selectedFeatureOptions, Category? selectedCategory}) {
+      {String? searchText, List<ProductFeatureOption>? selectedFeatureOptions, List<Category>? selectedCategories}) {
     // TODO: implement getProductByFields
     throw UnimplementedError();
   }
@@ -148,6 +148,12 @@ class ProductServiceImpl extends ProductService {
   @override
   Future<ResourceStatus> clearRecentSearch(RecentSearch recentSearchList) {
     // TODO: implement clearRecentSearch
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<ResourceStatus<List<RecentSearch>>> getRecentSearches() {
+    // TODO: implement getRecentSearches
     throw UnimplementedError();
   }
 
