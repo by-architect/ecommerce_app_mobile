@@ -13,7 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../common/ui/theme/AppSizes.dart';
 import '../../../data/model/category.dart';
-import '../../home/widget/search_widget.dart';
+import '../../main/widget/search_widget.dart';
 import '../bloc/discover_event.dart';
 
 class DiscoverForm extends StatefulWidget {
@@ -46,7 +46,14 @@ class _DiscoverFormState extends State<DiscoverForm> {
           CategorySuccessState successState => Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Flexible(flex: 2, child: TextFieldSearch()),
+                Flexible(flex: 2, child: TextFieldSearch(
+                  onFieldSubmitted: (value) {
+                    BlocProvider.of<SearchBloc>(context).add(FocusSearchTextEvent(false));
+                    BlocProvider.of<SearchBloc>(context).add(SearchTextEvent(value??""));
+                    BlocProvider.of<SearchBloc>(context).add(GetProductsEvent());
+                    Navigator.of(context).pushNamed(Screens.searchScreen);
+                  },
+                )),
                 Expanded(
                   flex: 2,
                   child: Padding(

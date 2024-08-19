@@ -6,14 +6,14 @@ import 'package:flutter/material.dart';
 
 import '../../../data/model/category.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<MainScreen> createState() => _MainScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _MainScreenState extends State<MainScreen> {
   List<List<Category>> categoriesByLayer = [];
   int selectedIndex = 0;
 

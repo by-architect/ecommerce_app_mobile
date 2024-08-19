@@ -11,7 +11,6 @@ import 'package:ecommerce_app_mobile/presentation/common/widgets/fail_form.dart'
 import 'package:ecommerce_app_mobile/presentation/common/widgets/product_card.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/row_classic.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/text_button_default.dart';
-import 'package:ecommerce_app_mobile/presentation/home/widget/search_widget.dart';
 import 'package:ecommerce_app_mobile/presentation/search/bloc/search_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/search/bloc/search_event.dart';
 import 'package:ecommerce_app_mobile/presentation/search/bloc/search_state.dart';
@@ -24,6 +23,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../data/model/product_feature.dart';
+import '../../main/widget/search_widget.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -48,19 +48,11 @@ class _SearchScreenState extends State<SearchScreen> {
       },
     );
 
-/*
     BlocProvider.of<SearchBloc>(context).stream.listen(
           (state) {
-            Log.test(title: "state",data: state.runtimeType.toString());
-            if(state is ProductLoadingState  || state is ProductSuccessState || state is ProductFailState){
-              setState(() {
-                focusNode.unfocus();
-                isTextFieldSearchFocused = false;
-              });
-            }
+            textEditingController.text = state.searchText;
           },
         );
-*/
     super.initState();
   }
 

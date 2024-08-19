@@ -7,13 +7,11 @@ import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_bloc.
 import 'package:ecommerce_app_mobile/presentation/authentication/pages/sign_in_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/pages/sign_up_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/discover/bloc/discover_bloc.dart';
-import 'package:ecommerce_app_mobile/presentation/home/page/home_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/main/bloc/main_blocs.dart';
-import 'package:ecommerce_app_mobile/presentation/main/bloc/main_states.dart';
+import 'package:ecommerce_app_mobile/presentation/main/page/main_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/search/bloc/search_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/search/page/search_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/splash/bloc/welcome_blocs.dart';
-import 'package:ecommerce_app_mobile/presentation/splash/pages/welcome.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -46,10 +44,10 @@ class MyApp extends StatelessWidget {
           routes: {
             Screens.signInScreen: (context) => const SignInScreen(),
             Screens.signUpScreen: (context) => const SignUpScreen(),
-            Screens.homeScreen: (context) => const HomeScreen(),
+            Screens.homeScreen: (context) => const MainScreen(),
             Screens.searchScreen: (context) => const SearchScreen(),
           },
-          home: const HomeScreen() ),
+          home: const MainScreen() ),
     );
   }
 }
