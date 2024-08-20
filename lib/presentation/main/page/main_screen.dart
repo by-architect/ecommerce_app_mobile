@@ -2,9 +2,13 @@ import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/widgets/app_bar_default.dart';
 import 'package:ecommerce_app_mobile/presentation/discover/page/discover_form.dart';
+import 'package:ecommerce_app_mobile/presentation/home/form/home_form.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../data/model/category.dart';
+import '../../home/bloc/home_bloc.dart';
+import '../../home/bloc/home_event.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -14,11 +18,12 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  List<List<Category>> categoriesByLayer = [];
+
   int selectedIndex = 0;
 
   @override
   void initState() {
+    BlocProvider.of<HomeBloc>(context).add(GetProductsEvent());
     super.initState();
   }
 
@@ -57,12 +62,7 @@ class _MainScreenState extends State<MainScreen> {
             ],
           ),
           body: <Widget>[
-            const Padding(
-              padding: EdgeInsets.all(AppSizes.defaultSpace),
-              child: Column(
-                children: [],
-              ),
-            ),
+            const HomeForm(),
             const DiscoverForm(),
             // FailSkeleton(fail: Fail(userMessage: "network fail"),)
           ][selectedIndex],

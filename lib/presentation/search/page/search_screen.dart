@@ -1,12 +1,9 @@
-import 'package:ecommerce_app_mobile/common/constant/app_durations.dart';
-import 'package:ecommerce_app_mobile/common/helper/map_helper.dart';
 import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/presentation/common/skeleton/product_skeleton.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/app_bar_pop_up.dart';
-import 'package:ecommerce_app_mobile/presentation/common/widgets/button_secondary.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/fail_form.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/product_card.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/row_classic.dart';
@@ -15,18 +12,34 @@ import 'package:ecommerce_app_mobile/presentation/search/bloc/search_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/search/bloc/search_event.dart';
 import 'package:ecommerce_app_mobile/presentation/search/bloc/search_state.dart';
 import 'package:ecommerce_app_mobile/presentation/search/widget/bottom_sheet_filter.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/helper/Log.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../data/model/product_feature.dart';
 import '../../main/widget/search_widget.dart';
 
 class SearchScreen extends StatefulWidget {
-  const SearchScreen({super.key});
+  final BuildContext outContext;
+  final List<SearchEvent>? events;
+
+  SearchScreen({
+    super.key,
+    required this.outContext,
+    this.events,
+  }) {
+    BlocProvider.of<SearchBloc>(outContext).add(FocusSearchTextEvent(true));
+  }
+
+  SearchScreen.getProducts({super.key, required this.events, required this.outContext}) {
+    if (events == null) return;
+    BlocProvider.of<SearchBloc>(outContext).add(FocusSearchTextEvent(false));
+    for (var searchEvent in events!) {
+      BlocProvider.of<SearchBloc>(outContext).add(searchEvent);
+    }
+    BlocProvider.of<SearchBloc>(outContext).add(GetProductsEvent());
+  }
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();
@@ -49,10 +62,10 @@ class _SearchScreenState extends State<SearchScreen> {
     );
 
     BlocProvider.of<SearchBloc>(context).stream.listen(
-          (state) {
-            textEditingController.text = state.searchText;
-          },
-        );
+      (state) {
+        textEditingController.text = state.searchText;
+      },
+    );
     super.initState();
   }
 

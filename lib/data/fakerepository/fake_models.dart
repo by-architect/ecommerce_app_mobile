@@ -1,12 +1,15 @@
 import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/util/category_util.dart';
+import 'package:ecommerce_app_mobile/data/model/banner.dart';
 import 'package:ecommerce_app_mobile/data/model/product.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
 import 'package:ecommerce_app_mobile/data/model/recent_search.dart';
+import 'package:ecommerce_app_mobile/presentation/home/constant/banner_style.dart';
 import 'package:flutter/material.dart';
 
 import '../../presentation/authentication/bloc/user_state.dart';
 import '../model/category.dart';
+import '../model/tag.dart';
 
 class FakeUserModels {
   static UserRequestState emin =
@@ -63,7 +66,10 @@ class FakeProductModels {
   );
   static ProductFeature productFeatureColor = ProductFeature("1", "Color", [_option4, _option5, _option6], ProductFeatureType.color);
 
-  static final productFeatures = [productFeatureSize, productFeatureColor,];
+  static final productFeatures = [
+    productFeatureSize,
+    productFeatureColor,
+  ];
 
 /*
   static final productFeaturesWithSelectedOption = [
@@ -99,10 +105,9 @@ class FakeProductModels {
       id: "0",
       image: AppImages.shoppingBags,
       price: 54,
-     featureOptionIds:  [_option4.id,_option2.id] ,
+      featureOptionIds: [_option4.id, _option2.id],
       discount: 0,
       brandName: "Nike");
-
 
   static Product product2 = Product(
       productId: "1",
@@ -115,7 +120,7 @@ class FakeProductModels {
       image: AppImages.windowShopping,
       id: "1",
       price: 40,
-      featureOptionIds:  [_option2.id,_option5.id] ,
+      featureOptionIds: [_option2.id, _option5.id],
       discount: 5,
       brandName: "Adidas");
 
@@ -130,7 +135,7 @@ class FakeProductModels {
       barcode: "9082345",
       id: "2",
       price: 80,
-      featureOptionIds:  [_option3.id,_option6.id] ,
+      featureOptionIds: [_option3.id, _option6.id],
       discount: 10,
       brandName: "Clarks");
 
@@ -145,7 +150,7 @@ class FakeProductModels {
       image: AppImages.shoppingBags,
       id: "3",
       price: 100,
-      featureOptionIds:  [_option1.id,_option5.id] ,
+      featureOptionIds: [_option1.id, _option5.id],
       discount: 15,
       brandName: "Timberland");
 
@@ -160,7 +165,7 @@ class FakeProductModels {
       image: AppImages.shoppingBags,
       id: "4",
       price: 120,
-      featureOptionIds:  [_option3.id,_option5.id] ,
+      featureOptionIds: [_option3.id, _option5.id],
       discount: 20,
       brandName: "Derimod");
 
@@ -171,7 +176,7 @@ class FakeProductModels {
       [ProductFeatureWithSelectedOption(productFeatureSize, _option3) ,ProductFeatureWithSelectedOption(productFeatureColor, _option6) ], 10);
 */
 
-  static final products = [product1, product2, product3,product4,product5];
+  static final products = [product1, product2, product3, product4, product5];
 
   static List<RecentSearch> recentSearches = [
     RecentSearch("0", "3333", "Ayakkabı"),
@@ -179,5 +184,15 @@ class FakeProductModels {
     RecentSearch("2", "3333", "Krampon"),
     RecentSearch("3", "3333", "Kulaklık"),
     RecentSearch("4", "3333", "Gömlek"),
+  ];
+
+  static final Tag summerTag = Tag("Summer");
+  static final Tag winterTag = Tag("Winter");
+  static final Tag holidayTag = Tag("Holiday");
+
+  static List<BannerModel> banners = [
+    BannerModel(title: "Grab yours own",subtitle:  "Collections",discount:  30,image:  AppImages.shoppingBags, style:  BannerStyle.bannerM1Style,tag: summerTag ),
+    BannerModel(title: "Summer Sale",subtitle:  "Collections",discount:  59,image:  AppImages.windowShopping,style:  BannerStyle.bannerM2Style,tag: winterTag),
+    BannerModel(title: "New items",subtitle:  "Collections",discount:  30, image:  AppImages.shoppingBags, style:  BannerStyle.bannerM1Style,tag: holidayTag),
   ];
 }

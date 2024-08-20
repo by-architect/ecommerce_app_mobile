@@ -17,7 +17,7 @@ class DiscoverState {
 }
 
 class InitialDiscoverState extends DiscoverState {
-  InitialDiscoverState() : super([],[Category(id: "0",name:  AppText.discoverPageCategories,superId:  "",layer:  0),],[]);
+  InitialDiscoverState() : super([],[Category(id: "0",name:  AppText.commonPageCategories,superId:  "",layer:  0),],[]);
 }
 
 class CategorySuccessState extends DiscoverState {

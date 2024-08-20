@@ -4,8 +4,12 @@ class Screens{
   static const passwordRecoveryScreen = "passwordRecoveryScreen";
   static const homeScreen = "homeScreen";
 
-  //todo: create this pages
   static const searchScreen = "searchScreen";
+ static const productScreen = "productScreen";
+
+
+ //todo:unimplemented
   static const notificationScreen = "notificationScreen";
+  static var onSaleScreen = "onSaleScreen";
 
 }

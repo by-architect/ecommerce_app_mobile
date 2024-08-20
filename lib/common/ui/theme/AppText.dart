@@ -85,21 +85,31 @@ class AppText{
 
   //Discover page
   static const discoverPageFindSomething = "Find Something...";
-  static const discoverPageCategories = "Categories";
 
   //search screen
   static const searchPageRecentSearches = "Recent Searches";
 
-  //product card
-  static var productCardOff = "off"; // indirim
 
   //filter page
   static const filterPageAvailableInStock = "Available in stock";
+
+  //home screen
+  static const homePageNewProducts= "New Products"; // if it is food, new Foods
+  static const homePageShopNow = "Shop now";
+  static const homePageAllCategories = "All Categories";
+  static const homePageDiscountProducts= "Flash Sale";
+  static const homePageBestSellerProducts= "Best Seller";
+  static const homePageLastAddedProducts= "Last Added";
 
   //pages common
   static const commonPageFilter = "Filter";
   static const commonPageClearAll = "Clear All";
   static const commonPageCategory = "Category";
+  static var commonPageOff = "off"; // indirim
+  static const commonPageCategories = "Categories";
+
+
+
 
 
 

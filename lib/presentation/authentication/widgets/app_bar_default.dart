@@ -26,7 +26,6 @@ class AppBarMain extends StatelessWidget implements PreferredSizeWidget{
         IconButton(
           onPressed: () {
             Navigator.pushNamed(context, Screens.searchScreen);
-            BlocProvider.of<SearchBloc>(context).add(FocusSearchTextEvent(true));
           },
           icon: SvgPicture.asset(
             AppImages.searchIcon,

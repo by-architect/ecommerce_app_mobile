@@ -4,6 +4,7 @@ import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
 import 'package:ecommerce_app_mobile/data/model/recent_search.dart';
 
 import '../../sddklibrary/helper/resource.dart';
+import '../model/tag.dart';
 
 abstract class ProductService {
   Future<ResourceStatus<List<Category>>> getCategories();
@@ -24,6 +25,10 @@ abstract class ProductService {
 
   Future<ResourceStatus<List<RecentSearch>>> getRecentSearches();
 
+  Future<ResourceStatus<List<Product>>> getProductByDiscount(int count);
+  Future<ResourceStatus<List<Product>>> getProductByBestSeller(int count);
+  Future<ResourceStatus<List<Product>>> getProductByLastAdded(int count);
+
   Future<ResourceStatus<List<Product>>> getProductsBySearchEvents(
-      {String? searchText, List<ProductFeatureOption>? selectedFeatureOptions, List<Category>? selectedCategories});
+      {String? searchText, List<ProductFeatureOption>? selectedFeatureOptions, List<Category>? selectedCategories, List<Tag>? selectedTags});
 }

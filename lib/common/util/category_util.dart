@@ -1,4 +1,6 @@
+import 'package:ecommerce_app_mobile/common/constant/Screens.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
+import 'package:ecommerce_app_mobile/presentation/home/widget/categories_widget.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/constant/exceptions/product_exceptions.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/fail.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/resource.dart';
@@ -17,6 +19,7 @@ class CategoryUtil {
     }
     return categoriesByLayer;
   }
+
 
   List<Category> getNextCategoryLayer(List<Category> nextLayerPool, Category selectedCategory) {
     final categoriesLayer = nextLayerPool.where((category) => category.superId == selectedCategory.id).toList();

@@ -9,6 +9,8 @@ import 'package:ecommerce_app_mobile/data/service/product_service.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/fail.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/resource.dart';
 
+import '../model/tag.dart';
+
 class FakeProductService implements ProductService {
   Random random = Random();
 
@@ -76,7 +78,7 @@ class FakeProductService implements ProductService {
 
   @override
   Future<ResourceStatus<List<Product>>> getProductsBySearchEvents(
-      {String? searchText, List<ProductFeatureOption>? selectedFeatureOptions, List<Category>? selectedCategories}) async {
+      {String? searchText, List<ProductFeatureOption>? selectedFeatureOptions, List<Category>? selectedCategories, List<Tag>? selectedTags}) async {
     await Future.delayed(const Duration(seconds: 2));
 
     return ResourceStatus.success(FakeProductModels.products);
@@ -113,5 +115,24 @@ class FakeProductService implements ProductService {
     return random.nextBool()
         ? ResourceStatus.success(FakeProductModels.recentSearches)
         : ResourceStatus.fail(Fail(userMessage: "Fake product service fail situation"));
+  }
+
+  @override
+  Future<ResourceStatus<List<Product>>> getProductByDiscount(int count) async {
+    await Future.delayed(const Duration(seconds: 2));
+    final List<Product> products = FakeProductModels.products.where((product) => product.discount != 0 ).toList();
+    return ResourceStatus.success(products);
+  }
+
+  @override
+  Future<ResourceStatus<List<Product>>> getProductByBestSeller(int count) async {
+    await Future.delayed(const Duration(seconds: 2));
+    return ResourceStatus.success(FakeProductModels.products);
+  }
+
+  @override
+  Future<ResourceStatus<List<Product>>> getProductByLastAdded(int count) async {
+    await Future.delayed(const Duration(seconds: 2));
+    return ResourceStatus.success(FakeProductModels.products);
   }
 }

@@ -4,5 +4,6 @@ class AppDurations {
   static const containerAnimation = Duration(seconds: 4);
   static const buttonClickAnimation = const Duration(milliseconds: 100);
 
+  static const defaultDuration = const Duration(milliseconds: 300);
 
 }

@@ -11,6 +11,7 @@ import 'package:ecommerce_app_mobile/sddklibrary/helper/fail.dart';
 import '../../sddklibrary/helper/resource.dart';
 import '../model/product.dart';
 import '../model/product_feature.dart';
+import '../model/tag.dart';
 
 class ProductServiceProvider {
   ProductService productService = FakeProductService();
@@ -40,22 +41,28 @@ class ProductServiceProvider {
   }
 
   Future<Resource<List<Product>>> getProductsBySearchEvent(
-      {String? searchText, List<ProductFeatureOption>? selectedFeatureOptions, List<Category>? selectedCategories}) async {
-    return productService.getProductsBySearchEvents(selectedFeatureOptions: selectedFeatureOptions,selectedCategories: selectedCategories,searchText: searchText);
+      {String? searchText,
+      List<ProductFeatureOption>? selectedFeatureOptions,
+      List<Category>? selectedCategories,
+      List<Tag>? selectedTags}) async {
+    return productService.getProductsBySearchEvents(
+        selectedFeatureOptions: selectedFeatureOptions, selectedCategories: selectedCategories, searchText: searchText,selectedTags: selectedTags);
   }
-  Future<ResourceStatus<RecentSearch>> addRecentSearch(String recentSearch){
-  return productService.addRecentSearch(recentSearch);
+
+  Future<ResourceStatus<RecentSearch>> addRecentSearch(String recentSearch) {
+    return productService.addRecentSearch(recentSearch);
   }
-  Future<ResourceStatus> clearRecentSearch(RecentSearch recentSearch){
+
+  Future<ResourceStatus> clearRecentSearch(RecentSearch recentSearch) {
     return productService.clearRecentSearch(recentSearch);
   }
 
-  Future<ResourceStatus> clearAllRecentSearch(){
+  Future<ResourceStatus> clearAllRecentSearch() {
     return productService.clearAllRecentSearch();
   }
 
-  Future<ResourceStatus<List<RecentSearch>>> getRecentSearches(){
-   return productService.getRecentSearches() ;
+  Future<ResourceStatus<List<RecentSearch>>> getRecentSearches() {
+    return productService.getRecentSearches();
   }
 
   Future<ResourceStatus> deleteSearchHistory(List<RecentSearch> search) async {
@@ -67,4 +74,15 @@ class ProductServiceProvider {
   Future<ResourceStatus<List<ProductFeature>>> getProductFeatures() {
     return productService.getProductFeatures();
   }
+
+  Future<ResourceStatus<List<Product>>> getProductByDiscount(int count) {
+    return productService.getProductByDiscount(count);
+  }
+  Future<ResourceStatus<List<Product>>> getProductByBestSeller(int count) {
+    return productService.getProductByBestSeller(count);
+  }
+  Future<ResourceStatus<List<Product>>> getProductByLastAdded(int count) {
+    return productService.getProductByLastAdded(count);
+  }
+
 }

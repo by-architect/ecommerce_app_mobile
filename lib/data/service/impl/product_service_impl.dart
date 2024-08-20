@@ -13,6 +13,7 @@ import 'package:ecommerce_app_mobile/sddklibrary/helper/resource.dart';
 
 import '../../../sddklibrary/constant/exceptions/exceptions.dart';
 import '../../../sddklibrary/helper/network_helper.dart';
+import '../../model/tag.dart';
 
 class ProductServiceImpl extends ProductService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -42,7 +43,7 @@ class ProductServiceImpl extends ProductService {
       if (!networkConnection.isConnected) throw NetworkDeviceDisconnectedException("Network Device is down");
 
       final productFeaturesResponse =
-          await _firestore.collection(FireStoreCollections.productFeatures).get().timeout(AppDurations.postTimeout);
+      await _firestore.collection(FireStoreCollections.productFeatures).get().timeout(AppDurations.postTimeout);
       productFeaturesResponse.docs.forEach((doc) {
         productFeatureList.add(ProductFeature.fromMap(doc.data()));
       });
@@ -127,13 +128,6 @@ class ProductServiceImpl extends ProductService {
   }
 
   @override
-  Future<ResourceStatus<List<Product>>> getProductsBySearchEvents(
-      {String? searchText, List<ProductFeatureOption>? selectedFeatureOptions, List<Category>? selectedCategories}) {
-    // TODO: implement getProductByFields
-    throw UnimplementedError();
-  }
-
-  @override
   Future<ResourceStatus<RecentSearch>> addRecentSearch(String recentSearch) {
     // TODO: implement addRecentSearch
     throw UnimplementedError();
@@ -152,11 +146,35 @@ class ProductServiceImpl extends ProductService {
   }
 
   @override
+  Future<ResourceStatus<List<Product>>> getProductsBySearchEvents(
+      {String? searchText, List<ProductFeatureOption>? selectedFeatureOptions, List<Category>? selectedCategories, List<
+          Tag>? selectedTags}) {
+    // TODO: implement getProductsBySearchEvents
+    throw UnimplementedError();
+  }
+
+  @override
   Future<ResourceStatus<List<RecentSearch>>> getRecentSearches() {
     // TODO: implement getRecentSearches
     throw UnimplementedError();
   }
 
+  @override
+  Future<ResourceStatus<List<Product>>> getProductByDiscount(int count) {
+    // TODO: implement getProductByDiscount
+    throw UnimplementedError();
+  }
 
+  @override
+  Future<ResourceStatus<List<Product>>> getProductByBestSeller(int count) {
+    // TODO: implement getProductByBestSeller
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<ResourceStatus<List<Product>>> getProductByLastAdded(int count) {
+    // TODO: implement getProductByLastAdded
+    throw UnimplementedError();
+  }
 
 }

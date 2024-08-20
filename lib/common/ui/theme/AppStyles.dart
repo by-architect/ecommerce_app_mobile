@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 
 class AppStyles {
+
+  static const grandisExtendedFont = "GrandisExtended";
+
   static final ElevatedButtonThemeData elevatedButtonThemeData = ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       padding: const EdgeInsets.all(AppSizes.defaultPadding),

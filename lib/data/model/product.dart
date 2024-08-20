@@ -15,8 +15,11 @@ class Product {
   late final double cargoPrice;
   late final String? brandName;
   late final String image;
+  late final int buyTimes;
 
   //product list
+  late final DateTime addedTime;
+  late final DateTime modifiedTime;
   late final int totalCount;
   late final String barcode;
   late final String id;

@@ -10,18 +10,14 @@ class ProductsSkeleton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return const SizedBox(
       height: 220,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: 5,
-        itemBuilder: (context, index) => Padding(
-          padding: EdgeInsets.only(
-            left: AppSizes.defaultPadding,
-            right: index == 4 ? AppSizes.defaultPadding : 0,
-          ),
-          child: const ProductCardSkeleton(),
-        ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          ProductCardSkeleton(),
+          ProductCardSkeleton(),
+        ],
       ),
     );
   }

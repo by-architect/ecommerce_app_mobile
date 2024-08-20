@@ -46,7 +46,7 @@ class ProductCard extends StatelessWidget {
                             Radius.circular(AppSizes.defaultBorderRadius)),
                       ),
                       child: Text(
-                        "${product.discountPercent}% ${AppText.productCardOff}",
+                        "${product.discountPercent}% ${AppText.commonPageOff}",
                         style: const TextStyle(
                             color: Colors.white,
                             fontSize: 10,

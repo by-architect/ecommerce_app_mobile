@@ -20,4 +20,7 @@ class AppImages{
   static const filterIcon = "${_iconPath}Filter$_formatSvg";
   static const clockIcon = "${_iconPath}Clock$_formatSvg";
 
+  static const discountTagIcon = "${_iconPath}Discount_tag$_formatSvg";
+  static const arrowRight = "${_iconPath}Arrow - Right$_formatSvg";
+  static const dot = "${_iconPath}dot$_formatSvg";
 }

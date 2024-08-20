@@ -6,6 +6,7 @@ import 'package:ecommerce_app_mobile/presentation/discover/bloc/discover_state.d
 import 'package:ecommerce_app_mobile/presentation/discover/widget/discover_skelton.dart';
 import 'package:ecommerce_app_mobile/presentation/search/bloc/search_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/search/bloc/search_event.dart';
+import 'package:ecommerce_app_mobile/presentation/search/page/search_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -46,14 +47,19 @@ class _DiscoverFormState extends State<DiscoverForm> {
           CategorySuccessState successState => Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Flexible(flex: 2, child: TextFieldSearch(
-                  onFieldSubmitted: (value) {
-                    BlocProvider.of<SearchBloc>(context).add(FocusSearchTextEvent(false));
-                    BlocProvider.of<SearchBloc>(context).add(SearchTextEvent(value??""));
-                    BlocProvider.of<SearchBloc>(context).add(GetProductsEvent());
-                    Navigator.of(context).pushNamed(Screens.searchScreen);
-                  },
-                )),
+                Flexible(
+                    flex: 2,
+                    child: TextFieldSearch(
+                      onFieldSubmitted: (value) {
+                        SearchScreen.getProducts(outContext: context, events: []);
+
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => SearchScreen.getProducts(events: [
+                            SearchTextEvent(value ?? "")
+                          ], outContext: context),
+                        ));
+                      },
+                    )),
                 Expanded(
                   flex: 2,
                   child: Padding(
@@ -96,11 +102,11 @@ class _DiscoverFormState extends State<DiscoverForm> {
                           BlocProvider.of<DiscoverBloc>(context)
                               .add(NextCategoryLayerEvent(discoverState.selectedCategoryLayers.last[index]));
                         } else {
-                          Navigator.of(context).pushNamed(Screens.searchScreen);
-                          BlocProvider.of<SearchBloc>(context).add(FocusSearchTextEvent(false));
-                          BlocProvider.of<SearchBloc>(context)
-                              .add(SelectedCategoriesEvent([discoverState.selectedCategoryLayers.last[index]]));
-                          BlocProvider.of<SearchBloc>(context).add(GetProductsEvent());
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => SearchScreen.getProducts(events: [
+                              SelectedCategoriesEvent([discoverState.selectedCategoryLayers.last[index]])
+                            ], outContext: context),
+                          ));
                         }
                       },
                     ),
