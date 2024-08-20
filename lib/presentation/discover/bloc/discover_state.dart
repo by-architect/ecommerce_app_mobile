@@ -1,36 +1,43 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
-import 'package:ecommerce_app_mobile/common/util/category_util.dart';
+import 'package:ecommerce_app_mobile/data/model/categories.dart';
+import 'package:ecommerce_app_mobile/data/model/category_node.dart';
+import 'package:ecommerce_app_mobile/data/model/category_struct.dart';
 
 import '../../../data/model/category.dart';
 import '../../../sddklibrary/helper/fail.dart';
 
 class DiscoverState {
-  final List<List<Category>> categoriesByLayer;
-  final List<Category> categoryNode;
-  final List<List<Category>> selectedCategoryLayers;
+  final CategoryStruct categoryStruct;
 
-  int get currentLayer => selectedCategoryLayers.length -1;
-  int get totalCategoryLayerLength => categoriesByLayer.length;
-  String get categoryNodeString => CategoryUtil().categoryNodeToString(categoryNode);
-
-  DiscoverState(this.categoriesByLayer,this.categoryNode,  this.selectedCategoryLayers, );
+  DiscoverState(
+    this.categoryStruct,
+  );
 }
 
 class InitialDiscoverState extends DiscoverState {
-  InitialDiscoverState() : super([],[Category(id: "0",name:  AppText.commonPageCategories,superId:  "",layer:  0),],[]);
+  InitialDiscoverState()
+      : super(
+            // Categories.empty(),
+/*
+            CategoryNode([
+              Category(id: "0", name: AppText.commonPageCategories, superId: "", layer: 0),
+            ]),
+*/
+            CategoryStruct.empty());
 }
 
 class CategorySuccessState extends DiscoverState {
-  CategorySuccessState(super.categoriesByLayer, super.categoryNode, super.selectedCategoryLayers);
+  CategorySuccessState(super.categories,);
 }
 
-class CategoryLoadingState extends DiscoverState{
-  CategoryLoadingState(super.categoriesByLayer, super.categoryNode, super.selectedCategoryLayers, );
-
+class CategoryLoadingState extends DiscoverState {
+  CategoryLoadingState(
+    super.categories,
+  );
 }
-class CategoryFailState extends DiscoverState{
+
+class CategoryFailState extends DiscoverState {
   final Fail fail;
 
-  CategoryFailState(this.fail,super.categoriesByLayer, super.categoryNode, super.selectedCategoryLayers);
-
+  CategoryFailState(this.fail, super.categories, );
 }

@@ -8,6 +8,7 @@ import 'package:ecommerce_app_mobile/sddklibrary/helper/resource.dart';
 import '../../data/model/category.dart';
 
 class CategoryUtil {
+/*
   List<List<Category>> sortCategoriesByLayer(List<Category> categories) {
     final List<List<Category>> categoriesByLayer = [];
     for (int layer = 0;; layer++) {
@@ -76,5 +77,5 @@ class CategoryUtil {
       }
     });
     return nodeString;
-  }
+  }*/
 }

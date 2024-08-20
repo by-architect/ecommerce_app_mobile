@@ -1,9 +1,10 @@
-
 import 'package:ecommerce_app_mobile/common/util/category_util.dart';
+import 'package:ecommerce_app_mobile/data/model/categories.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/resource.dart';
 
 import 'category.dart';
+import 'category_node.dart';
 
 class Product {
   late final String productId;
@@ -34,8 +35,7 @@ class Product {
   double get priceAfterDiscounting => price - discount;
 
   Product(
-      {
-        required this.productId,
+      {required this.productId,
       required this.name,
       required this.categoryId,
       required this.explanation,
@@ -79,8 +79,6 @@ class Product {
 */
   }
 
-
-
   Map<String, dynamic> toMap() {
     return {
       "productId": productId,
@@ -98,10 +96,9 @@ class Product {
       "brandName": brandName,
     };
   }
-  
 
-  ResourceStatus<List<Category>> categoryNode(List<List<Category>> categoryLayers) =>
-      CategoryUtil().getNodeFromLastCategoryId(categoryId, categoryLayers);
+  ResourceStatus<CategoryNode> categoryNode(Categories categories) => categories.getNodeFromLastCategoryId(categoryId);
+  // ResourceStatus<List<Category>> categoryNode(Categories categories) => categories.getNodeFromLastCategoryId(categoryId);
 
   @override
   String toString() {

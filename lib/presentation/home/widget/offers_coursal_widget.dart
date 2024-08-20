@@ -43,7 +43,7 @@ class OffersCarouselAndCategories extends StatelessWidget {
           ),
         ),
         CategoriesWidget(
-          categoriesByLayer: FakeProductModels.categoriesByLayer,
+          categoriesByLayer: FakeProductModels.categories,
         ),
       ],
     );

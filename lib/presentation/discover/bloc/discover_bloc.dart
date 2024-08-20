@@ -1,5 +1,4 @@
-import 'package:ecommerce_app_mobile/common/util/category_util.dart';
-import 'package:ecommerce_app_mobile/data/model/category.dart';
+import 'package:ecommerce_app_mobile/data/model/category_struct.dart';
 import 'package:ecommerce_app_mobile/data/provider/product_service_provider.dart';
 import 'package:ecommerce_app_mobile/presentation/discover/bloc/discover_event.dart';
 import 'package:ecommerce_app_mobile/presentation/discover/bloc/discover_state.dart';
@@ -13,39 +12,34 @@ class DiscoverBloc extends Bloc<DiscoverEvent, DiscoverState> {
 
     on<LoadCategoriesEvent>((event, emit) async {
       emit(InitialDiscoverState());
-      emit(CategoryLoadingState(state.categoriesByLayer, state.categoryNode, state.selectedCategoryLayers));
+      emit(CategoryLoadingState(  state.categoryStruct));
       final resource = await service.getCategoriesByLayer();
       switch (resource.status) {
         case Status.success:
-          emit(CategorySuccessState(resource.data!, state.categoryNode, [resource.data!.first]));
+          emit(CategorySuccessState( CategoryStruct(resource.data!)));
           break;
         case Status.fail:
-          emit(CategoryFailState(resource.error!, state.categoriesByLayer, state.categoryNode, state.selectedCategoryLayers));
+          emit(CategoryFailState(resource.error!,   state.categoryStruct));
           break;
         case Status.loading:
-          emit(CategoryLoadingState(state.categoriesByLayer, state.categoryNode, state.selectedCategoryLayers));
+          emit(CategoryLoadingState(  state.categoryStruct));
           break;
         case Status.stable:
-          emit(CategoryLoadingState(state.categoriesByLayer, state.categoryNode, state.selectedCategoryLayers));
+          emit(CategoryLoadingState(  state.categoryStruct));
       }
     });
     on<NextCategoryLayerEvent>((event, emit) {
-      emit(CategoryLoadingState(state.categoriesByLayer, state.categoryNode, state.selectedCategoryLayers));
-      final List<Category> nodeList = state.categoryNode;
-      nodeList.add(event.selectedCategory);
-      final List<List<Category>> selectedCategoryLayers = state.selectedCategoryLayers;
-      final nextLayer = CategoryUtil().getNextCategoryLayer(state.categoriesByLayer[state.currentLayer + 1], event.selectedCategory);
-      selectedCategoryLayers.add(nextLayer);
-      emit(CategorySuccessState(state.categoriesByLayer, nodeList, selectedCategoryLayers));
+      emit(CategoryLoadingState(  state.categoryStruct));
+      final CategoryStruct categoryStruct = state.categoryStruct;
+      categoryStruct.nextLayer(event.selectedCategory);
+      emit(CategorySuccessState( categoryStruct));
     });
 
     on<PreviousCategoryLayerEvent>((event, emit) {
-      emit(CategoryLoadingState(state.categoriesByLayer, state.categoryNode, state.selectedCategoryLayers));
-      List<Category> nodeList = state.categoryNode;
-      nodeList.removeLast();
-      final List<List<Category>> selectedCategoryLayers = state.selectedCategoryLayers;
-      selectedCategoryLayers.removeLast();
-      emit(CategorySuccessState(state.categoriesByLayer, nodeList, selectedCategoryLayers));
+      emit(CategoryLoadingState(  state.categoryStruct));
+      final CategoryStruct categoryStruct = state.categoryStruct;
+      categoryStruct.previousLayer();
+      emit(CategorySuccessState( categoryStruct));
     });
   }
 }

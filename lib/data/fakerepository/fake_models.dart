@@ -1,6 +1,7 @@
 import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/util/category_util.dart';
 import 'package:ecommerce_app_mobile/data/model/banner.dart';
+import 'package:ecommerce_app_mobile/data/model/categories.dart';
 import 'package:ecommerce_app_mobile/data/model/product.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
 import 'package:ecommerce_app_mobile/data/model/recent_search.dart';
@@ -44,9 +45,9 @@ class FakeProductModels {
   static Category category3 = Category(id: "2", name: "Bileklikler", superId: "", layer: 0);
   static Category category4 = Category(id: "3", name: "Pantolonlar", superId: "", layer: 0);
 
-  static List<Category> categories = [category1, category2, category21, category22, category23, category231, category3, category4];
+  static List<Category> categoriesUnSorted = [category1, category2, category21, category22, category23, category231, category3, category4];
 
-  static List<List<Category>> categoriesByLayer = CategoryUtil().sortCategoriesByLayer(categories);
+  static Categories categories = Categories(categoriesUnSorted);
 
   static final ProductFeatureOption _option1 = ProductFeatureOption("0", "Small");
   static final ProductFeatureOption _option2 = ProductFeatureOption("1", "Medium");

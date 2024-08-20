@@ -1,3 +1,4 @@
+import 'package:ecommerce_app_mobile/data/model/categories.dart';
 import 'package:ecommerce_app_mobile/data/model/category.dart';
 import 'package:ecommerce_app_mobile/data/model/recent_search.dart';
 
@@ -12,7 +13,7 @@ class SearchState {
   final List<Category> selectedCategories;
   final List<RecentSearch> recentSearches;
   final List<Product> products;
-  final List<List<Category>> categoriesByLayer;
+  final Categories categoriesByLayer;
   final bool isSearchFocused;
 
   SearchState(
@@ -33,7 +34,7 @@ class SearchState {
     List<ProductFeatureOption>? selectedFeatureOptions,
     List<Category>? selectedCategories,
     List<RecentSearch>? recentSearches,
-    List<List<Category>>? categories,
+    Categories? categories,
     bool? isSearchFocused,
     List<Product>? products,
   }) {
@@ -51,7 +52,7 @@ class SearchState {
 
 class InitSearchState extends SearchState {
   InitSearchState()
-      : super(categoriesByLayer: [],isSearchFocused: true,searchText: "", features: [], recentSearches: [], selectedCategories: [], products: [], selectedFeatureOptions: []);
+      : super(categoriesByLayer: Categories.empty(),isSearchFocused: true,searchText: "", features: [], recentSearches: [], selectedCategories: [], products: [], selectedFeatureOptions: []);
 }
 
 class ProductLoadingState extends SearchState {
@@ -70,7 +71,7 @@ class ProductLoadingState extends SearchState {
   ProductLoadingState copyWith(
       {String? searchText,
       List<ProductFeature>? features,
-        List<List<Category>>? categories,
+        Categories? categories,
       List<ProductFeatureOption>? selectedFeatureOptions,
       List<Category>? selectedCategories,
         bool? isSearchFocused,
@@ -105,7 +106,7 @@ class ProductSuccessState extends SearchState {
       {String? searchText,
       List<ProductFeature>? features,
       List<ProductFeatureOption>? selectedFeatureOptions,
-        List<List<Category>>? categories,
+        Categories? categories,
       List<Category>? selectedCategories,
         bool? isSearchFocused,
       bool? isFilterContainerActive,
@@ -142,7 +143,7 @@ class ProductFailState extends SearchState {
       {String? searchText,
       List<ProductFeature>? features,
       List<ProductFeatureOption>? selectedFeatureOptions,
-        List<List<Category>>? categories,
+        Categories? categories,
         bool? isSearchFocused,
       List<Category>? selectedCategories,
       bool? isFilterContainerActive,

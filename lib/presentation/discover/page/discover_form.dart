@@ -1,4 +1,5 @@
 import 'package:ecommerce_app_mobile/common/constant/Screens.dart';
+import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/fail_form.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/row_classic.dart';
 import 'package:ecommerce_app_mobile/presentation/discover/bloc/discover_bloc.dart';
@@ -7,6 +8,7 @@ import 'package:ecommerce_app_mobile/presentation/discover/widget/discover_skelt
 import 'package:ecommerce_app_mobile/presentation/search/bloc/search_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/search/bloc/search_event.dart';
 import 'package:ecommerce_app_mobile/presentation/search/page/search_screen.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/helper/Log.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -28,6 +30,11 @@ class _DiscoverFormState extends State<DiscoverForm> {
   @override
   void initState() {
     BlocProvider.of<DiscoverBloc>(context).add(LoadCategoriesEvent());
+    BlocProvider.of<DiscoverBloc>(context).stream.listen(
+      (state) {
+        Log.test(title: "node",data: state.categoryStruct.categoryNode.toString());
+      },
+    );
     super.initState();
   }
 
@@ -54,9 +61,7 @@ class _DiscoverFormState extends State<DiscoverForm> {
                         SearchScreen.getProducts(outContext: context, events: []);
 
                         Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => SearchScreen.getProducts(events: [
-                            SearchTextEvent(value ?? "")
-                          ], outContext: context),
+                          builder: (context) => SearchScreen.getProducts(events: [SearchTextEvent(value ?? "")], outContext: context),
                         ));
                       },
                     )),
@@ -66,7 +71,7 @@ class _DiscoverFormState extends State<DiscoverForm> {
                     padding: const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding, vertical: AppSizes.defaultPadding / 2),
                     child: Row(
                       children: [
-                        discoverState.categoryNode.length < 2
+                        discoverState.categoryStruct.isFirstLayer
                             ? const Flexible(flex: 1, child: SizedBox())
                             : Flexible(
                                 flex: 1,
@@ -82,7 +87,9 @@ class _DiscoverFormState extends State<DiscoverForm> {
                         Expanded(
                           flex: 6,
                           child: Text(
-                            discoverState.categoryNodeString,
+                            discoverState.categoryStruct.isFirstLayer
+                                ? AppText.commonPageCategories
+                                : "${AppText.commonPageCategories} > ${discoverState.categoryStruct.title}",
                             style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
                           ),
                         ),
@@ -93,21 +100,26 @@ class _DiscoverFormState extends State<DiscoverForm> {
                 Expanded(
                   flex: 7,
                   child: ListView.builder(
-                    itemCount: discoverState.selectedCategoryLayers.last.length,
+                    itemCount: discoverState.categoryStruct.currentLayer.length,
                     itemBuilder: (context, index) => _CategoryItem(
-                      category: discoverState.selectedCategoryLayers.last[index],
+                      category: discoverState.categoryStruct.currentLayer[index],
                       onTap: () {
-                        if (discoverState.totalCategoryLayerLength - 2 > discoverState.currentLayer) {
-                          //todo: every category layer must have same size
-                          BlocProvider.of<DiscoverBloc>(context)
-                              .add(NextCategoryLayerEvent(discoverState.selectedCategoryLayers.last[index]));
-                        } else {
+                        if(discoverState.categoryStruct.isLastLayer(discoverState.categoryStruct.currentLayer[index])) {
+
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => SearchScreen.getProducts(events: [
-                              SelectedCategoriesEvent([discoverState.selectedCategoryLayers.last[index]])
+                              SelectedCategoriesEvent([discoverState.categoryStruct.currentLayer[index]])
                             ], outContext: context),
                           ));
+                        }else {
+
+                          BlocProvider.of<DiscoverBloc>(context)
+                              .add(NextCategoryLayerEvent(discoverState.categoryStruct.currentLayer[index]));
                         }
+/*
+                        if (state.selectedCategory != null) {
+                        }
+*/
                       },
                     ),
                   ),
