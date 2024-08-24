@@ -8,11 +8,11 @@ import 'package:ecommerce_app_mobile/data/model/product_details_item.dart';
 import 'package:ecommerce_app_mobile/data/model/recent_search.dart';
 import 'package:ecommerce_app_mobile/data/model/review.dart';
 import 'package:ecommerce_app_mobile/data/service/product_service.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/helper/Log.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/helper/fail.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/util/fail.dart';
 
 import '../../presentation/products/bloc/review_state.dart';
-import '../../sddklibrary/helper/resource.dart';
+import '../../sddklibrary/util/resource.dart';
 import '../model/product.dart';
 import '../model/product_feature.dart';
 import '../model/tag.dart';
@@ -28,7 +28,7 @@ class ProductServiceProvider {
       final categories = categoriesResource.data!;
       return ResourceStatus.success(Categories(categories));
     } catch (e, s) {
-      return ResourceStatus.fail(Fail(userMessage: AppText.errorFetchingData, stackTrace: s, exception: e.toString()));
+      return ResourceStatus.fail(Fail(userMessage: AppText.errorFetchingData.capitalizeFirstWord, stackTrace: s, exception: e.toString()));
     }
   }
 

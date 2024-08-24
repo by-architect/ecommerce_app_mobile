@@ -135,11 +135,11 @@ class _SearchScreenState extends State<SearchScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  AppText.searchPageRecentSearches,
+                                  AppText.searchPageRecentSearches.capitalizeEveryWord,
                                   style: Theme.of(context).textTheme.titleSmall,
                                 ),
                                 TextButtonDefault(
-                                    text: AppText.commonPageClearAll,
+                                    text: AppText.commonPageClearAll.capitalizeEveryWord,
                                     onPressed: () {
                                       BlocProvider.of<SearchBloc>(context).add(ClearAllRecentSearchEvent());
                                     }),

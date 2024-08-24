@@ -8,8 +8,8 @@ import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
 import 'package:ecommerce_app_mobile/data/model/recent_search.dart';
 import 'package:ecommerce_app_mobile/data/model/review.dart';
 import 'package:ecommerce_app_mobile/data/service/product_service.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/helper/fail.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/helper/resource.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/util/fail.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/util/resource.dart';
 
 import '../../presentation/products/bloc/review_state.dart';
 import '../model/Reviews.dart';

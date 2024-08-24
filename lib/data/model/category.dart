@@ -1,4 +1,4 @@
-import '../../sddklibrary/helper/Log.dart';
+import '../../sddklibrary/util/Log.dart';
 
 class Category {
   late final String id;

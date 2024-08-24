@@ -47,7 +47,7 @@ class TextFieldSearch extends StatelessWidget {
         validator: validator,
         textInputAction: TextInputAction.search,
         decoration: InputDecoration(
-          hintText: AppText.discoverPageFindSomething,
+          hintText: AppText.discoverPageFindSomething.capitalizeEveryWord,
           filled: false,
           // border: AppStyles.secondaryOutlineInputBorder(context),
           // enabledBorder: AppStyles.secondaryOutlineInputBorder(context),

@@ -27,7 +27,7 @@ class LocationPermissionStoreAvailabilityScreen extends StatelessWidget {
                     child: BackButton(),
                   ),
                   Text(
-                    AppText.productPageStorePickupAvailability,
+                    AppText.productPageStorePickupAvailability.capitalizeFirstWord,
                     style: Theme.of(context).textTheme.titleSmall,
                   ),
                   const SizedBox(width: 40),

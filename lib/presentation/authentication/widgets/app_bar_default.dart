@@ -3,7 +3,7 @@ import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/helper/Log.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,7 +31,7 @@ class AppBarMain extends StatelessWidget implements PreferredSizeWidget {
       leadingWidth: 0,
       centerTitle: false,
       title: Text(
-        AppText.marketName,
+        AppText.marketName.capitalizeEveryWord,
         style: Theme.of(context)
             .textTheme
             .titleLarge

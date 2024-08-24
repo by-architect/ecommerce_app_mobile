@@ -9,7 +9,7 @@ import 'package:ecommerce_app_mobile/presentation/products/widget/product_list_t
 import 'package:ecommerce_app_mobile/presentation/search/bloc/search_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/search/bloc/search_event.dart';
 import 'package:ecommerce_app_mobile/presentation/search/page/search_screen.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/helper/Log.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -86,7 +86,7 @@ class _DiscoverFormState extends State<DiscoverForm> {
                               ),
                         Text(
                           discoverState.categoryStruct.isFirstLayer
-                              ? AppText.commonPageCategories
+                              ? AppText.commonPageCategories.capitalizeFirstWord
                               : "${AppText.commonPageCategories} > ${discoverState.categoryStruct.title}",
                           style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold,fontSize: 20),
                         ),

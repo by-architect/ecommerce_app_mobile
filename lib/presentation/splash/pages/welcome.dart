@@ -6,7 +6,7 @@ import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/ButtonPrimary.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/button_secondary.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/helper/Log.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -29,10 +29,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         controller: pageController,
         children: [
           _Page(
-              title: AppText.welcomePageOneTitle,
-              content: AppText.welcomePageOneContent,
+              title: AppText.welcomePageOneTitle.capitalizeEveryWord,
+              content: AppText.welcomePageOneContent.capitalizeFirstWord,
               image: AppImages.shoppingBags,
-              buttonOneText: AppText.commonNext,
+              buttonOneText: AppText.commonNext.capitalizeFirstWord,
               onButtonOneTap: () {
                 pageController.animateToPage(
                   pageController.page!.toInt() + 1,
@@ -41,10 +41,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 );
               }),
           _Page(
-              title: AppText.welcomePageTwoTitle,
-              content: AppText.welcomePageTwoContent,
+              title: AppText.welcomePageTwoTitle.capitalizeEveryWord,
+              content: AppText.welcomePageTwoContent.capitalizeFirstWord,
               image: AppImages.windowShopping,
-              buttonOneText: AppText.commonNext,
+              buttonOneText: AppText.commonNext.capitalizeFirstWord,
               onButtonOneTap: () {
                 Log.test(title: "page test");
                 pageController.animateToPage(
@@ -54,11 +54,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 );
               }),
           _Page(
-            title: AppText.welcomePageThreeTitle,
-            content: AppText.welcomePageThreeContent,
+            title: AppText.welcomePageThreeTitle.capitalizeEveryWord,
+            content: AppText.welcomePageThreeContent.capitalizeFirstWord,
             image: AppImages.signIn,
-            buttonOneText: AppText.signIn,
-            buttonTwoText: AppText.signUp,
+            buttonOneText: AppText.signIn.capitalizeEveryWord,
+            buttonTwoText: AppText.signUp.capitalizeEveryWord,
             onButtonOneTap: () {
               Navigator.of(context).pushNamedAndRemoveUntil(Screens.signInScreen, (route) => false);
             },

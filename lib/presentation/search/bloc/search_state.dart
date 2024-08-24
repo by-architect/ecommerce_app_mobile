@@ -4,7 +4,7 @@ import 'package:ecommerce_app_mobile/data/model/recent_search.dart';
 
 import '../../../data/model/product.dart';
 import '../../../data/model/product_feature.dart';
-import '../../../sddklibrary/helper/fail.dart';
+import '../../../sddklibrary/util/fail.dart';
 
 class SearchState {
   final String searchText;

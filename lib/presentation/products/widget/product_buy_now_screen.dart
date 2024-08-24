@@ -23,8 +23,8 @@ class ProductBuyNowScreen extends StatelessWidget {
       appBar: AppBarPopBack(title: product.name,),
       bottomNavigationBar: ButtonCartBuy(
         price: product.price,
-        title: AppText.productDetailsPageAddToCart,
-        subTitle: AppText.productDetailsPageTotalPrice,
+        title: AppText.productDetailsPageAddToCart.capitalizeEveryWord,
+        subTitle: AppText.productDetailsPageTotalPrice.capitalizeEveryWord,
         press: () {
           customModalBottomSheet(
             context,

@@ -2,7 +2,6 @@ import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/model/product.dart';
-import 'package:ecommerce_app_mobile/data/model/product_details_item.dart';
 import 'package:ecommerce_app_mobile/presentation/common/skeleton/product_card_skeleton.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_event.dart';
@@ -10,7 +9,7 @@ import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_
 import 'package:ecommerce_app_mobile/presentation/products/page/product_details_bottom_sheet.dart';
 import 'package:ecommerce_app_mobile/presentation/products/page/product_returns_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/products/page/reviews_screen.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/helper/Log.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -104,7 +103,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> with Widget
                 SliverToBoxAdapter(
                   child: ProductListTile(
                     svgSrc: AppImages.productIcon,
-                    title: AppText.productDetailsPageDetails,
+                    title: AppText.productDetailsPageDetails.capitalizeFirstWord,
                     press: () {
                       customModalBottomSheet(
                         context,
@@ -133,7 +132,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> with Widget
                 SliverToBoxAdapter(
                   child: ProductListTile(
                     svgSrc: AppImages.returnIcon,
-                    title: AppText.productDetailsPageReturns,
+                    title: AppText.productDetailsPageReturns.capitalizeFirstWord,
                     isShowBottomBorder: true,
                     press: () {
                       customModalBottomSheet(
@@ -157,7 +156,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> with Widget
                 SliverToBoxAdapter(
                   child: ProductListTile(
                     svgSrc: AppImages.chatIcon,
-                    title: AppText.productDetailsPageReviews,
+                    title: AppText.productDetailsPageReviews.capitalizeFirstWord,
                     isShowBottomBorder: true,
                     press: () {
                       Navigator.of(context).push(MaterialPageRoute(
@@ -170,7 +169,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> with Widget
                   padding: const EdgeInsets.all(AppSizes.defaultPadding),
                   sliver: SliverToBoxAdapter(
                     child: Text(
-                      AppText.productDetailsPageYouMayAlsoLike,
+                      AppText.productDetailsPageYouMayAlsoLike.capitalizeEveryWord,
                       style: Theme.of(context).textTheme.titleSmall!,
                     ),
                   ),

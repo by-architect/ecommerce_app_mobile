@@ -1,6 +1,6 @@
 import 'package:ecommerce_app_mobile/data/model/categories.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/helper/resource.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/util/resource.dart';
 
 import 'category_node.dart';
 

@@ -42,22 +42,22 @@ class _MainScreenState extends State<MainScreen> {
               });
             },
             type: BottomNavigationBarType.fixed,
-            items: const <BottomNavigationBarItem>[
+            items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Icon(Icons.home),
-                label: AppText.navigationHome,
+                label: AppText.navigationHome.capitalizeFirstWord,
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.grid_view_rounded),
-                label: AppText.navigationDiscover,
+                label: AppText.navigationDiscover.capitalizeFirstWord,
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.shopping_cart),
-                label: AppText.navigationCart,
+                label: AppText.navigationCart.capitalizeFirstWord,
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.person_2_outlined),
-                label: AppText.navigationAccount,
+                label: AppText.navigationAccount.capitalizeFirstWord,
               ),
             ],
           ),

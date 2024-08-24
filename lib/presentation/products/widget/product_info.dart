@@ -56,7 +56,7 @@ class ProductInfo extends StatelessWidget {
             ),
             const SizedBox(height: AppSizes.defaultPadding),
             Text(
-              AppText.productDetailsPageProductInfo,
+              AppText.productDetailsPageProductInfo.capitalizeEveryWord,
               style: Theme.of(context)
                   .textTheme
                   .titleMedium!

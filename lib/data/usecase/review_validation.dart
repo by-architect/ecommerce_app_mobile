@@ -1,6 +1,6 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/review_state.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/helper/validation_result.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/util/validation_result.dart';
 
 import '../model/review.dart';
 
@@ -11,13 +11,13 @@ class ReviewValidation {
 
   ValidationResult validate() {
     if(review.star == null){
-      return ValidationResult(false,message: AppText.errorStarMustBeSelected);
+      return ValidationResult(false,message: AppText.errorStarMustBeSelected.capitalizeFirstWord);
     }
     if(review.title == null || review.title!.isEmpty){
-      return ValidationResult(false,message: AppText.errorTitleCanNotBeEmpty);
+      return ValidationResult(false,message: AppText.errorTitleCanNotBeEmpty.capitalizeFirstWord);
     }
     if(review.content == null || review.content!.isEmpty){
-      return ValidationResult(false,message: AppText.errorContentCanNotBeEmpty);
+      return ValidationResult(false,message: AppText.errorContentCanNotBeEmpty.capitalizeFirstWord);
     }
     return ValidationResult(true);
   }

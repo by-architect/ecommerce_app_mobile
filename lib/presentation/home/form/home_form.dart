@@ -47,21 +47,21 @@ class _HomeFormState extends State<HomeForm> {
                 SliverToBoxAdapter(
                   child: ProductsHorizontalWidget(
                     products: state.lastAddedProducts,
-                    title: AppText.homePageNewProducts,
+                    title: AppText.homePageNewProducts.capitalizeEveryWord,
                     isLoading: state is ProductsLoadingState,
                   ),
                 ),
                 SliverToBoxAdapter(
                   child: ProductsHorizontalWidget(
                     products: state.bestSellerProducts,
-                    title: AppText.homePageBestSellerProducts,
+                    title: AppText.homePageBestSellerProducts.capitalizeEveryWord,
                     isLoading: state is ProductsLoadingState,
                   ),
                 ),
                 SliverToBoxAdapter(
                   child: ProductsHorizontalWidget(
                     products: state.discountedProducts,
-                    title: AppText.homePageDiscountProducts,
+                    title: AppText.homePageDiscountProducts.capitalizeEveryWord,
                     isLoading: state is ProductsLoadingState,
                   ),
                 ),

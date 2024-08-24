@@ -1,18 +1,15 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
-import 'package:ecommerce_app_mobile/data/model/review.dart';
 import 'package:ecommerce_app_mobile/data/provider/product_service_provider.dart';
-import 'package:ecommerce_app_mobile/data/provider/user_provider.dart';
 import 'package:ecommerce_app_mobile/data/usecase/review_validation.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/ButtonPrimary.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/app_bar_pop_back.dart';
-import 'package:ecommerce_app_mobile/presentation/common/widgets/button_secondary.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/review_state.dart';
 import 'package:ecommerce_app_mobile/presentation/products/widget/review_product_info_card.dart';
 import 'package:ecommerce_app_mobile/presentation/products/widget/text_field_default.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/helper/Log.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/helper/resource.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/helper/validation_result.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/util/resource.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/util/validation_result.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/ui/dialog_util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +18,6 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../common/ui/assets/AppImages.dart';
 import '../../../data/model/Reviews.dart';
-import '../../../data/model/user.dart';
 
 class AddReviewScreen extends StatefulWidget {
   final String productId;
@@ -45,11 +41,10 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
   @override
   Widget build(BuildContext context) {
     ReviewState reviewState = ReviewState();
-    ReviewStar? starState;
     bool loading = false;
     return Scaffold(
-      appBar: const AppBarPopBack(
-        title: AppText.productDetailsPageAddReview,
+      appBar: AppBarPopBack(
+        title: AppText.productDetailsPageAddReview.capitalizeEveryWord,
       ),
       body: Padding(
         padding: const EdgeInsets.all(AppSizes.defaultSpace),
@@ -66,7 +61,7 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Divider(),
-                    const Text(AppText.productDetailsPageOverallRating),
+                    Text(AppText.productDetailsPageOverallRating.capitalizeFirstWord),
                     RatingBar.builder(
                       initialRating: 0,
                       itemSize: 30,
@@ -89,7 +84,7 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                 height: AppSizes.spaceBtwVerticalFields,
               ),
               Text(
-                AppText.productDetailsPageSetATitle,
+                AppText.productDetailsPageSetATitle.capitalizeFirstWord,
                 style: Theme.of(context).textTheme.titleMedium,
                 textAlign: TextAlign.left,
               ),
@@ -101,13 +96,13 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                 onChanged: (value) {
                     reviewState = reviewState.copyWith(title: value);
                 },
-                hint: AppText.productDetailsPageSummarizeReview,
+                hint: AppText.productDetailsPageSummarizeReview.capitalizeFirstWord,
               ),
               const SizedBox(
                 height: AppSizes.spaceBtwVerticalFieldsSmall,
               ),
               Text(
-                AppText.productDetailsPageWhatDidYouLike,
+                AppText.productDetailsPageWhatDidYouLike.capitalizeFirstWord,
                 style: Theme.of(context).textTheme.titleMedium,
                 textAlign: TextAlign.left,
               ),
@@ -120,13 +115,13 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                 onChanged: (value) {
                   reviewState = reviewState.copyWith(content: value);
                 },
-                hint: AppText.productDetailsPageWhatShouldShoppersKnow,
+                hint: AppText.productDetailsPageWhatShouldShoppersKnow.capitalizeEveryWord,
               ),
               const SizedBox(
                 height: AppSizes.spaceBtwVerticalFieldsLarge,
               ),
               ButtonPrimary(
-                text: AppText.productDetailsPageSubmitReview,
+                text: AppText.productDetailsPageSubmitReview.capitalizeEveryWord,
                 onTap: () {
                   final dialog = DialogUtil(context);
                   ValidationResult validationResult = ReviewValidation(reviewState).validate();
@@ -143,7 +138,7 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                       switch (resource.status) {
                         case Status.success:
                           setState(() {
-                            dialog.toast(AppText.productDetailsPageReviewSubmitted);
+                            dialog.toast(AppText.productDetailsPageReviewSubmitted.capitalizeFirstWord);
                             loading = false;
                           });
                           Navigator.of(context).pop();

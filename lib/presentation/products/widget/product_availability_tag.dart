@@ -23,7 +23,7 @@ class ProductAvailabilityTag extends StatelessWidget {
         ),
       ),
       child: Text(
-        isAvailable ? AppText.productPageAvailableInStock : AppText.productPageUnAvailableInStock,
+        isAvailable ? AppText.productPageAvailableInStock.capitalizeFirstWord : AppText.productPageUnAvailableInStock.capitalizeFirstWord,
         style: Theme.of(context)
             .textTheme
             .labelSmall!

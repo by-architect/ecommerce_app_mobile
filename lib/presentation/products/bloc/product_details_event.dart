@@ -1,4 +1,3 @@
-import 'package:ecommerce_app_mobile/data/model/category.dart';
 import 'package:ecommerce_app_mobile/data/model/tag.dart';
 
 import '../../../data/model/product.dart';

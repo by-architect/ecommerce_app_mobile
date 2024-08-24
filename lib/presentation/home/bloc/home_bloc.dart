@@ -2,7 +2,7 @@ import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/provider/product_service_provider.dart';
 import 'package:ecommerce_app_mobile/presentation/home/bloc/home_event.dart';
 import 'package:ecommerce_app_mobile/presentation/home/bloc/home_state.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/helper/fail.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/util/fail.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
@@ -28,7 +28,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
               fail: resourceBestSeller.error ??
                   resourceDiscount.error ??
                   resourceLastAdded.error ??
-                  Fail(userMessage: AppText.errorFetchingData),
+                  Fail(userMessage: AppText.errorFetchingData.capitalizeFirstWord),
               bestSellerProducts: state.bestSellerProducts,
               lastAddedProducts: state.lastAddedProducts,
               discountedProducts: state.discountedProducts));

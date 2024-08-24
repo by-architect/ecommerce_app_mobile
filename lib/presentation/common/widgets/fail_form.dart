@@ -1,9 +1,8 @@
 import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
-import 'package:ecommerce_app_mobile/presentation/common/widgets/ButtonPrimary.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/button_secondary.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/constant/exceptions/exceptions.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/helper/fail.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/util/fail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -35,7 +34,7 @@ class _FailForm extends StatelessWidget {
       children: [
         Expanded(flex:5,child: SvgPicture.asset(image)),
         Flexible(flex:1,child: Text(fail.userMessage,style: Theme.of(context).textTheme.titleMedium,)),
-        Flexible(flex: 1,child: ButtonSecondary(text: AppText.refresh,onTap: onTap,))
+        Flexible(flex: 1,child: ButtonSecondary(text: AppText.refresh.capitalizeFirstWord,onTap: onTap,))
       ],
     );
   }

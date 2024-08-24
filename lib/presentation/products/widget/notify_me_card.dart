@@ -62,7 +62,7 @@ class NotifyMeCard extends StatelessWidget {
                 const SizedBox(width: AppSizes.defaultPadding),
                 Expanded(
                   child: Text(
-                    AppText.productPageNotifyMe,
+                    AppText.productPageNotifyMe.capitalizeEveryWord,
                     style: TextStyle(
                         color: isNotify
                             ? Colors.white

@@ -1,4 +1,3 @@
-import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppStyles.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
@@ -43,8 +42,8 @@ class BannerMStyle1 extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              const Text(
-                AppText.homePageShopNow,
+              Text(
+                AppText.homePageShopNow.capitalizeFirstWord,
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.w600,

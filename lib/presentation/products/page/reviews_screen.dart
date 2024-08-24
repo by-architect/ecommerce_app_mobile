@@ -23,8 +23,8 @@ class ReviewsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarPopBack(
-        title: AppText.productDetailsPageReviews,
+      appBar: AppBarPopBack(
+        title: AppText.productDetailsPageReviews.capitalizeFirstWord,
       ),
       body: CustomScrollView(
         slivers: [
@@ -48,7 +48,7 @@ class ReviewsScreen extends StatelessWidget {
             child: ProductListTile(
               isShowBottomBorder: true,
               svgSrc: AppImages.chatAddIcon,
-              title: AppText.productDetailsPageAddReview,
+              title: AppText.productDetailsPageAddReview.capitalizeEveryWord,
               press: () {
                 Navigator.push(
                     context,
@@ -73,7 +73,7 @@ class ReviewsScreen extends StatelessWidget {
               child: Row(
                 children: [
                   Text(
-                    AppText.productDetailsPageUserReviews,
+                    AppText.productDetailsPageUserReviews.capitalizeEveryWord,
                     style: Theme.of(context).textTheme.titleMedium,
                   )
                 ],

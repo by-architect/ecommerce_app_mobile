@@ -1,7 +1,7 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/service/impl/user_service_impl.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/helper/fail.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/helper/resource.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/util/fail.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/util/resource.dart';
 import 'package:ecommerce_app_mobile/data/viewmodel/user/user_service_event.dart';
 import 'package:ecommerce_app_mobile/data/viewmodel/user/user_service_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -93,7 +93,7 @@ class UserServiceBloc extends Bloc<UserServiceEvent, UserServiceState> {
             break;
         }
       }else{
-        emit(GetUserFailState(Fail(userMessage: AppText.errorAuthenticate)));
+        emit(GetUserFailState(Fail(userMessage: AppText.errorAuthenticate.capitalizeFirstWord)));
       }
     });
     on<LoginEvent>((event,emit) async {

@@ -4,7 +4,7 @@ import 'package:ecommerce_app_mobile/data/model/category_node.dart';
 import 'package:ecommerce_app_mobile/data/model/category_struct.dart';
 
 import '../../../data/model/category.dart';
-import '../../../sddklibrary/helper/fail.dart';
+import '../../../sddklibrary/util/fail.dart';
 
 class DiscoverState {
   final CategoryStruct categoryStruct;

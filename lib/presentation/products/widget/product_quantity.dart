@@ -22,7 +22,7 @@ class ProductQuantity extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          AppText.productPageQuantity,
+          AppText.productPageQuantity.capitalizeFirstWord,
           style: Theme.of(context).textTheme.titleSmall,
         ),
         const SizedBox(height: AppSizes.defaultPadding),

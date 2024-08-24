@@ -5,7 +5,7 @@ import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
 import 'package:ecommerce_app_mobile/data/model/recent_search.dart';
 
 import '../../presentation/products/bloc/review_state.dart';
-import '../../sddklibrary/helper/resource.dart';
+import '../../sddklibrary/util/resource.dart';
 import '../model/Reviews.dart';
 import '../model/review.dart';
 import '../model/tag.dart';

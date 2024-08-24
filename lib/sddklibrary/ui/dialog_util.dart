@@ -62,7 +62,7 @@ class DialogUtil {
                 _showingADialog = false;
                 Navigator.of(context).pop();
               },
-              child: const Text(AppText.dismiss),
+              child: Text(AppText.dismiss.capitalizeFirstWord),
             ),
           ],
         );
@@ -78,9 +78,9 @@ class DialogUtil {
         barrierDismissible: false,
         context: _context,
         builder: (BuildContext context) {
-          return const AlertDialog(
-            title: Text(AppText.loading),
-            actions: <Widget>[Center(child: CircularProgressIndicator())],
+          return AlertDialog(
+            title: Text(AppText.loading.capitalizeFirstWord),
+            actions: const <Widget>[Center(child: CircularProgressIndicator())],
           );
         });
   }

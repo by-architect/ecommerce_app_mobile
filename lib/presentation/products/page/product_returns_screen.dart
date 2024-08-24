@@ -1,6 +1,5 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
-import 'package:ecommerce_app_mobile/data/fakerepository/fake_models.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/app_bar_pop_back.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +11,7 @@ class ProductReturnsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarPopBack(title: AppText.productDetailsPageReturn,),
+      appBar: AppBarPopBack(title: AppText.productDetailsPageReturn.capitalizeFirstWord,),
       body: SafeArea(
         child: Column(
           children: [

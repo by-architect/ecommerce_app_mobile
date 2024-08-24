@@ -2,7 +2,7 @@ import 'package:ecommerce_app_mobile/data/model/Reviews.dart';
 
 import '../../../data/model/product.dart';
 import '../../../data/model/product_details_item.dart';
-import '../../../sddklibrary/helper/fail.dart';
+import '../../../sddklibrary/util/fail.dart';
 
 class ProductDetailsState{
   final Reviews reviews;

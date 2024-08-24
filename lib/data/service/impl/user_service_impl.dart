@@ -5,10 +5,9 @@ import 'package:ecommerce_app_mobile/common/constant/firestore_collections.dart'
 import 'package:ecommerce_app_mobile/sddklibrary/constant/exceptions/exception_handler.dart';
 import 'package:ecommerce_app_mobile/common/constant/app_durations.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_state.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/helper/Log.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/helper/fail.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/util/fail.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/network_helper.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/helper/resource.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/util/resource.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/service/user_service.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
@@ -85,7 +84,7 @@ class UserServiceImpl extends UserService {
 
       final userResponse = await getUser();
       if (userResponse.status == Status.fail) {
-        return ResourceStatus.fail(userResponse.error ?? Fail(userMessage: AppText.errorFetchingData));
+        return ResourceStatus.fail(userResponse.error ?? Fail(userMessage: AppText.errorFetchingData.capitalizeFirstWord));
       }
       User user = userResponse.data!;
       return ResourceStatus.success(user);
@@ -103,7 +102,7 @@ class UserServiceImpl extends UserService {
       var userCredential = await _firebaseAuth.signInWithEmailAndPassword(email: userRequest.email, password: userRequest.password);
       var userResponse = await getUser(userCredential: userCredential);
       if (userResponse.status == Status.fail) {
-        return ResourceStatus.fail(userResponse.error ?? Fail(userMessage: AppText.errorFetchingData));
+        return ResourceStatus.fail(userResponse.error ?? Fail(userMessage: AppText.errorFetchingData.capitalizeFirstWord));
       }
       User user = userResponse.data!;
       // User user = User.fromUserState(userRequest, userCredential.user!, userCredential);
@@ -140,7 +139,7 @@ class UserServiceImpl extends UserService {
       if (!fireStoreUserMap.exists || fireStoreUserMap.data() == null) {
         return ResourceStatus.fail(Fail(
             stackTrace: StackTrace.current,
-            userMessage: AppText.errorFetchingData,
+            userMessage: AppText.errorFetchingData.capitalizeFirstWord,
             exception: "User exist in firebase auth, not exist in fireStore"));
         //todo: this error message should send to me with logs
       }

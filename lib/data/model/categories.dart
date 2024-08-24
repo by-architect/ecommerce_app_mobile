@@ -2,8 +2,8 @@ import 'package:ecommerce_app_mobile/data/model/category_node.dart';
 
 import '../../common/ui/theme/AppText.dart';
 import '../../sddklibrary/constant/exceptions/product_exceptions.dart';
-import '../../sddklibrary/helper/fail.dart';
-import '../../sddklibrary/helper/resource.dart';
+import '../../sddklibrary/util/fail.dart';
+import '../../sddklibrary/util/resource.dart';
 import 'category.dart';
 
 class Categories {
@@ -70,9 +70,9 @@ class Categories {
       return ResourceStatus.success(CategoryNode(currentCategories.reversed.toList()));
     } catch (exception, stackTrace) {
       if (exception is CategoryNotFoundException) {
-        return ResourceStatus.fail(Fail(userMessage: AppText.errorLoadingCategories, exception: exception, stackTrace: stackTrace));
+        return ResourceStatus.fail(Fail(userMessage: AppText.errorLoadingCategories.capitalizeFirstWord, exception: exception, stackTrace: stackTrace));
       } else {
-        return ResourceStatus.fail(Fail(userMessage: AppText.errorLoadingCategories, exception: exception, stackTrace: stackTrace));
+        return ResourceStatus.fail(Fail(userMessage: AppText.errorLoadingCategories.capitalizeFirstWord, exception: exception, stackTrace: stackTrace));
       }
     }
   }

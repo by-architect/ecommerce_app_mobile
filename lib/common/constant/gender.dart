@@ -5,7 +5,7 @@ enum Gender {
   woman(AppText.woman),
   unselected(AppText.gender);
 
-  final String text;
+  final AppText text;
 
   const Gender(this.text);
 

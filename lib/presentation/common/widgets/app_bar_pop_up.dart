@@ -27,7 +27,7 @@ class _AppBarPopUpState extends State<AppBarPopUp> {
     leadingWidth: 0,
     titleSpacing: AppSizes.defaultPadding,
     centerTitle: false,
-    title: Text(AppText.marketName,style: Theme.of(context).textTheme.titleLarge?.copyWith(color: AppColors.blackColor,fontWeight:  FontWeight.bold,fontStyle: FontStyle.italic),),
+    title: Text(AppText.marketName.capitalizeEveryWord,style: Theme.of(context).textTheme.titleLarge?.copyWith(color: AppColors.blackColor,fontWeight:  FontWeight.bold,fontStyle: FontStyle.italic),),
       actions: [
         Padding(
           padding: const EdgeInsets.all(AppSizes.spaceBtwHorizontalFields),

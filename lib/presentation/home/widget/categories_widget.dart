@@ -34,7 +34,7 @@ class CategoriesWidget extends StatelessWidget {
                   left: index == 0 ? AppSizes.defaultPadding : AppSizes.defaultPadding / 2,
                   right: index == categories.length - 1 ? AppSizes.defaultPadding : 0),
               child: _CategoryBtn(
-                categoryName: index == 0 ? AppText.homePageAllCategories : categories[index - 1].name,
+                categoryName: index == 0 ? AppText.homePageAllCategories.capitalizeEveryWord : categories[index - 1].name,
                 isFirst: index == 0,
                 press: () {
                   if (index != 0) {

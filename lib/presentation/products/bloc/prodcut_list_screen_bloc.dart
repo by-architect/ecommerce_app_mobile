@@ -1,7 +1,7 @@
 import 'package:ecommerce_app_mobile/data/provider/product_service_provider.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/product_list_screen_event.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/product_list_screen_state.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/helper/resource.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/util/resource.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductScreenBloc extends Bloc<ProductScreenEvent, ProductScreenState> {

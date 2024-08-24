@@ -4,7 +4,7 @@ import 'dart:async';
 import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_state.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 
-import '../../sddklibrary/helper/resource.dart';
+import '../../sddklibrary/util/resource.dart';
 import '../model/user.dart';
 
 

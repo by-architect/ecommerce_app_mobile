@@ -10,7 +10,7 @@ import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_state
 import 'package:ecommerce_app_mobile/presentation/authentication/widgets/TextFieldAuthentication.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/app_bar_authentication.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/ButtonPrimary.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/helper/Log.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/ui/dialog_util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -59,14 +59,14 @@ class _SignInScreenState extends State<SignInScreen> {
               }
               break;
             case LoginUserFailState failState:
-              dialogUtil.info(AppText.errorTitle, failState.error.userMessage);
+              dialogUtil.info(AppText.errorTitle.capitalizeEveryWord, failState.error.userMessage);
               break;
             case SendVerificationEmailSuccessState successState:
               Navigator.of(context).push(MaterialPageRoute(builder: (context) => EmailVerificationScreen(user: successState.user)));
               streamSubscription.cancel();
               break;
             case SendVerificationEmailFailState failState:
-              dialogUtil.info(AppText.errorTitle, failState.error.userMessage);
+              dialogUtil.info(AppText.errorTitle.capitalizeEveryWord, failState.error.userMessage);
               break;
           }
         });
@@ -77,8 +77,8 @@ class _SignInScreenState extends State<SignInScreen> {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: const AppBarAuthentication(
-        title: AppText.signIn,
+      appBar: AppBarAuthentication(
+        title: AppText.signIn.capitalizeFirstWord,
       ),
       body: Padding(
           padding: const EdgeInsets.all(AppSizes.defaultSpace),
@@ -105,7 +105,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 children: [
                   TextFieldAuthentication(
                     icon: Icons.email,
-                    label: AppText.email,
+                    label: AppText.email.capitalizeFirstWord,
                     onChanged: (value) {
                       BlocProvider.of<UserBloc>(context).add(EmailEvent(value));
                     },
@@ -115,7 +115,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                   TextFieldAuthentication(
                     icon: Icons.password,
-                    label: AppText.password,
+                    label: AppText.password.capitalizeFirstWord,
                     isPassword: true,
                     onChanged: (value) {
                       BlocProvider.of<UserBloc>(context).add(PasswordEvent(value));
@@ -128,7 +128,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        AppText.signInPageDoNotHaveAnAccount,
+                        AppText.signInPageDoNotHaveAnAccount.capitalizeFirstWord,
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       const SizedBox(
@@ -137,7 +137,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       GestureDetector(
                         onTap: () => Navigator.of(context).pushNamed(Screens.signUpScreen),
                         child: Text(
-                          AppText.signUp,
+                          AppText.signUp.capitalizeEveryWord,
                           style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.linkColor),
                         ),
                       ),
@@ -147,7 +147,7 @@ class _SignInScreenState extends State<SignInScreen> {
               )),
               BlocBuilder<UserServiceBloc, UserServiceState>(
                 builder: (BuildContext context, state) => ButtonPrimary(
-                  text: AppText.signIn,
+                  text: AppText.signIn.capitalizeEveryWord,
                   loading: state is LoginUserLoadingState,
                   onTap: verifyUser,
                 ),

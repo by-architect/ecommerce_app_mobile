@@ -4,7 +4,7 @@ import 'package:ecommerce_app_mobile/presentation/discover/bloc/discover_event.d
 import 'package:ecommerce_app_mobile/presentation/discover/bloc/discover_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../sddklibrary/helper/resource.dart';
+import '../../../sddklibrary/util/resource.dart';
 
 class DiscoverBloc extends Bloc<DiscoverEvent, DiscoverState> {
   DiscoverBloc() : super(InitialDiscoverState()) {

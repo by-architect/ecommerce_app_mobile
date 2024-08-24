@@ -2,7 +2,7 @@ import '../../../data/model/category.dart';
 import '../../../data/model/product.dart';
 import '../../../data/model/product_feature.dart';
 import '../../../data/model/tag.dart';
-import '../../../sddklibrary/helper/fail.dart';
+import '../../../sddklibrary/util/fail.dart';
 
 class ProductScreenState {
   final List<Product> products;

@@ -1,5 +1,5 @@
 import '../../../data/model/product.dart';
-import '../../../sddklibrary/helper/fail.dart';
+import '../../../sddklibrary/util/fail.dart';
 
 class HomeState{
   final List<Product> bestSellerProducts;

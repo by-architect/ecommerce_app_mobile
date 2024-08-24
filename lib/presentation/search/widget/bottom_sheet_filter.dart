@@ -44,14 +44,14 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                       Icons.arrow_back,
                     )),
                 Text(
-                  AppText.commonPageFilter,
+                  AppText.commonPageFilter.capitalizeFirstWord,
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 TextButtonDefault(
                     onPressed: () {
                       BlocProvider.of<SearchBloc>(context).add(ClearAllSelectedOptionsEvent());
                     },
-                    text: AppText.commonPageClearAll)
+                    text: AppText.commonPageClearAll.capitalizeEveryWord)
               ],
             ),
           ),
@@ -64,7 +64,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                   child: Padding(
                     padding: const EdgeInsets.only(right: AppSizes.spaceBtwHorizontalFields/2),
                     child: ButtonPrimary(
-                      text: AppText.commonPageFilter,
+                      text: AppText.commonPageFilter.capitalizeFirstWord,
                       onTap: () {
                       },
                     ),
@@ -79,7 +79,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                           filterSelected = false;
                         });
                       },
-                      text: AppText.commonPageCategory,
+                      text: AppText.commonPageCategory.capitalizeFirstWord,
                     ),
                   ),
                 ),
@@ -90,7 +90,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                   child: Padding(
                     padding: const EdgeInsets.only(right: AppSizes.spaceBtwHorizontalFields/2),
                     child: ButtonSecondary(
-                      text: AppText.commonPageFilter,
+                      text: AppText.commonPageFilter.capitalizeFirstWord,
                       onTap: () {
                         setState(() {
                           filterSelected = true;
@@ -104,7 +104,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                     padding: const EdgeInsets.only(left: AppSizes.spaceBtwHorizontalFields/2),
                     child: ButtonPrimary(
                       onTap: () {},
-                      text: AppText.commonPageCategory,
+                      text: AppText.commonPageCategory.capitalizeFirstWord,
                     ),
                   ),
                 ),
@@ -230,14 +230,14 @@ class _BottomSheetOption extends StatelessWidget {
                       Icons.arrow_back,
                     )),
                 Text(
-                  AppText.commonPageFilter,
+                  AppText.commonPageFilter.capitalizeFirstWord,
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 TextButtonDefault(
                     onPressed: () {
                       BlocProvider.of<SearchBloc>(context).add(ClearSelectedOptionsOfFeatureEvent(feature));
                     },
-                    text: AppText.commonPageClearAll)
+                    text: AppText.commonPageClearAll.capitalizeEveryWord)
               ],
             ),
           ),
@@ -247,7 +247,7 @@ class _BottomSheetOption extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: AppSizes.defaultSpace),
             child: ButtonPrimary(
-              text: AppText.done,
+              text: AppText.done.capitalizeFirstWord,
               onTap: () {
                 Navigator.pop(context);
               },
@@ -291,7 +291,7 @@ class _OptionRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
         title: Text(
-          featureType == ProductFeatureType.color ? AppText.color : option.name,
+          featureType == ProductFeatureType.color ? AppText.color.capitalizeFirstWord : option.name,
           style: Theme.of(context).textTheme.titleLarge,
         ),
         leading: Padding(

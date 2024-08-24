@@ -44,7 +44,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
     subscription = BlocProvider.of<UserServiceBloc>(context).stream.listen((event) {
       switch (event) {
         case EmailVerifiedState _:
-          DialogUtil(context).toast(AppText.verificationPageAccountCreatedSuccessfully);
+          DialogUtil(context).toast(AppText.verificationPageAccountCreatedSuccessfully.capitalizeFirstWord);
           Navigator.of(context).pushNamedAndRemoveUntil(
             Screens.homeScreen,
             (route) => false,
@@ -99,13 +99,13 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                 flex: 0,
                 child: Column(
                   children: [
-                    Text(AppText.verificationPageCheckYourEmail,
+                    Text(AppText.verificationPageCheckYourEmail.capitalizeFirstWord,
                         textAlign: TextAlign.center, style: Theme.of(context).textTheme.headlineMedium),
                     const SizedBox(
                       height: AppSizes.spaceBtwVerticalFields,
                     ),
                     Text(
-                      AppText.verificationPageEmailBody,
+                      AppText.verificationPageEmailBody.capitalizeFirstWord,
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
@@ -130,7 +130,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                           padding: const EdgeInsets.all(AppSizes.spaceBtwHorizontalFields / 2),
                           child: seconds == 0
                               ? ButtonPrimary(
-                                  text: seconds == 0 ? AppText.verificationPageSendEmailAgain : seconds.toString(),
+                                  text: seconds == 0 ? AppText.verificationPageSendEmailAgain.capitalizeFirstWord : seconds.toString(),
                                   onTap: () {
                                     if (seconds == 0) {
                                       startTimer();
@@ -139,7 +139,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                                   },
                                 )
                               : ButtonSecondary(
-                                  text: seconds == 0 ? AppText.verificationPageSendEmailAgain : seconds.toString(),
+                                  text: seconds == 0 ? AppText.verificationPageSendEmailAgain.capitalizeFirstWord: seconds.toString(),
                                   onTap: () {
                                     if (seconds == 0) {
                                       startTimer();

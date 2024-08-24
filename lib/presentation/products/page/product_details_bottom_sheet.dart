@@ -16,8 +16,8 @@ class ProductDetailsBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarPopBack(
-        title: AppText.productDetailsPageDetails,
+      appBar: AppBarPopBack(
+        title: AppText.productDetailsPageDetails.capitalizeFirstWord,
       ),
       body: SafeArea(
         child: Row(

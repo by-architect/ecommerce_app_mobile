@@ -5,10 +5,10 @@ import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 
 import 'exceptions.dart';
 import 'firebase_error_messages.dart';
-import '../../helper/Helper.dart';
-import '../../helper/Log.dart';
-import '../../helper/fail.dart';
-import '../../helper/resource.dart';
+import '../../helper/helper.dart';
+import '../../util/Log.dart';
+import '../../util/fail.dart';
+import '../../util/resource.dart';
 import '../../../common/ui/theme/AppText.dart';
 
 class ExceptionHandler extends FirebaseExceptions {
@@ -27,7 +27,7 @@ class ExceptionHandler extends FirebaseExceptions {
               stackTrace: stackTrace)));
         case ExceptionHandler.nullUserId:
           return (ResourceStatus.fail(
-              Fail(userMessage: AppText.errorFetchingData, exception: exception.message, errorCode: exception.code,stackTrace: stackTrace)));
+              Fail(userMessage: AppText.errorFetchingData.capitalizeFirstWord, exception: exception.message, errorCode: exception.code,stackTrace: stackTrace)));
         case FirebaseExceptions.networkRequestFailed:
           return (ResourceStatus.fail(Fail(
               userMessage: FirebaseErrorMessages.errorFirebaseNetworkRequestFailed,
@@ -50,20 +50,20 @@ class ExceptionHandler extends FirebaseExceptions {
                 Fail(userMessage: exception.message ?? "", exception: exception.message, errorCode: exception.code,stackTrace: stackTrace));
           } else {
             return (ResourceStatus.fail(
-                Fail(userMessage: AppText.errorFetchingData, exception: exception.message, errorCode: exception.code,stackTrace: stackTrace)));
+                Fail(userMessage: AppText.errorFetchingData.capitalizeFirstWord, exception: exception.message, errorCode: exception.code,stackTrace: stackTrace)));
           }
       }
     } else if (exception is TimeoutException) {
       // Log.error("Time out:", exception.message ?? "");
-      return (ResourceStatus.fail(Fail(userMessage: AppText.errorTimeout, exception: exception.message,stackTrace: stackTrace)));
+      return (ResourceStatus.fail(Fail(userMessage: AppText.errorTimeout.capitalizeFirstWord, exception: exception.message,stackTrace: stackTrace)));
     } else if (exception is NetworkDeviceDisconnectedException) {
       // Log.error("Network Device Down", exception.message);
-      return ResourceStatus.fail(Fail(userMessage: AppText.errorNetworkDeviceIsDown, exception: exception.message,stackTrace: stackTrace));
+      return ResourceStatus.fail(Fail(userMessage: AppText.errorNetworkDeviceIsDown.capitalizeFirstWord, exception: exception.message,stackTrace: stackTrace));
     } else if (exception is NullDataException) {
-      return ResourceStatus.fail(Fail(userMessage: AppText.errorFetchingData, exception: exception.message,stackTrace: stackTrace));
+      return ResourceStatus.fail(Fail(userMessage: AppText.errorFetchingData.capitalizeFirstWord, exception: exception.message,stackTrace: stackTrace));
     } else {
       // Log.error("Unknown Error", exception.toString());
-      return (ResourceStatus.fail(Fail(userMessage: AppText.errorFetchingData, exception: exception.toString(),stackTrace: stackTrace)));
+      return (ResourceStatus.fail(Fail(userMessage: AppText.errorFetchingData.capitalizeFirstWord, exception: exception.toString(),stackTrace: stackTrace)));
     }
   }
 }

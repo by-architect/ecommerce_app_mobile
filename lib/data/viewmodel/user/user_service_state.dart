@@ -1,4 +1,4 @@
-import 'package:ecommerce_app_mobile/sddklibrary/helper/fail.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/util/fail.dart';
 
 import '../../model/user.dart';
 

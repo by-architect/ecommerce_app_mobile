@@ -1,4 +1,4 @@
-import 'package:ecommerce_app_mobile/sddklibrary/helper/Log.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 
 class Fail {
   final String userMessage;

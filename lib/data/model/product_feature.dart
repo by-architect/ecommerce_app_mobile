@@ -1,6 +1,7 @@
 import 'dart:ui';
 
-import 'package:ecommerce_app_mobile/sddklibrary/helper/Helper.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/helper/helper.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/helper/string_helper.dart';
 
 class ProductFeature {
   late final String id;
