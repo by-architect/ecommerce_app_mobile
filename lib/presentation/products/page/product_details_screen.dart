@@ -101,19 +101,21 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> with Widget
                   rating: state.reviews.ratingString,
                   numOfReviews: state.reviews.count,
                 ),
-                ProductListTile(
-                  svgSrc: AppImages.productIcon,
-                  title: AppText.productDetailsPageDetails,
-                  press: () {
-                    customModalBottomSheet(
-                      context,
-                      height: MediaQuery.of(context).size.height * 0.92,
-                      //todo: handle this
-                      child: ProductDetailsBottomSheet(
-                        items: state.productDetailsItems,
-                      ),
-                    );
-                  },
+                SliverToBoxAdapter(
+                  child: ProductListTile(
+                    svgSrc: AppImages.productIcon,
+                    title: AppText.productDetailsPageDetails,
+                    press: () {
+                      customModalBottomSheet(
+                        context,
+                        height: MediaQuery.of(context).size.height * 0.92,
+                        //todo: handle this
+                        child: ProductDetailsBottomSheet(
+                          items: state.productDetailsItems,
+                        ),
+                      );
+                    },
+                  ),
                 ),
                 /*
                 ProductListTile(
@@ -128,19 +130,21 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> with Widget
                   },
                 ),
         */
-                ProductListTile(
-                  svgSrc: AppImages.returnIcon,
-                  title: AppText.productDetailsPageReturns,
-                  isShowBottomBorder: true,
-                  press: () {
-                    customModalBottomSheet(
-                      context,
-                      height: MediaQuery.of(context).size.height * 0.92,
-                      child: ProductReturnsScreen(
-                        returnText: widget.product.returns,
-                      ),
-                    );
-                  },
+                SliverToBoxAdapter(
+                  child: ProductListTile(
+                    svgSrc: AppImages.returnIcon,
+                    title: AppText.productDetailsPageReturns,
+                    isShowBottomBorder: true,
+                    press: () {
+                      customModalBottomSheet(
+                        context,
+                        height: MediaQuery.of(context).size.height * 0.92,
+                        child: ProductReturnsScreen(
+                          returnText: widget.product.returns,
+                        ),
+                      );
+                    },
+                  ),
                 ),
                 SliverToBoxAdapter(
                   child: Padding(
@@ -150,15 +154,17 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> with Widget
                     ),
                   ),
                 ),
-                ProductListTile(
-                  svgSrc: AppImages.chatIcon,
-                  title: AppText.productDetailsPageReviews,
-                  isShowBottomBorder: true,
-                  press: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => ReviewsScreen(reviews: state.reviews, product: widget.product,),
-                    ));
-                  },
+                SliverToBoxAdapter(
+                  child: ProductListTile(
+                    svgSrc: AppImages.chatIcon,
+                    title: AppText.productDetailsPageReviews,
+                    isShowBottomBorder: true,
+                    press: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => ReviewsScreen(reviews: state.reviews, product: widget.product,),
+                      ));
+                    },
+                  ),
                 ),
                 SliverPadding(
                   padding: const EdgeInsets.all(AppSizes.defaultPadding),

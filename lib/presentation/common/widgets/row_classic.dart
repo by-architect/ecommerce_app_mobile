@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../common/ui/theme/AppSizes.dart';
 
+/*
 class RowItemDefault extends StatelessWidget {
   final Widget text;
   final Widget? firstIcon;
@@ -42,3 +43,4 @@ class RowItemDefault extends StatelessWidget {
     );
   }
 }
+*/

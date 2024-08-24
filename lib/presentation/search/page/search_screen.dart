@@ -8,6 +8,7 @@ import 'package:ecommerce_app_mobile/presentation/common/widgets/fail_form.dart'
 import 'package:ecommerce_app_mobile/presentation/common/widgets/product_card.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/row_classic.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/text_button_default.dart';
+import 'package:ecommerce_app_mobile/presentation/products/widget/product_list_tile.dart';
 import 'package:ecommerce_app_mobile/presentation/search/bloc/search_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/search/bloc/search_event.dart';
 import 'package:ecommerce_app_mobile/presentation/search/bloc/search_state.dart';
@@ -261,23 +262,28 @@ class _RecentSearchRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RowItemDefault(
-        text: Text(
-          text,
-          style: Theme.of(context).textTheme.headlineSmall,
-        ),
-        firstIcon: SvgPicture.asset(
-          AppImages.clockIcon,
-          color: AppColors.greyColor,
-          width: 30,
-          height: 30,
-        ),
-        lastIcon: IconButton(
-            onPressed: onDeleteTap,
-            icon: const Icon(
-              Icons.close,
+    return Column(
+      children: [
+        ListTile(
+            title: Text(
+              text,
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
+            leading: SvgPicture.asset(
+              AppImages.clockIcon,
               color: AppColors.greyColor,
-            )),
-        onTap: onTap);
+              width: 30,
+              height: 30,
+            ),
+            trailing: IconButton(
+                onPressed: onDeleteTap,
+                icon: const Icon(
+                  Icons.close,
+                  color: AppColors.greyColor,
+                )),
+            onTap: onTap),
+        const Divider(height: 1),
+      ],
+    );
   }
 }

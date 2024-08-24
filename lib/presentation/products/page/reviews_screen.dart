@@ -44,21 +44,23 @@ class ReviewsScreen extends StatelessWidget {
               height: AppSizes.spaceBtwVerticalFieldsLarge,
             ),
           ),
-          ProductListTile(
-            isShowBottomBorder: true,
-            svgSrc: AppImages.chatAddIcon,
-            title: AppText.productDetailsPageAddReview,
-            press: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => AddReviewScreen(
-                      title: product.name,
-                      brand: product.brandName ?? "",
-                      productId: product.productId, image: product.images.first,
-                    ),
-                  ));
-            },
+          SliverToBoxAdapter(
+            child: ProductListTile(
+              isShowBottomBorder: true,
+              svgSrc: AppImages.chatAddIcon,
+              title: AppText.productDetailsPageAddReview,
+              press: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AddReviewScreen(
+                        title: product.name,
+                        brand: product.brandName ?? "",
+                        productId: product.productId, image: product.images.first,
+                      ),
+                    ));
+              },
+            ),
           ),
           const SliverToBoxAdapter(
             child: SizedBox(

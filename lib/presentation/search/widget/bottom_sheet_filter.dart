@@ -165,8 +165,8 @@ class _FilterRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RowItemDefault(
-      text: Padding(
+    return ListTile(
+      title: Padding(
         padding: const EdgeInsets.only(left: AppSizes.defaultPadding),
         child: Text(
           feature.optionName,
@@ -174,7 +174,7 @@ class _FilterRow extends StatelessWidget {
         ),
       ),
       onTap: onTap,
-      lastIcon: const Padding(
+      trailing: const Padding(
         padding: EdgeInsets.only(right: AppSizes.defaultPadding),
         child: Icon(Icons.chevron_right),
       ),
@@ -191,8 +191,8 @@ class _CategoryRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RowItemDefault(
-      text: Padding(
+    return ListTile(
+      title: Padding(
         padding: const EdgeInsets.only(left: AppSizes.defaultPadding),
         child: Text(
           category.name,
@@ -200,7 +200,7 @@ class _CategoryRow extends StatelessWidget {
         ),
       ),
       onTap: onTap,
-      lastIcon: const Padding(
+      trailing: const Padding(
         padding: EdgeInsets.only(right: AppSizes.defaultPadding),
         child: Icon(Icons.chevron_right),
       ),
@@ -289,12 +289,12 @@ class _OptionRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RowItemDefault(
-        text: Text(
+    return ListTile(
+        title: Text(
           featureType == ProductFeatureType.color ? AppText.color : option.name,
           style: Theme.of(context).textTheme.titleLarge,
         ),
-        firstIcon: Padding(
+        leading: Padding(
           padding: const EdgeInsets.only(left: AppSizes.defaultPadding),
           child: Checkbox(
             value: isSelected,
@@ -303,7 +303,7 @@ class _OptionRow extends StatelessWidget {
             },
           ),
         ),
-        lastIcon: featureType == ProductFeatureType.color
+        trailing: featureType == ProductFeatureType.color
             ? Padding(
                 padding: const EdgeInsets.only(right: AppSizes.defaultSpace),
                 child: Container(

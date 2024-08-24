@@ -5,6 +5,7 @@ import 'package:ecommerce_app_mobile/presentation/common/widgets/row_classic.dar
 import 'package:ecommerce_app_mobile/presentation/discover/bloc/discover_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/discover/bloc/discover_state.dart';
 import 'package:ecommerce_app_mobile/presentation/discover/widget/discover_skelton.dart';
+import 'package:ecommerce_app_mobile/presentation/products/widget/product_list_tile.dart';
 import 'package:ecommerce_app_mobile/presentation/search/bloc/search_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/search/bloc/search_event.dart';
 import 'package:ecommerce_app_mobile/presentation/search/page/search_screen.dart';
@@ -54,19 +55,18 @@ class _DiscoverFormState extends State<DiscoverForm> {
           CategorySuccessState successState => Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Flexible(
-                    flex: 2,
-                    child: TextFieldSearch(
-                      onFieldSubmitted: (value) {
-                        SearchScreen.getProducts(outContext: context, events: []);
+                TextFieldSearch(
+                  onFieldSubmitted: (value) {
+                    SearchScreen.getProducts(outContext: context, events: []);
 
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => SearchScreen.getProducts(events: [SearchTextEvent(value ?? "")], outContext: context),
-                        ));
-                      },
-                    )),
-                Expanded(
-                  flex: 2,
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => SearchScreen.getProducts(events: [SearchTextEvent(value ?? "")], outContext: context),
+                    ));
+                  },
+                ),
+                const SizedBox(height: AppSizes.spaceBtwVerticalFields,),
+                SizedBox(
+                  height: 60,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding, vertical: AppSizes.defaultPadding / 2),
                     child: Row(
@@ -84,26 +84,24 @@ class _DiscoverFormState extends State<DiscoverForm> {
                                       child: const Icon(Icons.arrow_back)),
                                 ),
                               ),
-                        Expanded(
-                          flex: 6,
-                          child: Text(
-                            discoverState.categoryStruct.isFirstLayer
-                                ? AppText.commonPageCategories
-                                : "${AppText.commonPageCategories} > ${discoverState.categoryStruct.title}",
-                            style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
-                          ),
+                        Text(
+                          discoverState.categoryStruct.isFirstLayer
+                              ? AppText.commonPageCategories
+                              : "${AppText.commonPageCategories} > ${discoverState.categoryStruct.title}",
+                          style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold,fontSize: 20),
                         ),
                       ],
                     ),
                   ),
                 ),
+                const SizedBox(height: AppSizes.spaceBtwVerticalFields,),
                 Expanded(
-                  flex: 7,
                   child: ListView.builder(
                     itemCount: discoverState.categoryStruct.currentLayer.length,
-                    itemBuilder: (context, index) => _CategoryItem(
-                      category: discoverState.categoryStruct.currentLayer[index],
-                      onTap: () {
+                    itemBuilder: (context, index) => ProductListTile(
+                      title: discoverState.categoryStruct.currentLayer[index].name,
+                      isShowBottomBorder: discoverState.categoryStruct.currentLayer[index].id == discoverState.categoryStruct.currentLayer.last.id,
+                      press: () {
                         if(discoverState.categoryStruct.isLastLayer(discoverState.categoryStruct.currentLayer[index])) {
 
                           Navigator.of(context).push(MaterialPageRoute(
@@ -116,10 +114,10 @@ class _DiscoverFormState extends State<DiscoverForm> {
                           BlocProvider.of<DiscoverBloc>(context)
                               .add(NextCategoryLayerEvent(discoverState.categoryStruct.currentLayer[index]));
                         }
-/*
+                  /*
                         if (state.selectedCategory != null) {
                         }
-*/
+                  */
                       },
                     ),
                   ),
@@ -133,6 +131,7 @@ class _DiscoverFormState extends State<DiscoverForm> {
   }
 }
 
+/*
 class _CategoryItem extends StatelessWidget {
   final Category category;
   final Function() onTap;
@@ -157,7 +156,8 @@ class _CategoryItem extends StatelessWidget {
               ],
             ),
             onTap: onTap)
-        /*GestureDetector(
+        */
+/*GestureDetector(
       onTap: onTap,
       child: SizedBox(
         height: 70.0,
@@ -173,7 +173,9 @@ class _CategoryItem extends StatelessWidget {
           ],
         ),
       ),
-    )*/
+    )*//*
+
         ;
   }
 }
+*/
