@@ -36,10 +36,12 @@ class Categories {
     return categoriesByLayer;
   }
 
+/*
   static List<Category> getNextCategoryLayer(List<Category> nextLayerPool, Category selectedCategory) =>
       nextLayerPool.where((category) => category.superId == selectedCategory.id).toList();
 
   static List<Category> getPreviousCategoryLayer(List<Category> previousLayerPool, Category selectedCategory) => previousLayerPool.where((category) => category.id == selectedCategory.superId).toList();
+*/
 
   ResourceStatus<CategoryNode> getNodeFromLastCategoryId(String lastCategoryId) {
     try {

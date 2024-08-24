@@ -189,17 +189,6 @@ class _SearchScreenState extends State<SearchScreen> {
                               ),
                               itemBuilder: (context, index) => ProductCard(
                                 product: state.products[index],
-                                press: () {
-                                  // Navigate to product details page
-                                  /*
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => ProductDetailsPage(product: state.products[index]),
-                                    ),
-                                  );
-      */
-                                },
                               ),
                             ),
                           ),

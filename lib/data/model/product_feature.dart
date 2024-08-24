@@ -8,12 +8,12 @@ class ProductFeature {
   late final ProductFeatureType productFeatureType;
   late final List<ProductFeatureOption> options;
 
-  ProductFeature(
-    this.id,
-    this.optionName,
-    this.options,
-    this.productFeatureType,
-  );
+  ProductFeature({
+    required this.id,
+    required this.optionName,
+    required this.options,
+    required this.productFeatureType,
+  });
 
   ProductFeature.fromMap(Map<String, dynamic> map) {
     id = map['id'];
@@ -34,10 +34,10 @@ class ProductFeature {
     List<ProductFeatureOption>? options,
   }) {
     return ProductFeature(
-      id ?? this.id,
-      optionName ?? this.optionName,
-      options ?? this.options,
-      productFeatureType ?? this.productFeatureType,
+     id:  id ?? this.id,
+      optionName:  optionName ?? this.optionName,
+     options:  options ?? this.options,
+     productFeatureType:  productFeatureType ?? this.productFeatureType,
     );
   }
 
@@ -49,6 +49,7 @@ class ProductFeature {
 
 enum ProductFeatureType {
   text,
+  character,
   color;
 
   static ProductFeatureType fromString(String type) {

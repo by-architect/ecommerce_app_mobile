@@ -1,8 +1,8 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/app_bar_pop_back.dart';
-import 'package:ecommerce_app_mobile/presentation/products/bloc/prodcut_screen_bloc.dart';
-import 'package:ecommerce_app_mobile/presentation/products/bloc/product_screen_event.dart';
-import 'package:ecommerce_app_mobile/presentation/products/bloc/product_screen_state.dart';
+import 'package:ecommerce_app_mobile/presentation/products/bloc/prodcut_list_screen_bloc.dart';
+import 'package:ecommerce_app_mobile/presentation/products/bloc/product_list_screen_event.dart';
+import 'package:ecommerce_app_mobile/presentation/products/bloc/product_list_screen_state.dart';
 import 'package:ecommerce_app_mobile/presentation/search/bloc/search_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,14 +11,14 @@ import '../../common/skeleton/product_skeleton.dart';
 import '../../common/widgets/fail_form.dart';
 import '../../common/widgets/product_card.dart';
 
-class ProductScreen extends StatefulWidget {
-  const ProductScreen({super.key});
+class ProductListScreen extends StatefulWidget {
+  const ProductListScreen({super.key});
 
   @override
-  State<ProductScreen> createState() => _ProductScreenState();
+  State<ProductListScreen> createState() => _ProductListScreenState();
 }
 
-class _ProductScreenState extends State<ProductScreen> {
+class _ProductListScreenState extends State<ProductListScreen> {
 
 
   @override
@@ -58,17 +58,6 @@ class _ProductScreenState extends State<ProductScreen> {
                               ),
                               itemBuilder: (context, index) => ProductCard(
                                 product: state.products[index],
-                                press: () {
-                                  // Navigate to product details page
-                                  /*
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => ProductDetailsPage(product: state.products[index]),
-                                          ),
-                                        );
-                    */
-                                },
                               ),
                             ),
                           ),

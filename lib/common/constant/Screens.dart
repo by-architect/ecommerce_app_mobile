@@ -11,5 +11,7 @@ class Screens{
  //todo:unimplemented
   static const notificationScreen = "notificationScreen";
   static var onSaleScreen = "onSaleScreen";
+  static const entryPointScreenRoute = "entryPointScreen";
+
 
 }

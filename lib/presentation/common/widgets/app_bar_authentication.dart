@@ -2,9 +2,9 @@ import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 import 'package:flutter/material.dart';
 
 class AppBarAuthentication extends StatefulWidget implements PreferredSizeWidget {
-  final String text;
+  final String title;
 
-  const AppBarAuthentication({super.key, required this.text});
+  const AppBarAuthentication({super.key, required this.title});
 
   @override
   State<AppBarAuthentication> createState() => _AppBarAuthenticationState();
@@ -26,7 +26,7 @@ class _AppBarAuthenticationState extends State<AppBarAuthentication> {
         ),
 
       ),
-      title: Center(child: Text(widget.text,style: Theme.of(context).textTheme.titleLarge)),
+      title: Center(child: Text(widget.title,style: Theme.of(context).textTheme.titleLarge)),
     );
   }
 }

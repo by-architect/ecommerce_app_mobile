@@ -1,5 +1,6 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/presentation/common/skeleton/product_card_skeleton.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/helper/Log.dart';
 import 'package:flutter/material.dart';
 
 import '../../../data/model/product.dart';
@@ -45,10 +46,6 @@ class ProductsHorizontalWidget extends StatelessWidget {
                   ? const ProductCardSkeleton()
                   : ProductCard(
                       product: products[index],
-                      press: () {
-                        //todo: get products from Home Bloc
-                        // BlocProvider.of<ProductScreenBloc>(context).add(GetDiscountedProducts());
-                      },
                     ),
             ),
           ),

@@ -86,7 +86,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
     return Scaffold(
       appBar: const AppBarAuthentication(
-        text: AppText.signUp,
+        title: AppText.signUp,
       ),
       resizeToAvoidBottomInset: false,
       body: Padding(

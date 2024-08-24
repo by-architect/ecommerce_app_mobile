@@ -6,8 +6,8 @@ import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/fakerepository/fake_models.dart';
 import 'package:ecommerce_app_mobile/data/model/banner.dart';
 import 'package:ecommerce_app_mobile/presentation/home/widget/offers_skeleton.dart';
-import 'package:ecommerce_app_mobile/presentation/products/bloc/prodcut_screen_bloc.dart';
-import 'package:ecommerce_app_mobile/presentation/products/bloc/product_screen_event.dart';
+import 'package:ecommerce_app_mobile/presentation/products/bloc/prodcut_list_screen_bloc.dart';
+import 'package:ecommerce_app_mobile/presentation/products/bloc/product_list_screen_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

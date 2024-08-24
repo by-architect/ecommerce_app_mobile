@@ -1,5 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecommerce_app_mobile/data/model/Reviews.dart';
+import 'package:ecommerce_app_mobile/data/model/product_details_item.dart';
 import 'package:ecommerce_app_mobile/data/model/recent_search.dart';
+import 'package:ecommerce_app_mobile/data/model/review.dart';
+import 'package:ecommerce_app_mobile/presentation/products/bloc/review_state.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/constant/exceptions/exception_handler.dart';
 import 'package:ecommerce_app_mobile/common/constant/firestore_collections.dart';
 import 'package:ecommerce_app_mobile/common/constant/app_durations.dart';
@@ -176,5 +180,32 @@ class ProductServiceImpl extends ProductService {
     // TODO: implement getProductByLastAdded
     throw UnimplementedError();
   }
+
+  @override
+  Future<ResourceStatus<Reviews>> getReviews(String productId) {
+    // TODO: implement getReviews
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<ResourceStatus<List<Product>>> getYouMayAlsoLike(String categoryId) {
+    // TODO: implement getYouMayAlsoLike
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<ResourceStatus<List<ProductDetailsItem>>> getProductDetails(String productId) {
+    // TODO: implement getProductDetails
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<ResourceStatus> addReview(ReviewState reviewState) {
+    // TODO: implement addReview
+    throw UnimplementedError();
+  }
+
+
+
 
 }

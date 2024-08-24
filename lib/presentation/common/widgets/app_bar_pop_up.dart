@@ -25,6 +25,7 @@ class _AppBarPopUpState extends State<AppBarPopUp> {
     backgroundColor: Theme.of(context).scaffoldBackgroundColor,
     leading: const SizedBox(),
     leadingWidth: 0,
+    titleSpacing: AppSizes.defaultPadding,
     centerTitle: false,
     title: Text(AppText.marketName,style: Theme.of(context).textTheme.titleLarge?.copyWith(color: AppColors.blackColor,fontWeight:  FontWeight.bold,fontStyle: FontStyle.italic),),
       actions: [

@@ -31,6 +31,15 @@ class AppText{
   static const man= "Man";
   static const woman= "Woman";
 
+  //time
+  static const second= "s";
+  static const minute= "m";
+  static const hour= "h";
+  static const day= "d";
+  static const month= "M";
+  static const year= "Y";
+  static const ago = "Ago";
+
 
   //errors
   static const errorTitle = "Error"; //todo: make it more soft
@@ -52,6 +61,9 @@ class AppText{
   static const errorBirthYearIsNotValid = "Please enter valid date of birth";
   static const errorProductDoesNotExist = "Product doesn't exist";
   static const errorLoadingCategories = "Error loading categories";
+  static const errorStarMustBeSelected = "You must give rating";
+  static const errorTitleCanNotBeEmpty = "Title can not be empty";
+  static const errorContentCanNotBeEmpty = "Content can not be empty";
 
   //navigation
   static const navigationHome = "Home";
@@ -101,12 +113,53 @@ class AppText{
   static const homePageBestSellerProducts= "Best Seller";
   static const homePageLastAddedProducts= "Last Added";
 
+  //product page
+  static const productPageBuyNow= "Buy Now";
+  static const productPageUnitPrice= "Unit Price";
+  static const productPageNotifyMe= "Notify when product back to stock.";
+  static const productPageAvailableInStock= "Available in stock";
+  static const productPageUnAvailableInStock= "Currently unavailable";
+  static const productPageStorePickupAvailability= "Store Pickup Availability";
+
+  //product details page
+  static const productDetailsPageDetails= "Product Details";
+  static const productDetailsPageReviews ="Reviews";
+  static const productDetailsPageUserReviews ="User Reviews";
+  static const productDetailsPageReturns  = "Returns"; //iade
+  static const productDetailsPageReturn  = "Return";
+  static const productDetailsPageYouMayAlsoLike  = "You May Also Like";
+  static const productDetailsPageAddToCart  = "Add To Cart";
+  static const productDetailsPageTotalPrice  = "Total Price";
+  static const productPageQuantity = "Quantity";
+  static const productDetailsPageProductInfo = "Product Info";
+  static const productDetailsPageBasedOn = "Based on";
+  static const productDetailsPageStar = "Star";
+  static const productDetailsPageAddReview = "Add Review";
+  static const productDetailsPageOverallRating = "Your overall rating of this product";
+  static const productDetailsPageSetATitle = "Set a title for your review";
+  static const productDetailsPageSummarizeReview = "Summarize review";
+  static const productDetailsPageWhatShouldShoppersKnow = "What should shoppers know before?";
+  static const productDetailsPageCharacterMax = "Character Max";
+  static const productDetailsPageWhatDidYouLike = "What did you like or dislike?";
+  static const productDetailsPageSubmitReview = "Submit Review";
+  static const productDetailsPageReviewSubmitted = "Review Submitted Successfully";
+
+
+
   //pages common
   static const commonPageFilter = "Filter";
   static const commonPageClearAll = "Clear All";
   static const commonPageCategory = "Category";
-  static var commonPageOff = "off"; // indirim
+  static const commonPageOff = "off"; // indirim
   static const commonPageCategories = "Categories";
+
+  static const productDetailsPageSelectedColor = "Selected Color";
+
+
+
+
+
+
 
 
 

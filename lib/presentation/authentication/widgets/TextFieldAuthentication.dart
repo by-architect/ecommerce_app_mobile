@@ -15,7 +15,7 @@ class TextFieldAuthentication extends StatelessWidget {
     return TextField(
       obscureText: isPassword,
       onChanged: onChanged,
-      decoration: InputDecoration(prefixIcon: Icon(icon),label: Text(label)),
+      decoration: InputDecoration(prefixIcon: Icon(icon),label: Text(label),),
 
     );
   }

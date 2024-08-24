@@ -5,6 +5,7 @@ import 'package:ecommerce_app_mobile/common/constant/firestore_collections.dart'
 import 'package:ecommerce_app_mobile/sddklibrary/constant/exceptions/exception_handler.dart';
 import 'package:ecommerce_app_mobile/common/constant/app_durations.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_state.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/helper/Log.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/fail.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/network_helper.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/resource.dart';
@@ -43,8 +44,8 @@ class UserServiceImpl extends UserService {
       return ResourceStatus.success(userFinal);
 
       //catch exceptions
-    } catch (exception,stackTrace) {
-      return ExceptionHandler.firebaseResourceExceptionHandler(exception,stackTrace);
+    } catch (exception, stackTrace) {
+      return ExceptionHandler.firebaseResourceExceptionHandler(exception, stackTrace);
     }
   }
 
@@ -57,8 +58,8 @@ class UserServiceImpl extends UserService {
       await user.firebaseUser.sendEmailVerification();
 
       return ResourceStatus.success(user);
-    } catch (exception,stackTrace) {
-      return ExceptionHandler.firebaseResourceExceptionHandler(exception,stackTrace);
+    } catch (exception, stackTrace) {
+      return ExceptionHandler.firebaseResourceExceptionHandler(exception, stackTrace);
     }
   }
 
@@ -88,8 +89,8 @@ class UserServiceImpl extends UserService {
       }
       User user = userResponse.data!;
       return ResourceStatus.success(user);
-    } catch (exception,stackTrace) {
-      return ExceptionHandler.firebaseResourceExceptionHandler(exception,stackTrace);
+    } catch (exception, stackTrace) {
+      return ExceptionHandler.firebaseResourceExceptionHandler(exception, stackTrace);
     }
   }
 
@@ -105,10 +106,11 @@ class UserServiceImpl extends UserService {
         return ResourceStatus.fail(userResponse.error ?? Fail(userMessage: AppText.errorFetchingData));
       }
       User user = userResponse.data!;
+      // User user = User.fromUserState(userRequest, userCredential.user!, userCredential);
 
       return ResourceStatus.success(user);
-    } catch (exception,stackTrace) {
-      return ExceptionHandler.firebaseResourceExceptionHandler(exception,stackTrace);
+    } catch (exception, stackTrace) {
+      return ExceptionHandler.firebaseResourceExceptionHandler(exception, stackTrace);
     }
   }
 
@@ -129,7 +131,7 @@ class UserServiceImpl extends UserService {
       final networkConnection = await NetworkHelper().isConnectedToNetwork();
       if (!networkConnection.isConnected) throw NetworkDeviceDisconnectedException("Network Device is down");
 
-      _firebaseAuth.currentUser?.reload();
+      await _firebaseAuth.currentUser?.reload();
       if (_firebaseAuth.currentUser == null) throw firebase_auth.FirebaseAuthException(code: ExceptionHandler.nullUserId);
       final firebaseUser = _firebaseAuth.currentUser!;
 
@@ -137,13 +139,15 @@ class UserServiceImpl extends UserService {
           await _fireStore.collection(FireStoreCollections.users).doc(firebaseUser.uid).get().timeout(AppDurations.postTimeout);
       if (!fireStoreUserMap.exists || fireStoreUserMap.data() == null) {
         return ResourceStatus.fail(Fail(
-            userMessage: AppText.errorFetchingData, exception: "Can't get metadata from firestore while request user, it is empty"));
+            stackTrace: StackTrace.current,
+            userMessage: AppText.errorFetchingData,
+            exception: "User exist in firebase auth, not exist in fireStore"));
+        //todo: this error message should send to me with logs
       }
       final user = User.fromMap(fireStoreUserMap.data()!, firebaseUser, userCredential: userCredential);
       return ResourceStatus.success(user);
-    } catch (exception,stackTrace) {
-      return ExceptionHandler.firebaseResourceExceptionHandler(exception,stackTrace);
+    } catch (exception, stackTrace) {
+      return ExceptionHandler.firebaseResourceExceptionHandler(exception, stackTrace);
     }
   }
-
 }

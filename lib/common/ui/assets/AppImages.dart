@@ -7,6 +7,8 @@ class AppImages{
   static const String _formatPng = '.png';
   static const String _formatSvg = '.svg';
 
+  static const String notFound = '${_imagePath}not_found$_formatSvg';
+
   static const  shoppingBags  = '${_imagePath}shopping_bags$_formatSvg';
   static const  windowShopping  = '${_imagePath}window_shopping$_formatSvg';
   static const  openedEmail  = '${_imagePath}opened_email$_formatSvg';
@@ -23,4 +25,23 @@ class AppImages{
   static const discountTagIcon = "${_iconPath}Discount_tag$_formatSvg";
   static const arrowRight = "${_iconPath}Arrow - Right$_formatSvg";
   static const dot = "${_iconPath}dot$_formatSvg";
+
+  static const singleCheckIcon = "${_iconPath}Singlecheck$_formatSvg";
+  static const starFilledIcon = "${_iconPath}Star_filled$_formatSvg";
+
+  static const productIcon = "${_iconPath}Product$_formatSvg";
+  static const returnIcon = "${_iconPath}Return$_formatSvg";
+  static const chatIcon = "${_iconPath}Chat$_formatSvg";
+  static const chatAddIcon = "${_iconPath}Chat-add$_formatSvg";
+
+  static const minusIcon = "${_iconPath}Minus$_formatSvg";
+  static const plusIcon = "${_iconPath}Plus1$_formatSvg";
+
+  static const miniRightIcon = "${_iconPath}miniRight$_formatSvg";
+
+  static const profileIcon = "${_iconPath}Profile$_formatSvg";
+
+
+
+
 }

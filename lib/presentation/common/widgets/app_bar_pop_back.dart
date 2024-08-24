@@ -8,10 +8,12 @@ import '../../../common/ui/theme/AppSizes.dart';
 import '../../../common/ui/theme/AppText.dart';
 
 class AppBarPopBack extends StatefulWidget implements PreferredSizeWidget {
-
   const AppBarPopBack({
     super.key,
+    this.title,
   });
+
+  final String? title;
 
   @override
   State<AppBarPopBack> createState() => _AppBarPopBackState();
@@ -25,14 +27,17 @@ class _AppBarPopBackState extends State<AppBarPopBack> {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      leading: const SizedBox(),
-      leadingWidth: 0,
-      centerTitle: false,
-      title: IconButton(
-        icon: const Icon(Icons.arrow_back),
-        onPressed: () {
-          Navigator.of(context).pop();
-        },
+      leading: const Padding(
+        padding: EdgeInsets.only(left: AppSizes.defaultPadding, top: AppSizes.defaultPadding),
+        child: BackButton(),
+      ),
+      centerTitle: true,
+      title: Padding(
+        padding: const EdgeInsets.only(top: AppSizes.defaultPadding),
+        child: Text(
+          widget.title ?? "",
+          style: Theme.of(context).textTheme.titleMedium,
+        ),
       ),
     );
   }

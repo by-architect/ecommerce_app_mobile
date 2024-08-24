@@ -1,9 +1,7 @@
-import 'package:ecommerce_app_mobile/common/util/category_util.dart';
 import 'package:ecommerce_app_mobile/data/model/categories.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/resource.dart';
 
-import 'category.dart';
 import 'category_node.dart';
 
 class Product {
@@ -11,14 +9,14 @@ class Product {
   late final String name;
   late final String categoryId;
 
-  // late final String addedDate;
-  late final String explanation;
+  late final String info;
+  late final String returns;
   late final double cargoPrice;
   late final String? brandName;
-  late final String image;
+  late final List<String> images;
   late final int buyTimes;
 
-  //product list
+  ///product list
   late final DateTime addedTime;
   late final DateTime modifiedTime;
   late final int totalCount;
@@ -26,23 +24,27 @@ class Product {
   late final String id;
   late final double price;
   late final List<String> featureOptionIds;
-  late final double discount;
+  late final double? discount;
 
-  int get discountPercent => ((discount / price) * 100).toInt();
+  int? get discountPercent => discount == null ? null : ((discount! / price) * 100).toInt();
 
   bool get availableInStock => totalCount != 0;
 
-  double get priceAfterDiscounting => price - discount;
+  double? get priceAfterDiscounting => discount == null ? null : (price - discount!);
 
   Product(
       {required this.productId,
       required this.name,
+      required this.buyTimes,
+      required this.addedTime,
       required this.categoryId,
-      required this.explanation,
+      required this.info,
+      required this.modifiedTime,
       required this.cargoPrice,
+      required this.returns,
       required this.totalCount,
       required this.barcode,
-      required this.image,
+      required this.images,
       required this.id,
       required this.featureOptionIds,
       required this.price,
@@ -52,9 +54,13 @@ class Product {
   Product.fromMap(Map<String, dynamic> map, List<ProductFeature> allFeatures) {
     productId = map['productId'];
     name = map['name'];
+    buyTimes = map['buyTimes'];
+    addedTime = map['addedTime'];
     categoryId = map['categoryId'];
-    explanation = map['explanation'];
+    info = map['explanation'];
+    modifiedTime = map['modifiedTime'];
     cargoPrice = map['cargoPrice'];
+    returns = map['returns'];
     totalCount = map['totalCount'];
     id = map['id'];
     barcode = map['barcode'];
@@ -62,6 +68,7 @@ class Product {
     discount = map['discount'];
     brandName = map['brandName'];
 
+    images = map['images'] as List<String>;
     //todo: get the image from server
 
     featureOptionIds = map['feature'] as List<String>;
@@ -81,27 +88,30 @@ class Product {
 
   Map<String, dynamic> toMap() {
     return {
+/*
       "productId": productId,
       "name": name,
       "categoryId": categoryId,
-      "explanation": explanation,
+      "explanation": info,
       "cargoPrice": cargoPrice,
       "totalCount": totalCount,
       "barcode": barcode,
-      "image": image,
+      "image": images,
       "id": id,
       "featureOptionIds": featureOptionIds,
       "price": price,
       "discount": discount,
       "brandName": brandName,
+*/
     };
   }
 
   ResourceStatus<CategoryNode> categoryNode(Categories categories) => categories.getNodeFromLastCategoryId(categoryId);
+
   // ResourceStatus<List<Category>> categoryNode(Categories categories) => categories.getNodeFromLastCategoryId(categoryId);
 
   @override
   String toString() {
-    return 'Product{productId: $productId, name: $name, categoriesId: $categoryId, barcode: $barcode explanation: $explanation, cargoPrice: $cargoPrice, totalCount: $totalCount, id: $id, price: $price,  discount: $discount}';
+    return 'Product{productId: $productId, name: $name, categoriesId: $categoryId, barcode: $barcode explanation: $info, cargoPrice: $cargoPrice, totalCount: $totalCount, id: $id, price: $price,  discount: $discount}';
   }
 }

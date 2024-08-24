@@ -10,7 +10,7 @@ class ButtonPrimary extends StatelessWidget {
   const ButtonPrimary({
     required this.text,
     this.loading = false,
-    this.onTap,
+   required this.onTap,
     super.key,
   });
 
@@ -22,9 +22,10 @@ class ButtonPrimary extends StatelessWidget {
             ? CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation<Color>(context.isDarkMode ? AppColors.blackColor : AppColors.whiteColor),
               )
-            : Text(text));
+            : Text(text,));
   }
 
+}
 /*
   @override
   Widget build(BuildContext context) {
@@ -49,4 +50,3 @@ class ButtonPrimary extends StatelessWidget {
     );
   }
 */
-}

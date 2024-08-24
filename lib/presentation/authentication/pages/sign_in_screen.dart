@@ -78,7 +78,7 @@ class _SignInScreenState extends State<SignInScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: const AppBarAuthentication(
-        text: AppText.signIn,
+        title: AppText.signIn,
       ),
       body: Padding(
           padding: const EdgeInsets.all(AppSizes.defaultSpace),
@@ -122,7 +122,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     },
                   ),
                   const SizedBox(
-                    height: AppSizes.spaceBtwVerticalFieldsLarge,
+                    height: AppSizes.spaceBtwVerticalFieldsTooLarge,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
