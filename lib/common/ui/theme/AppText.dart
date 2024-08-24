@@ -170,7 +170,11 @@ class AppText {
   String get allLower => _text.toLowerCase();
   String get allUpper => _text.toUpperCase();
 
-  // String get text => _text;
+
+  @override
+  String toString() {
+    return capitalizeFirstWord;
+  } // String get text => _text;
 
   ///write string values first words first character big
 
