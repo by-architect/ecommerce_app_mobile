@@ -71,7 +71,6 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                       allowHalfRating: false,
                       ignoreGestures: false,
                       onRatingUpdate: (value) {
-                        Log.test(title: "star",data: value.toInt().toString());
                         reviewState = reviewState.copyWith(star: ReviewStar.getByInt(value.toInt()));
                       },
                       itemBuilder: (context, index) => SvgPicture.asset(AppImages.starFilledIcon),

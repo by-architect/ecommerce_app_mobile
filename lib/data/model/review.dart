@@ -15,5 +15,8 @@ class Review {
   required  this.user,
   required  this.dateTime});
 
-
+  @override
+  String toString() {
+    return 'Review{star: $star, title: $title, content: $content, user: $user, dateTime: $dateTime}';
+  }
 }

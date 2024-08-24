@@ -31,11 +31,6 @@ class _DiscoverFormState extends State<DiscoverForm> {
   @override
   void initState() {
     BlocProvider.of<DiscoverBloc>(context).add(LoadCategoriesEvent());
-    BlocProvider.of<DiscoverBloc>(context).stream.listen(
-      (state) {
-        Log.test(title: "node",data: state.categoryStruct.categoryNode.toString());
-      },
-    );
     super.initState();
   }
 

@@ -44,7 +44,7 @@ class Log {
   static const String _italic = "\x1B[3m";
   static const String _underline = "\x1B[4m";
 
-  static void log( LogLevel logLevel,{String? message, String title = "", String? userMessage, StackTrace? stackTrace, String? data}) {
+  static void log( LogLevel logLevel,{String? message, String title = "", String? userMessage, StackTrace? stackTrace, Object? data}) {
     final timestamp = _getCurrentTime();
 
     final titleMessage = title.isEmpty ? "${logLevel.name}" : "${logLevel.name} -> $title";
@@ -59,13 +59,15 @@ class Log {
     if (kReleaseMode) {
       // send logs to server
     } else {
+
       //debug mode
       debugPrint(_getColoredMessage(titleMessage, colored));
       if(message != null) debugPrint("---->  ${_getColoredMessage("Message: $message", colored)}");
       if (data != null) debugPrint("---->  ${_getColoredMessage("Data: $data", _TextColor.BRIGHT_CYAN)}");
       if (userMessage != null) debugPrint("---->  ${_getColoredMessage("User Message: $userMessage", _TextColor.MAGENTA)}");
       if (stackTrace != null) {
-        debugPrint("---->  ${_getColoredMessage("Stack Trace: ${stackTrace.toString()}", _TextColor.BRIGHT_MAGENTA)}");
+        final lastTrace = stackTrace.toString().split('\n').first;
+        debugPrint("---->  ${_getColoredMessage("Stack Trace: ${lastTrace.toString()}", _TextColor.BRIGHT_MAGENTA)}");
       }
     }
   }
@@ -111,7 +113,7 @@ class Log {
     }
   }
 
-  static void test({String? message, String title = "", StackTrace? stackTrace, String? userMessage, String? data,Fail? error}) {
+  static void test({String? message, String title = "", StackTrace? stackTrace, String? userMessage, Object? data,Fail? error}) {
     log(LogLevel.TEST, message: error?.exception.toString() ?? message , stackTrace:error?.stackTrace ?? stackTrace, title: title, data: data,userMessage: error?.userMessage ?? userMessage);
   }
 

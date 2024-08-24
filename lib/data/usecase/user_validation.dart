@@ -31,7 +31,6 @@ class UserValidation {
   }
 
   static ValidationResult validateLogin(UserRequestState userState) {
-    Log.test(data:userState.toString());
     if (userState.email.isEmpty || userState.password.isEmpty) return ValidationResult(false, message: AppText.errorEmptyField.capitalizeFirstWord);
     if (!_isValidEmail(userState.email)) return ValidationResult(false, message: AppText.errorEmailIsNotValid.capitalizeFirstWord);
     if (userState.password.length < 8 || userState.password.length > 16) {

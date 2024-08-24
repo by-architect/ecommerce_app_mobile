@@ -73,16 +73,20 @@ class AppBarMain extends StatelessWidget implements PreferredSizeWidget {
 
 Future<void> testScope() async {
   //todo: test scope
+/*
   UserService userService = UserServiceImpl();
   if(FirebaseAuth.instance.currentUser == null) {
     final user = await userService.signIn(FakeUserModels.emin);
   Log.test(title: "user",message: user.status.toString());
   Log.test(title: "user",message: user.data.toString());
   }
+*/
 
 /*
   if (FirebaseAuth.instance.currentUser == null) {
     userService.signIn(FakeUserModels.emin);
   }
 */
+
+
 }
