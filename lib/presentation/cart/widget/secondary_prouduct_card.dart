@@ -1,51 +1,37 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
-import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
-import 'package:ecommerce_app_mobile/presentation/common/widgets/network_image_with_loader.dart';
-import 'package:ecommerce_app_mobile/presentation/products/page/product_details_screen.dart';
+import 'package:ecommerce_app_mobile/data/model/product.dart';
 import 'package:flutter/material.dart';
 
-import '../../../data/model/product.dart';
+import '../../common/widgets/network_image_with_loader.dart';
 
-class ProductCard extends StatelessWidget {
-  const ProductCard({
+class SecondaryProductCard extends StatelessWidget {
+  const SecondaryProductCard({
     super.key,
-    required this.product,
-    this.previousProduct,
     this.press,
+    this.style,
+    required this.product,
   });
 
   final Product product;
-  final Product? previousProduct;
   final VoidCallback? press;
+
+  final ButtonStyle? style;
 
   @override
   Widget build(BuildContext context) {
     return OutlinedButton(
-      onPressed: () {
-        if (press != null) {
-          press!();
-        }
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => ProductDetailsScreen(
-            product: product,
-            previousProduct: previousProduct,
-          ),
-        ));
-      },
-      style:
-          OutlinedButton.styleFrom(minimumSize: const Size(140, 220), maximumSize: const Size(140, 220), padding: const EdgeInsets.all(8)),
-      child: Column(
+      onPressed: () {},
+      style: style ??
+          OutlinedButton.styleFrom(minimumSize: const Size(256, 114), maximumSize: const Size(256, 114), padding: const EdgeInsets.all(8)),
+      child: Row(
         children: [
           AspectRatio(
             aspectRatio: 1.15,
             child: Stack(
               children: [
-                NetworkImageWithLoader(
-                  product.firstImageOrEmpty,
-                  radius: AppSizes.defaultBorderRadius,
-                ),
-                if (product.discount != 0)
+                NetworkImageWithLoader(product.firstImageOrEmpty, radius: AppSizes.defaultBorderRadius),
+                if (product.images.firstOrNull != null)
                   Positioned(
                     right: AppSizes.defaultPadding / 2,
                     top: AppSizes.defaultPadding / 2,
@@ -57,7 +43,7 @@ class ProductCard extends StatelessWidget {
                         borderRadius: BorderRadius.all(Radius.circular(AppSizes.defaultBorderRadius)),
                       ),
                       child: Text(
-                        "${product.discountPercent}% ${AppText.commonPageOff}",
+                        "${product.discountPercent}% off",
                         style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.w500),
                       ),
                     ),
@@ -65,18 +51,17 @@ class ProductCard extends StatelessWidget {
               ],
             ),
           ),
+          const SizedBox(width: AppSizes.defaultPadding / 4),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding / 2, vertical: AppSizes.defaultPadding / 2),
+              padding: const EdgeInsets.all(AppSizes.defaultPadding / 2),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  product.brandName != null
-                      ? Text(
-                          product.brandName!.toUpperCase(),
-                          style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 10),
-                        )
-                      : const SizedBox.shrink(),
+                  Text(
+                    product.brandNameOrEmpty.toUpperCase(),
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 10),
+                  ),
                   const SizedBox(height: AppSizes.defaultPadding / 2),
                   Text(
                     product.name,
@@ -85,7 +70,7 @@ class ProductCard extends StatelessWidget {
                     style: Theme.of(context).textTheme.titleSmall!.copyWith(fontSize: 12),
                   ),
                   const Spacer(),
-                  product.discount != 0
+                  product.priceAfterDiscounting != null
                       ? Row(
                           children: [
                             Text(
@@ -107,17 +92,13 @@ class ProductCard extends StatelessWidget {
                             ),
                           ],
                         )
-                      : Row(
-                          children: [
-                            Text(
-                              "\$${product.price}",
-                              style: const TextStyle(
-                                color: Color(0xFF31B0D8),
-                                fontWeight: FontWeight.w500,
-                                fontSize: 12,
-                              ),
-                            ),
-                          ],
+                      : Text(
+                          "\$${product.price}",
+                          style: const TextStyle(
+                            color: Color(0xFF31B0D8),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12,
+                          ),
                         ),
                 ],
               ),

@@ -42,7 +42,7 @@ class ProductBuyNowScreen extends StatelessWidget {
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding),
-                    child: AspectRatio(aspectRatio: 1.05, child: NetworkImageWithLoader(product.images.first),)
+                    child: AspectRatio(aspectRatio: 1.05, child: NetworkImageWithLoader(product.firstImageOrEmpty),)
                   ),
                 ),
                 SliverPadding(

@@ -1,4 +1,3 @@
-
 import '../../../sddklibrary/helper/string_helper.dart';
 
 /*
@@ -163,13 +162,14 @@ class AppText {
   final String _text;
 
   const AppText(this._text); //common
-  
 
   String get capitalizeFirstWord => StringHelper.capitalizeFirstWord(_text);
-  String get capitalizeEveryWord => StringHelper.capitalizeEveryWord(_text);
-  String get allLower => _text.toLowerCase();
-  String get allUpper => _text.toUpperCase();
 
+  String get capitalizeEveryWord => StringHelper.capitalizeEveryWord(_text);
+
+  String get allLower => _text.toLowerCase();
+
+  String get allUpper => _text.toUpperCase();
 
   @override
   String toString() {
@@ -247,11 +247,14 @@ class AppText {
 
 // Welcome Page
   static final welcomePageOneTitle = AppText("Welcome to $marketName");
-  static const welcomePageOneContent = AppText("Discover a world of exclusive deals and top-quality products at your fingertips. Shop with ease and enjoy seamless browsing");
+  static const welcomePageOneContent = AppText(
+      "Discover a world of exclusive deals and top-quality products at your fingertips. Shop with ease and enjoy seamless browsing");
   static const welcomePageTwoTitle = AppText("Shop smarter, not harder");
-  static const welcomePageTwoContent = AppText("Explore personalized recommendations, easy search options, and secure checkout processes designed to enhance your shopping experience.");
+  static const welcomePageTwoContent = AppText(
+      "Explore personalized recommendations, easy search options, and secure checkout processes designed to enhance your shopping experience.");
   static const welcomePageThreeTitle = AppText("Ready to shop?");
-  static const welcomePageThreeContent = AppText("Sign up or log in now to start your shopping journey. Enjoy exclusive member benefits, track your orders, and more!");
+  static const welcomePageThreeContent =
+      AppText("Sign up or log in now to start your shopping journey. Enjoy exclusive member benefits, track your orders, and more!");
 
 // Sign Up Screen
   static const signUpScreenAlreadyHaveAnAccount = AppText("Already have an account?");
@@ -316,11 +319,19 @@ class AppText {
   static const productDetailsPageReviewSubmitted = AppText("Review submitted successfully");
   static const productDetailsPageSelectedColor = AppText("Selected color");
 
+  //Cart Page
+  static const cartPageReviewYourOrder = AppText("Review your order");
+  static const cartPageOrderSummary = AppText("Order Summary");
+  static const cartPageSubtotal = AppText("Subtotal");
+  static const cartPageShippingFee = AppText("Shipping Fee");
+  static const cartPageDiscount = AppText("Discount");
+  static const cartPageTotal = AppText("Total");
+  static const cartPageFree = AppText("Free");
+
 // Pages Common
   static const commonPageFilter = AppText("Filter");
   static const commonPageClearAll = AppText("Clear all");
   static const commonPageCategory = AppText("Category");
   static const commonPageOff = AppText("Off"); // indirim
   static const commonPageCategories = AppText("Categories");
-
 }

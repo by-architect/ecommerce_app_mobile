@@ -175,4 +175,10 @@ class FakeProductService implements ProductService {
     await Future.delayed(const Duration(seconds: 1));
     return const ResourceStatus.success("");
   }
+
+  @override
+  Future<ResourceStatus<List<Product>>> getProductsOnCart() async {
+    await Future.delayed(const Duration(seconds: 1));
+    return ResourceStatus.success(FakeProductModels.products);
+  }
 }

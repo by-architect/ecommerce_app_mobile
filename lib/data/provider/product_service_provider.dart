@@ -127,4 +127,25 @@ class ProductServiceProvider {
         break;
     }
   }
+
+  Future<ResourceStatus<List<Product>>> getProductsOnCart() {
+    return productService.getProductsOnCart();
+  }
+  getProductsOnCartAsResource( Function(Resource) resource) async {
+    resource(Resource.loading());
+    final productResource = await productService.getProductsOnCart();
+    switch (productResource.status) {
+      case Status.success:
+        resource(Resource.success(productResource.data));
+        break;
+      case Status.fail:
+        resource(Resource.fail(productResource.error!));
+        break;
+      case Status.loading:
+        resource(Resource.loading());
+        break;
+      case Status.stable:
+        break;
+    }
+  }
 }

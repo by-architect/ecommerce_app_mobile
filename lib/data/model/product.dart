@@ -32,6 +32,9 @@ class Product {
 
   double? get priceAfterDiscounting => discount == null ? null : (price - discount!);
 
+  String get firstImageOrEmpty => images.firstOrNull ?? "";
+  String get brandNameOrEmpty => brandName ?? "";
+
   Product(
       {required this.productId,
       required this.name,

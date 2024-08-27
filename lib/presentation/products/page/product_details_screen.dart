@@ -93,7 +93,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> with Widget
                   images: widget.product.images,
                 ),
                 ProductInfo(
-                  brand: widget.product.brandName ?? "",
+                  brand: widget.product.brandNameOrEmpty,
                   title: widget.product.name,
                   isAvailable: widget.product.availableInStock,
                   description: widget.product.info,

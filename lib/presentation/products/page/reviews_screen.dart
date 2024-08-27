@@ -55,8 +55,8 @@ class ReviewsScreen extends StatelessWidget {
                     MaterialPageRoute(
                       builder: (context) => AddReviewScreen(
                         title: product.name,
-                        brand: product.brandName ?? "",
-                        productId: product.productId, image: product.images.first,
+                        brand: product.brandNameOrEmpty,
+                        productId: product.productId, image: product.firstImageOrEmpty
                       ),
                     ));
               },

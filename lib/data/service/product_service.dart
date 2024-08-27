@@ -45,6 +45,7 @@ abstract class ProductService {
   Future<ResourceStatus<Reviews>> getReviews(String productId);
   Future<ResourceStatus> addReview(ReviewState reviewState);
   Future<ResourceStatus<List<Product>>> getYouMayAlsoLike(String categoryId);
+  Future<ResourceStatus<List<Product>>> getProductsOnCart();
   Future<ResourceStatus<List<ProductDetailsItem>>> getProductDetails(String productId);
 
 
