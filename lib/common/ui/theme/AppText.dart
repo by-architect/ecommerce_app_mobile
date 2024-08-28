@@ -161,6 +161,7 @@ class AppText{
 class AppText {
   final String _text;
 
+
   const AppText(this._text); //common
 
   String get capitalizeFirstWord => StringHelper.capitalizeFirstWord(_text);
@@ -205,6 +206,8 @@ class AppText {
   static const gender = AppText("Gender");
   static const man = AppText("Man");
   static const woman = AppText("Woman");
+  static const account = AppText("Account");
+  static const logOut = AppText("Log out");
 
 // Time
   static const second = AppText("s");
@@ -327,6 +330,17 @@ class AppText {
   static const cartPageDiscount = AppText("Discount");
   static const cartPageTotal = AppText("Total");
   static const cartPageFree = AppText("Free");
+
+  //Profile Page
+  static const profilePageOrders = AppText("Orders");
+  static const profilePageAddresses = AppText("Addresses");
+  static const profilePageMarketing = AppText("Marketing");
+  static const profilePageChangePassword = AppText("Change password");
+  static const profilePageEditProfile = AppText("Edit profile");
+  static const profilePageFAQ = AppText("FAQ");
+  static const profilePageGetHelp = AppText("Get Help");
+  static const profilePageHelpAndSupport = AppText("Help & Support");
+
 
 // Pages Common
   static const commonPageFilter = AppText("Filter");

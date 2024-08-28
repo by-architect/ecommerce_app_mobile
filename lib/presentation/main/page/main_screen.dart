@@ -4,6 +4,7 @@ import 'package:ecommerce_app_mobile/presentation/authentication/widgets/app_bar
 import 'package:ecommerce_app_mobile/presentation/cart/page/cart_form.dart';
 import 'package:ecommerce_app_mobile/presentation/discover/page/discover_form.dart';
 import 'package:ecommerce_app_mobile/presentation/home/form/home_form.dart';
+import 'package:ecommerce_app_mobile/presentation/profile/page/profile_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -66,6 +67,7 @@ class _MainScreenState extends State<MainScreen> {
             const HomeForm(),
             const DiscoverForm(),
             const CartForm(),
+            const ProfileForm()
             // FailSkeleton(fail: Fail(userMessage: "network fail"),)
           ][selectedIndex],
     ));
