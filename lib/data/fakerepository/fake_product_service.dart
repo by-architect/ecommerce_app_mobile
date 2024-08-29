@@ -20,7 +20,7 @@ class FakeProductService implements ProductService {
 
   @override
   Future<ResourceStatus<List<Category>>> getCategories() async {
-    // await Future.delayed(const Duration(seconds: 2));
+    // await Future.delayed(const Duration(seconds: 3));
     List<Category> categories = [
       FakeProductModels.category1,
       FakeProductModels.category2,

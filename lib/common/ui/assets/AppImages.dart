@@ -7,6 +7,8 @@ class AppImages{
   static const String _formatPng = '.png';
   static const String _formatSvg = '.svg';
 
+  static const appImage = '${_imagePath}splash$_formatPng';
+
   static const String notFound = '${_imagePath}not_found$_formatSvg';
 
   static const  shoppingBags  = '${_imagePath}shopping_bags$_formatSvg';

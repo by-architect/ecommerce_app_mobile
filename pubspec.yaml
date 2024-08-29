@@ -48,6 +48,7 @@ dependencies:
   build_runner: ^2.0.0
   flutter_rating_bar: ^4.0.1
   cached_network_image: ^3.4.0
+  flutter_native_splash: ^2.4.1
 
 dev_dependencies:
   flutter_test:
@@ -62,6 +63,11 @@ dev_dependencies:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
+
+flutter_native_splash:
+  color: "#ffffff"
+  color_dark: "#000000"
+  image: assets/images/splash.png
 
 # The following section is specific to Flutter packages.
 flutter:

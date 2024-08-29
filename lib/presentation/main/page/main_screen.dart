@@ -12,8 +12,10 @@ import 'package:ecommerce_app_mobile/presentation/main/bloc/main_states.dart';
 import 'package:ecommerce_app_mobile/presentation/profile/page/profile_form.dart';
 import 'package:ecommerce_app_mobile/presentation/search/bloc/search_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/search/bloc/search_event.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import '../../discover/bloc/discover_bloc.dart';
 import '../../discover/bloc/discover_event.dart';
@@ -40,6 +42,9 @@ class _MainScreenState extends State<MainScreen> {
         if (state is InitItemsSuccessState) {
           BlocProvider.of<DiscoverBloc>(context).add(GetCategoriesDiscoverEvent(state.categories));
         }
+        if (state is! InitItemsLoadingState) {
+          FlutterNativeSplash.remove();
+        }
       },
     );
 
@@ -50,11 +55,13 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return BlocBuilder<MainBlocs, MainStates>(
         builder: (BuildContext context, MainStates state) => switch (state) {
+/*
               InitItemsLoadingState _ => const Scaffold(
                     body: Padding(
                   padding: EdgeInsets.all(AppSizes.defaultSpace),
                   child: Center(child: DiscoverCategoriesSkeleton()),
                 )),
+*/
               InitItemsFailState failState => Scaffold(
                   body: Center(
                     child: Padding(
@@ -73,7 +80,10 @@ class _MainScreenState extends State<MainScreen> {
               InitItemsSuccessState _ => SafeArea(
                     child: Scaffold(
                   resizeToAvoidBottomInset: false,
-                  appBar: AppBarMain(features: state.features, categories: state.categories,),
+                  appBar: AppBarMain(
+                    features: state.features,
+                    categories: state.categories,
+                  ),
                   bottomNavigationBar: BottomNavigationBar(
                     currentIndex: selectedIndex,
                     landscapeLayout: BottomNavigationBarLandscapeLayout.spread,

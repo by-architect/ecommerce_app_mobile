@@ -27,8 +27,9 @@ class ProductServiceImpl extends ProductService {
     List<Category> categoryList = [];
     try {
       final networkConnection = await NetworkHelper().isConnectedToNetwork();
-      if (!networkConnection.isConnected)
+      if (!networkConnection.isConnected) {
         throw NetworkDeviceDisconnectedException("Network Device is down");
+      }
 
       final data = await _firestore
           .collection(FireStoreCollections.categories)
@@ -39,11 +40,12 @@ class ProductServiceImpl extends ProductService {
       });
 
       //todo: if there is no category in server, it is fatal error, check it
-      if (categoryList.isEmpty)
+      if (categoryList.isEmpty) {
         return ResourceStatus.fail(Fail(
             userMessage: AppText.errorCategoriesNotFound.capitalizeFirstWord,
             exception: NullDataException(
                 "Categories not found \n there might be no category added in server, fatal error")));
+      }
       return ResourceStatus.success(categoryList);
     } catch (exception, stackTrace) {
       return ExceptionHandler.firebaseResourceExceptionHandler(exception, stackTrace);
@@ -55,8 +57,9 @@ class ProductServiceImpl extends ProductService {
     List<ProductFeature> productFeatureList = [];
     try {
       final networkConnection = await NetworkHelper().isConnectedToNetwork();
-      if (!networkConnection.isConnected)
+      if (!networkConnection.isConnected) {
         throw NetworkDeviceDisconnectedException("Network Device is down");
+      }
 
       final productFeaturesResponse = await _firestore
           .collection(FireStoreCollections.productFeatures)
@@ -98,8 +101,9 @@ class ProductServiceImpl extends ProductService {
     try {
       //check internet connection
       final networkConnection = await NetworkHelper().isConnectedToNetwork();
-      if (!networkConnection.isConnected)
+      if (!networkConnection.isConnected) {
         throw NetworkDeviceDisconnectedException("Network Device is down");
+      }
 
       //get products
       final productResponse = await _firestore
@@ -107,9 +111,10 @@ class ProductServiceImpl extends ProductService {
           .doc(id)
           .get()
           .timeout(AppDurations.postTimeout);
-      if (!productResponse.exists)
+      if (!productResponse.exists) {
         return ResourceStatus.fail(
             Fail(userMessage: AppText.errorProductDoesNotExist.capitalizeFirstWord));
+      }
       final Product product = Product.fromMap(productResponse.data()!);
 
       return ResourceStatus.success(product);
@@ -123,13 +128,15 @@ class ProductServiceImpl extends ProductService {
     List<Product> productList = [];
     try {
       final networkConnection = await NetworkHelper().isConnectedToNetwork();
-      if (!networkConnection.isConnected)
+      if (!networkConnection.isConnected) {
         throw NetworkDeviceDisconnectedException("Network Device is down");
+      }
 
       //get product feature list
       final productFeatureResponse = await getProductFeatures();
-      if (productFeatureResponse.status == Status.fail)
+      if (productFeatureResponse.status == Status.fail) {
         return ResourceStatus.fail(productFeatureResponse.error!);
+      }
       final productFeatureList = productFeatureResponse.data!;
 
       //get products
