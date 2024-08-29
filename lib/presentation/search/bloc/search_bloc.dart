@@ -15,7 +15,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         emit(state.copyWith(
             searchText: "",
             selectedCategories: [],
-            features: state.features,
             recentSearches: state.recentSearches,
             products: [],
             selectedFeatureOptions: []));
@@ -120,7 +119,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
                 (fail) {
               emit(ProductFailState(
                   searchText: state.searchText,
-                  features: state.features,
                   categoriesByLayer: state.categoriesByLayer,
                   isSearchFocused: state.isSearchFocused,
                   recentSearches: state.recentSearches,
@@ -133,6 +131,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         }
       },
     );
+/*
     on<GetProductFeaturesEvent>(
       (event, emit) async {
         if (state.features.isEmpty) {
@@ -159,12 +158,12 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         }
       },
     );
+*/
 
     on<GetProductsEvent>(
       (event, emit) async {
         emit(ProductLoadingState(
             searchText: state.searchText,
-            features: state.features,
             isSearchFocused: state.isSearchFocused,
             categoriesByLayer: state.categoriesByLayer,
             recentSearches: state.recentSearches,
@@ -181,7 +180,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
           case Status.success:
             emit(ProductSuccessState(
                 searchText: state.searchText,
-                features: state.features,
                 categoriesByLayer: state.categoriesByLayer,
                 recentSearches: state.recentSearches,
                 isSearchFocused: state.isSearchFocused,
@@ -192,7 +190,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
           case Status.fail:
             emit(ProductFailState(
                 searchText: state.searchText,
-                features: state.features,
                 recentSearches: state.recentSearches,
                 categoriesByLayer: state.categoriesByLayer,
                 isSearchFocused: state.isSearchFocused,
@@ -204,7 +201,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
           case Status.loading:
             emit(ProductLoadingState(
                 searchText: state.searchText,
-                features: state.features,
                 categoriesByLayer: state.categoriesByLayer,
                 isSearchFocused: state.isSearchFocused,
                 recentSearches: state.recentSearches,

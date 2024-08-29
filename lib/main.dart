@@ -57,9 +57,6 @@ class MyApp extends StatelessWidget {
             Screens.signUpScreen: (context) => const SignUpScreen(),
             Screens.homeScreen: (context) => const MainScreen(),
             Screens.productScreen: (context) => const ProductListScreen(),
-            Screens.searchScreen: (context) => SearchScreen(
-                  outContext: context,
-                ),
           },
           home: const MainScreen()),
     );

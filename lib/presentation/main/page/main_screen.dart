@@ -2,13 +2,19 @@ import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/widgets/app_bar_default.dart';
 import 'package:ecommerce_app_mobile/presentation/cart/page/cart_form.dart';
+import 'package:ecommerce_app_mobile/presentation/common/widgets/fail_form.dart';
 import 'package:ecommerce_app_mobile/presentation/discover/page/discover_form.dart';
+import 'package:ecommerce_app_mobile/presentation/discover/widget/discover_skelton.dart';
 import 'package:ecommerce_app_mobile/presentation/home/form/home_form.dart';
+import 'package:ecommerce_app_mobile/presentation/main/bloc/main_blocs.dart';
+import 'package:ecommerce_app_mobile/presentation/main/bloc/main_events.dart';
+import 'package:ecommerce_app_mobile/presentation/main/bloc/main_states.dart';
 import 'package:ecommerce_app_mobile/presentation/profile/page/profile_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../data/model/category.dart';
+import '../../discover/bloc/discover_bloc.dart';
+import '../../discover/bloc/discover_event.dart';
 import '../../home/bloc/home_bloc.dart';
 import '../../home/bloc/home_event.dart';
 
@@ -20,56 +26,93 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-
   int selectedIndex = 0;
 
   @override
   void initState() {
+    BlocProvider.of<MainBlocs>(context).add(GetInitItemsEvent());
     BlocProvider.of<HomeBloc>(context).add(GetProductsEvent());
+    BlocProvider.of<MainBlocs>(context).stream.listen(
+      (state) {
+        if (state is InitItemsSuccessState) {
+          BlocProvider.of<DiscoverBloc>(context).add(GetCategoriesDiscoverEvent(state.categories));
+        }
+      },
+    );
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          appBar: const AppBarMain(),
-          bottomNavigationBar: BottomNavigationBar(
-            currentIndex: selectedIndex,
-            landscapeLayout: BottomNavigationBarLandscapeLayout.spread,
-            onTap: (int index) {
-              setState(() {
-                selectedIndex = index;
-              });
-            },
-            type: BottomNavigationBarType.fixed,
-            items: <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: AppText.navigationHome.capitalizeFirstWord,
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.grid_view_rounded),
-                label: AppText.navigationDiscover.capitalizeFirstWord,
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.shopping_cart),
-                label: AppText.navigationCart.capitalizeFirstWord,
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person_2_outlined),
-                label: AppText.navigationAccount.capitalizeFirstWord,
-              ),
-            ],
-          ),
-          body: <Widget>[
-            const HomeForm(),
-            const DiscoverForm(),
-            const CartForm(),
-            const ProfileForm()
-            // FailSkeleton(fail: Fail(userMessage: "network fail"),)
-          ][selectedIndex],
-    ));
+    return BlocBuilder<MainBlocs, MainStates>(
+        builder: (BuildContext context, MainStates state) => switch (state) {
+              InitItemsLoadingState _ => const Scaffold(
+                    body: Padding(
+                  padding: EdgeInsets.all(AppSizes.defaultSpace),
+                  child: Center(child: DiscoverCategoriesSkeleton()),
+                )),
+              InitItemsFailState failState => Scaffold(
+                  body: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(AppSizes.defaultSpace),
+                      child: FailForm(
+                        fail: failState.fail,
+                        onRefreshTap: () {
+                          BlocProvider.of<MainBlocs>(context).add(GetInitItemsEvent());
+                          BlocProvider.of<HomeBloc>(context).add(GetProductsEvent());
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+              InitItemsSuccessState _ => SafeArea(
+                    child: Scaffold(
+                  resizeToAvoidBottomInset: false,
+                  appBar: AppBarMain(features: state.features),
+                  bottomNavigationBar: BottomNavigationBar(
+                    currentIndex: selectedIndex,
+                    landscapeLayout: BottomNavigationBarLandscapeLayout.spread,
+                    onTap: (int index) {
+                      setState(() {
+                        selectedIndex = index;
+                      });
+                    },
+                    type: BottomNavigationBarType.fixed,
+                    items: <BottomNavigationBarItem>[
+                      BottomNavigationBarItem(
+                        icon: const Icon(Icons.home),
+                        label: AppText.navigationHome.capitalizeFirstWord,
+                      ),
+                      BottomNavigationBarItem(
+                        icon: const Icon(Icons.grid_view_rounded),
+                        label: AppText.navigationDiscover.capitalizeFirstWord,
+                      ),
+                      BottomNavigationBarItem(
+                        icon: const Icon(Icons.shopping_cart),
+                        label: AppText.navigationCart.capitalizeFirstWord,
+                      ),
+                      BottomNavigationBarItem(
+                        icon: const Icon(Icons.person_2_outlined),
+                        label: AppText.navigationAccount.capitalizeFirstWord,
+                      ),
+                    ],
+                  ),
+                  body: <Widget>[
+                    HomeForm(
+                      productFeatures: state.features,
+                      categories: state.categories,
+                    ),
+                    DiscoverForm(
+                      categories: state.categories,
+                      features: state.features,
+                    ),
+                    const CartForm(),
+                    const ProfileForm()
+                    // FailSkeleton(fail: Fail(userMessage: "network fail"),)
+                  ][selectedIndex],
+                )),
+              _ => const SizedBox.shrink(),
+            });
   }
 }

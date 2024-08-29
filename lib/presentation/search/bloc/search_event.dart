@@ -53,7 +53,6 @@ class ClearSelectedRecentSearchEvent extends SearchEvent{
   final RecentSearch recentSearch;
   ClearSelectedRecentSearchEvent(this.recentSearch);
 }
-class GetProductFeaturesEvent extends SearchEvent{}
 class GetCategoriesEvent extends SearchEvent{}
 class GetCategories extends SearchEvent{}
 

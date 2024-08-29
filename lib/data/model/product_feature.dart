@@ -1,24 +1,24 @@
 import 'dart:ui';
 
-import 'package:ecommerce_app_mobile/sddklibrary/helper/helper.dart';
+import 'package:ecommerce_app_mobile/data/model/product.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/string_helper.dart';
 
 class ProductFeature {
   late final String id;
-  late final String optionName;
+  late final String name;
   late final ProductFeatureType productFeatureType;
   late final List<ProductFeatureOption> options;
 
   ProductFeature({
     required this.id,
-    required this.optionName,
+    required this.name,
     required this.options,
     required this.productFeatureType,
   });
 
   ProductFeature.fromMap(Map<String, dynamic> map) {
     id = map['id'];
-    optionName = map['name'];
+    name = map['name'];
     productFeatureType = ProductFeatureType.fromString(map['type']);
     options = (map['options'] as List<dynamic>)
         .map((option) => ProductFeatureOption(
@@ -35,16 +35,16 @@ class ProductFeature {
     List<ProductFeatureOption>? options,
   }) {
     return ProductFeature(
-     id:  id ?? this.id,
-      optionName:  optionName ?? this.optionName,
-     options:  options ?? this.options,
-     productFeatureType:  productFeatureType ?? this.productFeatureType,
+      id: id ?? this.id,
+      name: optionName ?? this.name,
+      options: options ?? this.options,
+      productFeatureType: productFeatureType ?? this.productFeatureType,
     );
   }
 
   @override
   String toString() {
-    return 'ProductFeature{id: $id, optionName: $optionName, productFeatureType: $productFeatureType, options: ${options.toString()}';
+    return 'ProductFeature{id: $id, optionName: $name, productFeatureType: $productFeatureType, options: ${options.toString()}';
   }
 }
 
@@ -74,6 +74,43 @@ class ProductFeatureOption {
   String toString() {
     return '_Option{id: $id, name: $name}';
   }
+}
+
+class ProductFeatures {
+  late final List<ProductFeature> _productFeatures;
+
+  ProductFeatures(this._productFeatures);
+
+  ProductFeatures.empty() {
+    _productFeatures = [];
+  }
+
+/*
+  ProductFeatures.fromSubProduct(SubProduct subProduct) {
+    _productFeatures = getProductFeaturesFromSubProduct(subProduct);
+  }
+*/
+
+  bool get isEmpty => _productFeatures.isEmpty;
+
+  int get length => _productFeatures.length;
+
+  List<ProductFeature> get get => _productFeatures;
+
+/*
+  List<ProductFeature> getProductFeaturesFromSubProduct(SubProduct subProduct) {
+    List<ProductFeature> selectedFeatures = [];
+    for (var productFeature in _productFeatures) {
+      for (var option in productFeature.options) {
+        if (subProduct.productFeatureOptionIds.contains(option.id)) {
+          selectedFeatures.add(productFeature);
+          break;
+        }
+      }
+    }
+    return selectedFeatures;
+  }
+*/
 }
 
 /*

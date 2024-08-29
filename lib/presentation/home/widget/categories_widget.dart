@@ -3,6 +3,7 @@ import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/common/util/category_util.dart';
 import 'package:ecommerce_app_mobile/data/model/categories.dart';
+import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
 import 'package:ecommerce_app_mobile/presentation/search/page/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -14,10 +15,11 @@ import '../../search/bloc/search_event.dart';
 
 class CategoriesWidget extends StatelessWidget {
   final Categories categoriesByLayer;
+  final ProductFeatures features;
 
   const CategoriesWidget({
     super.key,
-    required this.categoriesByLayer,
+    required this.categoriesByLayer, required this.features,
   });
 
   @override
@@ -41,7 +43,9 @@ class CategoriesWidget extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => SearchScreen.getProducts(events: [
+                          builder: (context) => SearchScreen.getProducts(
+                            features: features,
+                              events: [
                             SelectedCategoriesEvent([categories[index - 1]])
                           ], outContext: context),
                         ));
@@ -49,7 +53,9 @@ class CategoriesWidget extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => SearchScreen.getProducts(events: [
+                          builder: (context) => SearchScreen.getProducts(
+                            features: features,
+                              events: [
                             SelectedCategoriesEvent(categoriesByLayer.lastLayer)
                           ], outContext: context),
                         ));

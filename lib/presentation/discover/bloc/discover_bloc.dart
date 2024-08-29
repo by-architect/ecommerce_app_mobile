@@ -4,12 +4,31 @@ import 'package:ecommerce_app_mobile/presentation/discover/bloc/discover_event.d
 import 'package:ecommerce_app_mobile/presentation/discover/bloc/discover_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../sddklibrary/util/resource.dart';
 
 class DiscoverBloc extends Bloc<DiscoverEvent, DiscoverState> {
   DiscoverBloc() : super(InitialDiscoverState()) {
-    ProductServiceProvider service = ProductServiceProvider();
 
+    on<GetCategoriesDiscoverEvent>(
+      (event, emit) {
+        emit(state.copyWith(categoryStruct: CategoryStruct(event.categories)));
+      },
+    );
+    on<NextCategoryLayerEvent>((event, emit) {
+      // emit(CategoryLoadingState(state.categoryStruct));
+      final CategoryStruct categoryStruct = state.categoryStruct;
+      categoryStruct.nextLayer(event.selectedCategory);
+      emit(state.copyWith(categoryStruct: categoryStruct));
+    });
+
+    on<PreviousCategoryLayerEvent>((event, emit) {
+      // emit(CategoryLoadingState(state.categoryStruct));
+      final CategoryStruct categoryStruct = state.categoryStruct;
+      categoryStruct.previousLayer();
+      emit(state.copyWith(categoryStruct: categoryStruct));
+    });
+  }
+}
+/*
     on<LoadCategoriesEvent>((event, emit) async {
       emit(InitialDiscoverState());
       emit(CategoryLoadingState(  state.categoryStruct));
@@ -28,18 +47,4 @@ class DiscoverBloc extends Bloc<DiscoverEvent, DiscoverState> {
           emit(CategoryLoadingState(  state.categoryStruct));
       }
     });
-    on<NextCategoryLayerEvent>((event, emit) {
-      emit(CategoryLoadingState(  state.categoryStruct));
-      final CategoryStruct categoryStruct = state.categoryStruct;
-      categoryStruct.nextLayer(event.selectedCategory);
-      emit(CategorySuccessState( categoryStruct));
-    });
-
-    on<PreviousCategoryLayerEvent>((event, emit) {
-      emit(CategoryLoadingState(  state.categoryStruct));
-      final CategoryStruct categoryStruct = state.categoryStruct;
-      categoryStruct.previousLayer();
-      emit(CategorySuccessState( categoryStruct));
-    });
-  }
-}
+*/

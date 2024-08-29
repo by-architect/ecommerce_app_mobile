@@ -12,11 +12,14 @@ class DiscoverState {
   DiscoverState(
     this.categoryStruct,
   );
+
+  DiscoverState copyWith({CategoryStruct? categoryStruct}) {
+    return DiscoverState(categoryStruct ?? this.categoryStruct);
+  }
 }
 
 class InitialDiscoverState extends DiscoverState {
-  InitialDiscoverState()
-      : super(
+  InitialDiscoverState() : super(
             // Categories.empty(),
 /*
             CategoryNode([
@@ -26,8 +29,11 @@ class InitialDiscoverState extends DiscoverState {
             CategoryStruct.empty());
 }
 
+/*
 class CategorySuccessState extends DiscoverState {
-  CategorySuccessState(super.categories,);
+  CategorySuccessState(
+    super.categories,
+  );
 }
 
 class CategoryLoadingState extends DiscoverState {
@@ -39,5 +45,9 @@ class CategoryLoadingState extends DiscoverState {
 class CategoryFailState extends DiscoverState {
   final Fail fail;
 
-  CategoryFailState(this.fail, super.categories, );
+  CategoryFailState(
+    this.fail,
+    super.categories,
+  );
 }
+*/

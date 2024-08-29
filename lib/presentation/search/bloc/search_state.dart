@@ -8,7 +8,6 @@ import '../../../sddklibrary/util/fail.dart';
 
 class SearchState {
   final String searchText;
-  final List<ProductFeature> features;
   final List<ProductFeatureOption> selectedFeatureOptions;
   final List<Category> selectedCategories;
   final List<RecentSearch> recentSearches;
@@ -21,7 +20,6 @@ class SearchState {
         required this.categoriesByLayer,
       required this.isSearchFocused,
       required this.selectedCategories,
-      required this.features,
       required this.recentSearches,
       required this.products,
       required this.selectedFeatureOptions});
@@ -30,7 +28,6 @@ class SearchState {
 
   SearchState copyWith({
     String? searchText,
-    List<ProductFeature>? features,
     List<ProductFeatureOption>? selectedFeatureOptions,
     List<Category>? selectedCategories,
     List<RecentSearch>? recentSearches,
@@ -42,7 +39,6 @@ class SearchState {
         searchText: searchText ?? this.searchText,
         isSearchFocused: isSearchFocused ?? this.isSearchFocused,
         categoriesByLayer: categories ?? this.categoriesByLayer,
-        features: features ?? this.features,
         recentSearches: recentSearches ?? this.recentSearches,
         products: products ?? this.products,
         selectedFeatureOptions: selectedFeatureOptions ?? this.selectedFeatureOptions,
@@ -52,13 +48,12 @@ class SearchState {
 
 class InitSearchState extends SearchState {
   InitSearchState()
-      : super(categoriesByLayer: Categories.empty(),isSearchFocused: true,searchText: "", features: [], recentSearches: [], selectedCategories: [], products: [], selectedFeatureOptions: []);
+      : super(categoriesByLayer: Categories.empty(),isSearchFocused: true,searchText: "",  recentSearches: [], selectedCategories: [], products: [], selectedFeatureOptions: []);
 }
 
 class ProductLoadingState extends SearchState {
   ProductLoadingState(
       {required super.searchText,
-      required super.features,
       required super.selectedCategories,
         required super.categoriesByLayer,
        required super.isSearchFocused,
@@ -70,7 +65,6 @@ class ProductLoadingState extends SearchState {
   @override
   ProductLoadingState copyWith(
       {String? searchText,
-      List<ProductFeature>? features,
         Categories? categories,
       List<ProductFeatureOption>? selectedFeatureOptions,
       List<Category>? selectedCategories,
@@ -80,7 +74,6 @@ class ProductLoadingState extends SearchState {
       List<Product>? products}) {
     return ProductLoadingState(
         searchText: searchText ?? this.searchText,
-        features: features ?? this.features,
         categoriesByLayer:  categories ?? this.categoriesByLayer,
         recentSearches: recentSearches ?? this.recentSearches,
         isSearchFocused: isSearchFocused ?? this.isSearchFocused,
@@ -93,7 +86,6 @@ class ProductLoadingState extends SearchState {
 class ProductSuccessState extends SearchState {
   ProductSuccessState(
       {required super.searchText,
-      required super.features,
         required super.categoriesByLayer,
       required super.recentSearches,
       required super.selectedCategories,
@@ -104,7 +96,6 @@ class ProductSuccessState extends SearchState {
   @override
   ProductSuccessState copyWith(
       {String? searchText,
-      List<ProductFeature>? features,
       List<ProductFeatureOption>? selectedFeatureOptions,
         Categories? categories,
       List<Category>? selectedCategories,
@@ -114,7 +105,6 @@ class ProductSuccessState extends SearchState {
       List<Product>? products}) {
     return ProductSuccessState(
         searchText: searchText ?? this.searchText,
-        features: features ?? this.features,
         categoriesByLayer: categories??this.categoriesByLayer,
         recentSearches: recentSearches ?? this.recentSearches,
         isSearchFocused: isSearchFocused ?? this.isSearchFocused,
@@ -129,7 +119,6 @@ class ProductFailState extends SearchState {
 
   ProductFailState(
       {required super.searchText,
-      required super.features,
         required super.categoriesByLayer,
         required super.isSearchFocused,
         required super.recentSearches,
@@ -141,7 +130,6 @@ class ProductFailState extends SearchState {
   @override
   ProductFailState copyWith(
       {String? searchText,
-      List<ProductFeature>? features,
       List<ProductFeatureOption>? selectedFeatureOptions,
         Categories? categories,
         bool? isSearchFocused,
@@ -151,7 +139,6 @@ class ProductFailState extends SearchState {
       List<Product>? products}) {
     return ProductFailState(
         searchText: searchText ?? this.searchText,
-        features: features ?? this.features,
         recentSearches: recentSearches ?? this.recentSearches,
         categoriesByLayer: categories ?? this.categoriesByLayer,
         selectedCategories: selectedCategories ?? this.selectedCategories,
@@ -164,15 +151,15 @@ class ProductFailState extends SearchState {
 
 class GetCategoriesFailState extends SearchState{
   final Fail fail;
-  GetCategoriesFailState(this.fail, {required super.searchText, required super.categoriesByLayer, required super.isSearchFocused, required super.selectedCategories, required super.features, required super.recentSearches, required super.products, required super.selectedFeatureOptions});
+  GetCategoriesFailState(this.fail, {required super.searchText, required super.categoriesByLayer, required super.isSearchFocused, required super.selectedCategories,  required super.recentSearches, required super.products, required super.selectedFeatureOptions});
   
 }
 class GetCategoriesSuccessState extends SearchState{
-  GetCategoriesSuccessState({required super.searchText, required super.categoriesByLayer, required super.isSearchFocused, required super.selectedCategories, required super.features, required super.recentSearches, required super.products, required super.selectedFeatureOptions});
+  GetCategoriesSuccessState({required super.searchText, required super.categoriesByLayer, required super.isSearchFocused, required super.selectedCategories, required super.recentSearches, required super.products, required super.selectedFeatureOptions});
   
 }
 class GetCategoriesLoadingState extends SearchState{
-  GetCategoriesLoadingState({required super.searchText, required super.categoriesByLayer, required super.isSearchFocused, required super.selectedCategories, required super.features, required super.recentSearches, required super.products, required super.selectedFeatureOptions});
+  GetCategoriesLoadingState({required super.searchText, required super.categoriesByLayer, required super.isSearchFocused, required super.selectedCategories,  required super.recentSearches, required super.products, required super.selectedFeatureOptions});
   
 }
 

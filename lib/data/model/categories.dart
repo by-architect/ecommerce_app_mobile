@@ -77,4 +77,8 @@ class Categories {
     }
   }
 
+  @override
+  String toString() {
+    return 'Categories{_list: $_list}';
+  }
 }

@@ -241,6 +241,7 @@ class AppText {
   static const errorStarMustBeSelected = AppText("You must give rating");
   static const errorTitleCanNotBeEmpty = AppText("Title can not be empty");
   static const errorContentCanNotBeEmpty = AppText("Content can not be empty");
+  static const errorCategoriesNotFound = AppText("Categories not found, please try again later");
 
 // Navigation
   static const navigationHome = AppText("Home");

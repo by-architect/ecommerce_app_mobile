@@ -1,5 +1,7 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/fakerepository/fake_models.dart';
+import 'package:ecommerce_app_mobile/data/model/categories.dart';
+import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/fail_form.dart';
 import 'package:ecommerce_app_mobile/presentation/home/bloc/home_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/home/bloc/home_event.dart';
@@ -10,7 +12,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeForm extends StatefulWidget {
-  const HomeForm({super.key});
+  final ProductFeatures productFeatures;
+  final Categories categories;
+  const HomeForm({super.key, required this.productFeatures, required this.categories});
 
   @override
   State<HomeForm> createState() => _HomeFormState();
@@ -41,7 +45,7 @@ class _HomeFormState extends State<HomeForm> {
                 SliverToBoxAdapter(
                   child: OffersCarouselAndCategories(
                     isLoading: state is ProductsLoadingState,
-                    bannerList: FakeProductModels.banners,
+                    bannerList: FakeProductModels.banners, features: widget.productFeatures,
                   ),
                 ),
                 SliverToBoxAdapter(

@@ -18,8 +18,14 @@ import '../model/category.dart';
 import '../model/tag.dart';
 
 class FakeUserModels {
-  static UserRequestState emin =
-      UserRequestState(name: "emin", surname: "demir", gender: Gender.man,birthYear: "2001",passwordConfirm:"testpassword" ,email: "emindemir1541@proton.me", password: "testpassword");
+  static UserRequestState emin = UserRequestState(
+      name: "emin",
+      surname: "demir",
+      gender: Gender.man,
+      birthYear: "2001",
+      passwordConfirm: "testpassword",
+      email: "emindemir1541@proton.me",
+      password: "testpassword");
   static User someUser = User.test(
     "uid",
     "Mustafa",
@@ -34,7 +40,7 @@ class FakeUserModels {
     email: "test",
     password: "test",
   );
-static UserRequestState admin = UserRequestState(
+  static UserRequestState admin = UserRequestState(
     name: "admin",
     surname: "admin",
     email: "admin@mail.com",
@@ -58,7 +64,16 @@ class FakeProductModels {
   static Category category3 = Category(id: "2", name: "Bileklikler", superId: "", layer: 0);
   static Category category4 = Category(id: "3", name: "Pantolonlar", superId: "", layer: 0);
 
-  static List<Category> categoriesUnSorted = [category1, category2, category21, category22, category23, category231, category3, category4];
+  static List<Category> categoriesUnSorted = [
+    category1,
+    category2,
+    category21,
+    category22,
+    category23,
+    category231,
+    category3,
+    category4
+  ];
 
   static Categories categories = Categories(categoriesUnSorted);
 
@@ -77,26 +92,31 @@ class FakeProductModels {
   static final ProductFeatureOption _optionUnselected = ProductFeatureOption("unselected", "Unselected");
   static ProductFeature productFeatureMaterial = ProductFeature(
     id: "2",
-    optionName: "Material",
+    name: "Material",
     options: [_option7, _option8, _option9],
     productFeatureType: ProductFeatureType.text,
   );
 
   static ProductFeature productFeatureSize = ProductFeature(
     id: "0",
-    optionName: "Size",
+    name: "Size",
     options: [_option1, _option2, _option3],
     productFeatureType: ProductFeatureType.character,
   );
-  static ProductFeature productFeatureColor =
-      ProductFeature(id: "1", optionName: "Color", options: [_option4, _option5, _option6], productFeatureType: ProductFeatureType.color);
+  static ProductFeature productFeatureColor = ProductFeature(
+      id: "1",
+      name: "Color",
+      options: [_option4, _option5, _option6],
+      productFeatureType: ProductFeatureType.color);
 
-  static final productFeatures = [productFeatureSize, productFeatureColor, productFeatureMaterial];
+  static final productFeatures =
+      ProductFeatures([productFeatureSize, productFeatureColor, productFeatureMaterial]);
 
   static Review review1 = Review(
     star: ReviewStar.one,
     title: "About clothes",
-    content: "This is not a bad one. but you should do what you have to do, this is insulting, so what tha hell will you do",
+    content:
+        "This is not a bad one. but you should do what you have to do, this is insulting, so what tha hell will you do",
     dateTime: DateTime.now(),
     user: FakeUserModels.someUser,
   );

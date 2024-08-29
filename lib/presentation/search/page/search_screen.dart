@@ -19,21 +19,23 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../data/model/product_feature.dart';
 import '../../main/widget/search_widget.dart';
 
 class SearchScreen extends StatefulWidget {
   final BuildContext outContext;
   final List<SearchEvent>? events;
+  final ProductFeatures features;
 
   SearchScreen({
     super.key,
     required this.outContext,
-    this.events,
+    this.events, required this.features,
   }) {
     BlocProvider.of<SearchBloc>(outContext).add(FocusSearchTextEvent(true));
   }
 
-  SearchScreen.getProducts({super.key, required this.events, required this.outContext}) {
+  SearchScreen.getProducts({super.key, required this.events, required this.outContext, required this.features}) {
     if (events == null) return;
     BlocProvider.of<SearchBloc>(outContext).add(FocusSearchTextEvent(false));
     for (var searchEvent in events!) {
@@ -53,7 +55,6 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   void initState() {
     BlocProvider.of<SearchBloc>(context).add(GetRecentSearchesEvent());
-    BlocProvider.of<SearchBloc>(context).add(GetProductFeaturesEvent());
     BlocProvider.of<SearchBloc>(context).add(GetCategoriesEvent());
 
     focusNode.addListener(
@@ -117,7 +118,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   onTabFilter: () {
                     showModalBottomSheet(
                       context: context,
-                      builder: (context) => const FilterBottomSheet(),
+                      builder: (context) => FilterBottomSheet(features: widget.features,),
                     );
                     // BlocProvider.of<SearchBloc>(context).add(ToggleContainerEvent());
                   },
@@ -174,7 +175,6 @@ class _SearchScreenState extends State<SearchScreen> {
                             child: FailForm(
                                 fail: failState.fail,
                                 onRefreshTap: () {
-                                  BlocProvider.of<SearchBloc>(context).add(GetProductFeaturesEvent());
                                   BlocProvider.of<SearchBloc>(context).add(GetCategoriesEvent());
                                   BlocProvider.of<SearchBloc>(context).add(GetProductsEvent());
                                 }),

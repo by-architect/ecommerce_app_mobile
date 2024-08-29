@@ -3,6 +3,8 @@ import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
+import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
+import 'package:ecommerce_app_mobile/presentation/search/page/search_screen.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +19,8 @@ import '../../search/bloc/search_bloc.dart';
 import '../../search/bloc/search_event.dart';
 
 class AppBarMain extends StatelessWidget implements PreferredSizeWidget {
-  const AppBarMain({super.key});
+  final ProductFeatures features;
+  const AppBarMain({super.key, required this.features});
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -40,7 +43,7 @@ class AppBarMain extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         IconButton(
           onPressed: () {
-            Navigator.pushNamed(context, Screens.searchScreen);
+            Navigator.push(context, MaterialPageRoute(builder: (context) => SearchScreen(outContext: context, features: features),));
           },
           icon: SvgPicture.asset(
             AppImages.searchIcon,

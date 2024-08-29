@@ -54,7 +54,7 @@ class Product {
       required this.discount,
       this.brandName});
 
-  Product.fromMap(Map<String, dynamic> map, List<ProductFeature> allFeatures) {
+  Product.fromMap(Map<String, dynamic> map) {
     productId = map['productId'];
     name = map['name'];
     buyTimes = map['buyTimes'];

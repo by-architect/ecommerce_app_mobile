@@ -13,9 +13,9 @@ import '../model/tag.dart';
 abstract class ProductService {
   Future<ResourceStatus<List<Category>>> getCategories();
 
-  Future<ResourceStatus<List<ProductFeature>>> getProductFeatures();
+  Future<ResourceStatus<ProductFeatures>> getProductFeatures();
 
-  Future<ResourceStatus<List<Product>>> getProducts();
+  // Future<ResourceStatus<List<Product>>> getProducts();
 
   Future<ResourceStatus<List<Product>>> getProductsByCategory(String categoryId);
 

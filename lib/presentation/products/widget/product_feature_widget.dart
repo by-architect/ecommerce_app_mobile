@@ -32,7 +32,7 @@ class _ProductFeatureWidgetState extends State<ProductFeatureWidget> {
         Padding(
           padding: const EdgeInsets.all(AppSizes.defaultPadding),
           child: Text(
-            widget.productFeature.optionName,
+            widget.productFeature.name,
             style: Theme
                 .of(context)
                 .textTheme

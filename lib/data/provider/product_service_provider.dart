@@ -1,4 +1,3 @@
-
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/fakerepository/fake_product_service.dart';
 import 'package:ecommerce_app_mobile/data/model/Reviews.dart';
@@ -6,9 +5,7 @@ import 'package:ecommerce_app_mobile/data/model/categories.dart';
 import 'package:ecommerce_app_mobile/data/model/category.dart';
 import 'package:ecommerce_app_mobile/data/model/product_details_item.dart';
 import 'package:ecommerce_app_mobile/data/model/recent_search.dart';
-import 'package:ecommerce_app_mobile/data/model/review.dart';
 import 'package:ecommerce_app_mobile/data/service/product_service.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/fail.dart';
 
 import '../../presentation/products/bloc/review_state.dart';
@@ -23,18 +20,45 @@ class ProductServiceProvider {
   Future<ResourceStatus<Categories>> getCategoriesByLayer() async {
     try {
       final categoriesResource = await productService.getCategories();
-      if (categoriesResource.status == Status.fail) return ResourceStatus.fail(categoriesResource.error!);
+      if (categoriesResource.status == Status.fail) {
+        return ResourceStatus.fail(categoriesResource.error!);
+      }
 
       final categories = categoriesResource.data!;
       return ResourceStatus.success(Categories(categories));
     } catch (e, s) {
-      return ResourceStatus.fail(Fail(userMessage: AppText.errorFetchingData.capitalizeFirstWord, stackTrace: s, exception: e.toString()));
+      return ResourceStatus.fail(Fail(
+          userMessage: AppText.errorFetchingData.capitalizeFirstWord,
+          stackTrace: s,
+          exception: e.toString()));
     }
   }
 
+/*
+  getCategoriesByLayerResource(Function(Resource<Categories>) emit) async {
+    emit(Resource.loading());
+    try {
+      final categoriesResource = await productService.getCategories();
+      if (categoriesResource.status == Status.fail) {
+        emit(ResourceStatus.fail(categoriesResource.error!));
+      }
+
+      final categories = categoriesResource.data!;
+      emit(ResourceStatus.success(Categories(categories)));
+    } catch (e, s) {
+      emit(ResourceStatus.fail(Fail(
+          userMessage: AppText.errorFetchingData.capitalizeFirstWord,
+          stackTrace: s,
+          exception: e.toString())));
+    }
+  }
+*/
+
+/*
   Future<Resource<List<Product>>> getProducts() async {
     return productService.getProducts();
   }
+*/
 
   Future<Resource<Product>> getProductById(String id) async {
     return productService.getProductsById(id);
@@ -78,9 +102,27 @@ class ProductServiceProvider {
     return const ResourceStatus.success("");
   }
 
-  Future<ResourceStatus<List<ProductFeature>>> getProductFeatures() {
+  Future<ResourceStatus<ProductFeatures>> getProductFeatures() {
     return productService.getProductFeatures();
   }
+
+/*
+  getProductFeaturesResource(Function(Resource<ProductFeatures>) emit) async {
+    emit(Resource.loading());
+    try {
+      final productFeatureResource = await productService.getProductFeatures();
+      if (productFeatureResource.status == Status.fail) {
+        emit(ResourceStatus.fail(productFeatureResource.error!));
+      }
+      emit(ResourceStatus.success(productFeatureResource.data!));
+    } catch (e, s) {
+      emit(ResourceStatus.fail(Fail(
+          userMessage: AppText.errorFetchingData.capitalizeFirstWord,
+          stackTrace: s,
+          exception: e.toString())));
+    }
+  }
+*/
 
   Future<ResourceStatus<List<Product>>> getProductByDiscount(int count) {
     return productService.getProductByDiscount(count);
@@ -131,7 +173,8 @@ class ProductServiceProvider {
   Future<ResourceStatus<List<Product>>> getProductsOnCart() {
     return productService.getProductsOnCart();
   }
-  getProductsOnCartAsResource( Function(Resource) resource) async {
+
+  getProductsOnCartAsResource(Function(Resource) resource) async {
     resource(Resource.loading());
     final productResource = await productService.getProductsOnCart();
     switch (productResource.status) {

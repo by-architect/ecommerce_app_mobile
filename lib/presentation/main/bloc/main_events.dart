@@ -14,3 +14,5 @@ class ToggleThemeEvent extends MainEvents{
   ToggleThemeEvent.from(this.themeMode);
   
 }
+
+class GetInitItemsEvent extends MainEvents{}

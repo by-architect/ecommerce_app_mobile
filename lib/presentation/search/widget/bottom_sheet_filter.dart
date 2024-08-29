@@ -1,12 +1,9 @@
-import 'package:ecommerce_app_mobile/common/helper/map_helper.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/model/category.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/ButtonPrimary.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/button_secondary.dart';
-import 'package:ecommerce_app_mobile/presentation/common/widgets/row_classic.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/text_button_default.dart';
-import 'package:ecommerce_app_mobile/presentation/discover/bloc/discover_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,8 +13,9 @@ import '../bloc/search_event.dart';
 import '../bloc/search_state.dart';
 
 class FilterBottomSheet extends StatefulWidget {
+  final ProductFeatures features;
   const FilterBottomSheet({
-    super.key,
+    super.key, required this.features,
   });
 
   @override
@@ -118,14 +116,14 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
           BlocBuilder<SearchBloc, SearchState>(
             builder: (BuildContext context, SearchState state) => filterSelected ?Expanded(
               child: ListView.builder(
-                itemCount: state.features.length,
+                itemCount: widget.features.length,
                 itemBuilder: (context, index) => _FilterRow(
-                    feature: state.features[index],
+                    feature: widget.features.get[index],
                     onTap: () {
                       showModalBottomSheet(
                         context: context,
                         builder: (context) => _BottomSheetOption(
-                          feature: state.features[index],
+                          feature: widget.features.get[index],
                         ),
                       );
                     }),
@@ -169,7 +167,7 @@ class _FilterRow extends StatelessWidget {
       title: Padding(
         padding: const EdgeInsets.only(left: AppSizes.defaultPadding),
         child: Text(
-          feature.optionName,
+          feature.name,
           style: Theme.of(context).textTheme.titleLarge,
         ),
       ),
