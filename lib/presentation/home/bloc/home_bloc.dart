@@ -8,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc() : super(InitHomeState()) {
     ProductServiceProvider service = ProductServiceProvider();
-    on<GetProductsEvent>(
+    on<GetProductsHomeEvent>(
       (event, emit) async {
         emit(ProductsLoadingState(
             bestSellerProducts: state.bestSellerProducts,

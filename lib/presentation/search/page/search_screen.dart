@@ -2,13 +2,12 @@ import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
+import 'package:ecommerce_app_mobile/data/model/categories.dart';
 import 'package:ecommerce_app_mobile/presentation/common/skeleton/product_skeleton.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/app_bar_pop_up.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/fail_form.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/product_card.dart';
-import 'package:ecommerce_app_mobile/presentation/common/widgets/row_classic.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/text_button_default.dart';
-import 'package:ecommerce_app_mobile/presentation/products/widget/product_list_tile.dart';
 import 'package:ecommerce_app_mobile/presentation/search/bloc/search_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/search/bloc/search_event.dart';
 import 'package:ecommerce_app_mobile/presentation/search/bloc/search_state.dart';
@@ -23,26 +22,17 @@ import '../../../data/model/product_feature.dart';
 import '../../main/widget/search_widget.dart';
 
 class SearchScreen extends StatefulWidget {
-  final BuildContext outContext;
-  final List<SearchEvent>? events;
   final ProductFeatures features;
+  final Categories categories;
 
-  SearchScreen({
+  // final List<SearchEvent> events;
+
+  const SearchScreen({
     super.key,
-    required this.outContext,
-    this.events, required this.features,
-  }) {
-    BlocProvider.of<SearchBloc>(outContext).add(FocusSearchTextEvent(true));
-  }
+    required this.features,
+    required this.categories,
+  });
 
-  SearchScreen.getProducts({super.key, required this.events, required this.outContext, required this.features}) {
-    if (events == null) return;
-    BlocProvider.of<SearchBloc>(outContext).add(FocusSearchTextEvent(false));
-    for (var searchEvent in events!) {
-      BlocProvider.of<SearchBloc>(outContext).add(searchEvent);
-    }
-    BlocProvider.of<SearchBloc>(outContext).add(GetProductsEvent());
-  }
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();
@@ -55,7 +45,6 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   void initState() {
     BlocProvider.of<SearchBloc>(context).add(GetRecentSearchesEvent());
-    BlocProvider.of<SearchBloc>(context).add(GetCategoriesEvent());
 
     focusNode.addListener(
       () {
@@ -74,6 +63,7 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   void deactivate() {
     BlocProvider.of<SearchBloc>(context).add(ClearStateEvent());
+    focusNode.dispose();
     super.deactivate();
   }
 
@@ -81,7 +71,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return BlocBuilder<SearchBloc, SearchState>(
       builder: (BuildContext context, SearchState state) => PopScope(
-        canPop: !state.isSearchFocused,
+        canPop: state.canPopState,
         onPopInvoked: (didPop) {
           if (state.isSearchFocused) {
             focusNode.unfocus();
@@ -91,11 +81,12 @@ class _SearchScreenState extends State<SearchScreen> {
           resizeToAvoidBottomInset: false,
           appBar: AppBarPopUp(
             onCloseTap: () {
-              if (state.isSearchFocused) {
-                focusNode.unfocus();
-              } else {
-                Navigator.of(context).pop();
-              }
+             if(state.canPopState) {
+               Navigator.of(context).pop();
+             }else{
+               focusNode.unfocus();
+             }
+
             },
           ),
           body: Padding(
@@ -109,7 +100,9 @@ class _SearchScreenState extends State<SearchScreen> {
                   textEditingController: textEditingController,
                   onFieldSubmitted: (text) {
                     BlocProvider.of<SearchBloc>(context).add(GetProductsEvent());
-                    if (text != null) BlocProvider.of<SearchBloc>(context).add(AddRecentSearchEvent(text));
+                    if (text != null) {
+                      BlocProvider.of<SearchBloc>(context).add(AddRecentSearchEvent(text));
+                    }
                     focusNode.unfocus();
                   },
                   onChanged: (text) {
@@ -118,7 +111,9 @@ class _SearchScreenState extends State<SearchScreen> {
                   onTabFilter: () {
                     showModalBottomSheet(
                       context: context,
-                      builder: (context) => FilterBottomSheet(features: widget.features,),
+                      builder: (context) => FilterBottomSheet(
+                        features: widget.features,
+                      ),
                     );
                     // BlocProvider.of<SearchBloc>(context).add(ToggleContainerEvent());
                   },
@@ -142,7 +137,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                 TextButtonDefault(
                                     text: AppText.commonPageClearAll.capitalizeEveryWord,
                                     onPressed: () {
-                                      BlocProvider.of<SearchBloc>(context).add(ClearAllRecentSearchEvent());
+                                      BlocProvider.of<SearchBloc>(context)
+                                          .add(ClearAllRecentSearchEvent());
                                     }),
                               ],
                             ),
@@ -156,26 +152,29 @@ class _SearchScreenState extends State<SearchScreen> {
                                       text: state.getSearchReversed[index].text,
                                       onTap: () {
                                         textEditingController.text = state.getSearchReversed[index].text;
-                                        BlocProvider.of<SearchBloc>(context).add(SearchTextEvent(state.getSearchReversed[index].text));
+                                        BlocProvider.of<SearchBloc>(context)
+                                            .add(SearchTextEvent(state.getSearchReversed[index].text));
                                         BlocProvider.of<SearchBloc>(context).add(GetProductsEvent());
                                         focusNode.unfocus();
                                       },
                                       onDeleteTap: () {
-                                        BlocProvider.of<SearchBloc>(context)
-                                            .add(ClearSelectedRecentSearchEvent(state.getSearchReversed[index]));
+                                        BlocProvider.of<SearchBloc>(context).add(
+                                            ClearSelectedRecentSearchEvent(
+                                                state.getSearchReversed[index]));
                                       })),
                             )
                           ],
                         ),
                       )
                     : switch (state) {
-                        ProductLoadingState() =>
-                          Expanded(child: ListView.builder(itemCount: 6, itemBuilder: (context, index) => const ProductsSkeleton())),
+                        ProductLoadingState() => Expanded(
+                            child: ListView.builder(
+                                itemCount: 6,
+                                itemBuilder: (context, index) => const ProductsSkeleton())),
                         ProductFailState failState => Expanded(
                             child: FailForm(
                                 fail: failState.fail,
                                 onRefreshTap: () {
-                                  BlocProvider.of<SearchBloc>(context).add(GetCategoriesEvent());
                                   BlocProvider.of<SearchBloc>(context).add(GetProductsEvent());
                                 }),
                           ),
@@ -258,7 +257,7 @@ class _RecentSearchRow extends StatelessWidget {
   final Function() onDeleteTap;
   final Function() onTap;
 
-  const _RecentSearchRow({super.key, required this.text, required this.onDeleteTap, required this.onTap});
+  const _RecentSearchRow({required this.text, required this.onDeleteTap, required this.onTap});
 
   @override
   Widget build(BuildContext context) {

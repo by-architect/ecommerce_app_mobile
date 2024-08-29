@@ -51,15 +51,14 @@ class FakeProductService implements ProductService {
   @override
   Future<ResourceStatus<ProductFeatures>> getProductFeatures() async {
     await Future.delayed(const Duration(seconds: 2));
-/*
-    return ResourceStatus.fail(Fail(userMessage: "Fake product service fail situation"));
+    // return ResourceStatus.fail(Fail(userMessage: "Fake product service fail situation"));
     return ResourceStatus.success(FakeProductModels.productFeatures);
-*/
     return random.nextBool()
         ? ResourceStatus.success(FakeProductModels.productFeatures)
         : ResourceStatus.fail(Fail(userMessage: "Fake product service fail situation"));
   }
 
+/*
   @override
   Future<ResourceStatus<List<Product>>> getProducts() async {
     await Future.delayed(const Duration(seconds: 2));
@@ -68,6 +67,7 @@ class FakeProductService implements ProductService {
         ? ResourceStatus.success(productList)
         : ResourceStatus.fail(Fail(userMessage: "Fake product service fail situation"));
   }
+*/
 
   @override
   Future<ResourceStatus<List<Product>>> getProductsByCategory(String categoryId) async {

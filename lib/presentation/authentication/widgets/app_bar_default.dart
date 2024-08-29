@@ -1,26 +1,18 @@
-import 'package:ecommerce_app_mobile/common/constant/Screens.dart';
 import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
+import 'package:ecommerce_app_mobile/data/model/categories.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
 import 'package:ecommerce_app_mobile/presentation/search/page/search_screen.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../data/fakerepository/fake_models.dart';
-import '../../../data/model/user.dart';
-import '../../../data/service/impl/user_service_impl.dart';
-import '../../../data/service/user_service.dart';
-import '../../search/bloc/search_bloc.dart';
-import '../../search/bloc/search_event.dart';
 
 class AppBarMain extends StatelessWidget implements PreferredSizeWidget {
   final ProductFeatures features;
-  const AppBarMain({super.key, required this.features});
+  final Categories categories;
+  const AppBarMain({super.key, required this.features, required this.categories});
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -43,7 +35,7 @@ class AppBarMain extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         IconButton(
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => SearchScreen(outContext: context, features: features),));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => SearchScreen(categories: categories, features: features),));
           },
           icon: SvgPicture.asset(
             AppImages.searchIcon,

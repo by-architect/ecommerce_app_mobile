@@ -21,10 +21,11 @@ class ProductFeature {
     name = map['name'];
     productFeatureType = ProductFeatureType.fromString(map['type']);
     options = (map['options'] as List<dynamic>)
-        .map((option) => ProductFeatureOption(
-              option['id'].toString(),
-              option['name'],
-            ))
+        .map((option) =>
+        ProductFeatureOption(
+          option['id'].toString(),
+          option['name'],
+        ))
         .toList();
   }
 
@@ -44,7 +45,8 @@ class ProductFeature {
 
   @override
   String toString() {
-    return 'ProductFeature{id: $id, optionName: $name, productFeatureType: $productFeatureType, options: ${options.toString()}';
+    return 'ProductFeature{id: $id, optionName: $name, productFeatureType: $productFeatureType, options: ${options
+        .toString()}';
   }
 }
 
@@ -96,6 +98,9 @@ class ProductFeatures {
   int get length => _productFeatures.length;
 
   List<ProductFeature> get get => _productFeatures;
+
+  bool isLastByIndex(int index) => index == length - 1;
+  bool isLastByFeature(ProductFeature feature) => _productFeatures.last == feature;
 
 /*
   List<ProductFeature> getProductFeaturesFromSubProduct(SubProduct subProduct) {

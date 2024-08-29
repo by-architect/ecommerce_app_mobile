@@ -6,9 +6,11 @@ import 'package:ecommerce_app_mobile/data/model/categories.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
 import 'package:ecommerce_app_mobile/presentation/search/page/search_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../data/model/category.dart';
+import '../../search/bloc/search_bloc.dart';
 import '../../search/bloc/search_event.dart';
 
 // End For Preview
@@ -19,7 +21,8 @@ class CategoriesWidget extends StatelessWidget {
 
   const CategoriesWidget({
     super.key,
-    required this.categoriesByLayer, required this.features,
+    required this.categoriesByLayer,
+    required this.features,
   });
 
   @override
@@ -36,29 +39,29 @@ class CategoriesWidget extends StatelessWidget {
                   left: index == 0 ? AppSizes.defaultPadding : AppSizes.defaultPadding / 2,
                   right: index == categories.length - 1 ? AppSizes.defaultPadding : 0),
               child: _CategoryBtn(
-                categoryName: index == 0 ? AppText.homePageAllCategories.capitalizeEveryWord : categories[index - 1].name,
+                categoryName: index == 0
+                    ? AppText.homePageAllCategories.capitalizeEveryWord
+                    : categories[index - 1].name,
                 isFirst: index == 0,
                 press: () {
                   if (index != 0) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => SearchScreen.getProducts(
-                            features: features,
-                              events: [
-                            SelectedCategoriesEvent([categories[index - 1]])
-                          ], outContext: context),
-                        ));
+                    BlocProvider.of<SearchBloc>(context)
+                        .add(SelectedCategoriesEvent([categories[index - 1]]));
+                    BlocProvider.of<SearchBloc>(context).add(GetProductsEvent());
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => SearchScreen(
+                              features: features,
+                              categories: categoriesByLayer,
+                            )));
                   } else {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => SearchScreen.getProducts(
-                            features: features,
-                              events: [
-                            SelectedCategoriesEvent(categoriesByLayer.lastLayer)
-                          ], outContext: context),
-                        ));
+                    BlocProvider.of<SearchBloc>(context)
+                        .add(SelectedCategoriesEvent(categoriesByLayer.lastLayer));
+                    BlocProvider.of<SearchBloc>(context).add(GetProductsEvent());
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => SearchScreen(
+                              features: features,
+                              categories: categoriesByLayer,
+                            )));
                   }
                 },
               ),

@@ -1,3 +1,3 @@
 class HomeEvent{}
 
-class GetProductsEvent extends HomeEvent{}
+class GetProductsHomeEvent extends HomeEvent{}

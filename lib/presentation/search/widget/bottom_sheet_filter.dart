@@ -4,6 +4,7 @@ import 'package:ecommerce_app_mobile/data/model/category.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/ButtonPrimary.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/button_secondary.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/text_button_default.dart';
+import 'package:ecommerce_app_mobile/presentation/products/widget/product_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -109,7 +110,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
               ],
             ),
           ),
-          const SizedBox(height: AppSizes.spaceBtwVerticalFields),
+          const SizedBox(height: AppSizes.spaceBtwVerticalFieldsLarge),
 
           //todo: get categories and select
 
@@ -118,6 +119,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
               child: ListView.builder(
                 itemCount: widget.features.length,
                 itemBuilder: (context, index) => _FilterRow(
+                  showBottomDivider: widget.features.isLastByIndex(index),
                     feature: widget.features.get[index],
                     onTap: () {
                       showModalBottomSheet(
@@ -154,16 +156,18 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
 class _FilterRow extends StatelessWidget {
   final ProductFeature feature;
   final Function() onTap;
+  final bool showBottomDivider;
 
   const _FilterRow({
     super.key,
     required this.onTap,
-    required this.feature,
+    required this.feature, required this.showBottomDivider,
   });
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
+    return ProductListTile(title: feature.name, press: onTap,isShowBottomBorder: showBottomDivider,)
+      /*ListTile(
       title: Padding(
         padding: const EdgeInsets.only(left: AppSizes.defaultPadding),
         child: Text(
@@ -176,7 +180,7 @@ class _FilterRow extends StatelessWidget {
         padding: EdgeInsets.only(right: AppSizes.defaultPadding),
         child: Icon(Icons.chevron_right),
       ),
-    );
+    )*/;
   }
 }
 

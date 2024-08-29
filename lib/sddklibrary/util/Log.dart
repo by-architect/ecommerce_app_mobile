@@ -113,8 +113,9 @@ class Log {
     }
   }
 
-  static void test({String? message, String title = "", StackTrace? stackTrace, String? userMessage, Object? data,Fail? error}) {
+  static T? test<T>({String? message, String title = "", StackTrace? stackTrace, String? userMessage, T? data,Fail? error}) {
     log(LogLevel.TEST, message: error?.exception.toString() ?? message , stackTrace:error?.stackTrace ?? stackTrace, title: title, data: data,userMessage: error?.userMessage ?? userMessage);
+    return data;
   }
 
   static void info({String? message, String title = "", StackTrace? stackTrace, String? data}) {

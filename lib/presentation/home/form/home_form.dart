@@ -36,7 +36,7 @@ class _HomeFormState extends State<HomeForm> {
                   child: FailForm(
                     fail: state.fail,
                     onRefreshTap: () {
-                      BlocProvider.of<HomeBloc>(context).add(GetProductsEvent());
+                      BlocProvider.of<HomeBloc>(context).add(GetProductsHomeEvent());
                     },
                   ),
                 )

@@ -21,6 +21,7 @@ class Categories {
   List<Category> get lastLayer => _list.last;
   List<Category> getLayer(int layerId) => _list[layerId];
 
+
   bool get isEmpty => _list.isEmpty;
   int get layerCount => _list.length;
 
