@@ -1,3 +1,4 @@
+import 'package:ecommerce_app_mobile/data/model/user.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/ui_helper.dart';
 import 'package:flutter/material.dart';
 
@@ -16,3 +17,5 @@ class ToggleThemeEvent extends MainEvents{
 }
 
 class GetInitItemsEvent extends MainEvents{}
+class GetUserIfAuthorizedEvent extends MainEvents{}
+class LogOutEvent extends MainEvents{}

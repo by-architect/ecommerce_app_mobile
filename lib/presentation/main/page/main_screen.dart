@@ -1,22 +1,23 @@
+import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/widgets/app_bar_default.dart';
 import 'package:ecommerce_app_mobile/presentation/cart/page/cart_form.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/fail_form.dart';
 import 'package:ecommerce_app_mobile/presentation/discover/page/discover_form.dart';
-import 'package:ecommerce_app_mobile/presentation/discover/widget/discover_skelton.dart';
 import 'package:ecommerce_app_mobile/presentation/home/form/home_form.dart';
 import 'package:ecommerce_app_mobile/presentation/main/bloc/main_blocs.dart';
 import 'package:ecommerce_app_mobile/presentation/main/bloc/main_events.dart';
 import 'package:ecommerce_app_mobile/presentation/main/bloc/main_states.dart';
+import 'package:ecommerce_app_mobile/presentation/main/form/login_form.dart';
 import 'package:ecommerce_app_mobile/presentation/profile/page/profile_form.dart';
 import 'package:ecommerce_app_mobile/presentation/search/bloc/search_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/search/bloc/search_event.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
+import '../../../common/constant/Screens.dart';
 import '../../discover/bloc/discover_bloc.dart';
 import '../../discover/bloc/discover_event.dart';
 import '../../home/bloc/home_bloc.dart';
@@ -121,8 +122,18 @@ class _MainScreenState extends State<MainScreen> {
                       categories: state.categories,
                       features: state.features,
                     ),
-                    const CartForm(),
-                    const ProfileForm()
+                    state.userStatus.isAuthenticated
+                        ? CartForm(user: state.userStatus.user!,)
+                        : LoginForm(
+                            message: AppText.infoPleaseLoginToSeeYourCart.capitalizeFirstWord,
+                            image: AppImages.cartImage),
+                    state.userStatus.isAuthenticated
+                        ? ProfileForm(
+                            user: state.userStatus.user!,
+                          )
+                        : LoginForm(
+                            message: AppText.infoPleaseLoginToSeeYourCart.capitalizeFirstWord,
+                            image: AppImages.profileImage)
                     // FailSkeleton(fail: Fail(userMessage: "network fail"),)
                   ][selectedIndex],
                 )),

@@ -26,44 +26,78 @@ class ExceptionHandler extends FirebaseExceptions {
               errorCode: exception.code,
               stackTrace: stackTrace)));
         case ExceptionHandler.nullUserId:
-          return (ResourceStatus.fail(
-              Fail(userMessage: AppText.errorFetchingData.capitalizeFirstWord, exception: exception.message, errorCode: exception.code,stackTrace: stackTrace)));
+          return (ResourceStatus.fail(Fail(
+              userMessage: AppText.errorFetchingData.capitalizeFirstWord,
+              exception: exception.message,
+              errorCode: exception.code,
+              stackTrace: stackTrace)));
         case FirebaseExceptions.networkRequestFailed:
           return (ResourceStatus.fail(Fail(
               userMessage: FirebaseErrorMessages.errorFirebaseNetworkRequestFailed,
               exception: exception.message,
-              errorCode: exception.code,stackTrace: stackTrace)));
+              errorCode: exception.code,
+              stackTrace: stackTrace)));
         case FirebaseExceptions.invalidVerificationCode:
           return ResourceStatus.fail(Fail(
               userMessage: FirebaseErrorMessages.errorFirebaseInvalidVerificationCode,
               exception: exception.message,
-              errorCode: exception.code,stackTrace: stackTrace));
+              errorCode: exception.code,
+              stackTrace: stackTrace));
         case FirebaseExceptions.appNotInstalled:
           return ResourceStatus.fail(Fail(
-              userMessage: FirebaseErrorMessages.errorFirebaseAppNotInstalled, exception: exception.message, errorCode: exception.code,stackTrace: stackTrace));
+              userMessage: FirebaseErrorMessages.errorFirebaseAppNotInstalled,
+              exception: exception.message,
+              errorCode: exception.code,
+              stackTrace: stackTrace));
         case FirebaseExceptions.wrongPassword:
           return ResourceStatus.fail(Fail(
-              userMessage: FirebaseErrorMessages.errorFirebaseWrongPassword, exception: exception.message, errorCode: exception.code,stackTrace: stackTrace));
+              userMessage: FirebaseErrorMessages.errorFirebaseWrongPassword,
+              exception: exception.message,
+              errorCode: exception.code,
+              stackTrace: stackTrace));
         default:
           if (Helper.systemLanguageCode == 'en') {
-            return ResourceStatus.fail(
-                Fail(userMessage: exception.message ?? "", exception: exception.message, errorCode: exception.code,stackTrace: stackTrace));
+            return ResourceStatus.fail(Fail(
+                userMessage: exception.message ?? "",
+                exception: exception.message,
+                errorCode: exception.code,
+                stackTrace: stackTrace));
           } else {
-            return (ResourceStatus.fail(
-                Fail(userMessage: AppText.errorFetchingData.capitalizeFirstWord, exception: exception.message, errorCode: exception.code,stackTrace: stackTrace)));
+            return (ResourceStatus.fail(Fail(
+                userMessage: AppText.errorFetchingData.capitalizeFirstWord,
+                exception: exception.message,
+                errorCode: exception.code,
+                stackTrace: stackTrace)));
           }
       }
+    } else if (exception is UserNotAuthenticatedException) {
+      return ResourceStatus.fail(Fail(
+          userMessage: AppText.errorAuthenticate.capitalizeFirstWord,
+          exception: exception,
+          stackTrace: stackTrace));
     } else if (exception is TimeoutException) {
       // Log.error("Time out:", exception.message ?? "");
-      return (ResourceStatus.fail(Fail(userMessage: AppText.errorTimeout.capitalizeFirstWord, exception: exception.message,stackTrace: stackTrace)));
+      return (ResourceStatus.fail(Fail(
+          userMessage: AppText.errorTimeout.capitalizeFirstWord,
+          exception: exception,
+          stackTrace: stackTrace)));
     } else if (exception is NetworkDeviceDisconnectedException) {
       // Log.error("Network Device Down", exception.message);
-      return ResourceStatus.fail(Fail(userMessage: AppText.errorNetworkDeviceIsDown.capitalizeFirstWord, exception: exception.message,stackTrace: stackTrace));
+      return ResourceStatus.fail(Fail(
+          userMessage: AppText.errorNetworkDeviceIsDown.capitalizeFirstWord,
+          exception: exception,
+          stackTrace: stackTrace));
     } else if (exception is NullDataException) {
-      return ResourceStatus.fail(Fail(userMessage: AppText.errorFetchingData.capitalizeFirstWord, exception: exception.message,stackTrace: stackTrace));
+      return ResourceStatus.fail(Fail(
+          userMessage: AppText.errorFetchingData.capitalizeFirstWord,
+          exception: exception,
+          stackTrace: stackTrace));
     } else {
       // Log.error("Unknown Error", exception.toString());
-      return (ResourceStatus.fail(Fail(userMessage: AppText.errorFetchingData.capitalizeFirstWord, exception: exception.toString(),stackTrace: stackTrace)));
+      return (ResourceStatus.fail(Fail(
+          userMessage: AppText.errorFetchingData.capitalizeFirstWord,
+          exception: exception.toString(),
+          stackTrace: stackTrace)));
     }
   }
 }

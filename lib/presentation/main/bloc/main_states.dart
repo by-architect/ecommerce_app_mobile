@@ -1,4 +1,4 @@
-import 'package:ecommerce_app_mobile/common/ui/theme/AppTheme.dart';
+import 'package:ecommerce_app_mobile/data/model/user_status.dart';
 import 'package:flutter/material.dart';
 
 import '../../../data/model/categories.dart';
@@ -9,31 +9,43 @@ class MainStates {
   final ThemeMode themeMode;
   final Categories categories;
   final ProductFeatures features;
+  final UserStatus userStatus;
 
-  MainStates({required this.themeMode, required this.features, required this.categories});
-  MainStates copyWith({ThemeMode? themeMode,Categories? categories, ProductFeatures? productFeatures}){
-   return MainStates(themeMode: themeMode ?? this.themeMode, features:productFeatures ?? features, categories: categories ?? this.categories) ;
+  MainStates(
+      {required this.userStatus, required this.themeMode, required this.features, required this.categories});
+
+  MainStates copyWith({ThemeMode? themeMode, Categories? categories, ProductFeatures? productFeatures,UserStatus? userStatus}) {
+    return MainStates(
+        themeMode: themeMode ?? this.themeMode,
+        features: productFeatures ?? features,
+        categories: categories ?? this.categories,
+        userStatus: userStatus ?? this.userStatus);
   }
 }
 
 class InitMainStates extends MainStates {
   InitMainStates()
       : super(
+            userStatus: UserStatus(null),
             themeMode: ThemeMode.light,
             categories: Categories.empty(),
             features: ProductFeatures.empty());
 }
 
-class InitItemsLoadingState extends MainStates{
-  InitItemsLoadingState({required super.themeMode, required super.features, required super.categories});
-
+class InitItemsLoadingState extends MainStates {
+  InitItemsLoadingState({required super.themeMode, required super.features, required super.categories, required super.userStatus});
 }
-class InitItemsSuccessState extends MainStates{
-  InitItemsSuccessState({required super.themeMode, required super.features, required super.categories});
 
+class InitItemsSuccessState extends MainStates {
+  InitItemsSuccessState({required super.themeMode, required super.features, required super.categories, required super.userStatus});
 }
-class InitItemsFailState extends MainStates{
+
+class InitItemsFailState extends MainStates {
   final Fail fail;
-  InitItemsFailState({required super.themeMode, required super.features, required super.categories,required this.fail});
-}
 
+  InitItemsFailState(
+      {required super.themeMode,
+      required super.features,
+      required super.categories,
+      required this.fail, required super.userStatus});
+}

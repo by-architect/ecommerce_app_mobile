@@ -243,6 +243,11 @@ class AppText {
   static const errorContentCanNotBeEmpty = AppText("Content can not be empty");
   static const errorCategoriesNotFound = AppText("Categories not found, please try again later");
 
+  //info
+  static const infoPleaseLoginToSeeYourCart = AppText("Please login to see your cart");
+  static const infoPleaseLoginToSeeYourProfile = AppText("Please login to see your profile");
+
+
 // Navigation
   static const navigationHome = AppText("Home");
   static const navigationDiscover = AppText("Discover");

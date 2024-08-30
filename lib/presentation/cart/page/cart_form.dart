@@ -7,9 +7,12 @@ import 'package:ecommerce_app_mobile/presentation/cart/widget/secondary_prouduct
 import 'package:ecommerce_app_mobile/presentation/common/widgets/ButtonPrimary.dart';
 import 'package:flutter/material.dart';
 
+import '../../../data/model/user.dart';
+
 
 class CartForm extends StatelessWidget {
-  const CartForm({super.key});
+  final User user;
+  const CartForm({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {

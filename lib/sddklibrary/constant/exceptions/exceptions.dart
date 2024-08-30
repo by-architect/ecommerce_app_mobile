@@ -20,3 +20,13 @@ class NetworkDeviceDisconnectedException implements Exception {
   }
 }
 
+class UserNotAuthenticatedException implements Exception{
+ final String message;
+
+ UserNotAuthenticatedException(this.message);
+
+ @override
+  String toString() {
+    return 'UserNotAuthenticatedException {message: $message}';
+ }
+}

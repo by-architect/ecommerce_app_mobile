@@ -6,11 +6,9 @@ import 'package:ecommerce_app_mobile/data/viewmodel/user/user_service_bloc.dart'
 import 'package:ecommerce_app_mobile/data/viewmodel/user/user_service_event.dart';
 import 'package:ecommerce_app_mobile/data/viewmodel/user/user_service_state.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_event.dart';
-import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_state.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/widgets/TextFieldAuthentication.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/app_bar_authentication.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/ButtonPrimary.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/ui/dialog_util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

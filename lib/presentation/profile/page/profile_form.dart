@@ -2,18 +2,22 @@ import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
+import 'package:ecommerce_app_mobile/data/model/user_status.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../data/model/user.dart';
 import '../../common/widgets/divider_list_tile.dart';
 import '../../common/widgets/network_image_with_loader.dart';
 import '../widget/profile_card.dart';
 import '../widget/profile_menu_item_list.dart';
 class ProfileForm extends StatelessWidget {
-  const ProfileForm({super.key});
+  final User user;
+  const ProfileForm({super.key,  required this.user});
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: ListView(
         children: [

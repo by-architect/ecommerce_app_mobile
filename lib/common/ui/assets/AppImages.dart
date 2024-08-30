@@ -18,6 +18,10 @@ class AppImages{
   static const signalSearching = '${_imagePath}signal_searching$_formatSvg';
   static const bugFixing = '${_imagePath}bug_fixing$_formatSvg';
 
+
+  static const cartImage = '${_imagePath}empty_cart$_formatSvg';
+  static const profileImage = '${_imagePath}personal_information$_formatSvg';
+
   static const searchIcon = "${_iconPath}Search$_formatSvg";
   static const notificationIcon = "${_iconPath}Notification$_formatSvg";
   static const closeIcon = "${_iconPath}Close$_formatSvg";
