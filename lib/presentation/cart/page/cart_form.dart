@@ -1,6 +1,7 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/fakerepository/fake_models.dart';
+import 'package:ecommerce_app_mobile/presentation/authentication/pages/email_verification_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/cart/widget/order_summary.dart';
 import 'package:ecommerce_app_mobile/presentation/cart/page/paying_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/cart/widget/secondary_prouduct_card.dart';
@@ -9,9 +10,9 @@ import 'package:flutter/material.dart';
 
 import '../../../data/model/user.dart';
 
-
 class CartForm extends StatelessWidget {
   final User user;
+
   const CartForm({super.key, required this.user});
 
   @override
@@ -37,33 +38,50 @@ class CartForm extends StatelessWidget {
                   delegate: SliverChildBuilderDelegate(
                 childCount: FakeProductModels.products.length,
                 (context, index) => Padding(
-                  padding: const EdgeInsets.symmetric(vertical: AppSizes.spaceBtwVerticalFieldsSmall/2),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: AppSizes.spaceBtwVerticalFieldsSmall / 2),
                   child: SecondaryProductCard(
                     product: FakeProductModels.products[index],
                   ),
                 ),
               )),
               const SliverToBoxAdapter(
-                child: SizedBox(height: AppSizes.spaceBtwVerticalFields,),
+                child: SizedBox(
+                  height: AppSizes.spaceBtwVerticalFields,
+                ),
               ),
               SliverToBoxAdapter(
                 child: OrderSummaryCard(
                   product: FakeProductModels.product1,
-                 date: DateTime.now().toString(),
+                  date: DateTime.now().toString(),
                   amount: 100,
                   isReturn: false,
                 ),
               ),
               const SliverToBoxAdapter(
-                child: SizedBox(height: AppSizes.spaceBtwVerticalFieldsLarge,),
+                child: SizedBox(
+                  height: AppSizes.spaceBtwVerticalFieldsLarge,
+                ),
               ),
               SliverToBoxAdapter(
-                child: ButtonPrimary(text: AppText.commonContinue.capitalizeFirstWord,onTap:(){
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => const PayingScreen(),));
-                }),
+                child: ButtonPrimary(
+                    text: AppText.commonContinue.capitalizeFirstWord,
+                    onTap: () {
+                      if (user.firebaseUser.emailVerified) {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const PayingScreen(),
+                        ));
+                      } else {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => EmailVerificationScreen(user: user),
+                        ));
+                      }
+                    }),
               ),
               const SliverToBoxAdapter(
-                child: SizedBox(height: AppSizes.spaceBtwVerticalFields,),
+                child: SizedBox(
+                  height: AppSizes.spaceBtwVerticalFields,
+                ),
               ),
             ],
           ),
