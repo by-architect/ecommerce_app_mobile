@@ -1,11 +1,13 @@
 import 'dart:async';
 
-import 'package:ecommerce_app_mobile/common/constant/Screens.dart';
 import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/viewmodel/user/user_service_state.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/ButtonPrimary.dart';
+import 'package:ecommerce_app_mobile/presentation/common/widgets/app_bar_pop_back.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/button_secondary.dart';
+import 'package:ecommerce_app_mobile/presentation/main/bloc/main_blocs.dart';
+import 'package:ecommerce_app_mobile/presentation/main/bloc/main_events.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/ui/dialog_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,13 +28,14 @@ class EmailVerificationScreen extends StatefulWidget {
 }
 
 class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
-  User? user;
   static const maxCount = 60;
   int seconds = maxCount;
   Timer? timer;
 
   @override
   void initState() {
+    BlocProvider.of<UserServiceBloc>(context)
+        .add(SendVerificationEmailEvent(widget.user));
     startTimer();
 
     final timer = Timer.periodic(const Duration(seconds: 3), (timer) {
@@ -43,16 +46,13 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
 
     subscription = BlocProvider.of<UserServiceBloc>(context).stream.listen((event) {
       switch (event) {
-        case EmailVerifiedState _:
-          DialogUtil(context).toast(AppText.verificationPageAccountCreatedSuccessfully.capitalizeFirstWord);
-          Navigator.of(context).pushNamedAndRemoveUntil(
-            Screens.homeScreen,
-            (route) => false,
-          );
+        case EmailVerifiedState emailVerifiedState:
+          BlocProvider.of<MainBlocs>(context).add(UserIsVerifiedEvent(emailVerifiedState.user));
+          DialogUtil(context)
+              .toast(AppText.verificationPageAccountCreatedSuccessfully.capitalizeFirstWord);
+          Navigator.of(context).pop();
           timer.cancel();
           subscription.cancel();
-        case UserServiceSuccessState userServiceSuccessState:
-          user = userServiceSuccessState.user;
           break;
       }
     });
@@ -88,7 +88,8 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //todo: appbar to verification screen
+        //todo: appbar to verification screen
+        appBar: const AppBarPopBack(),
         resizeToAvoidBottomInset: false,
         body: SafeArea(
           child: Padding(
@@ -101,7 +102,8 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                   child: Column(
                     children: [
                       Text(AppText.verificationPageCheckYourEmail.capitalizeFirstWord,
-                          textAlign: TextAlign.center, style: Theme.of(context).textTheme.headlineMedium),
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.headlineMedium),
                       const SizedBox(
                         height: AppSizes.spaceBtwVerticalFields,
                       ),
@@ -131,20 +133,26 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                             padding: const EdgeInsets.all(AppSizes.spaceBtwHorizontalFields / 2),
                             child: seconds == 0
                                 ? ButtonPrimary(
-                                    text: seconds == 0 ? AppText.verificationPageSendEmailAgain.capitalizeFirstWord : seconds.toString(),
+                                    text: seconds == 0
+                                        ? AppText.verificationPageSendEmailAgain.capitalizeFirstWord
+                                        : seconds.toString(),
                                     onTap: () {
                                       if (seconds == 0) {
                                         startTimer();
-                                        BlocProvider.of<UserServiceBloc>(context).add(SendVerificationEmailEvent(widget.user));
+                                        BlocProvider.of<UserServiceBloc>(context)
+                                            .add(SendVerificationEmailEvent(widget.user));
                                       }
                                     },
                                   )
                                 : ButtonSecondary(
-                                    text: seconds == 0 ? AppText.verificationPageSendEmailAgain.capitalizeFirstWord: seconds.toString(),
+                                    text: seconds == 0
+                                        ? AppText.verificationPageSendEmailAgain.capitalizeFirstWord
+                                        : seconds.toString(),
                                     onTap: () {
                                       if (seconds == 0) {
                                         startTimer();
-                                        BlocProvider.of<UserServiceBloc>(context).add(SendVerificationEmailEvent(widget.user));
+                                        BlocProvider.of<UserServiceBloc>(context)
+                                            .add(SendVerificationEmailEvent(widget.user));
                                       }
                                     },
                                   ),

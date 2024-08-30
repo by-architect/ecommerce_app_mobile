@@ -1,4 +1,3 @@
-
 import 'package:ecommerce_app_mobile/data/model/categories.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
 import 'package:ecommerce_app_mobile/data/model/user_status.dart';
@@ -21,7 +20,7 @@ class MainBlocs extends Bloc<MainEvents, MainStates> {
     });
 
     on<GetInitItemsEvent>(
-      (event, emit) async {
+          (event, emit) async {
         emit(InitItemsLoadingState(
             themeMode: state.themeMode,
             features: state.features,
@@ -72,7 +71,7 @@ class MainBlocs extends Bloc<MainEvents, MainStates> {
       },
     );
     on<LogOutEvent>(
-      (event, emit) async {
+          (event, emit) async {
         final resource = await userService.signOut();
         switch (resource.status) {
           case Status.success:
@@ -93,5 +92,11 @@ class MainBlocs extends Bloc<MainEvents, MainStates> {
         }
       },
     );
+    on<UserIsVerifiedEvent>((event, emit) {
+      emit(InitItemsSuccessState(themeMode: state.themeMode,
+          features: state.features,
+          categories: state.categories,
+          userStatus: UserStatus(event.user)));
+    },);
   }
 }

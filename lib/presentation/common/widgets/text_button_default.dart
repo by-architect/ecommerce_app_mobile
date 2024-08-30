@@ -5,7 +5,8 @@ import '../../../common/ui/theme/AppText.dart';
 class TextButtonDefault extends StatelessWidget {
   final String text;
   final Function() onPressed;
-  const TextButtonDefault({super.key, required this.onPressed, required this.text});
+  final TextStyle? textStyle;
+  const TextButtonDefault({super.key, required this.onPressed, required this.text, this.textStyle});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,7 @@ class TextButtonDefault extends StatelessWidget {
       onPressed: onPressed,
       child: Text(
         text,
-        style: Theme
+        style:textStyle ?? Theme
             .of(context)
             .textTheme
             .titleMedium

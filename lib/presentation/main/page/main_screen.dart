@@ -17,7 +17,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
-import '../../../common/constant/Screens.dart';
 import '../../discover/bloc/discover_bloc.dart';
 import '../../discover/bloc/discover_event.dart';
 import '../../home/bloc/home_bloc.dart';

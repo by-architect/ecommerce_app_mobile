@@ -32,7 +32,7 @@ class AppStyles {
     selectedItemColor: AppColors.primaryColor,
     unselectedItemColor: AppColors.whiteColor,
     selectedIconTheme: IconThemeData(color: AppColors.primaryColor),
-    unselectedIconTheme: IconThemeData(color: AppColors.whileColor40),
+    unselectedIconTheme: IconThemeData(color: AppColors.whiteColor40),
     showUnselectedLabels: false,
   );
 
@@ -130,7 +130,7 @@ class AppStyles {
         Radius.circular(AppSizes.defaultBorderRadius / 2),
       ),
     ),
-    side: const BorderSide(color: AppColors.whileColor40),
+    side: const BorderSide(color: AppColors.whiteColor40),
   );
 
   static const AppBarTheme appBarLightTheme = AppBarTheme(

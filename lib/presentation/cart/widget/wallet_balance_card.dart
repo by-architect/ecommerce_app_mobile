@@ -36,7 +36,7 @@ class WalletBalanceCard extends StatelessWidget {
                   const Text(
                     "Your current balance",
                     style: TextStyle(
-                        color: AppColors.whileColor80,
+                        color: AppColors.whiteColor80,
                         fontWeight: FontWeight.w500,
                         fontSize: 12),
                   ),

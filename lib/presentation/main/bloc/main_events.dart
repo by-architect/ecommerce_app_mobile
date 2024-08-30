@@ -18,4 +18,9 @@ class ToggleThemeEvent extends MainEvents{
 
 class GetInitItemsEvent extends MainEvents{}
 class GetUserIfAuthorizedEvent extends MainEvents{}
+class UserIsVerifiedEvent extends MainEvents{
+  final User user;
+
+  UserIsVerifiedEvent(this.user);
+}
 class LogOutEvent extends MainEvents{}

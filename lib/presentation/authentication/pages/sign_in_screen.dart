@@ -20,7 +20,6 @@ import '../../../common/constant/Screens.dart';
 import '../../../common/ui/theme/AppColors.dart';
 import '../../../data/usecase/user_validation.dart';
 import '../bloc/user_bloc.dart';
-import 'email_verification_screen.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -45,25 +44,14 @@ class _SignInScreenState extends State<SignInScreen> {
         late StreamSubscription<UserServiceState> streamSubscription;
         streamSubscription = BlocProvider.of<UserServiceBloc>(context).stream.listen((state) {
           switch (state) {
-            case LoginUserSuccessState userSuccessState:
-              if (userSuccessState.user.firebaseUser.emailVerified) {
+            case LoginUserSuccessState _:
                 Navigator.of(context).pushNamedAndRemoveUntil(
-                  Screens.homeScreen,
+                  Screens.mainScreen,
                   (route) => false,
                 );
                 streamSubscription.cancel();
-              } else {
-                BlocProvider.of<UserServiceBloc>(context).add(SendVerificationEmailEvent(userSuccessState.user));
-              }
               break;
             case LoginUserFailState failState:
-              dialogUtil.info(AppText.errorTitle.capitalizeEveryWord, failState.error.userMessage);
-              break;
-            case SendVerificationEmailSuccessState successState:
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => EmailVerificationScreen(user: successState.user)));
-              streamSubscription.cancel();
-              break;
-            case SendVerificationEmailFailState failState:
               dialogUtil.info(AppText.errorTitle.capitalizeEveryWord, failState.error.userMessage);
               break;
           }
@@ -136,7 +124,10 @@ class _SignInScreenState extends State<SignInScreen> {
                         onTap: () => Navigator.of(context).pushNamed(Screens.signUpScreen),
                         child: Text(
                           AppText.signUp.capitalizeEveryWord,
-                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.linkColor),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.copyWith(color: AppColors.linkColor),
                         ),
                       ),
                     ],

@@ -81,8 +81,9 @@ class UserServiceImpl extends UserService {
   Future<ResourceStatus<User>> isEmailVerified() async {
     try {
       final networkConnection = await NetworkHelper().isConnectedToNetwork();
-      if (!networkConnection.isConnected)
+      if (!networkConnection.isConnected) {
         throw NetworkDeviceDisconnectedException("Network Device is down");
+      }
 
       await _firebaseAuth.currentUser?.reload();
 

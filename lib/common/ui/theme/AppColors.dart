@@ -34,12 +34,13 @@ class AppColors {
   static const Color blackColor5 = Color(0xFFF3F3F4);
 
   static const Color whiteColor = Colors.white;
-  static const Color whileColor80 = Color(0xFFCCCCCC);
-  static const Color whileColor60 = Color(0xFF999999);
-  static const Color whileColor40 = Color(0xFF666666);
-  static const Color whileColor20 = Color(0xFF333333);
-  static const Color whileColor10 = Color(0xFF191919);
-  static const Color whileColor5 = Color(0xFF0D0D0D);
+  static const Color whiteColor90 = Color(0xFFDCDADA);
+  static const Color whiteColor80 = Color(0xFFCCCCCC);
+  static const Color whiteColor60 = Color(0xFF999999);
+  static const Color whiteColor40 = Color(0xFF666666);
+  static const Color whiteColor20 = Color(0xFF333333);
+  static const Color whiteColor10 = Color(0xFF191919);
+  static const Color whiteColor5 = Color(0xFF0D0D0D);
 
   static const Color greyColor = Color(0xFFB8B5C3);
   static const Color lightGreyColor = Color(0xFFF8F8F9);

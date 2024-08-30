@@ -21,6 +21,8 @@ class AppImages{
 
   static const cartImage = '${_imagePath}empty_cart$_formatSvg';
   static const profileImage = '${_imagePath}personal_information$_formatSvg';
+  static const verifyEmail = '${_imagePath}verify_email$_formatSvg';
+
 
   static const searchIcon = "${_iconPath}Search$_formatSvg";
   static const notificationIcon = "${_iconPath}Notification$_formatSvg";

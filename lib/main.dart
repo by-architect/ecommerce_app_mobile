@@ -1,12 +1,8 @@
 import 'package:ecommerce_app_mobile/common/constant/Screens.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppTheme.dart';
-import 'package:ecommerce_app_mobile/data/fakerepository/fake_models.dart';
-import 'package:ecommerce_app_mobile/data/service/impl/user_service_impl.dart';
-import 'package:ecommerce_app_mobile/data/service/user_service.dart';
 import 'package:ecommerce_app_mobile/data/viewmodel/user/user_service_bloc.dart';
 import 'package:ecommerce_app_mobile/firebase_options.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_bloc.dart';
-import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_state.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/pages/sign_in_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/pages/sign_up_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/discover/bloc/discover_bloc.dart';
@@ -17,9 +13,8 @@ import 'package:ecommerce_app_mobile/presentation/products/bloc/prodcut_list_scr
 import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/products/page/product_list_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/search/bloc/search_bloc.dart';
-import 'package:ecommerce_app_mobile/presentation/search/page/search_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/splash/bloc/welcome_blocs.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:ecommerce_app_mobile/presentation/splash/pages/welcome.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,28 +34,27 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (BuildContext context) => MainBlocs()),
-        BlocProvider(create: (BuildContext context) => WelcomeBlocs()),
-        BlocProvider(create: (BuildContext context) => UserBloc()),
-        BlocProvider(create: (BuildContext context) => UserServiceBloc()),
-        BlocProvider(create: (BuildContext context) => DiscoverBloc()),
-        BlocProvider(create: (BuildContext context) => SearchBloc()),
-        BlocProvider(create: (BuildContext context) => ProductScreenBloc()),
-        BlocProvider(create: (BuildContext context) => HomeBloc()),
-        BlocProvider(create: (BuildContext context) => ProductDetailsBloc()),
-      ],
-      child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: AppTheme().lightTheme,
-          darkTheme: AppTheme().darkTheme,
-          routes: {
-            Screens.signInScreen: (context) => const SignInScreen(),
-            Screens.signUpScreen: (context) => const SignUpScreen(),
-            Screens.homeScreen: (context) => const MainScreen(),
-            Screens.productScreen: (context) => const ProductListScreen(),
-          },
-          home: const MainScreen()),
-    );
+        providers: [
+          BlocProvider(create: (BuildContext context) => MainBlocs()),
+          BlocProvider(create: (BuildContext context) => WelcomeBlocs()),
+          BlocProvider(create: (BuildContext context) => UserBloc()),
+          BlocProvider(create: (BuildContext context) => UserServiceBloc()),
+          BlocProvider(create: (BuildContext context) => DiscoverBloc()),
+          BlocProvider(create: (BuildContext context) => SearchBloc()),
+          BlocProvider(create: (BuildContext context) => ProductScreenBloc()),
+          BlocProvider(create: (BuildContext context) => HomeBloc()),
+          BlocProvider(create: (BuildContext context) => ProductDetailsBloc()),
+        ],
+        child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: AppTheme().lightTheme,
+            darkTheme: AppTheme().darkTheme,
+            routes: {
+              Screens.signInScreen: (context) => const SignInScreen(),
+              Screens.signUpScreen: (context) => const SignUpScreen(),
+              Screens.mainScreen: (context) => const MainScreen(),
+              Screens.productScreen: (context) => const ProductListScreen(),
+            },
+            home: WelcomeScreen()));
   }
 }

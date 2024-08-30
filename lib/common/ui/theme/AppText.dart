@@ -184,6 +184,7 @@ class AppText {
 // Common
   static const commonContinue = AppText("Continue");
   static const commonNext = AppText("Next");
+  static const commonSkip = AppText("Skip");
   static const dismiss = AppText("Dismiss");
   static const loading = AppText("Loading");
   static const unselected = AppText("Unselected");
@@ -346,6 +347,8 @@ class AppText {
   static const profilePageFAQ = AppText("FAQ");
   static const profilePageGetHelp = AppText("Get Help");
   static const profilePageHelpAndSupport = AppText("Help & Support");
+  static const profilePageVerifyEmailText = AppText("Your email is not verified yet");
+  static const profilePageVerifyNow = AppText("Verify now");
 
 
 // Pages Common

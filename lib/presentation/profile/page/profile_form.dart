@@ -2,10 +2,17 @@ import 'package:ecommerce_app_mobile/common/constant/Screens.dart';
 import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
+import 'package:ecommerce_app_mobile/common/ui/theme/AppStyles.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/model/user_status.dart';
+import 'package:ecommerce_app_mobile/presentation/authentication/pages/email_verification_screen.dart';
+import 'package:ecommerce_app_mobile/presentation/common/widgets/ButtonPrimary.dart';
+import 'package:ecommerce_app_mobile/presentation/common/widgets/button_secondary.dart';
+import 'package:ecommerce_app_mobile/presentation/common/widgets/text_button_default.dart';
 import 'package:ecommerce_app_mobile/presentation/main/bloc/main_blocs.dart';
 import 'package:ecommerce_app_mobile/presentation/main/bloc/main_events.dart';
+import 'package:ecommerce_app_mobile/presentation/profile/widget/verify_email_card.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -37,6 +44,16 @@ class ProfileForm extends StatelessWidget {
               // Navigator.pushNamed(context, );
             },
           ),
+
+          // if (!user.firebaseUser.emailVerified)
+            VerifyEmailCard(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => EmailVerificationScreen(user: user),
+                ));
+              },
+            ),
+
 /*
           Padding(
             padding: const EdgeInsets.symmetric(
@@ -45,8 +62,7 @@ class ProfileForm extends StatelessWidget {
               onTap: () {},
               child: const AspectRatio(
                 aspectRatio: 1.8,
-                child:
-                NetworkImageWithLoader("https://i.imgur.com/dz0BBom.png"),
+                child: NetworkImageWithLoader("https://i.imgur.com/dz0BBom.png"),
               ),
             ),
           ),
