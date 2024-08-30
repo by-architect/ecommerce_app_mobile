@@ -4,7 +4,7 @@ extension StringExtentions on String{
     BigInt phoneNumber = BigInt.parse(numbersOnly);
     return phoneNumber;
   }
-  bool get isDigit => RegExp(r'^-?[0-9]+$').hasMatch(this);
+  bool get isDigit => RegExp(r'^\d+$').hasMatch(this);
   int get toInt => int.parse(this);
 
   String get capitalizeFirstWord {

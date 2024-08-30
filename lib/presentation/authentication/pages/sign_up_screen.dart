@@ -61,12 +61,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
             .listen((state) {
           switch (state) {
             case AddUserSuccessState userSuccessState:
-              BlocProvider.of<UserServiceBloc>(context).add(SendVerificationEmailEvent(userSuccessState.user));
+              // BlocProvider.of<UserServiceBloc>(context).add(SendVerificationEmailEvent(userSuccessState.user));
+            Navigator.of(context).pushNamedAndRemoveUntil(Screens.mainScreen,(route)=> false);
               break;
             case AddUserFailState failState:
               dialogUtil.info(AppText.errorTitle.capitalizeEveryWord, failState.error.userMessage);
               subscription.cancel();
               break;
+/*
             case SendVerificationEmailSuccessState sendVerificationEmailSuccessState:
               Navigator.of(context)
                   .push(MaterialPageRoute(builder: (context) => EmailVerificationScreen(user: sendVerificationEmailSuccessState.user)));
@@ -77,6 +79,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               subscription.cancel();
             default:
               break;
+*/
           }
         });
       } else {

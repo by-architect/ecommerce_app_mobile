@@ -34,9 +34,9 @@ class ProfileForm extends StatelessWidget {
       body: ListView(
         children: [
           ProfileCard(
-            name: "Sepide",
-            email: "theflutterway@gmail.com",
-            imageSrc: "https://i.imgur.com/IXnwbLk.png",
+            name: user.name,
+            email: user.email,
+            imageSrc: user.firebaseUser.photoURL,
             // proLableText: "Sliver",
             // isPro: true, if the user is pro
 
@@ -45,7 +45,7 @@ class ProfileForm extends StatelessWidget {
             },
           ),
 
-          // if (!user.firebaseUser.emailVerified)
+          if (!user.firebaseUser.emailVerified)
             VerifyEmailCard(
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(

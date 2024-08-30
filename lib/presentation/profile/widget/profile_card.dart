@@ -1,4 +1,3 @@
-
 import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
@@ -14,13 +13,14 @@ class ProfileCard extends StatelessWidget {
     super.key,
     required this.name,
     required this.email,
-    required this.imageSrc,
+    this.imageSrc,
     this.press,
     this.isShowArrow = true,
   });
 
-  final String name, email, imageSrc;
-  final bool   isShowArrow;
+  final String name, email;
+  final String? imageSrc;
+  final bool isShowArrow;
   final VoidCallback? press;
 
   @override
@@ -29,8 +29,10 @@ class ProfileCard extends StatelessWidget {
       onTap: press,
       leading: CircleAvatar(
         radius: 28,
-        child: NetworkImageWithLoader(
-          imageSrc,
+        child: imageSrc == null || imageSrc!.isEmpty?
+        SvgPicture.asset(AppImages.profileIcon):
+        NetworkImageWithLoader(
+          imageSrc!,
           radius: 100,
         ),
       ),
@@ -70,9 +72,9 @@ class ProfileCard extends StatelessWidget {
       subtitle: Text(email),
       trailing: isShowArrow
           ? SvgPicture.asset(
-        AppImages.miniRightIcon,
-        color: Theme.of(context).iconTheme.color!.withOpacity(0.4),
-      )
+              AppImages.miniRightIcon,
+              color: Theme.of(context).iconTheme.color!.withOpacity(0.4),
+            )
           : null,
     );
   }
