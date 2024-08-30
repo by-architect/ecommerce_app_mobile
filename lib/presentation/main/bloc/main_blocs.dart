@@ -1,13 +1,10 @@
+
 import 'package:ecommerce_app_mobile/data/model/categories.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
 import 'package:ecommerce_app_mobile/data/model/user_status.dart';
 import 'package:ecommerce_app_mobile/data/provider/product_service_provider.dart';
-import 'package:ecommerce_app_mobile/data/provider/user_provider.dart';
 import 'package:ecommerce_app_mobile/data/service/impl/user_service_impl.dart';
-import 'package:ecommerce_app_mobile/data/viewmodel/user/user_service_event.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/constant/exceptions/exceptions.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../data/model/user.dart';
@@ -72,6 +69,28 @@ class MainBlocs extends Bloc<MainEvents, MainStates> {
             themeMode: state.themeMode,
             features: productFeaturesResource.stable ? state.features : productFeaturesResource.data!,
             categories: categoriesResource.stable ? state.categories : categoriesResource.data!));
+      },
+    );
+    on<LogOutEvent>(
+      (event, emit) async {
+        final resource = await userService.signOut();
+        switch (resource.status) {
+          case Status.success:
+            emit(InitItemsSuccessState(
+                themeMode: state.themeMode,
+                features: state.features,
+                categories: state.categories,
+                userStatus: UserStatus(null)));
+            break;
+          case Status.fail:
+            break;
+          case Status.loading:
+          // TODO: Handle this case.
+            break;
+          case Status.stable:
+          // TODO: Handle this case.
+            break;
+        }
       },
     );
   }

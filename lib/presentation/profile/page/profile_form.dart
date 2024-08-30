@@ -1,9 +1,13 @@
+import 'package:ecommerce_app_mobile/common/constant/Screens.dart';
 import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/model/user_status.dart';
+import 'package:ecommerce_app_mobile/presentation/main/bloc/main_blocs.dart';
+import 'package:ecommerce_app_mobile/presentation/main/bloc/main_events.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../data/model/user.dart';
@@ -11,13 +15,14 @@ import '../../common/widgets/divider_list_tile.dart';
 import '../../common/widgets/network_image_with_loader.dart';
 import '../widget/profile_card.dart';
 import '../widget/profile_menu_item_list.dart';
+
 class ProfileForm extends StatelessWidget {
   final User user;
-  const ProfileForm({super.key,  required this.user});
+
+  const ProfileForm({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: ListView(
         children: [
@@ -47,7 +52,7 @@ class ProfileForm extends StatelessWidget {
           ),
 */
 
-          const SizedBox(height: AppSizes.defaultPadding ),
+          const SizedBox(height: AppSizes.defaultPadding),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding),
             child: Text(
@@ -64,7 +69,7 @@ class ProfileForm extends StatelessWidget {
             },
           ),
           ProfileMenuListTile(
-            text:AppText.productDetailsPageReturns.capitalizeFirstWord,
+            text: AppText.productDetailsPageReturns.capitalizeFirstWord,
             svgSrc: AppImages.returnIcon,
             press: () {},
           ),
@@ -86,7 +91,7 @@ class ProfileForm extends StatelessWidget {
           ),
           ProfileMenuListTile(
             text: AppText.profilePageChangePassword.capitalizeEveryWord,
-            svgSrc:AppImages.passwordIcon,
+            svgSrc: AppImages.passwordIcon,
             press: () {
               // Navigator.pushNamed(context, selectLanguageScreenRoute);
             },
@@ -118,10 +123,13 @@ class ProfileForm extends StatelessWidget {
             svgSrc: AppImages.fAQIcon,
             press: () {},
             isShowDivider: false,
-          ),          const SizedBox(height: AppSizes.defaultPadding),
+          ),
+          const SizedBox(height: AppSizes.defaultPadding),
           // Log Out
           ListTile(
-            onTap: () {},
+            onTap: () {
+              BlocProvider.of<MainBlocs>(context).add(LogOutEvent());
+            },
             minLeadingWidth: 24,
             leading: SvgPicture.asset(
               AppImages.logoutIcon,

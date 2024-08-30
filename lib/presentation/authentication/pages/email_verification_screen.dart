@@ -90,68 +90,70 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
     return Scaffold(
       //todo: appbar to verification screen
         resizeToAvoidBottomInset: false,
-        body: Padding(
-          padding: const EdgeInsets.all(AppSizes.defaultSpace),
-          child: Flex(
-            direction: Axis.vertical,
-            children: [
-              Flexible(
-                flex: 0,
-                child: Column(
-                  children: [
-                    Text(AppText.verificationPageCheckYourEmail.capitalizeFirstWord,
-                        textAlign: TextAlign.center, style: Theme.of(context).textTheme.headlineMedium),
-                    const SizedBox(
-                      height: AppSizes.spaceBtwVerticalFields,
-                    ),
-                    Text(
-                      AppText.verificationPageEmailBody.capitalizeFirstWord,
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                  ],
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(AppSizes.defaultSpace),
+            child: Flex(
+              direction: Axis.vertical,
+              children: [
+                Flexible(
+                  flex: 0,
+                  child: Column(
+                    children: [
+                      Text(AppText.verificationPageCheckYourEmail.capitalizeFirstWord,
+                          textAlign: TextAlign.center, style: Theme.of(context).textTheme.headlineMedium),
+                      const SizedBox(
+                        height: AppSizes.spaceBtwVerticalFields,
+                      ),
+                      Text(
+                        AppText.verificationPageEmailBody.capitalizeFirstWord,
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              Expanded(
-                flex: 1,
-                child: SizedBox(
-                  width: 300,
-                  height: 300,
-                  child: SvgPicture.asset(AppImages.openedEmail),
+                Expanded(
+                  flex: 1,
+                  child: SizedBox(
+                    width: 300,
+                    height: 300,
+                    child: SvgPicture.asset(AppImages.openedEmail),
+                  ),
                 ),
-              ),
-              Flexible(
-                flex: 0,
-                child: Row(
-                  children: [
-                    Expanded(
-                        flex: 2,
-                        child: Padding(
-                          padding: const EdgeInsets.all(AppSizes.spaceBtwHorizontalFields / 2),
-                          child: seconds == 0
-                              ? ButtonPrimary(
-                                  text: seconds == 0 ? AppText.verificationPageSendEmailAgain.capitalizeFirstWord : seconds.toString(),
-                                  onTap: () {
-                                    if (seconds == 0) {
-                                      startTimer();
-                                      BlocProvider.of<UserServiceBloc>(context).add(SendVerificationEmailEvent(widget.user));
-                                    }
-                                  },
-                                )
-                              : ButtonSecondary(
-                                  text: seconds == 0 ? AppText.verificationPageSendEmailAgain.capitalizeFirstWord: seconds.toString(),
-                                  onTap: () {
-                                    if (seconds == 0) {
-                                      startTimer();
-                                      BlocProvider.of<UserServiceBloc>(context).add(SendVerificationEmailEvent(widget.user));
-                                    }
-                                  },
-                                ),
-                        )),
-                  ],
+                Flexible(
+                  flex: 0,
+                  child: Row(
+                    children: [
+                      Expanded(
+                          flex: 2,
+                          child: Padding(
+                            padding: const EdgeInsets.all(AppSizes.spaceBtwHorizontalFields / 2),
+                            child: seconds == 0
+                                ? ButtonPrimary(
+                                    text: seconds == 0 ? AppText.verificationPageSendEmailAgain.capitalizeFirstWord : seconds.toString(),
+                                    onTap: () {
+                                      if (seconds == 0) {
+                                        startTimer();
+                                        BlocProvider.of<UserServiceBloc>(context).add(SendVerificationEmailEvent(widget.user));
+                                      }
+                                    },
+                                  )
+                                : ButtonSecondary(
+                                    text: seconds == 0 ? AppText.verificationPageSendEmailAgain.capitalizeFirstWord: seconds.toString(),
+                                    onTap: () {
+                                      if (seconds == 0) {
+                                        startTimer();
+                                        BlocProvider.of<UserServiceBloc>(context).add(SendVerificationEmailEvent(widget.user));
+                                      }
+                                    },
+                                  ),
+                          )),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ));
   }

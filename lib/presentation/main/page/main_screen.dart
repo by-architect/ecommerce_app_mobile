@@ -123,7 +123,9 @@ class _MainScreenState extends State<MainScreen> {
                       features: state.features,
                     ),
                     state.userStatus.isAuthenticated
-                        ? CartForm(user: state.userStatus.user!,)
+                        ? CartForm(
+                            user: state.userStatus.user!,
+                          )
                         : LoginForm(
                             message: AppText.infoPleaseLoginToSeeYourCart.capitalizeFirstWord,
                             image: AppImages.cartImage),

@@ -122,9 +122,19 @@ class UserServiceImpl extends UserService {
   }
 
   @override
-  Future<ResourceStatus> signOut() {
-    // TODO: implement signOut
-    throw UnimplementedError();
+  Future<ResourceStatus> signOut() async {
+    try {
+      final networkConnection = await NetworkHelper().isConnectedToNetwork();
+      if (!networkConnection.isConnected) {
+        throw NetworkDeviceDisconnectedException("Network Device is down");
+      }
+
+      await _firebaseAuth.signOut();
+
+      return const ResourceStatus.success("");
+    } catch (exception, stackTrace) {
+      return ExceptionHandler.firebaseResourceExceptionHandler(exception, stackTrace);
+    }
   }
 
   @override
