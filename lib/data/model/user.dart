@@ -46,15 +46,6 @@ class User {
     gender = userState.gender;
   }
 
-  UserState toUserState() {
-    return UserState(
-        name: name,
-        surname: surname,
-        email: email,
-        password: "",
-        birthYear: birthYear.toString(),
-        gender: gender);
-  }
 
   User.fromMap(Map<String, dynamic> userMap, this.firebaseUser, {this.userCredential}) {
     uid = userMap['id'];

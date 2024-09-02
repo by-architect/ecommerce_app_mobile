@@ -13,6 +13,7 @@ import 'package:ecommerce_app_mobile/presentation/products/bloc/prodcut_list_scr
 import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/products/page/product_list_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/profile/bloc/change_password_bloc.dart';
+import 'package:ecommerce_app_mobile/presentation/profile/bloc/edit_profile_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/search/bloc/search_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/splash/bloc/welcome_blocs.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -45,6 +46,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (BuildContext context) => HomeBloc()),
           BlocProvider(create: (BuildContext context) => ChangePasswordBloc()),
           BlocProvider(create: (BuildContext context) => ProductDetailsBloc()),
+          BlocProvider(create: (BuildContext context) => EditProfileBloc()),
         ],
         child: MaterialApp(
             debugShowCheckedModeBanner: false,

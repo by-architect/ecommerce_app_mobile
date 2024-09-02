@@ -30,7 +30,7 @@ class ChangePasswordBloc extends Bloc<ChangePasswordEvent, ChangePasswordState> 
             newPassword: state.newPassword,
             confirmPassword: state.confirmPassword));
 
-        final resource = await service.changePassword(event.user, state.oldPassword, state.newPassword);
+        final resource = await service.changePassword(event.user, state);
         resource.onSuccess((data) {
           emit(ChangePasswordSuccessState(
               oldPassword: state.oldPassword,

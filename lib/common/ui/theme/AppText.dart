@@ -254,6 +254,7 @@ class AppText {
   static const infoPleaseLoginToSeeYourCart = AppText("Please login to see your cart");
   static const infoPleaseLoginToSeeYourProfile = AppText("Please login to see your profile");
   static const infoPasswordChangedSuccessfully = AppText("Password changed successfully");
+  static const infoProfileSettingsChangedSuccessfully = AppText("Profile settings changed successfully");
 
 
 // Navigation
@@ -359,6 +360,9 @@ class AppText {
 
   //change password
   static const changePasswordPageChangePassword = AppText("Change Password");
+
+  //edit profile
+  static const editProfilePageEditProfile = AppText("Edit profile");
 
 
 // Pages Common

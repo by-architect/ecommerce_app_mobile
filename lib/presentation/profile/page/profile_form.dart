@@ -6,6 +6,7 @@ import 'package:ecommerce_app_mobile/presentation/authentication/pages/email_ver
 import 'package:ecommerce_app_mobile/presentation/main/bloc/main_blocs.dart';
 import 'package:ecommerce_app_mobile/presentation/main/bloc/main_events.dart';
 import 'package:ecommerce_app_mobile/presentation/profile/page/change_password_screen.dart';
+import 'package:ecommerce_app_mobile/presentation/profile/page/edit_profile_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/profile/widget/verify_email_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -102,13 +103,23 @@ class ProfileForm extends StatelessWidget {
             text: AppText.profilePageChangePassword.capitalizeEveryWord,
             svgSrc: AppImages.passwordIcon,
             press: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => ChangePasswordScreen(user: user,),));
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => ChangePasswordScreen(
+                  user: user,
+                ),
+              ));
             },
           ),
           ProfileMenuListTile(
             text: AppText.profilePageEditProfile.capitalizeEveryWord,
             svgSrc: AppImages.profileIcon,
-            press: () {},
+            press: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => EditProfileScreen(
+                  user: user,
+                ),
+              ));
+            },
           ),
           const SizedBox(height: AppSizes.defaultPadding),
 

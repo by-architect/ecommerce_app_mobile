@@ -1,4 +1,6 @@
-class NullDataException implements Exception{
+class ExceptionBase implements Exception{}
+
+class NullDataException implements ExceptionBase{
   final String message;
 
   NullDataException(this.message);
@@ -9,7 +11,7 @@ class NullDataException implements Exception{
   }
 }
 
-class NetworkDeviceDisconnectedException implements Exception {
+class NetworkDeviceDisconnectedException implements ExceptionBase {
   final String message;
 
   NetworkDeviceDisconnectedException(this.message,);
@@ -20,7 +22,7 @@ class NetworkDeviceDisconnectedException implements Exception {
   }
 }
 
-class UserNotAuthenticatedException implements Exception{
+class UserNotAuthenticatedException implements ExceptionBase{
  final String message;
 
  UserNotAuthenticatedException(this.message);

@@ -20,20 +20,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../data/model/user.dart';
 
-class ChangePasswordScreen extends StatefulWidget {
+class ChangePasswordScreen extends StatelessWidget {
   final User user;
 
   const ChangePasswordScreen({super.key, required this.user});
-
-  @override
-  State<ChangePasswordScreen> createState() => _ChangePasswordScreenState();
-}
-
-class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +35,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         dialogUtil.toast(result.message);
         return;
       }
-      BlocProvider.of<ChangePasswordBloc>(context).add(SaveEvent(widget.user));
+      BlocProvider.of<ChangePasswordBloc>(context).add(SaveEvent(user));
       late StreamSubscription<ChangePasswordState> streamSubscription;
       streamSubscription = BlocProvider.of<ChangePasswordBloc>(context).stream.listen(
         (state) {

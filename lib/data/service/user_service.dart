@@ -2,6 +2,8 @@
 import 'dart:async';
 
 import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_state.dart';
+import 'package:ecommerce_app_mobile/presentation/profile/bloc/change_password_state.dart';
+import 'package:ecommerce_app_mobile/presentation/profile/bloc/edit_profile_state.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 
 import '../../sddklibrary/util/resource.dart';
@@ -15,8 +17,8 @@ abstract class UserService {
   bool isUserAuthenticated();
   Future<ResourceStatus<User>> signIn(UserRequestState userRequest); //if token not exist, sign in
   Future<ResourceStatus> signOut();
-  Future<ResourceStatus> changePassword(User user,String oldPassword,String newPassword);
-  Future<ResourceStatus<User>> changeUserSettings(User user);
+  Future<ResourceStatus> changePassword(User user,ChangePasswordState state);
+  Future<ResourceStatus> editUserSettings(User user,EditProfileState userState);
   Future<ResourceStatus<User>> isEmailVerified();
 
 

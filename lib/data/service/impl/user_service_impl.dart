@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce_app_mobile/common/constant/firestore_collections.dart';
+import 'package:ecommerce_app_mobile/presentation/profile/bloc/change_password_state.dart';
+import 'package:ecommerce_app_mobile/presentation/profile/bloc/edit_profile_state.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/constant/exceptions/exception_handler.dart';
 import 'package:ecommerce_app_mobile/common/constant/app_durations.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_state.dart';
@@ -41,12 +43,17 @@ class UserServiceImpl extends UserService {
           .collection(FireStoreCollections.users)
           .doc(responseUser.uid)
           .set(userState.toMap(responseUser.uid))
-          .timeout(AppDurations.postTimeout);
+          .timeout(AppDurations.postTimeoutLarge);
       final User userFinal = User.fromUserState(userState, responseUser, authResponse);
       return ResourceStatus.success(userFinal);
 
       //catch exceptions
     } catch (exception, stackTrace) {
+      final firebaseUser = _firebaseAuth.currentUser;
+      if(firebaseUser!= null) {
+        _fireStore.collection(FireStoreCollections.users).doc(firebaseUser.uid);
+        firebaseUser.delete();
+      }
       return ExceptionHandler.firebaseResourceExceptionHandler(exception, stackTrace);
     }
   }
@@ -67,14 +74,14 @@ class UserServiceImpl extends UserService {
   }
 
   @override
-  Future<ResourceStatus> changePassword(User user, String oldPassword, String newPassword) async {
+  Future<ResourceStatus> changePassword(User user, ChangePasswordState state) async {
     try {
       var networkConnection = await NetworkHelper().isConnectedToNetwork();
       if (!networkConnection.isConnected)
         throw NetworkDeviceDisconnectedException("Network Device is down");
 
       await user.firebaseUser.reauthenticateWithCredential(
-          firebase_auth.EmailAuthProvider.credential(email: user.email, password: oldPassword));
+          firebase_auth.EmailAuthProvider.credential(email: user.email, password: state.oldPassword));
 
       firebase_auth.User? firebaseUser = firebase_auth.FirebaseAuth.instance.currentUser;
       if (firebaseUser == null) {
@@ -84,7 +91,9 @@ class UserServiceImpl extends UserService {
             stackTrace: StackTrace.current));
       }
 
-      await firebaseUser.updatePassword(newPassword);
+      await firebaseUser.updatePassword(state.newPassword);
+      await _fireStore.collection(FireStoreCollections.users).doc(user.uid).update(
+          {'password': state.newPassword});
       return const ResourceStatus.success("");
     } catch (e, s) {
       if (e is firebase_auth.FirebaseAuthException && e.code == FirebaseExceptions.invalidCredential) {
@@ -99,9 +108,26 @@ class UserServiceImpl extends UserService {
   }
 
   @override
-  Future<ResourceStatus<User>> changeUserSettings(User user) {
-    // TODO: implement changeUserSettings
-    throw UnimplementedError();
+  Future<ResourceStatus> editUserSettings(User user, EditProfileState userState) async {
+    try {
+      var networkConnection = await NetworkHelper().isConnectedToNetwork();
+      if (!networkConnection.isConnected)
+        throw NetworkDeviceDisconnectedException("Network Device is down");
+
+      firebase_auth.User? firebaseUser = firebase_auth.FirebaseAuth.instance.currentUser;
+      if (firebaseUser == null) {
+        throw firebase_auth.FirebaseAuthException(code: FirebaseExceptions.nullUser);
+      }
+
+      await _fireStore
+          .collection(FireStoreCollections.users)
+          .doc(user.uid)
+          .update(userState.toMap(user.uid));
+
+      return const ResourceStatus.success("");
+    } catch (e, s) {
+      return ExceptionHandler.firebaseResourceExceptionHandler(e, s);
+    }
   }
 
   @override

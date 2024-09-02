@@ -7,13 +7,15 @@ class TextFieldAuthentication extends StatelessWidget {
   final Function(String) onChanged;
   final IconData icon;
   final bool isPassword;
+  final TextEditingController? textEditingController;
 
-  const TextFieldAuthentication({super.key, required this.label, required this.onChanged, this.isPassword = false, required this.icon});
+  const TextFieldAuthentication({super.key, required this.label, required this.onChanged, this.isPassword = false, required this.icon, this.textEditingController});
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       obscureText: isPassword,
+      controller: textEditingController,
       onChanged: onChanged,
       decoration: InputDecoration(prefixIcon: Icon(icon),label: Text(label),),
 

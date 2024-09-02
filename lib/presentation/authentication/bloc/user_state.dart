@@ -25,8 +25,8 @@ class UserState {
   Map<String, dynamic> toMap(String uid) {
     return {
       'id': uid,
-      'name': name,
-      'surname': surname,
+      'name': StringHelper.capitalizeEveryWord(name),
+      'surname': StringHelper.capitalizeEveryWord(surname),
       'email': email,
       'password': password,
       'birthYear': birthYear.toInt,

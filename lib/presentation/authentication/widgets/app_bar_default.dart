@@ -86,8 +86,8 @@ Future<void> testScope(User? user) async {
     return;
   }
   Log.test(title: "user",data: user);
-  final resource = await userService.changePassword(user, "testpassword", "password");
-  Log.test(resource: resource);
+  // final resource = await userService.changePassword(user, );
+  // Log.test(resource: resource);
 
 /*
   UserService userService = UserServiceImpl();
