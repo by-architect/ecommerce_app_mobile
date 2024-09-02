@@ -26,6 +26,8 @@ abstract class Resource<T> {
   factory Resource.success(T data) = ResourceStatus<T>.success;
 
   factory Resource.fail(Fail error) = ResourceStatus<T>.fail;
+
+
 }
 
 enum Status { success, fail, loading, stable }

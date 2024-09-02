@@ -1,16 +1,11 @@
-import 'package:ecommerce_app_mobile/common/constant/Screens.dart';
 import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
-import 'package:ecommerce_app_mobile/common/ui/theme/AppStyles.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
-import 'package:ecommerce_app_mobile/data/model/user_status.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/pages/email_verification_screen.dart';
-import 'package:ecommerce_app_mobile/presentation/common/widgets/ButtonPrimary.dart';
-import 'package:ecommerce_app_mobile/presentation/common/widgets/button_secondary.dart';
-import 'package:ecommerce_app_mobile/presentation/common/widgets/text_button_default.dart';
 import 'package:ecommerce_app_mobile/presentation/main/bloc/main_blocs.dart';
 import 'package:ecommerce_app_mobile/presentation/main/bloc/main_events.dart';
+import 'package:ecommerce_app_mobile/presentation/profile/page/change_password_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/profile/widget/verify_email_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,8 +13,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../data/model/user.dart';
-import '../../common/widgets/divider_list_tile.dart';
-import '../../common/widgets/network_image_with_loader.dart';
 import '../widget/profile_card.dart';
 import '../widget/profile_menu_item_list.dart';
 
@@ -109,7 +102,7 @@ class ProfileForm extends StatelessWidget {
             text: AppText.profilePageChangePassword.capitalizeEveryWord,
             svgSrc: AppImages.passwordIcon,
             press: () {
-              // Navigator.pushNamed(context, selectLanguageScreenRoute);
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => ChangePasswordScreen(user: user,),));
             },
           ),
           ProfileMenuListTile(

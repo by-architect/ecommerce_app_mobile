@@ -1,4 +1,5 @@
 import 'package:ecommerce_app_mobile/sddklibrary/util/fail.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/util/resource.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
@@ -44,7 +45,13 @@ class Log {
   static const String _italic = "\x1B[3m";
   static const String _underline = "\x1B[4m";
 
-  static void log( LogLevel logLevel,{String? message, String title = "", String? userMessage, StackTrace? stackTrace, Object? data}) {
+  static void log(LogLevel logLevel,
+      {String? message,
+      String title = "",
+      String? userMessage,
+      StackTrace? stackTrace,
+      Object? data,
+      Resource? resource}) {
     final timestamp = _getCurrentTime();
 
     final titleMessage = title.isEmpty ? "${logLevel.name}" : "${logLevel.name} -> $title";
@@ -59,16 +66,25 @@ class Log {
     if (kReleaseMode) {
       // send logs to server
     } else {
-
       //debug mode
       debugPrint(_getColoredMessage(titleMessage, colored));
-      if(message != null) debugPrint("---->  ${_getColoredMessage("Message: $message", colored)}");
-      if (data != null) debugPrint("---->  ${_getColoredMessage("Data: $data", _TextColor.BRIGHT_CYAN)}");
-      if (userMessage != null) debugPrint("---->  ${_getColoredMessage("User Message: $userMessage", _TextColor.MAGENTA)}");
+      if (message != null) debugPrint("---->  ${_getColoredMessage("Message: $message", colored)}");
+      if (data != null)
+        debugPrint("---->  ${_getColoredMessage("Data: $data", _TextColor.BRIGHT_CYAN)}");
+      if (userMessage != null)
+        debugPrint("---->  ${_getColoredMessage("User Message: $userMessage", _TextColor.MAGENTA)}");
       if (stackTrace != null) {
         final lastTrace = stackTrace.toString().split('\n').first;
-        debugPrint("---->  ${_getColoredMessage("Stack Trace: ${lastTrace.toString()}", _TextColor.BRIGHT_MAGENTA)}");
+        debugPrint(
+            "---->  ${_getColoredMessage("Stack Trace: ${lastTrace.toString()}", _TextColor.BRIGHT_MAGENTA)}");
       }
+/*
+      if(resource!= null){
+        debugPrint("---->  ${_getColoredMessage("Status: ${resource.status}", _TextColor.BRIGHT_CYAN)}");
+        debugPrint("---->  ${_getColoredMessage("Data: ${resource.data}", _TextColor.GREEN)}");
+        debugPrint("---->  ${_getColoredMessage("Fail: ${resource.error}", _TextColor.RED)}");
+      }
+*/
     }
   }
 
@@ -113,22 +129,45 @@ class Log {
     }
   }
 
-  static T? test<T>({String? message, String title = "", StackTrace? stackTrace, String? userMessage, T? data,Fail? error}) {
-    log(LogLevel.TEST, message: error?.exception.toString() ?? message , stackTrace:error?.stackTrace ?? stackTrace, title: title, data: data,userMessage: error?.userMessage ?? userMessage);
+  static T? test<T>(
+      {String? message,
+      String title = "",
+      StackTrace? stackTrace,
+      String? userMessage,
+      T? data,
+      Resource? resource,
+      Fail? fail}) {
+    final Fail? error = fail ?? resource?.error;
+    log(LogLevel.TEST,
+        message: error?.exception.toString() ?? message,
+        stackTrace: error?.stackTrace ?? stackTrace,
+        title: resource != null ? "Resource: ${resource.status}" : title,
+        data: data ?? resource?.data,
+        userMessage: error?.userMessage ?? userMessage);
     return data;
   }
 
   static void info({String? message, String title = "", StackTrace? stackTrace, String? data}) {
-    log(LogLevel.INFO, message: message , stackTrace: stackTrace, title: title, data: data);
+    log(LogLevel.INFO, message: message, stackTrace: stackTrace, title: title, data: data);
   }
 
   static void warning({String? message, String title = "", StackTrace? stackTrace, String? data}) {
-    log(LogLevel.WARNING, message: message , stackTrace: stackTrace, title: title, data: data);
+    log(LogLevel.WARNING, message: message, stackTrace: stackTrace, title: title, data: data);
   }
 
-  static void error({String? message, String title = "", StackTrace? stackTrace, String? userMessage, String? data,Fail? error}) {
-    log(LogLevel.ERROR, message: error?.exception.toString() ?? message , stackTrace:error?.stackTrace ?? stackTrace, title: title, data: data,userMessage: error?.userMessage ?? userMessage);
-
+  static void error(
+      {String? message,
+      String title = "",
+      StackTrace? stackTrace,
+      String? userMessage,
+      String? data,
+      Fail? error}) {
+    log(LogLevel.ERROR,
+        message: error?.exception.toString() ?? message,
+        stackTrace: error?.stackTrace ?? stackTrace,
+        title: title,
+        data: data,
+        userMessage: error?.userMessage ?? userMessage);
   }
 
   static void sendLogToServer(String logMessage) {

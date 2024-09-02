@@ -4,15 +4,23 @@ import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/model/categories.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
+import 'package:ecommerce_app_mobile/data/service/impl/user_service_impl.dart';
+import 'package:ecommerce_app_mobile/data/service/user_service.dart';
 import 'package:ecommerce_app_mobile/presentation/search/page/search_screen.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/util/resource.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../data/model/user.dart';
 
 class AppBarMain extends StatelessWidget implements PreferredSizeWidget {
+  final User? user;
   final ProductFeatures features;
   final Categories categories;
-  const AppBarMain({super.key, required this.features, required this.categories});
+
+  const AppBarMain({super.key, required this.features, required this.categories, this.user});
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -27,31 +35,35 @@ class AppBarMain extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: false,
       title: Text(
         AppText.marketName.capitalizeEveryWord,
-        style: Theme.of(context)
-            .textTheme
-            .titleLarge
-            ?.copyWith(color: AppColors.blackColor, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),
+        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+            color: AppColors.blackColor, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),
       ),
       actions: [
         IconButton(
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => SearchScreen(categories: categories, features: features),));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SearchScreen(categories: categories, features: features),
+                ));
           },
           icon: SvgPicture.asset(
             AppImages.searchIcon,
             height: 24,
-            colorFilter: ColorFilter.mode(Theme.of(context).textTheme.bodyLarge!.color!, BlendMode.srcIn),
+            colorFilter:
+                ColorFilter.mode(Theme.of(context).textTheme.bodyLarge!.color!, BlendMode.srcIn),
           ),
         ),
         IconButton(
           onPressed: () {
-            testScope();
+            testScope(user);
             // Navigator.pushNamed(context, Screens.notificationScreen);
           },
           icon: SvgPicture.asset(
             AppImages.notificationIcon,
             height: 24,
-            colorFilter: ColorFilter.mode(Theme.of(context).textTheme.bodyLarge!.color!, BlendMode.srcIn),
+            colorFilter:
+                ColorFilter.mode(Theme.of(context).textTheme.bodyLarge!.color!, BlendMode.srcIn),
           ),
         ),
       ],
@@ -66,8 +78,17 @@ class AppBarMain extends StatelessWidget implements PreferredSizeWidget {
   }
 }
 
-Future<void> testScope() async {
-  //todo: test scope
+Future<void> testScope(User? user) async {
+  UserService userService = UserServiceImpl();
+
+  if(user == null) {
+    Log.test(title: "change user password",message: "null user");
+    return;
+  }
+  Log.test(title: "user",data: user);
+  final resource = await userService.changePassword(user, "testpassword", "password");
+  Log.test(resource: resource);
+
 /*
   UserService userService = UserServiceImpl();
   if(FirebaseAuth.instance.currentUser == null) {
@@ -82,6 +103,4 @@ Future<void> testScope() async {
     userService.signIn(FakeUserModels.emin);
   }
 */
-
-
 }

@@ -1,5 +1,6 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_state.dart';
+import 'package:ecommerce_app_mobile/presentation/profile/bloc/change_password_state.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/helper.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/string_helper.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
@@ -18,13 +19,16 @@ class UserValidation {
       return ValidationResult(false, message: AppText.errorEmptyField.capitalizeFirstWord);
     }
 
-    if (userState.password != userState.passwordConfirm) return ValidationResult(false, message: AppText.errorPasswordsAreNotMatching.capitalizeFirstWord);
-    if (!_isValidEmail(userState.email)) return ValidationResult(false, message: AppText.errorEmailIsNotValid.capitalizeFirstWord);
+    if (userState.password != userState.passwordConfirm)
+      return ValidationResult(false, message: AppText.errorPasswordsAreNotMatching.capitalizeFirstWord);
+    if (!_isValidEmail(userState.email))
+      return ValidationResult(false, message: AppText.errorEmailIsNotValid.capitalizeFirstWord);
     if (userState.password.length < 8 || userState.password.length > 16) {
       return ValidationResult(false, message: AppText.errorPasswordLength.capitalizeFirstWord);
     }
     Log.test(title: "1", data: userState.birthYear.isDigit);
-    if (!userState.birthYear.isDigit) return ValidationResult(false, message: AppText.errorBirthYearIsNotValid.capitalizeFirstWord);
+    if (!userState.birthYear.isDigit)
+      return ValidationResult(false, message: AppText.errorBirthYearIsNotValid.capitalizeFirstWord);
     Log.test(title: "2");
     if (userState.birthYear.toInt < 1900 || userState.birthYear.toInt > DateTime.now().year - 5) {
       Log.test(title: "3");
@@ -36,8 +40,10 @@ class UserValidation {
   }
 
   static ValidationResult validateLogin(UserRequestState userState) {
-    if (userState.email.isEmpty || userState.password.isEmpty) return ValidationResult(false, message: AppText.errorEmptyField.capitalizeFirstWord);
-    if (!_isValidEmail(userState.email)) return ValidationResult(false, message: AppText.errorEmailIsNotValid.capitalizeFirstWord);
+    if (userState.email.isEmpty || userState.password.isEmpty)
+      return ValidationResult(false, message: AppText.errorEmptyField.capitalizeFirstWord);
+    if (!_isValidEmail(userState.email))
+      return ValidationResult(false, message: AppText.errorEmailIsNotValid.capitalizeFirstWord);
     if (userState.password.length < 8 || userState.password.length > 16) {
       return ValidationResult(false, message: AppText.errorPasswordLength.capitalizeFirstWord);
     }
@@ -59,5 +65,15 @@ class UserValidation {
     } catch (e) {
       return false;
     }
+  }
+
+  static ValidationResult validateChangePassword(ChangePasswordState state) {
+    if (state.oldPassword.isEmpty || state.newPassword.isEmpty || state.confirmPassword.isEmpty) {
+      return ValidationResult(false, message: AppText.errorEmptyField.capitalizeFirstWord);
+    }
+    if (state.newPassword != state.confirmPassword) {
+      return ValidationResult(false, message: AppText.errorPasswordsAreNotMatching.capitalizeFirstWord);
+    }
+    return ValidationResult(true);
   }
 }

@@ -17,7 +17,8 @@ class User {
   late firebase_auth.User firebaseUser;
   late firebase_auth.UserCredential? userCredential;
 
-  User(this.uid, this.name, this.surname, this.email, this.birthYear, this.gender, this.firebaseUser, this.userCredential);
+  User(this.uid, this.name, this.surname, this.email, this.birthYear, this.gender, this.firebaseUser,
+      this.userCredential);
 
   User.test(
     this.uid,
@@ -43,6 +44,16 @@ class User {
     birthYear = userState.birthYear.toInt;
     authority = Authority.user;
     gender = userState.gender;
+  }
+
+  UserState toUserState() {
+    return UserState(
+        name: name,
+        surname: surname,
+        email: email,
+        password: "",
+        birthYear: birthYear.toString(),
+        gender: gender);
   }
 
   User.fromMap(Map<String, dynamic> userMap, this.firebaseUser, {this.userCredential}) {

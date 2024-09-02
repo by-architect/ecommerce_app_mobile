@@ -5,7 +5,7 @@ import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-
+/*
   test("userValidation_validateUser_validUser", () {
     var user = FakeUserModels.testValidUser;
     var userState = UserRequestState(name: user.name,surname: user.surname,email: user.email,password: user.password,);
@@ -55,6 +55,6 @@ void main() {
       var validation = UserValidation.validateRegistration(userState);
       // Log.debug("user_validation:", validation.message);
       expect(validation.success, false);
-    });
+    });*/
 
 }

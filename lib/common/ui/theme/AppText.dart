@@ -162,6 +162,7 @@ class AppText {
   final String _text;
 
 
+
   const AppText(this._text); //common
 
   String get capitalizeFirstWord => StringHelper.capitalizeFirstWord(_text);
@@ -190,6 +191,7 @@ class AppText {
   static const unselected = AppText("Unselected");
   static const refresh = AppText("Refresh");
   static const done = AppText("Done");
+  static const save = AppText("Save");
   static const color = AppText("Color");
 
 // User
@@ -198,6 +200,8 @@ class AppText {
   static const age = AppText("Age");
   static const username = AppText("Username");
   static const password = AppText("Password");
+  static const oldPassword = AppText("Old Password");
+  static const newPassword = AppText("New Password");
   static const passwordConfirm = AppText("Confirm password");
   static const signIn = AppText("Sign in");
   static const signUp = AppText("Sign up");
@@ -234,6 +238,7 @@ class AppText {
   static const errorVerificationCodeIsWrong = AppText("Verification code is wrong, please check it again");
   static const errorSomethingWentWrong = AppText("Something went wrong");
   static const errorAuthenticate = AppText("Please authenticate again");
+  static const errorCouldNotChangedThePassword = AppText("Couldn't changed the password");
   static const errorEmailNotVerified = AppText("Email not verified");
   static const errorPasswordsAreNotMatching = AppText("Passwords are not matching");
   static const errorBirthYearIsNotValid = AppText("Please enter valid date of birth");
@@ -243,10 +248,12 @@ class AppText {
   static const errorTitleCanNotBeEmpty = AppText("Title can not be empty");
   static const errorContentCanNotBeEmpty = AppText("Content can not be empty");
   static const errorCategoriesNotFound = AppText("Categories not found, please try again later");
+  static const errorPasswordIsIncorrect = AppText("Password is incorrect");
 
   //info
   static const infoPleaseLoginToSeeYourCart = AppText("Please login to see your cart");
   static const infoPleaseLoginToSeeYourProfile = AppText("Please login to see your profile");
+  static const infoPasswordChangedSuccessfully = AppText("Password changed successfully");
 
 
 // Navigation
@@ -349,6 +356,9 @@ class AppText {
   static const profilePageHelpAndSupport = AppText("Help & Support");
   static const profilePageVerifyEmailText = AppText("Your email is not verified yet");
   static const profilePageVerifyNow = AppText("Verify now");
+
+  //change password
+  static const changePasswordPageChangePassword = AppText("Change Password");
 
 
 // Pages Common

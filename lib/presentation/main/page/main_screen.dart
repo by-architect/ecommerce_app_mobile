@@ -81,6 +81,7 @@ class _MainScreenState extends State<MainScreen> {
                     child: Scaffold(
                   resizeToAvoidBottomInset: false,
                   appBar: AppBarMain(
+                    user: state.userStatus.user,
                     features: state.features,
                     categories: state.categories,
                   ),

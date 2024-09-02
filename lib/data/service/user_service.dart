@@ -15,7 +15,7 @@ abstract class UserService {
   bool isUserAuthenticated();
   Future<ResourceStatus<User>> signIn(UserRequestState userRequest); //if token not exist, sign in
   Future<ResourceStatus> signOut();
-  Future<ResourceStatus> changePassword(User user);
+  Future<ResourceStatus> changePassword(User user,String oldPassword,String newPassword);
   Future<ResourceStatus<User>> changeUserSettings(User user);
   Future<ResourceStatus<User>> isEmailVerified();
 

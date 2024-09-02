@@ -5,6 +5,7 @@ import 'package:ecommerce_app_mobile/common/constant/firestore_collections.dart'
 import 'package:ecommerce_app_mobile/sddklibrary/constant/exceptions/exception_handler.dart';
 import 'package:ecommerce_app_mobile/common/constant/app_durations.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_state.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/constant/exceptions/firebase_exception_codes.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/fail.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/network_helper.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/resource.dart';
@@ -66,9 +67,35 @@ class UserServiceImpl extends UserService {
   }
 
   @override
-  Future<ResourceStatus> changePassword(User user) {
-    // TODO: implement changePassword
-    throw UnimplementedError();
+  Future<ResourceStatus> changePassword(User user, String oldPassword, String newPassword) async {
+    try {
+      var networkConnection = await NetworkHelper().isConnectedToNetwork();
+      if (!networkConnection.isConnected)
+        throw NetworkDeviceDisconnectedException("Network Device is down");
+
+      await user.firebaseUser.reauthenticateWithCredential(
+          firebase_auth.EmailAuthProvider.credential(email: user.email, password: oldPassword));
+
+      firebase_auth.User? firebaseUser = firebase_auth.FirebaseAuth.instance.currentUser;
+      if (firebaseUser == null) {
+        return ResourceStatus.fail(Fail(
+            userMessage: AppText.errorCouldNotChangedThePassword.capitalizeFirstWord,
+            exception: "Current user is Null",
+            stackTrace: StackTrace.current));
+      }
+
+      await firebaseUser.updatePassword(newPassword);
+      return const ResourceStatus.success("");
+    } catch (e, s) {
+      if (e is firebase_auth.FirebaseAuthException && e.code == FirebaseExceptions.invalidCredential) {
+        return ResourceStatus.fail(Fail(
+            userMessage: AppText.errorPasswordIsIncorrect.capitalizeFirstWord,
+            stackTrace: s,
+            exception: e,
+            errorCode: e.code));
+      }
+      return ExceptionHandler.firebaseResourceExceptionHandler(e, s);
+    }
   }
 
   @override

@@ -16,4 +16,9 @@ class Fail {
 
     Log.error(error: this,title: "Fail");
   }
+
+  @override
+  String toString() {
+    return 'Fail{userMessage: $userMessage, exception: $exception, errorCode: $errorCode, stackTrace: $stackTrace, dateTime: $dateTime}';
+  }
 }

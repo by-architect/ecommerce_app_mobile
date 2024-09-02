@@ -6,7 +6,6 @@ import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'exceptions.dart';
 import 'firebase_error_messages.dart';
 import '../../helper/helper.dart';
-import '../../util/Log.dart';
 import '../../util/fail.dart';
 import '../../util/resource.dart';
 import '../../../common/ui/theme/AppText.dart';
@@ -22,50 +21,50 @@ class ExceptionHandler extends FirebaseExceptions {
         case FirebaseExceptions.emailAlreadyInUse:
           return (ResourceStatus.fail(Fail(
               userMessage: FirebaseErrorMessages.errorFirebaseEmailAlreadyInUse,
-              exception: exception.message,
+              exception: exception,
               errorCode: exception.code,
               stackTrace: stackTrace)));
         case ExceptionHandler.nullUserId:
           return (ResourceStatus.fail(Fail(
               userMessage: AppText.errorFetchingData.capitalizeFirstWord,
-              exception: exception.message,
+              exception: exception,
               errorCode: exception.code,
               stackTrace: stackTrace)));
         case FirebaseExceptions.networkRequestFailed:
           return (ResourceStatus.fail(Fail(
               userMessage: FirebaseErrorMessages.errorFirebaseNetworkRequestFailed,
-              exception: exception.message,
+              exception: exception,
               errorCode: exception.code,
               stackTrace: stackTrace)));
         case FirebaseExceptions.invalidVerificationCode:
           return ResourceStatus.fail(Fail(
               userMessage: FirebaseErrorMessages.errorFirebaseInvalidVerificationCode,
-              exception: exception.message,
+              exception: exception,
               errorCode: exception.code,
               stackTrace: stackTrace));
         case FirebaseExceptions.appNotInstalled:
           return ResourceStatus.fail(Fail(
               userMessage: FirebaseErrorMessages.errorFirebaseAppNotInstalled,
-              exception: exception.message,
+              exception: exception,
               errorCode: exception.code,
               stackTrace: stackTrace));
         case FirebaseExceptions.wrongPassword:
           return ResourceStatus.fail(Fail(
               userMessage: FirebaseErrorMessages.errorFirebaseWrongPassword,
-              exception: exception.message,
+              exception: exception,
               errorCode: exception.code,
               stackTrace: stackTrace));
         default:
           if (Helper.systemLanguageCode == 'en') {
             return ResourceStatus.fail(Fail(
                 userMessage: exception.message ?? "",
-                exception: exception.message,
+                exception: exception,
                 errorCode: exception.code,
                 stackTrace: stackTrace));
           } else {
             return (ResourceStatus.fail(Fail(
                 userMessage: AppText.errorFetchingData.capitalizeFirstWord,
-                exception: exception.message,
+                exception: exception,
                 errorCode: exception.code,
                 stackTrace: stackTrace)));
           }
@@ -96,7 +95,7 @@ class ExceptionHandler extends FirebaseExceptions {
       // Log.error("Unknown Error", exception.toString());
       return (ResourceStatus.fail(Fail(
           userMessage: AppText.errorFetchingData.capitalizeFirstWord,
-          exception: exception.toString(),
+          exception: exception,
           stackTrace: stackTrace)));
     }
   }

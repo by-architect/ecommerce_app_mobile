@@ -38,19 +38,19 @@ class FakeUserModels {
     name: "test",
     surname: "test",
     email: "test",
-    password: "test",
+    password: "test", birthYear: '2001', gender: Gender.unselected, passwordConfirm: 'test',
   );
   static UserRequestState admin = UserRequestState(
     name: "admin",
     surname: "admin",
     email: "admin@mail.com",
-    password: "adminTest",
+    password: "adminTest", birthYear: '2000', gender: Gender.unselected, passwordConfirm: 'adminTest',
   );
   static UserRequestState testValidUser = UserRequestState(
     name: "admin",
     surname: "admin",
     email: "admin@mail.com",
-    password: "adminTest",
+    password: "adminTest", birthYear: "2001", gender: Gender.unselected, passwordConfirm: 'adminTest',
   );
 }
 
