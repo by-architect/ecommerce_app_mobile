@@ -32,7 +32,6 @@ class ChangePasswordScreen extends StatefulWidget {
 class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   @override
   void initState() {
-    BlocProvider.of<ChangePasswordBloc>(context).add(LoadUserStateEvent(widget.user));
     super.initState();
   }
 

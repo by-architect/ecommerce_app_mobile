@@ -23,20 +23,9 @@ class ChangePasswordBloc extends Bloc<ChangePasswordEvent, ChangePasswordState> 
         emit(state.copyWith(confirmPassword: event.confirmPassword));
       },
     );
-    on<LoadUserStateEvent>(
-      (event, emit) {
-        emit(ChangePasswordState.load(event.user.toUserState()));
-      },
-    );
     on<SaveEvent>(
       (event, emit) async {
         emit(ChangePasswordLoadingState(
-            name: state.name,
-            surname: state.surname,
-            email: state.email,
-            password: state.password,
-            birthYear: state.birthYear,
-            gender: state.gender,
             oldPassword: state.oldPassword,
             newPassword: state.newPassword,
             confirmPassword: state.confirmPassword));
@@ -44,12 +33,6 @@ class ChangePasswordBloc extends Bloc<ChangePasswordEvent, ChangePasswordState> 
         final resource = await service.changePassword(event.user, state.oldPassword, state.newPassword);
         resource.onSuccess((data) {
           emit(ChangePasswordSuccessState(
-              name: state.name,
-              surname: state.surname,
-              email: state.email,
-              password: state.password,
-              birthYear: state.birthYear,
-              gender: state.gender,
               oldPassword: state.oldPassword,
               newPassword: state.newPassword,
               confirmPassword: state.confirmPassword));
@@ -57,12 +40,6 @@ class ChangePasswordBloc extends Bloc<ChangePasswordEvent, ChangePasswordState> 
         resource.onFailure( (fail) {
           emit(ChangePasswordFailState(
               fail: resource.error!,
-              name: state.name,
-              surname: state.surname,
-              email: state.email,
-              password: state.password,
-              birthYear: state.birthYear,
-              gender: state.gender,
               oldPassword: state.oldPassword,
               newPassword: state.newPassword,
               confirmPassword: state.confirmPassword));

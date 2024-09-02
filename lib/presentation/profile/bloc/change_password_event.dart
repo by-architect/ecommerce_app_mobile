@@ -3,11 +3,6 @@ import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_state
 import '../../../data/model/user.dart';
 
 class ChangePasswordEvent{}
-class LoadUserStateEvent extends ChangePasswordEvent{
-  final User user;
-
-  LoadUserStateEvent(this.user);
-}
 class OldPasswordEvent extends ChangePasswordEvent{
   final String oldPassword;
 
