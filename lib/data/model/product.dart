@@ -1,80 +1,52 @@
 import 'package:ecommerce_app_mobile/data/model/categories.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/constant/exceptions/exceptions.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/resource.dart';
 
 import 'category_node.dart';
 
 class Product {
-  late final String productId;
+  late final String id;
   late final String name;
   late final String categoryId;
-
   late final String info;
   late final String returns;
-  late final double cargoPrice;
+  late final double? cargoPrice;
   late final String? brandName;
   late final List<String> images;
-  late final int buyTimes;
-
-  ///product list
-  late final DateTime addedTime;
-  late final DateTime modifiedTime;
-  late final int totalCount;
-  late final String barcode;
-  late final String id;
-  late final double price;
-  late final List<String> featureOptionIds;
-  late final double? discount;
-
-  int? get discountPercent => discount == null ? null : ((discount! / price) * 100).toInt();
-
-  bool get availableInStock => totalCount != 0;
-
-  double? get priceAfterDiscounting => discount == null ? null : (price - discount!);
+  late final SubProducts subProducts;
 
   String get firstImageOrEmpty => images.firstOrNull ?? "";
+
   String get brandNameOrEmpty => brandName ?? "";
 
   Product(
-      {required this.productId,
+      {required this.id,
       required this.name,
-      required this.buyTimes,
-      required this.addedTime,
       required this.categoryId,
       required this.info,
-      required this.modifiedTime,
       required this.cargoPrice,
       required this.returns,
-      required this.totalCount,
-      required this.barcode,
       required this.images,
-      required this.id,
-      required this.featureOptionIds,
-      required this.price,
-      required this.discount,
-      this.brandName});
+      this.brandName,
+      required this.subProducts});
 
   Product.fromMap(Map<String, dynamic> map) {
-    productId = map['productId'];
+/*
+    id = map['productId'];
     name = map['name'];
-    buyTimes = map['buyTimes'];
-    addedTime = map['addedTime'];
     categoryId = map['categoryId'];
     info = map['explanation'];
-    modifiedTime = map['modifiedTime'];
     cargoPrice = map['cargoPrice'];
     returns = map['returns'];
-    totalCount = map['totalCount'];
     id = map['id'];
-    barcode = map['barcode'];
-    price = map['price'];
-    discount = map['discount'];
     brandName = map['brandName'];
 
     images = map['images'] as List<String>;
     //todo: get the image from server
+*/
 
-    featureOptionIds = map['feature'] as List<String>;
+    // featureOptionIds = map['feature'] as List<String>;
 
 /*
     list.forEach((item) {
@@ -109,12 +81,114 @@ class Product {
     };
   }
 
-  ResourceStatus<CategoryNode> categoryNode(Categories categories) => categories.getNodeFromLastCategoryId(categoryId);
-
-  // ResourceStatus<List<Category>> categoryNode(Categories categories) => categories.getNodeFromLastCategoryId(categoryId);
+  ResourceStatus<CategoryNode> categoryNode(Categories categories) =>
+      categories.getNodeFromLastCategoryId(categoryId);
 
   @override
   String toString() {
-    return 'Product{productId: $productId, name: $name, categoriesId: $categoryId, barcode: $barcode explanation: $info, cargoPrice: $cargoPrice, totalCount: $totalCount, id: $id, price: $price,  discount: $discount}';
+    return 'Product{id: $id,\n'
+        ' name: $name,\n'
+        ' categoryId: $categoryId,\n'
+        ' info: $info,\n'
+        ' returns: $returns,\n'
+        ' cargoPrice: $cargoPrice,\n'
+        ' brandName: $brandName,\n'
+        ' images: $images,\n'
+        ' subProducts: $subProducts}\n';
+  }
+}
+
+class SubProduct {
+  final String id;
+  final String productId;
+  final String barcode;
+  final DateTime addedDate;
+  final DateTime modifiedDate;
+  final int quantity;
+  final double price;
+  final double discount;
+  final List<String> productFeatureOptionIds;
+
+  SubProduct(
+      {required this.id,
+      required this.productId,
+      required this.barcode,
+      required this.addedDate,
+      required this.modifiedDate,
+      required this.quantity,
+      required this.price,
+      required this.discount,
+      required this.productFeatureOptionIds});
+
+  int get discountPercent => discount == 0 ? 0 : ((discount / price) * 100).toInt();
+
+  bool get availableInStock => quantity != 0;
+
+  double get priceAfterDiscounting => discount == 0 ? price : (price - discount);
+
+  @override
+  String toString() {
+    return 'SubProduct{id: $id,\n'
+        ' productId: $productId,\n'
+        ' barcode: $barcode,\n'
+        ' addedDate: $addedDate,\n'
+        ' modifiedDate: $modifiedDate,\n'
+        ' quantity: $quantity,\n'
+        ' price: $price,\n'
+        ' discount: $discount,\n'
+        ' productFeatureOptionIds: $productFeatureOptionIds\n'
+        '}\n';
+  }
+}
+
+class SubProducts {
+  late final List<SubProduct> _subProducts;
+
+  SubProducts(this._subProducts);
+
+  SubProducts.empty() {
+    _subProducts = [];
+  }
+
+  bool get availableInStock => getIdealSubProduct.availableInStock;
+
+  List<SubProduct> get get => _subProducts;
+
+  SubProduct get getIdealSubProduct {
+    if (_subProducts.isEmpty)
+      throw NullDataException("Sub products have an empty list, couldn't get idealSubProduct");
+    SubProduct? highDiscountedProduct = _subProducts.first;
+    SubProduct lowPricedProduct = _subProducts.first;
+    for (var subProduct in _subProducts) {
+      final discountPercent = subProduct.discountPercent;
+      final highDiscountPercent = highDiscountedProduct?.discountPercent;
+      if (lowPricedProduct.price > subProduct.price) lowPricedProduct = subProduct;
+      if (discountPercent == 0) continue;
+      if (highDiscountedProduct == null ||
+          highDiscountPercent == null ||
+          highDiscountPercent < discountPercent) {
+        highDiscountedProduct = subProduct;
+        continue;
+      }
+    }
+    if (highDiscountedProduct == null) {
+      return lowPricedProduct;
+    } else {
+      return highDiscountedProduct;
+    }
+  }
+
+ static List<SubProduct> getSubProductsWhichContainsOption(String optionId,
+      List<SubProduct> subProductList) {
+    return subProductList
+            .where(
+              (subProduct) => subProduct.productFeatureOptionIds.contains(optionId),
+            )
+            .toList();
+  }
+
+  @override
+  String toString() {
+    return 'SubProducts{_subProducts: $_subProducts}';
   }
 }

@@ -50,6 +50,7 @@ class _HomeFormState extends State<HomeForm> {
                 ),
                 SliverToBoxAdapter(
                   child: ProductsHorizontalWidget(
+                    productFeatures: widget.productFeatures,
                     products: state.lastAddedProducts,
                     title: AppText.homePageNewProducts.capitalizeEveryWord,
                     isLoading: state is ProductsLoadingState,
@@ -57,6 +58,7 @@ class _HomeFormState extends State<HomeForm> {
                 ),
                 SliverToBoxAdapter(
                   child: ProductsHorizontalWidget(
+                    productFeatures: widget.productFeatures,
                     products: state.bestSellerProducts,
                     title: AppText.homePageBestSellerProducts.capitalizeEveryWord,
                     isLoading: state is ProductsLoadingState,
@@ -64,6 +66,7 @@ class _HomeFormState extends State<HomeForm> {
                 ),
                 SliverToBoxAdapter(
                   child: ProductsHorizontalWidget(
+                    productFeatures: widget.productFeatures,
                     products: state.discountedProducts,
                     title: AppText.homePageDiscountProducts.capitalizeEveryWord,
                     isLoading: state is ProductsLoadingState,

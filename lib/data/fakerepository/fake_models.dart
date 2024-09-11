@@ -8,8 +8,8 @@ import 'package:ecommerce_app_mobile/data/model/recent_search.dart';
 import 'package:ecommerce_app_mobile/data/model/review.dart';
 import 'package:ecommerce_app_mobile/data/model/user.dart';
 import 'package:ecommerce_app_mobile/presentation/home/constant/banner_style.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 
 import '../../common/constant/gender.dart';
 import '../../presentation/authentication/bloc/user_state.dart';
@@ -34,24 +34,26 @@ class FakeUserModels {
     2000,
     Gender.man,
   );
+/*
   static UserRequestState test = UserRequestState(
     name: "test",
     surname: "test",
     email: "test",
-    password: "test", birthYear: '2001', gender: Gender.unselected, passwordConfirm: 'test',
+    password: "test", birthYear: '', gender: null,
   );
   static UserRequestState admin = UserRequestState(
     name: "admin",
     surname: "admin",
     email: "admin@mail.com",
-    password: "adminTest", birthYear: '2000', gender: Gender.unselected, passwordConfirm: 'adminTest',
+    password: "adminTest",
   );
   static UserRequestState testValidUser = UserRequestState(
     name: "admin",
     surname: "admin",
     email: "admin@mail.com",
-    password: "adminTest", birthYear: "2001", gender: Gender.unselected, passwordConfirm: 'adminTest',
+    password: "adminTest",
   );
+*/
 }
 
 class FakeProductModels {
@@ -90,20 +92,20 @@ class FakeProductModels {
   static final ProductFeatureOption _option6 = ProductFeatureOption("5", Colors.green.value.toString());
 
   static final ProductFeatureOption _optionUnselected = ProductFeatureOption("unselected", "Unselected");
-  static ProductFeature productFeatureMaterial = ProductFeature(
+  static final ProductFeature productFeatureMaterial = ProductFeature(
     id: "2",
     name: "Material",
     options: [_option7, _option8, _option9],
     productFeatureType: ProductFeatureType.text,
   );
 
-  static ProductFeature productFeatureSize = ProductFeature(
+  static final ProductFeature productFeatureSize = ProductFeature(
     id: "0",
     name: "Size",
     options: [_option1, _option2, _option3],
     productFeatureType: ProductFeatureType.character,
   );
-  static ProductFeature productFeatureColor = ProductFeature(
+  static final ProductFeature productFeatureColor = ProductFeature(
       id: "1",
       name: "Color",
       options: [_option4, _option5, _option6],
@@ -253,99 +255,186 @@ class FakeProductModels {
   static const productDemoImg5 = "https://i.imgur.com/MsppAcx.png";
   static const productDemoImg6 = "https://i.imgur.com/JfyZlnO.png";
 
-  static Product product1 = Product(
-      addedTime: DateTime.now(),
-      modifiedTime: DateTime.now(),
-      buyTimes: 10,
-      returns: productPageReturnText,
+  static SubProduct subProduct1 = SubProduct(
+      id: "100",
       productId: "0",
+      barcode: "4203854832",
+      addedDate: DateTime.now(),
+      modifiedDate: DateTime.now(),
+      quantity: 4,
+      price: 500,
+      discount: 0,
+      productFeatureOptionIds: ["0", "3", "7"]);
+  static SubProduct subProduct2 = SubProduct(
+      id: "101",
+      productId: "0",
+      barcode: "4203854832",
+      addedDate: DateTime.now(),
+      modifiedDate: DateTime.now(),
+      quantity: 4,
+      price: 500,
+      discount: 0,
+      productFeatureOptionIds: ["0", "3", "8"]);
+  static SubProduct subProduct3 = SubProduct(
+      id: "102",
+      productId: "0",
+      barcode: "4203854832",
+      addedDate: DateTime.now(),
+      modifiedDate: DateTime.now(),
+      quantity: 4,
+      price: 500,
+      discount: 0,
+      productFeatureOptionIds: ["0", "3", "6"]);
+  static SubProduct subProduct4 = SubProduct(
+      id: "103",
+      productId: "0",
+      barcode: "4203854832",
+      addedDate: DateTime.now(),
+      modifiedDate: DateTime.now(),
+      quantity: 4,
+      price: 500,
+      discount: 0,
+      productFeatureOptionIds: ["0", "5", "6"]);
+
+  static SubProduct subProduct5 = SubProduct(
+      id: "104",
+      productId: "0",
+      barcode: "4203854832",
+      addedDate: DateTime.now(),
+      modifiedDate: DateTime.now(),
+      quantity: 4,
+      price: 500,
+      discount: 0,
+      productFeatureOptionIds: ["0", "5", "7"]);
+  static SubProduct subProduct6 = SubProduct(
+      id: "105",
+      productId: "0",
+      barcode: "4203854832",
+      addedDate: DateTime.now(),
+      modifiedDate: DateTime.now(),
+      quantity: 4,
+      price: 500,
+      discount: 0,
+      productFeatureOptionIds: ["0", "5", "6"]);
+  static SubProduct subProduct7 = SubProduct(
+      id: "106",
+      productId: "0",
+      barcode: "4203854832",
+      addedDate: DateTime.now(),
+      modifiedDate: DateTime.now(),
+      quantity: 4,
+      price: 500,
+      discount: 0,
+      productFeatureOptionIds: ["2", "4", "8"]);
+  static SubProduct subProduct8 = SubProduct(
+      id: "0",
+      productId: "0",
+      barcode: "4203854832",
+      addedDate: DateTime.now(),
+      modifiedDate: DateTime.now(),
+      quantity: 4,
+      price: 500,
+      discount: 0,
+      productFeatureOptionIds: ["0", "3", "7"]);
+
+  static List<SubProduct> _subProductList(int count, int productId) {
+    List<SubProduct> subProductList = [];
+    for (int i = 0; i < count; i++) {
+      final index = i * (productId + 1);
+      String id = index.toString();
+      String barcode = "420385483${index % 10}"; // Simple barcode generation for uniqueness
+      DateTime now = DateTime.now();
+      double price = 100 + (index * 10);
+      double discount = index % 6 == 3 ? price / (index + 1) : 0;
+
+      // Randomly selecting feature options (sizes, colors, materials)
+      String materialOptionId =
+          productFeatureMaterial.options[(index % productFeatureMaterial.options.length)].id;
+      String colorOptionId =
+          productFeatureColor.options[(index % productFeatureColor.options.length)].id;
+      String sizeOptionId = productFeatureSize.options[index % productFeatureMaterial.options.length].id;
+
+      subProductList.add(SubProduct(
+        id: id,
+        productId: productId.toString(),
+        barcode: barcode,
+        addedDate: now,
+        modifiedDate: now,
+        quantity: 5 + (index % 5),
+        // Random quantity between 5 to 9
+        price: price,
+        // Incremental price for variety
+        discount: discount,
+        // Assuming no discount
+        productFeatureOptionIds: [sizeOptionId, colorOptionId, materialOptionId],
+      ));
+    }
+    return subProductList;
+  }
+
+  static Product product1 = Product(
+      returns: productPageReturnText,
+      id: "0",
       name: "Nike Ayakkabı",
       categoryId: "1",
       info: "Mükemmel ayakkabı",
       cargoPrice: 34.2,
-      totalCount: 5,
-      barcode: "3204832",
-      id: "0",
       images: [productDemoImg1, productDemoImg2, productDemoImg3],
-      price: 54,
-      featureOptionIds: [_option4.id, _option2.id],
-      discount: 0,
-      brandName: "Nike");
+      brandName: "Nike",
+      subProducts: SubProducts([
+        subProduct1,
+        subProduct2,
+        subProduct3,
+        subProduct4,
+        subProduct5,
+        subProduct6,
+        subProduct7,
+        subProduct8,
+
+      ]));
 
   static Product product2 = Product(
-      addedTime: DateTime.now(),
-      modifiedTime: DateTime.now(),
-      buyTimes: 10,
       returns: "This product has not returns",
-      productId: "1",
+      id: "1",
       name: "Adidas Sandalet",
       categoryId: "12",
       info: "Rahat sandalet",
       cargoPrice: 20.0,
-      totalCount: 10,
-      barcode: "7842394",
       images: [productDemoImg4, productDemoImg5, productDemoImg6],
-      id: "1",
-      price: 40,
-      featureOptionIds: [_option2.id, _option5.id],
-      discount: 5,
+      subProducts: SubProducts(_subProductList(5, 1)),
       brandName: "Adidas");
 
   static Product product3 = Product(
-      addedTime: DateTime.now(),
-      modifiedTime: DateTime.now(),
-      buyTimes: 10,
       returns: "This product has not returns",
-      productId: "2",
+      id: "2",
       name: "Clarks Kundura",
       categoryId: "13",
       info: "Şık kundura",
       cargoPrice: 25.0,
-      totalCount: 8,
       images: [productDemoImg1, productDemoImg2, productDemoImg3],
-      barcode: "9082345",
-      id: "2",
-      price: 80,
-      featureOptionIds: [_option3.id, _option6.id],
-      discount: 10,
+      subProducts: SubProducts(_subProductList(5, 2)),
       brandName: "Clarks");
 
   static Product product4 = Product(
-      addedTime: DateTime.now(),
-      modifiedTime: DateTime.now(),
-      buyTimes: 10,
       returns: productPageReturnText,
-      productId: "3",
+      id: "3",
       name: "Timberland Bot",
       categoryId: "14",
       info: "Dayanıklı bot",
       cargoPrice: 30.0,
-      totalCount: 12,
-      barcode: "1298472",
       images: [productDemoImg4, productDemoImg5, productDemoImg6],
-      id: "3",
-      price: 100,
-      featureOptionIds: [_option1.id, _option5.id],
-      discount: 15,
+      subProducts: SubProducts(_subProductList(5, 3)),
       brandName: "Timberland");
 
   static Product product5 = Product(
-      addedTime: DateTime.now(),
-      modifiedTime: DateTime.now(),
-      buyTimes: 10,
       returns: productPageReturnText,
-      productId: "4",
+      id: "4",
       name: "Deri Bot",
       categoryId: "15",
       info: "Kaliteli deri bot",
       cargoPrice: 40.0,
-      totalCount: 6,
-      barcode: "9832745",
       images: [productDemoImg1, productDemoImg2, productDemoImg3],
-      id: "4",
-      price: 120,
-      featureOptionIds: [_option3.id, _option6.id],
-      discount: 20,
+      subProducts: SubProducts(_subProductList(5, 4)),
       brandName: "Derimod");
 
 /*

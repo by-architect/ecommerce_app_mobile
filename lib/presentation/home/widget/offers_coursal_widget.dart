@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:ecommerce_app_mobile/common/constant/Screens.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/fakerepository/fake_models.dart';
@@ -9,6 +8,7 @@ import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
 import 'package:ecommerce_app_mobile/presentation/home/widget/offers_skeleton.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/prodcut_list_screen_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/product_list_screen_event.dart';
+import 'package:ecommerce_app_mobile/presentation/products/page/product_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -34,6 +34,7 @@ class OffersCarouselAndCategories extends StatelessWidget {
         isLoading
             ? const OffersSkeleton()
             : OffersCarousel(
+          features: features,
                 bannerList: bannerList,
               ),
         const SizedBox(height: AppSizes.spaceBtwVerticalFields),
@@ -55,10 +56,11 @@ class OffersCarouselAndCategories extends StatelessWidget {
 
 class OffersCarousel extends StatefulWidget {
   final List<BannerModel> bannerList;
+  final ProductFeatures features;
 
   const OffersCarousel({
     super.key,
-    required this.bannerList,
+    required this.bannerList, required this.features,
   });
 
   @override
@@ -117,7 +119,7 @@ class _OffersCarouselState extends State<OffersCarousel> {
               (banner) {
                 BlocProvider.of<ProductScreenBloc>(context).add(AddTagEvent([banner.tag]));
                 BlocProvider.of<ProductScreenBloc>(context).add(GetProductsEvent());
-                Navigator.of(context).pushNamed(Screens.productScreen);
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProductListScreen(productFeatures: widget.features),));
               },
             ),
           ),

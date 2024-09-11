@@ -2,6 +2,7 @@ import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/model/product.dart';
+import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
 import 'package:ecommerce_app_mobile/presentation/common/skeleton/product_card_skeleton.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_event.dart';
@@ -9,11 +10,10 @@ import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_
 import 'package:ecommerce_app_mobile/presentation/products/page/product_details_bottom_sheet.dart';
 import 'package:ecommerce_app_mobile/presentation/products/page/product_returns_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/products/page/reviews_screen.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../common/constant/Screens.dart';
+import '../../../data/model/product_feature_selection_handler.dart';
 import '../../common/widgets/product_card.dart';
 import '../widget/button_cart_buy.dart';
 import '../widget/custom_modal_bottom_sheet.dart';
@@ -28,10 +28,12 @@ class ProductDetailsScreen extends StatefulWidget {
     super.key,
     this.previousProduct,
     required this.product,
+    required this.productFeatures,
   });
 
   final Product? previousProduct;
   final Product product;
+  final ProductFeatures productFeatures;
 
   @override
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
@@ -40,34 +42,47 @@ class ProductDetailsScreen extends StatefulWidget {
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> with WidgetsBindingObserver {
   @override
   void initState() {
-    BlocProvider.of<ProductDetailsBloc>(context).add(GetReviewsEvent(widget.product.productId));
-    BlocProvider.of<ProductDetailsBloc>(context).add(GetProductDetailsEvent(widget.product.productId));
+    BlocProvider.of<ProductDetailsBloc>(context).add(GetReviewsEvent(widget.product.id));
+    BlocProvider.of<ProductDetailsBloc>(context).add(GetProductDetailsEvent(widget.product.id));
     BlocProvider.of<ProductDetailsBloc>(context).add(GetYouMayAlsoLikeEvent(widget.product.categoryId));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final SubProduct idealSubProduct = widget.product.subProducts.getIdealSubProduct;
+    ProductFeatureSelectionHandler productFeatureSelectionHandler = ProductFeatureSelectionHandler(
+        widget.productFeatures.getProductFeaturesFromSubProduct(idealSubProduct));
+    BlocProvider.of<ProductDetailsBloc>(context).add(GetProductFeaturesEvent(
+        productFeatureSelectionHandler.productFeaturesOfSelectedProduct,
+        widget.product.subProducts,
+        idealSubProduct));
     return BlocBuilder<ProductDetailsBloc, ProductDetailsState>(
       builder: (BuildContext context, ProductDetailsState state) => PopScope(
         canPop: true,
         onPopInvoked: (didPop) {
           if (widget.previousProduct != null) {
-            BlocProvider.of<ProductDetailsBloc>(context).add(GetReviewsEvent(widget.previousProduct!.productId));
-            BlocProvider.of<ProductDetailsBloc>(context).add(GetYouMayAlsoLikeEvent(widget.previousProduct!.categoryId));
-            BlocProvider.of<ProductDetailsBloc>(context).add(GetProductDetailsEvent(widget.previousProduct!.productId));
+            BlocProvider.of<ProductDetailsBloc>(context)
+                .add(GetReviewsEvent(widget.previousProduct!.id));
+            BlocProvider.of<ProductDetailsBloc>(context)
+                .add(GetYouMayAlsoLikeEvent(widget.previousProduct!.categoryId));
+            BlocProvider.of<ProductDetailsBloc>(context)
+                .add(GetProductDetailsEvent(widget.previousProduct!.id));
           }
         },
         child: Scaffold(
-          bottomNavigationBar: widget.product.availableInStock
+          bottomNavigationBar: widget.product.subProducts.availableInStock
               ? ButtonCartBuy(
-                  price: 140,
+                  price: widget.product.subProducts.getIdealSubProduct.priceAfterDiscounting,
                   press: () {
                     customModalBottomSheet(
                       context,
                       height: MediaQuery.of(context).size.height * 0.92,
                       child: ProductBuyNowScreen(
+                        idealSubProduct: idealSubProduct,
+                        productFeatureSelectionHandler: productFeatureSelectionHandler,
                         product: widget.product,
+                        productFeatures: widget.productFeatures,
                       ),
                     );
                   },
@@ -95,7 +110,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> with Widget
                 ProductInfo(
                   brand: widget.product.brandNameOrEmpty,
                   title: widget.product.name,
-                  isAvailable: widget.product.availableInStock,
+                  isAvailable: widget.product.subProducts.availableInStock,
                   description: widget.product.info,
                   rating: state.reviews.ratingString,
                   numOfReviews: state.reviews.count,
@@ -160,7 +175,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> with Widget
                     isShowBottomBorder: true,
                     press: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => ReviewsScreen(reviews: state.reviews, product: widget.product,),
+                        builder: (context) => ReviewsScreen(
+                          reviews: state.reviews,
+                          product: widget.product,
+                        ),
                       ));
                     },
                   ),
@@ -181,10 +199,13 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> with Widget
                       scrollDirection: Axis.horizontal,
                       itemCount: state is YouMayAlsoLikeLoadingState ? 10 : state.youMayAlsoLike.length,
                       itemBuilder: (context, index) => Padding(
-                        padding: EdgeInsets.only(left: AppSizes.defaultPadding, right: index == 4 ? AppSizes.defaultPadding : 0),
+                        padding: EdgeInsets.only(
+                            left: AppSizes.defaultPadding,
+                            right: index == 4 ? AppSizes.defaultPadding : 0),
                         child: state is YouMayAlsoLikeLoadingState
                             ? const ProductCardSkeleton()
                             : ProductCard(
+                                productFeatures: widget.productFeatures,
                                 product: state.youMayAlsoLike[index],
                                 previousProduct: widget.product,
                               ),

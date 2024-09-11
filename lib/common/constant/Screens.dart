@@ -5,7 +5,7 @@ class Screens{
   static const mainScreen = "homeScreen";
 
   // static const searchScreen = "searchScreen";
- static const productScreen = "productScreen";
+ // static const productScreen = "productScreen";
 
 
  //todo:unimplemented

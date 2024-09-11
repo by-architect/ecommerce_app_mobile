@@ -188,6 +188,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                 crossAxisSpacing: 10,
                               ),
                               itemBuilder: (context, index) => ProductCard(
+                                productFeatures: widget.features,
                                 product: state.products[index],
                               ),
                             ),

@@ -1,4 +1,8 @@
+import 'package:ecommerce_app_mobile/data/model/product.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
+import 'package:ecommerce_app_mobile/data/model/product_feature_selection_handler.dart';
+import 'package:ecommerce_app_mobile/data/model/product_feature_with_selected_option.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -10,20 +14,23 @@ import 'check_mark.dart';
 class ProductFeatureWidget extends StatefulWidget {
   const ProductFeatureWidget({
     super.key,
-    required this.productFeature,
     required this.onSelected,
+    required this.options,
   });
 
-  final ProductFeature productFeature;
-  final Function(ProductFeatureOption?) onSelected;
+  final ProductFeatureRowModel options;
+  final Function(ProductFeatureOptionModel, int) onSelected;
+
+/*
+  final int columnIndex;
+  final SubProducts subProducts;
+*/
 
   @override
   State<ProductFeatureWidget> createState() => _ProductFeatureWidgetState();
 }
 
 class _ProductFeatureWidgetState extends State<ProductFeatureWidget> {
-  ProductFeatureOption? selectedOption;
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -32,32 +39,28 @@ class _ProductFeatureWidgetState extends State<ProductFeatureWidget> {
         Padding(
           padding: const EdgeInsets.all(AppSizes.defaultPadding),
           child: Text(
-            widget.productFeature.name,
-            style: Theme
-                .of(context)
-                .textTheme
-                .titleSmall,
+            widget.options.feature.name,
+            style: Theme.of(context).textTheme.titleSmall,
           ),
         ),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
             children: List.generate(
-              widget.productFeature.options.length,
-                  (index) =>
-                  Padding(
-                    padding: EdgeInsets.only(left: index == 0 ? AppSizes.defaultPadding : AppSizes.defaultPadding / 2),
-                    child: _OptionItem(
-                      isActive: selectedOption == widget.productFeature.options[index],
-                      onSelected: () {
-                        widget.onSelected(widget.productFeature.options[index]);
-                        setState(() {
-                          selectedOption = widget.productFeature.options[index];
-                        });
-                      },
-                      productFeatureOption: widget.productFeature.options[index], featureType: widget.productFeature.productFeatureType,
-                    ),
-                  ),
+              widget.options.optionRow.length,
+              (rowIndex) => Padding(
+                padding: EdgeInsets.only(
+                    left: rowIndex == 0 ? AppSizes.defaultPadding : AppSizes.defaultPadding / 2),
+                child: _OptionItem(
+                  isSelected: widget.options.optionRow[rowIndex].selected,
+                  onSelected: () {
+                    widget.onSelected(widget.options.optionRow[rowIndex], rowIndex);
+                  },
+                  productFeatureOption: widget.options.optionRow[rowIndex].option,
+                  featureType:widget.options.feature.productFeatureType,
+                  isEnabled: widget.options.optionRow[rowIndex].enabled,
+                ),
+              ),
             ),
           ),
         )
@@ -70,13 +73,16 @@ class _OptionItem extends StatelessWidget {
   const _OptionItem({
     required this.onSelected,
     required this.productFeatureOption,
-    required this.isActive, required this.featureType,
+    required this.isSelected,
+    required this.featureType,
+    required this.isEnabled,
   });
 
   final ProductFeatureOption productFeatureOption;
   final VoidCallback onSelected;
-  final bool isActive;
+  final bool isSelected;
   final ProductFeatureType featureType;
+  final bool isEnabled;
 
   @override
   Widget build(BuildContext context) {
@@ -86,25 +92,23 @@ class _OptionItem extends StatelessWidget {
           height: 40,
           child: IntrinsicWidth(
             child: OutlinedButton(
-              onPressed: onSelected,
+              onPressed: isEnabled ? onSelected : null,
               style: OutlinedButton.styleFrom(
+                disabledBackgroundColor: AppColors.greyColor,
+                disabledForegroundColor: AppColors.greyColor,
                 padding: EdgeInsets.zero,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSizes.defaultBorderRadius)),
-                side: isActive ? BorderSide(color: Theme
-                    .of(context)
-                    .primaryColor) : null,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(AppSizes.defaultBorderRadius)),
+                side: isSelected ? BorderSide(color: Theme.of(context).primaryColor) : null,
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding),
                 child: Text(
                   productFeatureOption.name,
-                  style: TextStyle(color: isActive ? Theme
-                      .of(context)
-                      .primaryColor : Theme
-                      .of(context)
-                      .textTheme
-                      .bodyLarge!
-                      .color),
+                  style: TextStyle(
+                      color: isSelected
+                          ? Theme.of(context).primaryColor
+                          : Theme.of(context).textTheme.bodyLarge!.color),
                 ),
               ),
             ),
@@ -115,46 +119,43 @@ class _OptionItem extends StatelessWidget {
           height: 40,
           width: 40,
           child: OutlinedButton(
-            onPressed: onSelected,
+            onPressed: isEnabled ? onSelected : null,
             style: OutlinedButton.styleFrom(
+              disabledBackgroundColor: AppColors.greyColor,
+              disabledForegroundColor: AppColors.greyColor,
               padding: EdgeInsets.zero,
               shape: const CircleBorder(),
-              side: isActive ? BorderSide(color: Theme
-                  .of(context)
-                  .primaryColor) : null,
+              side: isSelected ? BorderSide(color: Theme.of(context).primaryColor) : null,
             ),
             child: Text(
               productFeatureOption.name.toUpperCase(),
-              style: TextStyle(color: isActive ? Theme
-                  .of(context)
-                  .primaryColor : Theme
-                  .of(context)
-                  .textTheme
-                  .bodyLarge!
-                  .color),
+              style: TextStyle(
+                  color: isSelected
+                      ? Theme.of(context).primaryColor
+                      : Theme.of(context).textTheme.bodyLarge!.color),
             ),
           ),
         );
       case ProductFeatureType.color:
         return GestureDetector(
-          onTap: onSelected,
+          onTap: isEnabled ? onSelected : null,
           child: AnimatedContainer(
             duration: AppDurations.defaultDuration,
-            padding: EdgeInsets.all(isActive ? AppSizes.defaultPadding / 4 : 0),
+            padding: EdgeInsets.all(isSelected ? AppSizes.defaultPadding / 4 : 0),
             height: 40,
             width: 40,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              border: Border.all(color: isActive ? AppColors.primaryColor : Colors.transparent),
+              border: Border.all(color: isSelected ? AppColors.primaryColor : Colors.transparent),
             ),
             child: Stack(
               alignment: Alignment.center,
               children: [
                 CircleAvatar(
-                  backgroundColor: productFeatureOption.color,
+                  backgroundColor:isEnabled ? productFeatureOption.color : AppColors.greyColor,
                 ),
                 AnimatedOpacity(
-                  opacity: isActive ? 1 : 0,
+                  opacity: isSelected ? 1 : 0,
                   duration: AppDurations.defaultDuration,
                   child: const CheckMark(),
                 ),
@@ -167,5 +168,3 @@ class _OptionItem extends StatelessWidget {
 */
   }
 }
-
-

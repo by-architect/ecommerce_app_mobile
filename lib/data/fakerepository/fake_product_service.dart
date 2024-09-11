@@ -6,7 +6,6 @@ import 'package:ecommerce_app_mobile/data/model/product.dart';
 import 'package:ecommerce_app_mobile/data/model/product_details_item.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
 import 'package:ecommerce_app_mobile/data/model/recent_search.dart';
-import 'package:ecommerce_app_mobile/data/model/review.dart';
 import 'package:ecommerce_app_mobile/data/service/product_service.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/fail.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/resource.dart';
@@ -20,7 +19,7 @@ class FakeProductService implements ProductService {
 
   @override
   Future<ResourceStatus<List<Category>>> getCategories() async {
-    // await Future.delayed(const Duration(seconds: 3));
+    // await Future.delayed(const Duration(seconds: 2));
     List<Category> categories = [
       FakeProductModels.category1,
       FakeProductModels.category2,
@@ -51,14 +50,12 @@ class FakeProductService implements ProductService {
   @override
   Future<ResourceStatus<ProductFeatures>> getProductFeatures() async {
     await Future.delayed(const Duration(seconds: 2));
-    // return ResourceStatus.fail(Fail(userMessage: "Fake product service fail situation"));
     return ResourceStatus.success(FakeProductModels.productFeatures);
     return random.nextBool()
         ? ResourceStatus.success(FakeProductModels.productFeatures)
         : ResourceStatus.fail(Fail(userMessage: "Fake product service fail situation"));
   }
 
-/*
   @override
   Future<ResourceStatus<List<Product>>> getProducts() async {
     await Future.delayed(const Duration(seconds: 2));
@@ -67,7 +64,6 @@ class FakeProductService implements ProductService {
         ? ResourceStatus.success(productList)
         : ResourceStatus.fail(Fail(userMessage: "Fake product service fail situation"));
   }
-*/
 
   @override
   Future<ResourceStatus<List<Product>>> getProductsByCategory(String categoryId) async {
@@ -129,7 +125,7 @@ class FakeProductService implements ProductService {
   @override
   Future<ResourceStatus<List<Product>>> getProductByDiscount(int count) async {
     // await Future.delayed(const Duration(seconds: 2));
-    final List<Product> products = FakeProductModels.products.where((product) => product.discount != 0).toList();
+    final List<Product> products = FakeProductModels.products.where((product) => product.subProducts.getIdealSubProduct.discount != 0).toList();
     return ResourceStatus.success(products);
   }
 

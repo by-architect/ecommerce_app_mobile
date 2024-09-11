@@ -1,4 +1,5 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
+import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
 import 'package:ecommerce_app_mobile/presentation/common/skeleton/product_card_skeleton.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import '../../common/widgets/product_card.dart';
 
 class ProductsHorizontalWidget extends StatelessWidget {
   final List<Product> products;
+  final ProductFeatures productFeatures;
   final String title;
   final bool isLoading;
 
@@ -15,7 +17,7 @@ class ProductsHorizontalWidget extends StatelessWidget {
     super.key,
     required this.products,
     required this.title,
-    required this.isLoading,
+    required this.isLoading, required this.productFeatures,
   });
 
   @override
@@ -45,6 +47,7 @@ class ProductsHorizontalWidget extends StatelessWidget {
               child: isLoading
                   ? const ProductCardSkeleton()
                   : ProductCard(
+                productFeatures: productFeatures,
                       product: products[index],
                     ),
             ),

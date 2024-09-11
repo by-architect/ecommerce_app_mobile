@@ -56,7 +56,7 @@ class ReviewsScreen extends StatelessWidget {
                       builder: (context) => AddReviewScreen(
                         title: product.name,
                         brand: product.brandNameOrEmpty,
-                        productId: product.productId, image: product.firstImageOrEmpty
+                        productId: product.id, image: product.firstImageOrEmpty
                       ),
                     ));
               },

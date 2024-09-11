@@ -20,6 +20,7 @@ class SecondaryProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final idealSubProduct = product.subProducts.getIdealSubProduct;
     return OutlinedButton(
       onPressed: () {},
       style: style ??
@@ -43,7 +44,7 @@ class SecondaryProductCard extends StatelessWidget {
                         borderRadius: BorderRadius.all(Radius.circular(AppSizes.defaultBorderRadius)),
                       ),
                       child: Text(
-                        "${product.discountPercent}% off",
+                        "${idealSubProduct.discountPercent}% off",
                         style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.w500),
                       ),
                     ),
@@ -70,11 +71,11 @@ class SecondaryProductCard extends StatelessWidget {
                     style: Theme.of(context).textTheme.titleSmall!.copyWith(fontSize: 12),
                   ),
                   const Spacer(),
-                  product.priceAfterDiscounting != null
+                  idealSubProduct.priceAfterDiscounting !=0
                       ? Row(
                           children: [
                             Text(
-                              "\$${product.priceAfterDiscounting}",
+                              "\$${idealSubProduct.priceAfterDiscounting}",
                               style: const TextStyle(
                                 color: Color(0xFF31B0D8),
                                 fontWeight: FontWeight.w500,
@@ -83,7 +84,7 @@ class SecondaryProductCard extends StatelessWidget {
                             ),
                             const SizedBox(width: AppSizes.defaultPadding / 4),
                             Text(
-                              "\$${product.price}",
+                              "\$${idealSubProduct.price}",
                               style: TextStyle(
                                 color: Theme.of(context).textTheme.bodyMedium!.color,
                                 fontSize: 10,
@@ -93,7 +94,7 @@ class SecondaryProductCard extends StatelessWidget {
                           ],
                         )
                       : Text(
-                          "\$${product.price}",
+                          "\$${idealSubProduct.price}",
                           style: const TextStyle(
                             color: Color(0xFF31B0D8),
                             fontWeight: FontWeight.w500,

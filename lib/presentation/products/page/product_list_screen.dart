@@ -1,4 +1,5 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
+import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/app_bar_pop_back.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/prodcut_list_screen_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/product_list_screen_event.dart';
@@ -12,8 +13,9 @@ import '../../common/widgets/fail_form.dart';
 import '../../common/widgets/product_card.dart';
 
 class ProductListScreen extends StatefulWidget {
-  const ProductListScreen({super.key});
+  const ProductListScreen({super.key, required this.productFeatures});
 
+  final ProductFeatures productFeatures;
   @override
   State<ProductListScreen> createState() => _ProductListScreenState();
 }
@@ -57,6 +59,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                                 crossAxisSpacing: 10,
                               ),
                               itemBuilder: (context, index) => ProductCard(
+                                productFeatures:widget.productFeatures,
                                 product: state.products[index],
                               ),
                             ),
