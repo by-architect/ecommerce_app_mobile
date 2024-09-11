@@ -287,7 +287,8 @@ class AppText {
   static const verificationPageEmailBody = AppText("We sent a link to your email");
   static const verificationPageCheckYourEmail = AppText("Check your emails, we are waiting for you");
   static const verificationPageSendEmailAgain = AppText("Send email again");
-  static const verificationPageAccountCreatedSuccessfully = AppText("Account created successfully");
+  // static const verificationPageAccountCreatedSuccessfully = AppText("Account created successfully");
+  static const verificationPageEmailVerifiedSuccessfully = AppText("Email verified successfully");
 
 // Discover Page
   static const discoverPageFindSomething = AppText("Find something...");

@@ -50,7 +50,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
         case EmailVerifiedState emailVerifiedState:
           BlocProvider.of<MainBlocs>(context).add(UserIsVerifiedEvent(emailVerifiedState.user));
           DialogUtil(context)
-              .toast(AppText.verificationPageAccountCreatedSuccessfully.capitalizeFirstWord);
+              .toast(AppText.verificationPageEmailVerifiedSuccessfully.capitalizeFirstWord);
           Navigator.of(context).pop();
           timer.cancel();
           subscription.cancel();

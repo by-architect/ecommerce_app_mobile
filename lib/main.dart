@@ -5,6 +5,7 @@ import 'package:ecommerce_app_mobile/firebase_options.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/pages/sign_in_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/pages/sign_up_screen.dart';
+import 'package:ecommerce_app_mobile/presentation/common/screen/loading_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/discover/bloc/discover_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/home/bloc/home_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/main/bloc/main_blocs.dart';
@@ -26,6 +27,8 @@ Future<void> main() async {
       WidgetsFlutterBinding.ensureInitialized(); // for use firebase before loading
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+ //todo: it is for test
+ //  FlutterNativeSplash.remove();
   runApp(const MyApp());
 }
 
@@ -57,6 +60,6 @@ class MyApp extends StatelessWidget {
               Screens.signUpScreen: (context) => const SignUpScreen(),
               Screens.mainScreen: (context) => const MainScreen(),
             },
-            home: const MainScreen()));
+            home:const MainScreen()));
   }
 }

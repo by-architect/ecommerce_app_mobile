@@ -1,14 +1,25 @@
-import 'package:flutter/src/widgets/icon_data.dart';
 
 class AppImages{
   static const String _imagePath = 'assets/images/';
   static const String _iconPath = 'assets/icons/';
+  static const String _lottiePath = 'assets/lotties/';
   static const String _formatJpg = '.jpg';
   static const String _formatPng = '.png';
   static const String _formatSvg = '.svg';
+  static const String _formatJson = '.json';
 
+  ///lotties
+  static const restaurantOpenLottie = '${_lottiePath}restaurant-open$_formatJson';
+
+  ///3d
+  static const bagsBucket = '${_imagePath}bags-bucket$_formatPng';
+  static const emptyShoppingBucket = '${_imagePath}empty-shopping-bucket$_formatPng';
+  static const emptyShoppingTrolley = '${_imagePath}empty-shopping-trolley$_formatPng';
+  static const giftBox = '${_imagePath}gift-box$_formatPng';
+  static const shoppingTrolley = '${_imagePath}shopping-trolley$_formatPng';
+
+ ///illustrations
   static const appImage = '${_imagePath}splash$_formatPng';
-
   static const String notFound = '${_imagePath}not_found$_formatSvg';
 
   static const  shoppingBags  = '${_imagePath}shopping_bags$_formatSvg';
@@ -19,6 +30,7 @@ class AppImages{
   static const bugFixing = '${_imagePath}bug_fixing$_formatSvg';
 
 
+  ///icons
   static const cartImage = '${_imagePath}empty_cart$_formatSvg';
   static const profileImage = '${_imagePath}personal_information$_formatSvg';
   static const verifyEmail = '${_imagePath}verify_email$_formatSvg';

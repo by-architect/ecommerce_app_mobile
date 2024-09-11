@@ -3,6 +3,7 @@ import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/widgets/app_bar_default.dart';
 import 'package:ecommerce_app_mobile/presentation/cart/page/cart_form.dart';
+import 'package:ecommerce_app_mobile/presentation/common/screen/loading_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/fail_form.dart';
 import 'package:ecommerce_app_mobile/presentation/discover/page/discover_form.dart';
 import 'package:ecommerce_app_mobile/presentation/home/form/home_form.dart';
@@ -55,13 +56,8 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return BlocBuilder<MainBlocs, MainStates>(
         builder: (BuildContext context, MainStates state) => switch (state) {
-/*
               InitItemsLoadingState _ => const Scaffold(
-                    body: Padding(
-                  padding: EdgeInsets.all(AppSizes.defaultSpace),
-                  child: Center(child: DiscoverCategoriesSkeleton()),
-                )),
-*/
+                    body: LoadingScreen()),
               InitItemsFailState failState => Scaffold(
                   body: Center(
                     child: Padding(

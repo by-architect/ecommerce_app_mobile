@@ -19,7 +19,7 @@ class FakeProductService implements ProductService {
 
   @override
   Future<ResourceStatus<List<Category>>> getCategories() async {
-    // await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
     List<Category> categories = [
       FakeProductModels.category1,
       FakeProductModels.category2,
@@ -31,7 +31,7 @@ class FakeProductService implements ProductService {
       FakeProductModels.category231
     ];
 
-    return ResourceStatus.success(categories);
+    // return ResourceStatus.success(categories);
     // return ResourceStatus.fail(Fail(userMessage: "Fake product service fail situation"));
 
     return random.nextBool()
@@ -56,14 +56,6 @@ class FakeProductService implements ProductService {
         : ResourceStatus.fail(Fail(userMessage: "Fake product service fail situation"));
   }
 
-  @override
-  Future<ResourceStatus<List<Product>>> getProducts() async {
-    await Future.delayed(const Duration(seconds: 2));
-    final List<Product> productList = [FakeProductModels.product1, FakeProductModels.product2];
-    return random.nextBool()
-        ? ResourceStatus.success(productList)
-        : ResourceStatus.fail(Fail(userMessage: "Fake product service fail situation"));
-  }
 
   @override
   Future<ResourceStatus<List<Product>>> getProductsByCategory(String categoryId) async {
