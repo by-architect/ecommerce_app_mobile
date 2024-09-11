@@ -12,7 +12,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeForm extends StatefulWidget {
-  final ProductFeatures productFeatures;
+  final AllProductFeatures productFeatures;
   final Categories categories;
   const HomeForm({super.key, required this.productFeatures, required this.categories});
 

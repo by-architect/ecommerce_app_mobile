@@ -28,13 +28,10 @@ class UserValidation {
     if (userState.password.length < 8 || userState.password.length > 16) {
       return ValidationResult(false, message: AppText.errorPasswordLength.capitalizeFirstWord);
     }
-    Log.test(title: "1", data: userState.birthYear.isDigit);
     if (!userState.birthYear.isDigit) {
       return ValidationResult(false, message: AppText.errorBirthYearIsNotValid.capitalizeFirstWord);
     }
-    Log.test(title: "2");
     if (userState.birthYear.toInt < 1900 || userState.birthYear.toInt > DateTime.now().year - 5) {
-      Log.test(title: "3");
       return ValidationResult(false, message: AppText.errorBirthYearIsNotValid.capitalizeFirstWord);
     }
     // if (!_isValidPhoneNo(userState.phoneNo)) return ValidationResult(false, message: AppText.errorPhoneNoIsNotValid);

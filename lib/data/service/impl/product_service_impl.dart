@@ -53,7 +53,7 @@ class ProductServiceImpl extends ProductService {
   }
 
   @override
-  Future<ResourceStatus<ProductFeatures>> getProductFeatures() async {
+  Future<ResourceStatus<AllProductFeatures>> getProductFeatures() async {
     List<ProductFeature> productFeatureList = [];
     try {
       final networkConnection = await NetworkHelper().isConnectedToNetwork();
@@ -68,7 +68,7 @@ class ProductServiceImpl extends ProductService {
       productFeaturesResponse.docs.forEach((doc) {
         productFeatureList.add(ProductFeature.fromMap(doc.data()));
       });
-      return ResourceStatus.success(ProductFeatures(productFeatureList));
+      return ResourceStatus.success(AllProductFeatures(productFeatureList));
     } catch (exception, stackTrace) {
       return ExceptionHandler.firebaseResourceExceptionHandler(exception, stackTrace);
     }

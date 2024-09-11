@@ -22,7 +22,7 @@ import '../../../data/model/product_feature.dart';
 import '../../main/widget/search_widget.dart';
 
 class SearchScreen extends StatefulWidget {
-  final ProductFeatures features;
+  final AllProductFeatures features;
   final Categories categories;
 
   // final List<SearchEvent> events;
@@ -188,7 +188,6 @@ class _SearchScreenState extends State<SearchScreen> {
                                 crossAxisSpacing: 10,
                               ),
                               itemBuilder: (context, index) => ProductCard(
-                                productFeatures: widget.features,
                                 product: state.products[index],
                               ),
                             ),

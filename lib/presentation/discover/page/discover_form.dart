@@ -18,7 +18,7 @@ import '../../search/page/search_screen.dart';
 import '../bloc/discover_event.dart';
 
 class DiscoverForm extends StatefulWidget {
-  final ProductFeatures features;
+  final AllProductFeatures features;
   final Categories categories;
 
   const DiscoverForm({super.key, required this.features, required this.categories});

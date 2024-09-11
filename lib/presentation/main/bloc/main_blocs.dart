@@ -28,7 +28,7 @@ class MainBlocs extends Bloc<MainEvents, MainStates> {
             userStatus: state.userStatus));
         Resource<User> userResource = Resource.stable();
         Resource<Categories> categoriesResource = Resource.stable();
-        Resource<ProductFeatures> productFeaturesResource = Resource.stable();
+        Resource<AllProductFeatures> productFeaturesResource = Resource.stable();
         if (state.features.isEmpty) categoriesResource = await productService.getCategoriesByLayer();
         if (state.categories.isEmpty) {
           productFeaturesResource = await productService.getProductFeatures();

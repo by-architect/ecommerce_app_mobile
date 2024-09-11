@@ -1,7 +1,7 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
-import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
+import 'package:ecommerce_app_mobile/data/model/product_feature_handler.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/network_image_with_loader.dart';
 import 'package:ecommerce_app_mobile/presentation/products/page/product_details_screen.dart';
 import 'package:flutter/material.dart';
@@ -13,12 +13,13 @@ class ProductCard extends StatelessWidget {
     super.key,
     required this.product,
     this.previousProduct,
-    this.press, required this.productFeatures,
+    this.press,
+    this.previousProductFeatureHandler,
   });
 
   final Product product;
   final Product? previousProduct;
-  final ProductFeatures productFeatures;
+  final ProductFeatureHandler? previousProductFeatureHandler;
   final VoidCallback? press;
 
   @override
@@ -31,9 +32,9 @@ class ProductCard extends StatelessWidget {
         }
         Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => ProductDetailsScreen(
-            productFeatures: productFeatures,
             product: product,
             previousProduct: previousProduct,
+            previousProductFeatureHandler: previousProductFeatureHandler,
           ),
         ));
       },

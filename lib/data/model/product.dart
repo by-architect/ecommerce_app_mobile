@@ -15,21 +15,26 @@ class Product {
   late final String? brandName;
   late final List<String> images;
   late final SubProducts subProducts;
+  late final List<ProductFeature> features;
 
   String get firstImageOrEmpty => images.firstOrNull ?? "";
 
   String get brandNameOrEmpty => brandName ?? "";
 
-  Product(
-      {required this.id,
-      required this.name,
-      required this.categoryId,
-      required this.info,
-      required this.cargoPrice,
-      required this.returns,
-      required this.images,
-      this.brandName,
-      required this.subProducts});
+  Product({
+    required this.id,
+    required this.name,
+    required this.categoryId,
+    required this.info,
+    required this.cargoPrice,
+    required this.returns,
+    required this.images,
+    this.brandName,
+    required this.subProducts,
+    required AllProductFeatures allProductFeatures,
+  }) {
+    features = allProductFeatures.getProductFeaturesFromSubProduct(subProducts.get.first);
+  }
 
   Product.fromMap(Map<String, dynamic> map) {
 /*
@@ -178,13 +183,13 @@ class SubProducts {
     }
   }
 
- static List<SubProduct> getSubProductsWhichContainsOption(String optionId,
-      List<SubProduct> subProductList) {
+  static List<SubProduct> getSubProductsWhichContainsOption(
+      String optionId, List<SubProduct> subProductList) {
     return subProductList
-            .where(
-              (subProduct) => subProduct.productFeatureOptionIds.contains(optionId),
-            )
-            .toList();
+        .where(
+          (subProduct) => subProduct.productFeatureOptionIds.contains(optionId),
+        )
+        .toList();
   }
 
   @override

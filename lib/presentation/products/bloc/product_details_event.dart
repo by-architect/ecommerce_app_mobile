@@ -1,8 +1,8 @@
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
-import 'package:ecommerce_app_mobile/data/model/product_feature_with_selected_option.dart';
 import 'package:ecommerce_app_mobile/data/model/tag.dart';
 
 import '../../../data/model/product.dart';
+import '../../../data/model/product_feature_handler.dart';
 
 class ProductDetailsEvent {}
 
@@ -27,23 +27,17 @@ class GetProductDetailsEvent extends ProductDetailsEvent {
 }
 
 class GetProductFeaturesEvent extends ProductDetailsEvent {
-  final List<ProductFeature> productFeaturesOfSelectedProduct;
-  final SubProducts subProducts;
-  final SubProduct idealSubProduct;
+  final ProductFeatureHandler productFeatureHandler;
 
-  GetProductFeaturesEvent(this.productFeaturesOfSelectedProduct, this.subProducts, this.idealSubProduct);
+  GetProductFeaturesEvent( this.productFeatureHandler);
 }
 
 class SelectProductFeatureOptionEvent extends ProductDetailsEvent {
   final ProductFeatureOptionModel selectedOption;
-  final SubProducts subProducts;
-  final int columnIndex;
-  final int rowIndex;
+  final ProductFeatureHandler productFeatureHandler;
 
-  SelectProductFeatureOptionEvent({
+  SelectProductFeatureOptionEvent( {
+    required this.productFeatureHandler,
     required this.selectedOption,
-    required this.columnIndex,
-    required this.rowIndex,
-    required this.subProducts,
   });
 }

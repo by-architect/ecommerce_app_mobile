@@ -8,7 +8,6 @@ import 'package:ecommerce_app_mobile/data/model/recent_search.dart';
 import 'package:ecommerce_app_mobile/data/model/review.dart';
 import 'package:ecommerce_app_mobile/data/model/user.dart';
 import 'package:ecommerce_app_mobile/presentation/home/constant/banner_style.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:flutter/material.dart';
 
 import '../../common/constant/gender.dart';
@@ -111,8 +110,8 @@ class FakeProductModels {
       options: [_option4, _option5, _option6],
       productFeatureType: ProductFeatureType.color);
 
-  static final productFeatures =
-      ProductFeatures([productFeatureSize, productFeatureColor, productFeatureMaterial]);
+  static final allProductFeatures =
+      AllProductFeatures([productFeatureSize, productFeatureColor, productFeatureMaterial]);
 
   static Review review1 = Review(
     star: ReviewStar.one,
@@ -262,7 +261,7 @@ class FakeProductModels {
       addedDate: DateTime.now(),
       modifiedDate: DateTime.now(),
       quantity: 4,
-      price: 500,
+      price: 200,
       discount: 0,
       productFeatureOptionIds: ["0", "3", "7"]);
   static SubProduct subProduct2 = SubProduct(
@@ -272,7 +271,7 @@ class FakeProductModels {
       addedDate: DateTime.now(),
       modifiedDate: DateTime.now(),
       quantity: 4,
-      price: 500,
+      price: 300,
       discount: 0,
       productFeatureOptionIds: ["0", "3", "8"]);
   static SubProduct subProduct3 = SubProduct(
@@ -282,7 +281,7 @@ class FakeProductModels {
       addedDate: DateTime.now(),
       modifiedDate: DateTime.now(),
       quantity: 4,
-      price: 500,
+      price: 400,
       discount: 0,
       productFeatureOptionIds: ["0", "3", "6"]);
   static SubProduct subProduct4 = SubProduct(
@@ -303,7 +302,7 @@ class FakeProductModels {
       addedDate: DateTime.now(),
       modifiedDate: DateTime.now(),
       quantity: 4,
-      price: 500,
+      price: 100,
       discount: 0,
       productFeatureOptionIds: ["0", "5", "7"]);
   static SubProduct subProduct6 = SubProduct(
@@ -313,7 +312,7 @@ class FakeProductModels {
       addedDate: DateTime.now(),
       modifiedDate: DateTime.now(),
       quantity: 4,
-      price: 500,
+      price: 50,
       discount: 0,
       productFeatureOptionIds: ["0", "5", "6"]);
   static SubProduct subProduct7 = SubProduct(
@@ -323,7 +322,7 @@ class FakeProductModels {
       addedDate: DateTime.now(),
       modifiedDate: DateTime.now(),
       quantity: 4,
-      price: 500,
+      price: 80,
       discount: 0,
       productFeatureOptionIds: ["2", "4", "8"]);
   static SubProduct subProduct8 = SubProduct(
@@ -333,7 +332,7 @@ class FakeProductModels {
       addedDate: DateTime.now(),
       modifiedDate: DateTime.now(),
       quantity: 4,
-      price: 500,
+      price: 130,
       discount: 0,
       productFeatureOptionIds: ["0", "3", "7"]);
 
@@ -374,6 +373,7 @@ class FakeProductModels {
 
   static Product product1 = Product(
       returns: productPageReturnText,
+      allProductFeatures: allProductFeatures,
       id: "0",
       name: "Nike Ayakkabı",
       categoryId: "1",
@@ -395,6 +395,7 @@ class FakeProductModels {
 
   static Product product2 = Product(
       returns: "This product has not returns",
+      allProductFeatures: allProductFeatures,
       id: "1",
       name: "Adidas Sandalet",
       categoryId: "12",
@@ -405,6 +406,7 @@ class FakeProductModels {
       brandName: "Adidas");
 
   static Product product3 = Product(
+      allProductFeatures: allProductFeatures,
       returns: "This product has not returns",
       id: "2",
       name: "Clarks Kundura",
@@ -416,6 +418,7 @@ class FakeProductModels {
       brandName: "Clarks");
 
   static Product product4 = Product(
+      allProductFeatures: allProductFeatures,
       returns: productPageReturnText,
       id: "3",
       name: "Timberland Bot",
@@ -427,6 +430,7 @@ class FakeProductModels {
       brandName: "Timberland");
 
   static Product product5 = Product(
+      allProductFeatures: allProductFeatures,
       returns: productPageReturnText,
       id: "4",
       name: "Deri Bot",

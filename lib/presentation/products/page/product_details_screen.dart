@@ -2,7 +2,7 @@ import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/model/product.dart';
-import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
+import 'package:ecommerce_app_mobile/data/model/product_feature_handler.dart';
 import 'package:ecommerce_app_mobile/presentation/common/skeleton/product_card_skeleton.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_event.dart';
@@ -13,7 +13,6 @@ import 'package:ecommerce_app_mobile/presentation/products/page/reviews_screen.d
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../data/model/product_feature_selection_handler.dart';
 import '../../common/widgets/product_card.dart';
 import '../widget/button_cart_buy.dart';
 import '../widget/custom_modal_bottom_sheet.dart';
@@ -28,12 +27,12 @@ class ProductDetailsScreen extends StatefulWidget {
     super.key,
     this.previousProduct,
     required this.product,
-    required this.productFeatures,
+    this.previousProductFeatureHandler,
   });
 
   final Product? previousProduct;
   final Product product;
-  final ProductFeatures productFeatures;
+  final ProductFeatureHandler? previousProductFeatureHandler;
 
   @override
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
@@ -50,13 +49,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> with Widget
 
   @override
   Widget build(BuildContext context) {
-    final SubProduct idealSubProduct = widget.product.subProducts.getIdealSubProduct;
-    ProductFeatureSelectionHandler productFeatureSelectionHandler = ProductFeatureSelectionHandler(
-        widget.productFeatures.getProductFeaturesFromSubProduct(idealSubProduct));
-    BlocProvider.of<ProductDetailsBloc>(context).add(GetProductFeaturesEvent(
-        productFeatureSelectionHandler.productFeaturesOfSelectedProduct,
-        widget.product.subProducts,
-        idealSubProduct));
+    final ProductFeatureHandler productFeatureHandler = ProductFeatureHandler.create(widget.product);
+    BlocProvider.of<ProductDetailsBloc>(context).add(GetProductFeaturesEvent(productFeatureHandler));
     return BlocBuilder<ProductDetailsBloc, ProductDetailsState>(
       builder: (BuildContext context, ProductDetailsState state) => PopScope(
         canPop: true,
@@ -69,6 +63,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> with Widget
             BlocProvider.of<ProductDetailsBloc>(context)
                 .add(GetProductDetailsEvent(widget.previousProduct!.id));
           }
+          if (widget.previousProductFeatureHandler != null) {
+            BlocProvider.of<ProductDetailsBloc>(context)
+                .add(GetProductFeaturesEvent(widget.previousProductFeatureHandler!));
+          }
         },
         child: Scaffold(
           bottomNavigationBar: widget.product.subProducts.availableInStock
@@ -79,10 +77,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> with Widget
                       context,
                       height: MediaQuery.of(context).size.height * 0.92,
                       child: ProductBuyNowScreen(
-                        idealSubProduct: idealSubProduct,
-                        productFeatureSelectionHandler: productFeatureSelectionHandler,
+                        productFeatureHandler: productFeatureHandler,
                         product: widget.product,
-                        productFeatures: widget.productFeatures,
                       ),
                     );
                   },
@@ -205,9 +201,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> with Widget
                         child: state is YouMayAlsoLikeLoadingState
                             ? const ProductCardSkeleton()
                             : ProductCard(
-                                productFeatures: widget.productFeatures,
                                 product: state.youMayAlsoLike[index],
                                 previousProduct: widget.product,
+                                previousProductFeatureHandler: productFeatureHandler,
                               ),
                       ),
                     ),

@@ -1,14 +1,13 @@
+import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/model/product.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
-import 'package:ecommerce_app_mobile/data/model/product_feature_selection_handler.dart';
-import 'package:ecommerce_app_mobile/data/model/product_feature_with_selected_option.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../common/constant/app_durations.dart';
 import '../../../common/ui/theme/AppColors.dart';
 import '../../../common/ui/theme/AppSizes.dart';
+import '../../../data/model/product_feature_handler.dart';
 import 'check_mark.dart';
 
 class ProductFeatureWidget extends StatefulWidget {
@@ -38,9 +37,19 @@ class _ProductFeatureWidgetState extends State<ProductFeatureWidget> {
       children: [
         Padding(
           padding: const EdgeInsets.all(AppSizes.defaultPadding),
-          child: Text(
-            widget.options.feature.name,
-            style: Theme.of(context).textTheme.titleSmall,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                widget.options.feature.name,
+                style: Theme.of(context).textTheme.titleSmall,
+              ),
+              if (!widget.options.isAnySelected)
+                Text(
+                  AppText.errorPleaseSelectProductFeature.capitalizeFirstWord,
+                  style: Theme.of(context).textTheme.titleSmall?.copyWith(color: AppColors.errorColor),
+                )
+            ],
           ),
         ),
         SingleChildScrollView(
@@ -57,7 +66,7 @@ class _ProductFeatureWidgetState extends State<ProductFeatureWidget> {
                     widget.onSelected(widget.options.optionRow[rowIndex], rowIndex);
                   },
                   productFeatureOption: widget.options.optionRow[rowIndex].option,
-                  featureType:widget.options.feature.productFeatureType,
+                  featureType: widget.options.feature.productFeatureType,
                   isEnabled: widget.options.optionRow[rowIndex].enabled,
                 ),
               ),
@@ -152,7 +161,7 @@ class _OptionItem extends StatelessWidget {
               alignment: Alignment.center,
               children: [
                 CircleAvatar(
-                  backgroundColor:isEnabled ? productFeatureOption.color : AppColors.greyColor,
+                  backgroundColor: isEnabled ? productFeatureOption.color : AppColors.greyColor,
                 ),
                 AnimatedOpacity(
                   opacity: isSelected ? 1 : 0,
@@ -164,7 +173,5 @@ class _OptionItem extends StatelessWidget {
           ),
         );
     }
-/*
-*/
   }
 }

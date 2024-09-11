@@ -3,39 +3,36 @@ import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
 
 import '../../../data/model/product.dart';
 import '../../../data/model/product_details_item.dart';
-import '../../../data/model/product_feature_with_selected_option.dart';
+import '../../../data/model/product_feature_handler.dart';
 import '../../../sddklibrary/util/fail.dart';
 
 class ProductDetailsState {
   final Reviews reviews;
   final List<Product> youMayAlsoLike;
   final List<ProductDetailsItem> productDetailsItems;
-  final List<ProductFeatureWithSelectedOption> productFeaturesWithSelectedOption;
-  final List<ProductFeatureOption?> selectedOptions;
   final List<ProductFeatureRowModel> optionMatrix;
+  final SubProduct? selectedSubProduct;
 
   ProductDetailsState(
-      {required this.productFeaturesWithSelectedOption,
-      required this.optionMatrix,
-      required this.selectedOptions,
+      {required this.optionMatrix,
+      required this.selectedSubProduct,
       required this.productDetailsItems,
       required this.reviews,
       required this.youMayAlsoLike});
 
-  ProductDetailsState copyWith(
-      {Reviews? reviews,
-      List<Product>? youMayAlsoLike,
-      List<ProductDetailsItem>? productDetailsItems,
-      List<ProductFeatureOption?>? selectedOptions,
-        List<ProductFeatureRowModel>? optionMatrix,
-      List<ProductFeatureWithSelectedOption>? productFeaturesWithSelectedOption}) {
+  ProductDetailsState copyWith({
+    Reviews? reviews,
+    List<Product>? youMayAlsoLike,
+    List<ProductDetailsItem>? productDetailsItems,
+    List<ProductFeatureRowModel>? optionMatrix,
+    SubProduct? selectedSubProduct,
+  }) {
     return ProductDetailsState(
-        selectedOptions: selectedOptions ?? this.selectedOptions,
-        productFeaturesWithSelectedOption:
-            productFeaturesWithSelectedOption ?? this.productFeaturesWithSelectedOption,
+        selectedSubProduct: selectedSubProduct ?? this.selectedSubProduct,
         productDetailsItems: productDetailsItems ?? this.productDetailsItems,
         reviews: reviews ?? this.reviews,
-        youMayAlsoLike: youMayAlsoLike ?? this.youMayAlsoLike, optionMatrix:optionMatrix ?? this.optionMatrix);
+        youMayAlsoLike: youMayAlsoLike ?? this.youMayAlsoLike,
+        optionMatrix: optionMatrix ?? this.optionMatrix);
   }
 }
 
@@ -44,15 +41,14 @@ class LoadProductState extends ProductDetailsState {
       {required super.reviews,
       required super.youMayAlsoLike,
       required super.productDetailsItems,
-      required super.productFeaturesWithSelectedOption,
-      required super.selectedOptions, required super.optionMatrix});
+      required super.optionMatrix,
+      required super.selectedSubProduct});
 }
 
 class ProductDetailsInitState extends ProductDetailsState {
   ProductDetailsInitState()
       : super(
-            selectedOptions: [],
-            productFeaturesWithSelectedOption: [],
+            selectedSubProduct: null,
             reviews: Reviews.empty(),
             youMayAlsoLike: [],
             optionMatrix: [],
@@ -64,8 +60,7 @@ class ReviewsLoadingState extends ProductDetailsState {
       {required super.reviews,
       required super.youMayAlsoLike,
       required super.productDetailsItems,
-      required super.productFeaturesWithSelectedOption,
-      required super.selectedOptions, required super.optionMatrix});
+      required super.optionMatrix, required super.selectedSubProduct});
 }
 
 class ReviewsSuccessState extends ProductDetailsState {
@@ -73,8 +68,7 @@ class ReviewsSuccessState extends ProductDetailsState {
       {required super.reviews,
       required super.youMayAlsoLike,
       required super.productDetailsItems,
-      required super.productFeaturesWithSelectedOption,
-      required super.selectedOptions, required super.optionMatrix});
+      required super.optionMatrix, required super.selectedSubProduct});
 }
 
 class ReviewsFailState extends ProductDetailsState {
@@ -85,8 +79,7 @@ class ReviewsFailState extends ProductDetailsState {
       required super.reviews,
       required super.youMayAlsoLike,
       required super.productDetailsItems,
-      required super.productFeaturesWithSelectedOption,
-      required super.selectedOptions, required super.optionMatrix});
+      required super.optionMatrix, required super.selectedSubProduct});
 }
 
 class YouMayAlsoLikeLoadingState extends ProductDetailsState {
@@ -94,8 +87,7 @@ class YouMayAlsoLikeLoadingState extends ProductDetailsState {
       {required super.reviews,
       required super.youMayAlsoLike,
       required super.productDetailsItems,
-      required super.productFeaturesWithSelectedOption,
-      required super.selectedOptions, required super.optionMatrix});
+      required super.optionMatrix, required super.selectedSubProduct});
 }
 
 class YouMayAlsoLikeSuccessState extends ProductDetailsState {
@@ -103,8 +95,7 @@ class YouMayAlsoLikeSuccessState extends ProductDetailsState {
       {required super.reviews,
       required super.youMayAlsoLike,
       required super.productDetailsItems,
-      required super.productFeaturesWithSelectedOption,
-      required super.selectedOptions, required super.optionMatrix});
+      required super.optionMatrix, required super.selectedSubProduct});
 }
 
 class YouMayAlsoLikeFailState extends ProductDetailsState {
@@ -115,8 +106,7 @@ class YouMayAlsoLikeFailState extends ProductDetailsState {
       required super.reviews,
       required super.youMayAlsoLike,
       required super.productDetailsItems,
-      required super.productFeaturesWithSelectedOption,
-      required super.selectedOptions, required super.optionMatrix});
+      required super.optionMatrix, required super.selectedSubProduct});
 }
 
 class ProductDetailsLoadingState extends ProductDetailsState {
@@ -124,8 +114,7 @@ class ProductDetailsLoadingState extends ProductDetailsState {
       {required super.reviews,
       required super.youMayAlsoLike,
       required super.productDetailsItems,
-      required super.productFeaturesWithSelectedOption,
-      required super.selectedOptions, required super.optionMatrix});
+      required super.optionMatrix, required super.selectedSubProduct});
 }
 
 class ProductDetailsSuccessState extends ProductDetailsState {
@@ -133,8 +122,7 @@ class ProductDetailsSuccessState extends ProductDetailsState {
       {required super.productDetailsItems,
       required super.reviews,
       required super.youMayAlsoLike,
-      required super.productFeaturesWithSelectedOption,
-      required super.selectedOptions, required super.optionMatrix});
+      required super.optionMatrix, required super.selectedSubProduct});
 }
 
 class ProductDetailsFailState extends ProductDetailsState {
@@ -145,15 +133,14 @@ class ProductDetailsFailState extends ProductDetailsState {
       required super.productDetailsItems,
       required super.reviews,
       required super.youMayAlsoLike,
-      required super.productFeaturesWithSelectedOption,
-      required super.selectedOptions, required super.optionMatrix});
+      required super.optionMatrix, required super.selectedSubProduct});
 }
 
 class SelectedProductFeaturesLoadingState extends ProductDetailsState {
   SelectedProductFeaturesLoadingState(
-      {required super.productFeaturesWithSelectedOption,
-      required super.selectedOptions,
+      {
       required super.productDetailsItems,
       required super.reviews,
-      required super.youMayAlsoLike, required super.optionMatrix});
+      required super.youMayAlsoLike,
+      required super.optionMatrix, required super.selectedSubProduct});
 }

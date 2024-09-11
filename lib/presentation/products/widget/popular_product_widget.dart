@@ -9,7 +9,7 @@ import '../../common/widgets/product_card.dart';
 
 class ProductsHorizontalWidget extends StatelessWidget {
   final List<Product> products;
-  final ProductFeatures productFeatures;
+  final AllProductFeatures productFeatures;
   final String title;
   final bool isLoading;
 
@@ -47,7 +47,6 @@ class ProductsHorizontalWidget extends StatelessWidget {
               child: isLoading
                   ? const ProductCardSkeleton()
                   : ProductCard(
-                productFeatures: productFeatures,
                       product: products[index],
                     ),
             ),

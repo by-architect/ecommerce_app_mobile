@@ -18,7 +18,7 @@ import 'dot_indicators.dart';
 class OffersCarouselAndCategories extends StatelessWidget {
   final List<BannerModel> bannerList;
   final bool isLoading;
-  final ProductFeatures features;
+  final AllProductFeatures features;
 
   const OffersCarouselAndCategories({
     super.key,
@@ -56,7 +56,7 @@ class OffersCarouselAndCategories extends StatelessWidget {
 
 class OffersCarousel extends StatefulWidget {
   final List<BannerModel> bannerList;
-  final ProductFeatures features;
+  final AllProductFeatures features;
 
   const OffersCarousel({
     super.key,
@@ -119,7 +119,7 @@ class _OffersCarouselState extends State<OffersCarousel> {
               (banner) {
                 BlocProvider.of<ProductScreenBloc>(context).add(AddTagEvent([banner.tag]));
                 BlocProvider.of<ProductScreenBloc>(context).add(GetProductsEvent());
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProductListScreen(productFeatures: widget.features),));
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ProductListScreen(),));
               },
             ),
           ),

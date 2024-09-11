@@ -102,7 +102,7 @@ class ProductServiceProvider {
     return const ResourceStatus.success("");
   }
 
-  Future<ResourceStatus<ProductFeatures>> getProductFeatures() {
+  Future<ResourceStatus<AllProductFeatures>> getProductFeatures() {
     return productService.getProductFeatures();
   }
 

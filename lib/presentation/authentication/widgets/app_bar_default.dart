@@ -17,7 +17,7 @@ import '../../../data/model/user.dart';
 
 class AppBarMain extends StatelessWidget implements PreferredSizeWidget {
   final User? user;
-  final ProductFeatures features;
+  final AllProductFeatures features;
   final Categories categories;
 
   const AppBarMain({super.key, required this.features, required this.categories, this.user});
@@ -85,7 +85,6 @@ Future<void> testScope(User? user) async {
     Log.test(title: "change user password",message: "null user");
     return;
   }
-  Log.test(title: "user",data: user);
   // final resource = await userService.changePassword(user, );
   // Log.test(resource: resource);
 

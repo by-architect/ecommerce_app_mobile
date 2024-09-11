@@ -1,8 +1,6 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
-import 'package:ecommerce_app_mobile/data/fakerepository/fake_models.dart';
-import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
-import 'package:ecommerce_app_mobile/data/model/product_feature_with_selected_option.dart';
+import 'package:ecommerce_app_mobile/data/model/product_feature_handler.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/app_bar_pop_back.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/network_image_with_loader.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_bloc.dart';
@@ -15,23 +13,19 @@ import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../data/model/product.dart';
-import '../../../data/model/product_feature_selection_handler.dart';
 import '../page/added_to_cart_message_screen.dart';
 import 'button_cart_buy.dart';
 import 'custom_modal_bottom_sheet.dart';
 
 class ProductBuyNowScreen extends StatefulWidget {
   final Product product;
-  final ProductFeatures productFeatures;
-  final ProductFeatureSelectionHandler productFeatureSelectionHandler;
-  final SubProduct idealSubProduct;
+  final ProductFeatureHandler productFeatureHandler;
 
-  const ProductBuyNowScreen(
-      {super.key,
-      required this.product,
-      required this.productFeatures,
-      required this.productFeatureSelectionHandler,
-      required this.idealSubProduct});
+  const ProductBuyNowScreen({
+    super.key,
+    required this.product,
+    required this.productFeatureHandler,
+  });
 
   @override
   State<ProductBuyNowScreen> createState() => _ProductBuyNowScreenState();
@@ -45,22 +39,13 @@ class _ProductBuyNowScreenState extends State<ProductBuyNowScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final SubProduct selectedSubProduct = widget.idealSubProduct;
-    // Log.test(title: "options", data: productFeatureSelectionHandler.options);
-/*
-    Log.test(title: "product", data: widget.product);
-    Log.test(title: "selectedSubProduct", data: selectedSubProduct);
-    Log.test(title: "productFeatureSelectionHandler", data: productFeatureSelectionHandler);
-    Log.test(title: "productFeaturesOfSelectedProduct", data: productFeaturesOfSelectedProduct);
-*/
-
     return BlocBuilder<ProductDetailsBloc, ProductDetailsState>(
       builder: (BuildContext context, ProductDetailsState state) => Scaffold(
         appBar: AppBarPopBack(
           title: widget.product.name,
         ),
         bottomNavigationBar: ButtonCartBuy(
-          price: selectedSubProduct.price,
+          price: state.selectedSubProduct?.price,
           title: AppText.productDetailsPageAddToCart.capitalizeEveryWord,
           subTitle: AppText.productDetailsPageTotalPrice.capitalizeEveryWord,
           press: () {
@@ -93,8 +78,8 @@ class _ProductBuyNowScreenState extends State<ProductBuyNowScreen> {
                         children: [
                           Expanded(
                             child: UnitPrice(
-                              price: selectedSubProduct.price,
-                              priceAfterDiscount: selectedSubProduct.priceAfterDiscounting,
+                              price: state.selectedSubProduct?.price,
+                              priceAfterDiscount: state.selectedSubProduct?.priceAfterDiscounting,
                             ),
                           ),
                           ProductQuantity(
@@ -114,14 +99,12 @@ class _ProductBuyNowScreenState extends State<ProductBuyNowScreen> {
                       : */
                   SliverList(
                       delegate: SliverChildBuilderDelegate(
-                    childCount: widget.productFeatureSelectionHandler.options.length,
+                    childCount: state.optionMatrix.length,
                     (context, columnIndex) => ProductFeatureWidget(
-                      onSelected: (productFeatureOptionSelector, rowIndex) {
+                      onSelected: (selectedOption, rowIndex) {
                         BlocProvider.of<ProductDetailsBloc>(context).add(SelectProductFeatureOptionEvent(
-                            selectedOption: productFeatureOptionSelector,
-                            subProducts: widget.product.subProducts,
-                            columnIndex: columnIndex,
-                            rowIndex: rowIndex));
+                            selectedOption: selectedOption,
+                            productFeatureHandler: widget.productFeatureHandler));
                       },
                       options: state.optionMatrix[columnIndex],
                     ),

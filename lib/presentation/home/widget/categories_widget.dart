@@ -17,7 +17,7 @@ import '../../search/bloc/search_event.dart';
 
 class CategoriesWidget extends StatelessWidget {
   final Categories categoriesByLayer;
-  final ProductFeatures features;
+  final AllProductFeatures features;
 
   const CategoriesWidget({
     super.key,

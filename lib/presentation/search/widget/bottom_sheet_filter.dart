@@ -14,7 +14,7 @@ import '../bloc/search_event.dart';
 import '../bloc/search_state.dart';
 
 class FilterBottomSheet extends StatefulWidget {
-  final ProductFeatures features;
+  final AllProductFeatures features;
   const FilterBottomSheet({
     super.key, required this.features,
   });

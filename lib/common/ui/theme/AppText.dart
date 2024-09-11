@@ -249,6 +249,7 @@ class AppText {
   static const errorContentCanNotBeEmpty = AppText("Content can not be empty");
   static const errorCategoriesNotFound = AppText("Categories not found, please try again later");
   static const errorPasswordIsIncorrect = AppText("Password is incorrect");
+  static const errorPleaseSelectProductFeature = AppText("Please select");
 
   //info
   static const infoPleaseLoginToSeeYourCart = AppText("Please login to see your cart");

@@ -46,7 +46,6 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
     late StreamSubscription<UserServiceState> subscription;
 
     subscription = BlocProvider.of<UserServiceBloc>(context).stream.listen((event) {
-      Log.test(title: "service state", data: event);
       switch (event) {
         case EmailVerifiedState emailVerifiedState:
           BlocProvider.of<MainBlocs>(context).add(UserIsVerifiedEvent(emailVerifiedState.user));

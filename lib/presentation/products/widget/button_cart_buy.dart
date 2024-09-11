@@ -11,7 +11,7 @@ class ButtonCartBuy extends StatelessWidget {
     required this.press,
   });
 
-  final double price;
+  final double? price;
   final String? title;
 
   final String? subTitle;
@@ -21,7 +21,8 @@ class ButtonCartBuy extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding, vertical: AppSizes.defaultBorderRadius / 2),
+        padding: const EdgeInsets.symmetric(
+            horizontal: AppSizes.defaultPadding, vertical: AppSizes.defaultBorderRadius / 2),
         child: SizedBox(
           height: 64,
           child: Material(
@@ -45,7 +46,7 @@ class ButtonCartBuy extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "\$${price.toStringAsFixed(2)}",
+                            price == null ? "\$..." : "\$${price?.toStringAsFixed(2)}",
                             style: Theme.of(context).textTheme.titleSmall!.copyWith(color: Colors.white),
                           ),
                           Text(

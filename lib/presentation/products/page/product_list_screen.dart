@@ -13,9 +13,8 @@ import '../../common/widgets/fail_form.dart';
 import '../../common/widgets/product_card.dart';
 
 class ProductListScreen extends StatefulWidget {
-  const ProductListScreen({super.key, required this.productFeatures});
+  const ProductListScreen({super.key, });
 
-  final ProductFeatures productFeatures;
   @override
   State<ProductListScreen> createState() => _ProductListScreenState();
 }
@@ -59,7 +58,6 @@ class _ProductListScreenState extends State<ProductListScreen> {
                                 crossAxisSpacing: 10,
                               ),
                               itemBuilder: (context, index) => ProductCard(
-                                productFeatures:widget.productFeatures,
                                 product: state.products[index],
                               ),
                             ),

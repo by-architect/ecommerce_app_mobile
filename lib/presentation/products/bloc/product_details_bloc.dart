@@ -1,54 +1,46 @@
-import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
-import 'package:ecommerce_app_mobile/data/model/product_feature_with_selected_option.dart';
 import 'package:ecommerce_app_mobile/data/provider/product_service_provider.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_event.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_state.dart';
-import 'package:ecommerce_app_mobile/presentation/products/widget/product_feature_widget.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/resource.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductDetailsBloc extends Bloc<ProductDetailsEvent, ProductDetailsState> {
   ProductDetailsBloc() : super(ProductDetailsInitState()) {
     ProductServiceProvider service = ProductServiceProvider();
     on<GetReviewsEvent>(
-          (event, emit) async {
+      (event, emit) async {
         emit(ReviewsLoadingState(
-            productFeaturesWithSelectedOption: state.productFeaturesWithSelectedOption,
-            reviews: state.reviews,
-            youMayAlsoLike: state.youMayAlsoLike,
-            productDetailsItems: state.productDetailsItems,
-            selectedOptions: state.selectedOptions,
-            optionMatrix: state.optionMatrix));
+          reviews: state.reviews,
+          youMayAlsoLike: state.youMayAlsoLike,
+          productDetailsItems: state.productDetailsItems,
+          optionMatrix: state.optionMatrix,
+          selectedSubProduct: state.selectedSubProduct,
+        ));
         final resource = await service.getReviews(event.productId);
         switch (resource.status) {
           case Status.success:
             emit(ReviewsSuccessState(
-                productFeaturesWithSelectedOption: state.productFeaturesWithSelectedOption,
+                selectedSubProduct: state.selectedSubProduct,
                 reviews: resource.data!,
                 youMayAlsoLike: state.youMayAlsoLike,
                 productDetailsItems: state.productDetailsItems,
-                selectedOptions: state.selectedOptions,
                 optionMatrix: state.optionMatrix));
             break;
           case Status.fail:
             emit(ReviewsFailState(
-                productFeaturesWithSelectedOption: state.productFeaturesWithSelectedOption,
+                selectedSubProduct: state.selectedSubProduct,
                 fail: resource.error!,
                 reviews: state.reviews,
                 youMayAlsoLike: state.youMayAlsoLike,
                 productDetailsItems: state.productDetailsItems,
-                selectedOptions: state.selectedOptions,
                 optionMatrix: state.optionMatrix));
             break;
           case Status.loading:
             emit(ReviewsLoadingState(
-                productFeaturesWithSelectedOption: state.productFeaturesWithSelectedOption,
+                selectedSubProduct: state.selectedSubProduct,
                 reviews: state.reviews,
                 youMayAlsoLike: state.youMayAlsoLike,
                 productDetailsItems: state.productDetailsItems,
-                selectedOptions: state.selectedOptions,
                 optionMatrix: state.optionMatrix));
             break;
           case Status.stable:
@@ -58,42 +50,38 @@ class ProductDetailsBloc extends Bloc<ProductDetailsEvent, ProductDetailsState> 
     );
 
     on<GetYouMayAlsoLikeEvent>(
-          (event, emit) async {
+      (event, emit) async {
         emit(YouMayAlsoLikeLoadingState(
-            productFeaturesWithSelectedOption: state.productFeaturesWithSelectedOption,
+            selectedSubProduct: state.selectedSubProduct,
             reviews: state.reviews,
             youMayAlsoLike: state.youMayAlsoLike,
             productDetailsItems: state.productDetailsItems,
-            selectedOptions: state.selectedOptions,
             optionMatrix: state.optionMatrix));
         final resource = await service.getYouMayAlsoLike(event.categoryId);
         switch (resource.status) {
           case Status.success:
             emit(YouMayAlsoLikeSuccessState(
-                productFeaturesWithSelectedOption: state.productFeaturesWithSelectedOption,
+                selectedSubProduct: state.selectedSubProduct,
                 reviews: state.reviews,
                 youMayAlsoLike: resource.data!,
                 productDetailsItems: state.productDetailsItems,
-                selectedOptions: state.selectedOptions,
                 optionMatrix: state.optionMatrix));
             break;
           case Status.fail:
             emit(YouMayAlsoLikeFailState(
-                productFeaturesWithSelectedOption: state.productFeaturesWithSelectedOption,
+                selectedSubProduct: state.selectedSubProduct,
                 fail: resource.error!,
                 reviews: state.reviews,
                 youMayAlsoLike: state.youMayAlsoLike,
                 productDetailsItems: state.productDetailsItems,
-                selectedOptions: state.selectedOptions,
                 optionMatrix: state.optionMatrix));
             break;
           case Status.loading:
             emit(YouMayAlsoLikeLoadingState(
-                productFeaturesWithSelectedOption: state.productFeaturesWithSelectedOption,
+                selectedSubProduct: state.selectedSubProduct,
                 reviews: state.reviews,
                 youMayAlsoLike: state.youMayAlsoLike,
                 productDetailsItems: state.productDetailsItems,
-                selectedOptions: state.selectedOptions,
                 optionMatrix: state.optionMatrix));
             break;
           case Status.stable:
@@ -102,48 +90,44 @@ class ProductDetailsBloc extends Bloc<ProductDetailsEvent, ProductDetailsState> 
       },
     );
     on<CleanStateEvent>(
-          (event, emit) {
+      (event, emit) {
         emit(ProductDetailsInitState());
       },
     );
 
     on<GetProductDetailsEvent>(
-          (event, emit) async {
+      (event, emit) async {
         emit(ProductDetailsLoadingState(
-            productFeaturesWithSelectedOption: state.productFeaturesWithSelectedOption,
+            selectedSubProduct: state.selectedSubProduct,
             reviews: state.reviews,
             youMayAlsoLike: state.youMayAlsoLike,
             productDetailsItems: state.productDetailsItems,
-            selectedOptions: state.selectedOptions,
             optionMatrix: state.optionMatrix));
         final resource = await service.getProductDetails(event.productId);
         switch (resource.status) {
           case Status.success:
             emit(ProductDetailsSuccessState(
-                productFeaturesWithSelectedOption: state.productFeaturesWithSelectedOption,
+                selectedSubProduct: state.selectedSubProduct,
                 reviews: state.reviews,
                 youMayAlsoLike: state.youMayAlsoLike,
                 productDetailsItems: resource.data!,
-                selectedOptions: state.selectedOptions,
                 optionMatrix: state.optionMatrix));
             break;
           case Status.fail:
             emit(ProductDetailsFailState(
-                productFeaturesWithSelectedOption: state.productFeaturesWithSelectedOption,
+                selectedSubProduct: state.selectedSubProduct,
                 fail: resource.error!,
                 reviews: state.reviews,
                 youMayAlsoLike: state.youMayAlsoLike,
                 productDetailsItems: state.productDetailsItems,
-                selectedOptions: state.selectedOptions,
                 optionMatrix: state.optionMatrix));
             break;
           case Status.loading:
             emit(ProductDetailsLoadingState(
-                productFeaturesWithSelectedOption: state.productFeaturesWithSelectedOption,
+                selectedSubProduct: state.selectedSubProduct,
                 reviews: state.reviews,
                 youMayAlsoLike: state.youMayAlsoLike,
                 productDetailsItems: state.productDetailsItems,
-                selectedOptions: state.selectedOptions,
                 optionMatrix: state.optionMatrix));
             break;
           case Status.stable:
@@ -152,68 +136,38 @@ class ProductDetailsBloc extends Bloc<ProductDetailsEvent, ProductDetailsState> 
       },
     );
     on<GetProductFeaturesEvent>(
-          (event, emit) {
+      (event, emit) {
         emit(SelectedProductFeaturesLoadingState(
-            productFeaturesWithSelectedOption: state.productFeaturesWithSelectedOption,
-            selectedOptions: state.selectedOptions,
+            selectedSubProduct: state.selectedSubProduct,
             productDetailsItems: state.productDetailsItems,
             reviews: state.reviews,
             youMayAlsoLike: state.youMayAlsoLike,
             optionMatrix: state.optionMatrix));
 
-        final productFeatureOptionHandler = ProductFeatureOptionHandler();
+        final optionMatrix = event.productFeatureHandler.createOptionMatrix();
 
-        final optionMatrix = productFeatureOptionHandler.getOptionMatrix(
-            event.productFeaturesOfSelectedProduct, event.subProducts, event.idealSubProduct);
+        final selectedOptionMatrix = event.productFeatureHandler.selectOptionsOfSubProduct(
+            optionMatrix: optionMatrix, selectedSubProduct: event.productFeatureHandler.idealSubProduct);
 
-       final selectedOptionMatrix =  productFeatureOptionHandler.selectOptionsOfSubProduct(selectedSubProduct: event.idealSubProduct,
-            optionMatrix: optionMatrix,
-            subProducts: event.subProducts);
-
-/*
-        final List<ProductFeatureOption?> selectedOptions = [];
-
-        ProductFeatureOption? currentOption;
-        for (int columnIndex = 0; columnIndex < event.options.length; columnIndex++) {
-          currentOption = null;
-          for (int rowIndex = 0; rowIndex < event.options[columnIndex].length; rowIndex++) {
-            for (var subProductOptionId in (event.selectedSubProduct.productFeatureOptionIds)) {
-              if (subProductOptionId == event.options[columnIndex][rowIndex].id) {
-                currentOption = event.options[columnIndex][rowIndex];
-                break;
-              }
-            }
-          }
-          selectedOptions.add(currentOption);
-        }
-*/
-
-/*
-        Log.test(title: "product details bloc selectedProductFeatures", data: event.options);
-        Log.test(title: "product details bloc selected options", data: selectedOptions);
-*/
-        emit(state.copyWith(optionMatrix: selectedOptionMatrix));
+        emit(state.copyWith(optionMatrix: selectedOptionMatrix,selectedSubProduct: event.productFeatureHandler.idealSubProduct));
       },
     );
     on<SelectProductFeatureOptionEvent>(
-          (event, emit) {
+      (event, emit) {
         emit(SelectedProductFeaturesLoadingState(
-            productFeaturesWithSelectedOption: state.productFeaturesWithSelectedOption,
-            selectedOptions: state.selectedOptions,
             productDetailsItems: state.productDetailsItems,
             optionMatrix: state.optionMatrix,
             reviews: state.reviews,
-            youMayAlsoLike: state.youMayAlsoLike));
+            youMayAlsoLike: state.youMayAlsoLike,
+            selectedSubProduct: state.selectedSubProduct));
 
-        final optionMatrix = ProductFeatureOptionHandler().selectOptionAndRemoveOthers(
+        final optionMatrixWithSubProduct = event.productFeatureHandler.selectOptionAndRemoveOthers(
           optionMatrix: state.optionMatrix,
           selectedOption: event.selectedOption,
-          subProducts: event.subProducts,
         );
         emit(ProductDetailsState(
-            productFeaturesWithSelectedOption: state.productFeaturesWithSelectedOption,
-            optionMatrix: optionMatrix,
-            selectedOptions: state.selectedOptions,
+            selectedSubProduct: optionMatrixWithSubProduct.subProduct,
+            optionMatrix: optionMatrixWithSubProduct.optionMatrix,
             productDetailsItems: state.productDetailsItems,
             reviews: state.reviews,
             youMayAlsoLike: state.youMayAlsoLike));

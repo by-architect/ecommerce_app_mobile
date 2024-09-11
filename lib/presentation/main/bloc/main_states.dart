@@ -8,13 +8,13 @@ import '../../../sddklibrary/util/fail.dart';
 class MainStates {
   final ThemeMode themeMode;
   final Categories categories;
-  final ProductFeatures features;
+  final AllProductFeatures features;
   final UserStatus userStatus;
 
   MainStates(
       {required this.userStatus, required this.themeMode, required this.features, required this.categories});
 
-  MainStates copyWith({ThemeMode? themeMode, Categories? categories, ProductFeatures? productFeatures,UserStatus? userStatus}) {
+  MainStates copyWith({ThemeMode? themeMode, Categories? categories, AllProductFeatures? productFeatures,UserStatus? userStatus}) {
     return MainStates(
         themeMode: themeMode ?? this.themeMode,
         features: productFeatures ?? features,
@@ -29,7 +29,7 @@ class InitMainStates extends MainStates {
             userStatus: UserStatus(null),
             themeMode: ThemeMode.light,
             categories: Categories.empty(),
-            features: ProductFeatures.empty());
+            features: AllProductFeatures.empty());
 }
 
 class InitItemsLoadingState extends MainStates {

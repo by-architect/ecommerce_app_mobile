@@ -48,11 +48,11 @@ class FakeProductService implements ProductService {
   }
 
   @override
-  Future<ResourceStatus<ProductFeatures>> getProductFeatures() async {
+  Future<ResourceStatus<AllProductFeatures>> getProductFeatures() async {
     await Future.delayed(const Duration(seconds: 2));
-    return ResourceStatus.success(FakeProductModels.productFeatures);
+    return ResourceStatus.success(FakeProductModels.allProductFeatures);
     return random.nextBool()
-        ? ResourceStatus.success(FakeProductModels.productFeatures)
+        ? ResourceStatus.success(FakeProductModels.allProductFeatures)
         : ResourceStatus.fail(Fail(userMessage: "Fake product service fail situation"));
   }
 
