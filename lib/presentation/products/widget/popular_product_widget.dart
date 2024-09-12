@@ -1,10 +1,10 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
 import 'package:ecommerce_app_mobile/presentation/common/skeleton/product_card_skeleton.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:flutter/material.dart';
 
 import '../../../data/model/product.dart';
+import '../../../data/model/user.dart';
 import '../../common/widgets/product_card.dart';
 
 class ProductsHorizontalWidget extends StatelessWidget {
@@ -12,12 +12,15 @@ class ProductsHorizontalWidget extends StatelessWidget {
   final AllProductFeatures productFeatures;
   final String title;
   final bool isLoading;
+  final User? user;
 
   const ProductsHorizontalWidget({
     super.key,
     required this.products,
     required this.title,
-    required this.isLoading, required this.productFeatures,
+    required this.isLoading,
+    required this.productFeatures,
+    required this.user,
   });
 
   @override
@@ -38,7 +41,7 @@ class ProductsHorizontalWidget extends StatelessWidget {
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             // Find demoPopularProducts on models/ProductModel.dart
-            itemCount:isLoading ? 10: products.length,
+            itemCount: isLoading ? 10 : products.length,
             itemBuilder: (context, index) => Padding(
               padding: EdgeInsets.only(
                 left: AppSizes.defaultPadding,
@@ -47,6 +50,7 @@ class ProductsHorizontalWidget extends StatelessWidget {
               child: isLoading
                   ? const ProductCardSkeleton()
                   : ProductCard(
+                      user: user,
                       product: products[index],
                     ),
             ),

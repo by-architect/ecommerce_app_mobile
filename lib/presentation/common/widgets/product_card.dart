@@ -7,6 +7,7 @@ import 'package:ecommerce_app_mobile/presentation/products/page/product_details_
 import 'package:flutter/material.dart';
 
 import '../../../data/model/product.dart';
+import '../../../data/model/user.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({
@@ -14,13 +15,14 @@ class ProductCard extends StatelessWidget {
     required this.product,
     this.previousProduct,
     this.press,
-    this.previousProductFeatureHandler,
+    this.previousProductFeatureHandler,required this.user,
   });
 
   final Product product;
   final Product? previousProduct;
   final ProductFeatureHandler? previousProductFeatureHandler;
   final VoidCallback? press;
+  final User? user;
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +37,7 @@ class ProductCard extends StatelessWidget {
             product: product,
             previousProduct: previousProduct,
             previousProductFeatureHandler: previousProductFeatureHandler,
+            user: user,
           ),
         ));
       },

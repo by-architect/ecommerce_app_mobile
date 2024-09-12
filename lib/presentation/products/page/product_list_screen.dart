@@ -8,13 +8,15 @@ import 'package:ecommerce_app_mobile/presentation/search/bloc/search_state.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../data/model/user.dart';
 import '../../common/skeleton/product_skeleton.dart';
 import '../../common/widgets/fail_form.dart';
 import '../../common/widgets/product_card.dart';
 
 class ProductListScreen extends StatefulWidget {
-  const ProductListScreen({super.key, });
+  const ProductListScreen({super.key, required this.user, });
 
+  final User? user;
   @override
   State<ProductListScreen> createState() => _ProductListScreenState();
 }
@@ -58,6 +60,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                                 crossAxisSpacing: 10,
                               ),
                               itemBuilder: (context, index) => ProductCard(
+                                user: widget.user,
                                 product: state.products[index],
                               ),
                             ),

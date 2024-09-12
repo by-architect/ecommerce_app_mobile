@@ -1,18 +1,24 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature_handler.dart';
+import 'package:ecommerce_app_mobile/data/model/purchase_process.dart';
+import 'package:ecommerce_app_mobile/presentation/authentication/pages/sign_in_screen.dart';
+import 'package:ecommerce_app_mobile/presentation/authentication/pages/sign_up_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/app_bar_pop_back.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/network_image_with_loader.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_event.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_state.dart';
+import 'package:ecommerce_app_mobile/presentation/products/bloc/purchase_process_state.dart';
 import 'package:ecommerce_app_mobile/presentation/products/widget/product_feature_widget.dart';
 import 'package:ecommerce_app_mobile/presentation/products/widget/product_quantity.dart';
 import 'package:ecommerce_app_mobile/presentation/products/widget/unit_price.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/ui/dialog_util.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../data/model/product.dart';
+import '../../../data/model/user.dart';
 import '../page/added_to_cart_message_screen.dart';
 import 'button_cart_buy.dart';
 import 'custom_modal_bottom_sheet.dart';
@@ -20,11 +26,13 @@ import 'custom_modal_bottom_sheet.dart';
 class ProductBuyNowScreen extends StatefulWidget {
   final Product product;
   final ProductFeatureHandler productFeatureHandler;
+  final User? user;
 
   const ProductBuyNowScreen({
     super.key,
     required this.product,
     required this.productFeatureHandler,
+    required this.user,
   });
 
   @override
@@ -34,6 +42,20 @@ class ProductBuyNowScreen extends StatefulWidget {
 class _ProductBuyNowScreenState extends State<ProductBuyNowScreen> {
   @override
   void initState() {
+    BlocProvider.of<ProductDetailsBloc>(context).stream.listen(
+      (state) {
+        if (state is PurchaseProcessFailState) {
+          DialogUtil(context).toast(state.fail.userMessage);
+        }
+        if (state is PurchaseProcessSuccessState) {
+          Navigator.of(context).pop();
+          customModalBottomSheet(
+            context,
+            child: const AddedToCartMessageScreen(),
+          );
+        }
+      },
+    );
     super.initState();
   }
 
@@ -45,15 +67,24 @@ class _ProductBuyNowScreenState extends State<ProductBuyNowScreen> {
           title: widget.product.name,
         ),
         bottomNavigationBar: ButtonCartBuy(
+          isLoading: state is PurchaseProcessLoadingState,
           price: state.selectedSubProduct?.price,
           title: AppText.productDetailsPageAddToCart.capitalizeEveryWord,
           subTitle: AppText.productDetailsPageTotalPrice.capitalizeEveryWord,
           press: () {
-            customModalBottomSheet(
-              context,
-              isDismissible: false,
-              child: const AddedToCartMessageScreen(),
-            );
+            if (state.selectedSubProduct == null) return;
+            if (widget.user == null) {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const SignInScreen(),
+              ));
+            } else {
+              BlocProvider.of<ProductDetailsBloc>(context).add(AddPurchaseProcessEvent(
+                  PurchaseProcessState(
+                      quantity: state.quantity,
+                      productId: widget.product.id,
+                      subProductId: state.selectedSubProduct!.id),
+                  widget.user!.uid));
+            }
           },
         ),
         body: Column(
@@ -83,9 +114,19 @@ class _ProductBuyNowScreenState extends State<ProductBuyNowScreen> {
                             ),
                           ),
                           ProductQuantity(
-                            numOfItem: 1, //todo with buy process
-                            onIncrement: () {},
-                            onDecrement: () {},
+                            numOfItem: state.selectedSubProduct == null ? null : state.quantity,
+                            onIncrement: () {
+                              final selectedSubProduct = state.selectedSubProduct;
+                              if (selectedSubProduct != null &&
+                                  selectedSubProduct.quantity > state.quantity) {
+                                BlocProvider.of<ProductDetailsBloc>(context).add(IncreaseQuantity());
+                              }
+                            },
+                            onDecrement: () {
+                              if (state.quantity > 1) {
+                                BlocProvider.of<ProductDetailsBloc>(context).add(DecreaseQuantity());
+                              }
+                            },
                           ),
                         ],
                       ),

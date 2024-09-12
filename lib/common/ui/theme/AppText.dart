@@ -338,6 +338,10 @@ class AppText {
   static const productDetailsPageSubmitReview = AppText("Submit review");
   static const productDetailsPageReviewSubmitted = AppText("Review submitted successfully");
   static const productDetailsPageSelectedColor = AppText("Selected color");
+  static const productDetailsPageAddedToCart = AppText("Added to cart");
+  static const productDetailsPageCompletePurchase = AppText("Click the checkout button to complete the purchase process.");
+  static const productDetailsPageContinueShopping = AppText("Continue shopping");
+  static const productDetailsPageCheckout = AppText("Checkout");
 
   //Cart Page
   static const cartPageReviewYourOrder = AppText("Review your order");

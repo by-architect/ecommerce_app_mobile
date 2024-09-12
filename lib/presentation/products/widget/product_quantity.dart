@@ -13,7 +13,7 @@ class ProductQuantity extends StatelessWidget {
     required this.onDecrement,
   });
 
-  final int numOfItem;
+  final int? numOfItem;
   final VoidCallback onIncrement, onDecrement;
 
   @override
@@ -45,7 +45,7 @@ class ProductQuantity extends StatelessWidget {
               width: 40,
               child: Center(
                 child: Text(
-                  numOfItem.toString(),
+                 numOfItem == null ? "?": numOfItem.toString(),
                   style: Theme.of(context)
                       .textTheme
                       .titleMedium!

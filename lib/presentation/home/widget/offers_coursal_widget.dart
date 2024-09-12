@@ -5,6 +5,7 @@ import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/fakerepository/fake_models.dart';
 import 'package:ecommerce_app_mobile/data/model/banner.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
+import 'package:ecommerce_app_mobile/data/model/user.dart';
 import 'package:ecommerce_app_mobile/presentation/home/widget/offers_skeleton.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/prodcut_list_screen_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/product_list_screen_event.dart';
@@ -19,11 +20,14 @@ class OffersCarouselAndCategories extends StatelessWidget {
   final List<BannerModel> bannerList;
   final bool isLoading;
   final AllProductFeatures features;
+  final User? user;
 
   const OffersCarouselAndCategories({
     super.key,
     required this.bannerList,
-    required this.isLoading, required this.features,
+    required this.isLoading,
+    required this.features,
+    required this.user,
   });
 
   @override
@@ -34,7 +38,8 @@ class OffersCarouselAndCategories extends StatelessWidget {
         isLoading
             ? const OffersSkeleton()
             : OffersCarousel(
-          features: features,
+                user: user,
+                features: features,
                 bannerList: bannerList,
               ),
         const SizedBox(height: AppSizes.spaceBtwVerticalFields),
@@ -46,6 +51,7 @@ class OffersCarouselAndCategories extends StatelessWidget {
           ),
         ),
         CategoriesWidget(
+          user: user,
           features: features,
           categoriesByLayer: FakeProductModels.categories,
         ),
@@ -57,10 +63,13 @@ class OffersCarouselAndCategories extends StatelessWidget {
 class OffersCarousel extends StatefulWidget {
   final List<BannerModel> bannerList;
   final AllProductFeatures features;
+  final User? user;
 
   const OffersCarousel({
     super.key,
-    required this.bannerList, required this.features,
+    required this.bannerList,
+    required this.features,
+    required this.user,
   });
 
   @override
@@ -71,8 +80,6 @@ class _OffersCarouselState extends State<OffersCarousel> {
   int _selectedIndex = 0;
   late PageController _pageController;
   late Timer _timer;
-
-  // Offers List
 
   @override
   void initState() {
@@ -119,7 +126,11 @@ class _OffersCarouselState extends State<OffersCarousel> {
               (banner) {
                 BlocProvider.of<ProductScreenBloc>(context).add(AddTagEvent([banner.tag]));
                 BlocProvider.of<ProductScreenBloc>(context).add(GetProductsEvent());
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ProductListScreen(),));
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => ProductListScreen(
+                    user: widget.user,
+                  ),
+                ));
               },
             ),
           ),

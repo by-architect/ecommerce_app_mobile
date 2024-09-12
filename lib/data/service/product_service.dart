@@ -2,7 +2,9 @@ import 'package:ecommerce_app_mobile/data/model/category.dart';
 import 'package:ecommerce_app_mobile/data/model/product.dart';
 import 'package:ecommerce_app_mobile/data/model/product_details_item.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
+import 'package:ecommerce_app_mobile/data/model/purchase_process.dart';
 import 'package:ecommerce_app_mobile/data/model/recent_search.dart';
+import 'package:ecommerce_app_mobile/presentation/products/bloc/purchase_process_state.dart';
 
 import '../../presentation/products/bloc/review_state.dart';
 import '../../sddklibrary/util/resource.dart';
@@ -48,5 +50,7 @@ abstract class ProductService {
   Future<ResourceStatus<List<Product>>> getProductsOnCart();
   Future<ResourceStatus<List<ProductDetailsItem>>> getProductDetails(String productId);
 
+  Future<ResourceStatus> addPurchaseProcess(PurchaseProcessState purchaseProcess, String uid);
+  Future<ResourceStatus<PurchaseProcess>> getCart(String uid);
 
 }

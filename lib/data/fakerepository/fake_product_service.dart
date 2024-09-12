@@ -5,8 +5,10 @@ import 'package:ecommerce_app_mobile/data/model/category.dart';
 import 'package:ecommerce_app_mobile/data/model/product.dart';
 import 'package:ecommerce_app_mobile/data/model/product_details_item.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
+import 'package:ecommerce_app_mobile/data/model/purchase_process.dart';
 import 'package:ecommerce_app_mobile/data/model/recent_search.dart';
 import 'package:ecommerce_app_mobile/data/service/product_service.dart';
+import 'package:ecommerce_app_mobile/presentation/products/bloc/purchase_process_state.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/fail.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/resource.dart';
 
@@ -19,7 +21,7 @@ class FakeProductService implements ProductService {
 
   @override
   Future<ResourceStatus<List<Category>>> getCategories() async {
-    await Future.delayed(const Duration(seconds: 2));
+    // await Future.delayed(const Duration(seconds: 2));
     List<Category> categories = [
       FakeProductModels.category1,
       FakeProductModels.category2,
@@ -31,7 +33,7 @@ class FakeProductService implements ProductService {
       FakeProductModels.category231
     ];
 
-    // return ResourceStatus.success(categories);
+    return ResourceStatus.success(categories);
     // return ResourceStatus.fail(Fail(userMessage: "Fake product service fail situation"));
 
     return random.nextBool()
@@ -170,5 +172,17 @@ class FakeProductService implements ProductService {
   Future<ResourceStatus<List<Product>>> getProductsOnCart() async {
     await Future.delayed(const Duration(seconds: 1));
     return ResourceStatus.success(FakeProductModels.products);
+  }
+
+  @override
+  Future<ResourceStatus> addPurchaseProcess(PurchaseProcessState purchaseProcess,String uid) async {
+    await Future.delayed(const Duration(seconds: 1));
+    return const ResourceStatus.success("");
+  }
+
+  @override
+  Future<ResourceStatus<PurchaseProcess>> getCart(String uid) {
+    // TODO: implement getCart
+    throw UnimplementedError();
   }
 }

@@ -19,18 +19,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../data/model/product_feature.dart';
+import '../../../data/model/user.dart';
 import '../../main/widget/search_widget.dart';
 
 class SearchScreen extends StatefulWidget {
   final AllProductFeatures features;
   final Categories categories;
+  final User? user;
 
   // final List<SearchEvent> events;
 
   const SearchScreen({
     super.key,
     required this.features,
-    required this.categories,
+    required this.categories, required this.user,
   });
 
 
@@ -188,6 +190,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                 crossAxisSpacing: 10,
                               ),
                               itemBuilder: (context, index) => ProductCard(
+                                user: widget.user,
                                 product: state.products[index],
                               ),
                             ),

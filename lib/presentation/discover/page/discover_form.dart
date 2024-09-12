@@ -12,6 +12,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../common/ui/theme/AppSizes.dart';
+import '../../../data/model/user.dart';
 import '../../main/widget/search_widget.dart';
 import '../../search/bloc/search_event.dart';
 import '../../search/page/search_screen.dart';
@@ -20,8 +21,9 @@ import '../bloc/discover_event.dart';
 class DiscoverForm extends StatefulWidget {
   final AllProductFeatures features;
   final Categories categories;
+  final User? user;
 
-  const DiscoverForm({super.key, required this.features, required this.categories});
+  const DiscoverForm({super.key, required this.features, required this.categories, required this.user});
 
   @override
   State<DiscoverForm> createState() => _DiscoverFormState();
@@ -49,6 +51,7 @@ class _DiscoverFormState extends State<DiscoverForm> {
                 BlocProvider.of<SearchBloc>(context).add(GetProductsEvent());
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => SearchScreen(
+                      user: widget.user,
                           features: widget.features,
                           categories: widget.categories,
                         )));
@@ -111,6 +114,7 @@ class _DiscoverFormState extends State<DiscoverForm> {
                       BlocProvider.of<SearchBloc>(context).add(GetProductsEvent());
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => SearchScreen(
+                             user: widget.user,
                             features: widget.features,
                             categories: widget.categories,
                           )));

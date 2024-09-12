@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce_app_mobile/data/model/Reviews.dart';
 import 'package:ecommerce_app_mobile/data/model/product_details_item.dart';
+import 'package:ecommerce_app_mobile/data/model/purchase_process.dart';
 import 'package:ecommerce_app_mobile/data/model/recent_search.dart';
 import 'package:ecommerce_app_mobile/data/model/review.dart';
+import 'package:ecommerce_app_mobile/presentation/products/bloc/purchase_process_state.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/review_state.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/constant/exceptions/exception_handler.dart';
 import 'package:ecommerce_app_mobile/common/constant/firestore_collections.dart';
@@ -233,6 +235,18 @@ class ProductServiceImpl extends ProductService {
   @override
   Future<ResourceStatus<List<Product>>> getProductsOnCart() {
     // TODO: implement getProductsOnCart
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<ResourceStatus> addPurchaseProcess(PurchaseProcessState purchaseProcess,String uid) {
+    // TODO: implement addPurchaseProcess
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<ResourceStatus<PurchaseProcess>> getCart(String uid) {
+    // TODO: implement getCart
     throw UnimplementedError();
   }
 }

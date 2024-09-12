@@ -15,11 +15,13 @@ class ProductDetailsBloc extends Bloc<ProductDetailsEvent, ProductDetailsState> 
           productDetailsItems: state.productDetailsItems,
           optionMatrix: state.optionMatrix,
           selectedSubProduct: state.selectedSubProduct,
+          quantity: state.quantity,
         ));
         final resource = await service.getReviews(event.productId);
         switch (resource.status) {
           case Status.success:
             emit(ReviewsSuccessState(
+                quantity: state.quantity,
                 selectedSubProduct: state.selectedSubProduct,
                 reviews: resource.data!,
                 youMayAlsoLike: state.youMayAlsoLike,
@@ -28,6 +30,7 @@ class ProductDetailsBloc extends Bloc<ProductDetailsEvent, ProductDetailsState> 
             break;
           case Status.fail:
             emit(ReviewsFailState(
+                quantity: state.quantity,
                 selectedSubProduct: state.selectedSubProduct,
                 fail: resource.error!,
                 reviews: state.reviews,
@@ -41,7 +44,8 @@ class ProductDetailsBloc extends Bloc<ProductDetailsEvent, ProductDetailsState> 
                 reviews: state.reviews,
                 youMayAlsoLike: state.youMayAlsoLike,
                 productDetailsItems: state.productDetailsItems,
-                optionMatrix: state.optionMatrix));
+                optionMatrix: state.optionMatrix,
+                quantity: state.quantity));
             break;
           case Status.stable:
             break;
@@ -52,6 +56,7 @@ class ProductDetailsBloc extends Bloc<ProductDetailsEvent, ProductDetailsState> 
     on<GetYouMayAlsoLikeEvent>(
       (event, emit) async {
         emit(YouMayAlsoLikeLoadingState(
+            quantity: state.quantity,
             selectedSubProduct: state.selectedSubProduct,
             reviews: state.reviews,
             youMayAlsoLike: state.youMayAlsoLike,
@@ -65,10 +70,12 @@ class ProductDetailsBloc extends Bloc<ProductDetailsEvent, ProductDetailsState> 
                 reviews: state.reviews,
                 youMayAlsoLike: resource.data!,
                 productDetailsItems: state.productDetailsItems,
-                optionMatrix: state.optionMatrix));
+                optionMatrix: state.optionMatrix,
+                quantity: state.quantity));
             break;
           case Status.fail:
             emit(YouMayAlsoLikeFailState(
+                quantity: state.quantity,
                 selectedSubProduct: state.selectedSubProduct,
                 fail: resource.error!,
                 reviews: state.reviews,
@@ -78,6 +85,7 @@ class ProductDetailsBloc extends Bloc<ProductDetailsEvent, ProductDetailsState> 
             break;
           case Status.loading:
             emit(YouMayAlsoLikeLoadingState(
+                quantity: state.quantity,
                 selectedSubProduct: state.selectedSubProduct,
                 reviews: state.reviews,
                 youMayAlsoLike: state.youMayAlsoLike,
@@ -98,6 +106,7 @@ class ProductDetailsBloc extends Bloc<ProductDetailsEvent, ProductDetailsState> 
     on<GetProductDetailsEvent>(
       (event, emit) async {
         emit(ProductDetailsLoadingState(
+            quantity: state.quantity,
             selectedSubProduct: state.selectedSubProduct,
             reviews: state.reviews,
             youMayAlsoLike: state.youMayAlsoLike,
@@ -107,6 +116,7 @@ class ProductDetailsBloc extends Bloc<ProductDetailsEvent, ProductDetailsState> 
         switch (resource.status) {
           case Status.success:
             emit(ProductDetailsSuccessState(
+                quantity: state.quantity,
                 selectedSubProduct: state.selectedSubProduct,
                 reviews: state.reviews,
                 youMayAlsoLike: state.youMayAlsoLike,
@@ -115,6 +125,7 @@ class ProductDetailsBloc extends Bloc<ProductDetailsEvent, ProductDetailsState> 
             break;
           case Status.fail:
             emit(ProductDetailsFailState(
+                quantity: state.quantity,
                 selectedSubProduct: state.selectedSubProduct,
                 fail: resource.error!,
                 reviews: state.reviews,
@@ -124,6 +135,7 @@ class ProductDetailsBloc extends Bloc<ProductDetailsEvent, ProductDetailsState> 
             break;
           case Status.loading:
             emit(ProductDetailsLoadingState(
+                quantity: state.quantity,
                 selectedSubProduct: state.selectedSubProduct,
                 reviews: state.reviews,
                 youMayAlsoLike: state.youMayAlsoLike,
@@ -135,9 +147,56 @@ class ProductDetailsBloc extends Bloc<ProductDetailsEvent, ProductDetailsState> 
         }
       },
     );
+    on<AddPurchaseProcessEvent>(
+      (event, emit) async {
+        emit(PurchaseProcessLoadingState(
+            quantity: state.quantity,
+            selectedSubProduct: state.selectedSubProduct,
+            reviews: state.reviews,
+            youMayAlsoLike: state.youMayAlsoLike,
+            productDetailsItems: state.productDetailsItems,
+            optionMatrix: state.optionMatrix));
+        final resource = await service.addPurchaseProcess(event.processState,event.uid);
+        switch (resource.status) {
+          case Status.success:
+            emit(PurchaseProcessSuccessState(
+                quantity: state.quantity,
+                selectedSubProduct: state.selectedSubProduct,
+                reviews: state.reviews,
+                youMayAlsoLike: state.youMayAlsoLike,
+                productDetailsItems:state.productDetailsItems,
+                optionMatrix: state.optionMatrix
+            ));
+            break;
+          case Status.fail:
+            emit(PurchaseProcessFailState(
+                quantity: state.quantity,
+                selectedSubProduct: state.selectedSubProduct,
+                fail: resource.error!,
+                reviews: state.reviews,
+                youMayAlsoLike: state.youMayAlsoLike,
+                productDetailsItems: state.productDetailsItems,
+                optionMatrix: state.optionMatrix));
+            break;
+          case Status.loading:
+            emit(PurchaseProcessLoadingState(
+                quantity: state.quantity,
+                selectedSubProduct: state.selectedSubProduct,
+                reviews: state.reviews,
+                youMayAlsoLike: state.youMayAlsoLike,
+                productDetailsItems: state.productDetailsItems,
+                optionMatrix: state.optionMatrix));
+            break;
+          case Status.stable:
+            break;
+        }
+
+      },
+    );
     on<GetProductFeaturesEvent>(
       (event, emit) {
         emit(SelectedProductFeaturesLoadingState(
+            quantity: state.quantity,
             selectedSubProduct: state.selectedSubProduct,
             productDetailsItems: state.productDetailsItems,
             reviews: state.reviews,
@@ -149,12 +208,15 @@ class ProductDetailsBloc extends Bloc<ProductDetailsEvent, ProductDetailsState> 
         final selectedOptionMatrix = event.productFeatureHandler.selectOptionsOfSubProduct(
             optionMatrix: optionMatrix, selectedSubProduct: event.productFeatureHandler.idealSubProduct);
 
-        emit(state.copyWith(optionMatrix: selectedOptionMatrix,selectedSubProduct: event.productFeatureHandler.idealSubProduct));
+        emit(state.copyWith(
+            optionMatrix: selectedOptionMatrix,
+            selectedSubProduct: event.productFeatureHandler.idealSubProduct));
       },
     );
     on<SelectProductFeatureOptionEvent>(
       (event, emit) {
         emit(SelectedProductFeaturesLoadingState(
+            quantity: state.quantity,
             productDetailsItems: state.productDetailsItems,
             optionMatrix: state.optionMatrix,
             reviews: state.reviews,
@@ -166,6 +228,7 @@ class ProductDetailsBloc extends Bloc<ProductDetailsEvent, ProductDetailsState> 
           selectedOption: event.selectedOption,
         );
         emit(ProductDetailsState(
+            quantity: 1,
             selectedSubProduct: optionMatrixWithSubProduct.subProduct,
             optionMatrix: optionMatrixWithSubProduct.optionMatrix,
             productDetailsItems: state.productDetailsItems,
@@ -215,6 +278,16 @@ class ProductDetailsBloc extends Bloc<ProductDetailsEvent, ProductDetailsState> 
           }
         }
         emit(state.copyWith(productFeaturesWithSelectedOption: productFeaturesWithSelectedOption));*/
+      },
+    );
+    on<IncreaseQuantity>(
+      (event, emit) {
+        emit(state.copyWith(quantity: state.quantity + 1));
+      },
+    );
+    on<DecreaseQuantity>(
+      (event, emit) {
+        emit(state.copyWith(quantity: state.quantity - 1));
       },
     );
 /*

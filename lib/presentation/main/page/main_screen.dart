@@ -111,10 +111,12 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                   body: <Widget>[
                     HomeForm(
+                      user: state.userStatus.user,
                       productFeatures: state.features,
                       categories: state.categories,
                     ),
                     DiscoverForm(
+                      user: state.userStatus.user,
                       categories: state.categories,
                       features: state.features,
                     ),

@@ -1,6 +1,10 @@
 import 'package:ecommerce_app_mobile/common/constant/Screens.dart';
+import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
+import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
+import 'package:ecommerce_app_mobile/presentation/main/page/main_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class AddedToCartMessageScreen extends StatelessWidget {
   const AddedToCartMessageScreen({super.key});
@@ -14,36 +18,33 @@ class AddedToCartMessageScreen extends StatelessWidget {
           child: Column(
             children: [
               const Spacer(),
-              Image.asset(
-                Theme.of(context).brightness == Brightness.light
-                    ? "assets/Illustration/success.png"
-                    : "assets/Illustration/success_dark.png",
+              SvgPicture.asset(
+                AppImages.successfulPurchase,
                 height: MediaQuery.of(context).size.height * 0.3,
               ),
               const Spacer(flex: 2),
               Text(
-                "Added to cart",
-                style: Theme.of(context)
-                    .textTheme
-                    .headlineSmall!
-                    .copyWith(fontWeight: FontWeight.w500),
+                AppText.productDetailsPageAddedToCart.capitalizeEveryWord,
+                style: Theme.of(context).textTheme.headlineSmall!.copyWith(fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: AppSizes.defaultPadding / 2),
-              const Text(
-                "Click the checkout button to complete the purchase process.",
+              Text(
+                AppText.productDetailsPageAddedToCart.capitalizeFirstWord,
                 textAlign: TextAlign.center,
               ),
               const Spacer(flex: 2),
               OutlinedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, Screens.entryPointScreenRoute);
+                  Navigator.of(context).pop();
                 },
-                child: const Text("Continue shopping"),
+                child: Text(AppText.productDetailsPageContinueShopping.capitalizeEveryWord),
               ),
               const SizedBox(height: AppSizes.defaultPadding),
               ElevatedButton(
-                onPressed: () {},
-                child: const Text("Checkout"),
+                onPressed: () {
+                  //todo: go to cart
+                },
+                child: Text(AppText.productDetailsPageCheckout.capitalizeFirstWord),
               ),
               const Spacer(),
             ],

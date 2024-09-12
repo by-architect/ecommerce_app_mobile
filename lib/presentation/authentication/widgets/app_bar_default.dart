@@ -44,7 +44,7 @@ class AppBarMain extends StatelessWidget implements PreferredSizeWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => SearchScreen(categories: categories, features: features),
+                  builder: (context) => SearchScreen(categories: categories, features: features,user: user,),
                 ));
           },
           icon: SvgPicture.asset(

@@ -11,10 +11,13 @@ import 'package:ecommerce_app_mobile/presentation/products/widget/popular_produc
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../data/model/user.dart';
+
 class HomeForm extends StatefulWidget {
   final AllProductFeatures productFeatures;
   final Categories categories;
-  const HomeForm({super.key, required this.productFeatures, required this.categories});
+  final User? user;
+  const HomeForm({super.key, required this.productFeatures, required this.categories, required this.user});
 
   @override
   State<HomeForm> createState() => _HomeFormState();
@@ -44,12 +47,14 @@ class _HomeFormState extends State<HomeForm> {
             : [
                 SliverToBoxAdapter(
                   child: OffersCarouselAndCategories(
+                    user: widget.user,
                     isLoading: state is ProductsLoadingState,
                     bannerList: FakeProductModels.banners, features: widget.productFeatures,
                   ),
                 ),
                 SliverToBoxAdapter(
                   child: ProductsHorizontalWidget(
+                    user: widget.user,
                     productFeatures: widget.productFeatures,
                     products: state.lastAddedProducts,
                     title: AppText.homePageNewProducts.capitalizeEveryWord,
@@ -58,6 +63,7 @@ class _HomeFormState extends State<HomeForm> {
                 ),
                 SliverToBoxAdapter(
                   child: ProductsHorizontalWidget(
+                    user: widget.user,
                     productFeatures: widget.productFeatures,
                     products: state.bestSellerProducts,
                     title: AppText.homePageBestSellerProducts.capitalizeEveryWord,
@@ -66,6 +72,7 @@ class _HomeFormState extends State<HomeForm> {
                 ),
                 SliverToBoxAdapter(
                   child: ProductsHorizontalWidget(
+                    user: widget.user,
                     productFeatures: widget.productFeatures,
                     products: state.discountedProducts,
                     title: AppText.homePageDiscountProducts.capitalizeEveryWord,

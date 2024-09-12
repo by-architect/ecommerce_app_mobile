@@ -4,6 +4,7 @@ import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/common/util/category_util.dart';
 import 'package:ecommerce_app_mobile/data/model/categories.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
+import 'package:ecommerce_app_mobile/data/model/user.dart';
 import 'package:ecommerce_app_mobile/presentation/search/page/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,11 +19,12 @@ import '../../search/bloc/search_event.dart';
 class CategoriesWidget extends StatelessWidget {
   final Categories categoriesByLayer;
   final AllProductFeatures features;
+  final User? user;
 
   const CategoriesWidget({
     super.key,
     required this.categoriesByLayer,
-    required this.features,
+    required this.features, required this.user,
   });
 
   @override
@@ -50,6 +52,7 @@ class CategoriesWidget extends StatelessWidget {
                     BlocProvider.of<SearchBloc>(context).add(GetProductsEvent());
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => SearchScreen(
+                          user: user,
                               features: features,
                               categories: categoriesByLayer,
                             )));
@@ -59,6 +62,7 @@ class CategoriesWidget extends StatelessWidget {
                     BlocProvider.of<SearchBloc>(context).add(GetProductsEvent());
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => SearchScreen(
+                          user: user,
                               features: features,
                               categories: categoriesByLayer,
                             )));

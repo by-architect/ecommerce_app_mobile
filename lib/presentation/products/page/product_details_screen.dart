@@ -3,6 +3,7 @@ import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/model/product.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature_handler.dart';
+import 'package:ecommerce_app_mobile/data/model/user.dart';
 import 'package:ecommerce_app_mobile/presentation/common/skeleton/product_card_skeleton.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_event.dart';
@@ -28,11 +29,13 @@ class ProductDetailsScreen extends StatefulWidget {
     this.previousProduct,
     required this.product,
     this.previousProductFeatureHandler,
+    required this.user,
   });
 
   final Product? previousProduct;
   final Product product;
   final ProductFeatureHandler? previousProductFeatureHandler;
+  final User? user;
 
   @override
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
@@ -77,6 +80,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> with Widget
                       context,
                       height: MediaQuery.of(context).size.height * 0.92,
                       child: ProductBuyNowScreen(
+                        user: widget.user,
                         productFeatureHandler: productFeatureHandler,
                         product: widget.product,
                       ),
@@ -201,6 +205,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> with Widget
                         child: state is YouMayAlsoLikeLoadingState
                             ? const ProductCardSkeleton()
                             : ProductCard(
+                                user: widget.user,
                                 product: state.youMayAlsoLike[index],
                                 previousProduct: widget.product,
                                 previousProductFeatureHandler: productFeatureHandler,

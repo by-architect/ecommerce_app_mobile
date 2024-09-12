@@ -67,13 +67,15 @@ class CartForm extends StatelessWidget {
                 child: ButtonPrimary(
                     text: AppText.commonContinue.capitalizeFirstWord,
                     onTap: () {
-                      if (user.firebaseUser.emailVerified) {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const PayingScreen(),
-                        ));
-                      } else {
+                      if (!user.firebaseUser.emailVerified) {
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => EmailVerificationScreen(user: user),
+                        ));
+                      } else if (false /*todo: check to address before buy screen*/) {
+                        //todo: add address screen
+                      } else {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const PayingScreen(),
                         ));
                       }
                     }),

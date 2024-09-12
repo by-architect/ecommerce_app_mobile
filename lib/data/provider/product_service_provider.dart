@@ -6,6 +6,7 @@ import 'package:ecommerce_app_mobile/data/model/category.dart';
 import 'package:ecommerce_app_mobile/data/model/product_details_item.dart';
 import 'package:ecommerce_app_mobile/data/model/recent_search.dart';
 import 'package:ecommerce_app_mobile/data/service/product_service.dart';
+import 'package:ecommerce_app_mobile/presentation/products/bloc/purchase_process_state.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/fail.dart';
 
 import '../../presentation/products/bloc/review_state.dart';
@@ -173,6 +174,9 @@ class ProductServiceProvider {
   Future<ResourceStatus<List<Product>>> getProductsOnCart() {
     return productService.getProductsOnCart();
   }
+  Future<ResourceStatus> addPurchaseProcess(PurchaseProcessState purchaseProcessState,String uid) {
+    return productService.addPurchaseProcess(purchaseProcessState,uid);
+  }
 
   getProductsOnCartAsResource(Function(Resource) resource) async {
     resource(Resource.loading());
@@ -191,4 +195,5 @@ class ProductServiceProvider {
         break;
     }
   }
+
 }
