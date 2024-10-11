@@ -230,7 +230,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       width: AppSizes.spaceBtwHorizontalFields,
                     ),
                     GestureDetector(
-                      onTap: () => Navigator.of(context).pushNamed(Screens.signInScreen),
+                      onTap: () => Navigator.of(context).pushNamedAndRemoveUntil(Screens.signInScreen,(route)=>false),
                       child: Text(
                         AppText.signIn.capitalizeEveryWord,
                         style: Theme

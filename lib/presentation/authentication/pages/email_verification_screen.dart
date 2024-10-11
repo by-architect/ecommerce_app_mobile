@@ -9,7 +9,6 @@ import 'package:ecommerce_app_mobile/presentation/common/widgets/button_secondar
 import 'package:ecommerce_app_mobile/presentation/main/bloc/main_blocs.dart';
 import 'package:ecommerce_app_mobile/presentation/main/bloc/main_events.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/ui/dialog_util.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -90,7 +89,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         //todo: appbar to verification screen
-        appBar: const AppBarPopBack(),
+        appBar: AppBarPopBack(title: AppText.verificationEmail.capitalizeEveryWord,),
         resizeToAvoidBottomInset: false,
         body: SafeArea(
           child: Padding(

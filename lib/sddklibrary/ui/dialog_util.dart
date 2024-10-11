@@ -2,6 +2,7 @@ import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/fail_form.dart';
 import 'package:flutter/material.dart';
 
+import '../util/Log.dart';
 import '../util/fail.dart';
 
 class DialogUtil {
@@ -76,7 +77,9 @@ class DialogUtil {
 
   void info(String title, String content) {
     if (!_showingADialog) {
+      Log.test(title: "dialog util",data: _showingADialog);
       _showingADialog = true;
+      Log.test(title: "dialog util",data: _showingADialog);
       showDialog(
         context: _context,
         builder: (BuildContext context) {

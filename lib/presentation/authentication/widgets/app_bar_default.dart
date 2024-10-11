@@ -1,3 +1,4 @@
+import 'package:ecommerce_app_mobile/common/constant/Screens.dart';
 import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
@@ -6,6 +7,7 @@ import 'package:ecommerce_app_mobile/data/model/categories.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
 import 'package:ecommerce_app_mobile/data/service/impl/user_service_impl.dart';
 import 'package:ecommerce_app_mobile/data/service/user_service.dart';
+import 'package:ecommerce_app_mobile/presentation/authentication/pages/email_verification_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/search/page/search_screen.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/resource.dart';
@@ -20,7 +22,8 @@ class AppBarMain extends StatelessWidget implements PreferredSizeWidget {
   final AllProductFeatures features;
   final Categories categories;
 
-  const AppBarMain({super.key, required this.features, required this.categories, this.user});
+  const AppBarMain(
+      {super.key, required this.features, required this.categories, this.user});
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -36,7 +39,9 @@ class AppBarMain extends StatelessWidget implements PreferredSizeWidget {
       title: Text(
         AppText.marketName.capitalizeEveryWord,
         style: Theme.of(context).textTheme.titleLarge?.copyWith(
-            color: AppColors.blackColor, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),
+            color: AppColors.blackColor,
+            fontWeight: FontWeight.bold,
+            fontStyle: FontStyle.italic),
       ),
       actions: [
         IconButton(
@@ -44,26 +49,36 @@ class AppBarMain extends StatelessWidget implements PreferredSizeWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => SearchScreen(categories: categories, features: features,user: user,),
+                  builder: (context) => SearchScreen(
+                    categories: categories,
+                    features: features,
+                    user: user,
+                  ),
                 ));
           },
           icon: SvgPicture.asset(
             AppImages.searchIcon,
             height: 24,
-            colorFilter:
-                ColorFilter.mode(Theme.of(context).textTheme.bodyLarge!.color!, BlendMode.srcIn),
+            colorFilter: ColorFilter.mode(
+                Theme.of(context).textTheme.bodyLarge!.color!, BlendMode.srcIn),
           ),
         ),
         IconButton(
           onPressed: () {
             testScope(user);
-            // Navigator.pushNamed(context, Screens.notificationScreen);
+            if (user != null) {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => EmailVerificationScreen(user: user!),
+                  ));
+            }
           },
           icon: SvgPicture.asset(
             AppImages.notificationIcon,
             height: 24,
-            colorFilter:
-                ColorFilter.mode(Theme.of(context).textTheme.bodyLarge!.color!, BlendMode.srcIn),
+            colorFilter: ColorFilter.mode(
+                Theme.of(context).textTheme.bodyLarge!.color!, BlendMode.srcIn),
           ),
         ),
       ],
@@ -81,8 +96,8 @@ class AppBarMain extends StatelessWidget implements PreferredSizeWidget {
 Future<void> testScope(User? user) async {
   UserService userService = UserServiceImpl();
 
-  if(user == null) {
-    Log.test(title: "change user password",message: "null user");
+  if (user == null) {
+    Log.test(title: "change user password", message: "null user");
     return;
   }
   // final resource = await userService.changePassword(user, );

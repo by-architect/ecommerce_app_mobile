@@ -10,6 +10,7 @@ import 'package:ecommerce_app_mobile/presentation/authentication/widgets/TextFie
 import 'package:ecommerce_app_mobile/presentation/common/widgets/app_bar_authentication.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/ButtonPrimary.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/ui/dialog_util.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -31,6 +32,13 @@ class SignInScreen extends StatefulWidget {
 class _SignInScreenState extends State<SignInScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  late StreamSubscription<UserServiceState> streamSubscription;
+
+  @override
+  void dispose() {
+    streamSubscription.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,18 +49,19 @@ class _SignInScreenState extends State<SignInScreen> {
       final userValidation = UserValidation.validateLogin(userState);
       if (userValidation.success) {
         BlocProvider.of<UserServiceBloc>(context).add(LoginEvent(userState));
-        late StreamSubscription<UserServiceState> streamSubscription;
-        streamSubscription = BlocProvider.of<UserServiceBloc>(context).stream.listen((state) {
+        streamSubscription =
+            BlocProvider.of<UserServiceBloc>(context).stream.listen((state) {
           switch (state) {
             case LoginUserSuccessState _:
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                  Screens.mainScreen,
-                  (route) => false,
-                );
-                streamSubscription.cancel();
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                Screens.mainScreen,
+                (route) => false,
+              );
+              streamSubscription.cancel();
               break;
             case LoginUserFailState failState:
-              dialogUtil.info(AppText.errorTitle.capitalizeEveryWord, failState.error.userMessage);
+              dialogUtil.info(AppText.errorTitle.capitalizeEveryWord,
+                  failState.error.userMessage);
               break;
           }
         });
@@ -104,7 +113,8 @@ class _SignInScreenState extends State<SignInScreen> {
                     label: AppText.password.capitalizeFirstWord,
                     isPassword: true,
                     onChanged: (value) {
-                      BlocProvider.of<UserBloc>(context).add(PasswordEvent(value));
+                      BlocProvider.of<UserBloc>(context)
+                          .add(PasswordEvent(value));
                     },
                   ),
                   const SizedBox(
@@ -114,14 +124,17 @@ class _SignInScreenState extends State<SignInScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        AppText.signInPageDoNotHaveAnAccount.capitalizeFirstWord,
+                        AppText
+                            .signInPageDoNotHaveAnAccount.capitalizeFirstWord,
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       const SizedBox(
                         width: AppSizes.spaceBtwHorizontalFields,
                       ),
                       GestureDetector(
-                        onTap: () => Navigator.of(context).pushNamed(Screens.signUpScreen),
+                        onTap: () => Navigator.of(context)
+                            .pushNamedAndRemoveUntil(
+                                Screens.signUpScreen, (route) => false),
                         child: Text(
                           AppText.signUp.capitalizeEveryWord,
                           style: Theme.of(context)
