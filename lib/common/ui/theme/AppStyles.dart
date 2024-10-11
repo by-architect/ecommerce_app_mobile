@@ -8,10 +8,21 @@ class AppStyles {
 
   static const grandisExtendedFont = "GrandisExtended";
 
-  static final ElevatedButtonThemeData elevatedButtonThemeData = ElevatedButtonThemeData(
+  static final ElevatedButtonThemeData elevatedButtonThemeDataLight = ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       padding: const EdgeInsets.all(AppSizes.defaultPadding),
-      backgroundColor: AppColors.blueColor,
+      backgroundColor: AppColors.primaryColor,
+      foregroundColor: Colors.white,
+      minimumSize: const Size(double.infinity, 32),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(AppSizes.defaultBorderRadius)),
+      ),
+    ),
+  );
+  static final ElevatedButtonThemeData elevatedButtonThemeDataDark = ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      padding: const EdgeInsets.all(AppSizes.defaultPadding),
+      backgroundColor: AppColors.primaryColorDark,
       foregroundColor: Colors.white,
       minimumSize: const Size(double.infinity, 32),
       shape: const RoundedRectangleBorder(
@@ -29,9 +40,9 @@ class AppStyles {
   );
   static const defaultNavigationBarThemeDark = BottomNavigationBarThemeData(
     backgroundColor: AppColors.blackColor,
-    selectedItemColor: AppColors.primaryColor,
+    selectedItemColor: AppColors.primaryColorDark,
     unselectedItemColor: AppColors.whiteColor,
-    selectedIconTheme: IconThemeData(color: AppColors.primaryColor),
+    selectedIconTheme: IconThemeData(color: AppColors.primaryColorDark),
     unselectedIconTheme: IconThemeData(color: AppColors.whiteColor40),
     showUnselectedLabels: false,
   );
@@ -72,7 +83,7 @@ class AppStyles {
   }
 
   static final textButtonThemeData = TextButtonThemeData(
-    style: TextButton.styleFrom(foregroundColor: AppColors.primaryColor),
+    style: TextButton.styleFrom(foregroundColor: AppColors.primaryColorDark),
   );
 
   static const InputDecorationTheme lightInputDecorationTheme = InputDecorationTheme(

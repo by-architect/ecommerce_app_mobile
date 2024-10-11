@@ -98,7 +98,7 @@ class _CategoryBtn extends StatelessWidget {
         height: 36,
         padding: const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding),
         decoration: BoxDecoration(
-          color: isFirst ? AppColors.primaryColor : Colors.transparent,
+          color: isFirst ? Theme.of(context).primaryColor : Colors.transparent,
           border: Border.all(color: isFirst ? Colors.transparent : Theme.of(context).dividerColor),
           borderRadius: const BorderRadius.all(Radius.circular(30)),
         ),

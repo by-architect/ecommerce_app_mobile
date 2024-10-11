@@ -55,14 +55,16 @@ class AppColors {
 
   static const Color purpleColor = Color(0xFF7B61FF);
   static const Color cyanColor = Colors.cyan;
-  static const Color blueColor = Color.fromARGB(255, 9, 4, 70);
+  static const Color blueColorDark = Color.fromARGB(255, 9, 4, 70);
+  static const Color blueColorLight = Color(0xFFC08552);
   static const Color successColor = Color(0xFF2ED573);
   static const Color warningColor = Color(0xFFFFBE21);
   static const Color errorColor = Color(0xFFEA5B5B);
 
-  static const  primaryColor = AppColors.blueColor;
+  static const  primaryColor = AppColors.blueColorLight;
+  static const  primaryColorDark = AppColors.blueColorDark;
 
-  static const MaterialColor blueMaterialColor = MaterialColor(
+  static const MaterialColor blueMaterialColorDark = MaterialColor(
     0xFF090446, // Use the original color as the primary key
     <int, Color>{
       50: Color(0xFFE1E0E9),
@@ -76,4 +78,21 @@ class AppColors {
       800: Color(0xFF05022F),
       900: Color(0xFF030120),
     },
-  );}
+  );
+
+  static const MaterialColor blueMaterialColorLight = MaterialColor(
+    0xFFC08552, // Use the original color as the primary key
+    <int, Color>{
+      50: Color(0xFFF3E7DF),
+      100: Color(0xFFE0C5B4),
+      200: Color(0xFFCC9F84),
+      300: Color(0xFFB77954),
+      400: Color(0xFFA95F33),
+      500: Color(0xFFC08552), // Your original color
+      600: Color(0xFFB77D4B),
+      700: Color(0xFFAC7242),
+      800: Color(0xFFA1683A),
+      900: Color(0xFF8F552A),
+    },
+  );
+}

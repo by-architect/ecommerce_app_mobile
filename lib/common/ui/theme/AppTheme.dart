@@ -7,13 +7,13 @@ import 'AppColors.dart';
 class AppTheme {
   get lightTheme => ThemeData(
       brightness: Brightness.light,
-      primaryColor: AppColors.blueColor,
-      primarySwatch: AppColors.blueMaterialColor,
+      primaryColor: AppColors.blueColorLight,
+      primarySwatch: AppColors.blueMaterialColorLight,
       fontFamily: "PlusJakarta",
       scaffoldBackgroundColor: Colors.white,
       iconTheme: const IconThemeData(color: Colors.black),
       textTheme: const TextTheme(bodyMedium: TextStyle(color: AppColors.blackColor40)),
-      elevatedButtonTheme: AppStyles.elevatedButtonThemeData,
+      elevatedButtonTheme: AppStyles.elevatedButtonThemeDataLight,
       textButtonTheme: AppStyles.textButtonThemeData,
       outlinedButtonTheme: AppStyles.outlinedButtonTheme(),
       inputDecorationTheme: AppStyles.lightInputDecorationTheme,
@@ -27,13 +27,13 @@ class AppTheme {
 
   get darkTheme => ThemeData(
       brightness: Brightness.dark,
-      primaryColor: AppColors.blueColor,
-      primarySwatch: AppColors.blueMaterialColor,
+      primaryColor: AppColors.blueColorDark,
+      primarySwatch: AppColors.blueMaterialColorDark,
       fontFamily: "PlusJakarta",
       scaffoldBackgroundColor: Colors.black,
       iconTheme: const IconThemeData(color: Colors.white),
       textTheme: const TextTheme(bodyMedium: TextStyle(color: AppColors.whiteColor40)),
-      elevatedButtonTheme: AppStyles.elevatedButtonThemeData,
+      elevatedButtonTheme: AppStyles.elevatedButtonThemeDataDark,
       textButtonTheme: AppStyles.textButtonThemeData,
       outlinedButtonTheme: AppStyles.outlinedButtonTheme(),
       inputDecorationTheme: AppStyles.darkInputDecorationTheme,

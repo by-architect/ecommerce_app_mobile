@@ -2,7 +2,6 @@ import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/model/product.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 import '../../../common/ui/theme/AppColors.dart';
 import '../../../common/ui/theme/AppSizes.dart';

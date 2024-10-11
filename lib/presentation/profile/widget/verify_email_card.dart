@@ -24,12 +24,12 @@ class VerifyEmailCard extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(Radius.circular(AppSizes.defaultBorderRadius)),
             gradient: LinearGradient(begin: Alignment.topRight, end: Alignment.bottomLeft, colors: [
-              AppColors.blueMaterialColor.shade500,
-              AppColors.blueMaterialColor.shade400,
-              AppColors.blueMaterialColor.shade300,
-              AppColors.blueMaterialColor.shade300,
-              AppColors.blueMaterialColor.shade400,
-              AppColors.blueMaterialColor.shade500,
+              AppColors.blueMaterialColorDark.shade500,
+              AppColors.blueMaterialColorDark.shade400,
+              AppColors.blueMaterialColorDark.shade300,
+              AppColors.blueMaterialColorDark.shade300,
+              AppColors.blueMaterialColorDark.shade400,
+              AppColors.blueMaterialColorDark.shade500,
             ])),
         child: Padding(
           padding: const EdgeInsets.all(AppSizes.defaultSpace),

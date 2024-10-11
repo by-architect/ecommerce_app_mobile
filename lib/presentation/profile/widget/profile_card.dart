@@ -28,13 +28,18 @@ class ProfileCard extends StatelessWidget {
     return ListTile(
       onTap: press,
       leading: CircleAvatar(
+        backgroundColor: Colors.transparent,
         radius: 28,
-        child: imageSrc == null || imageSrc!.isEmpty?
-        SvgPicture.asset(AppImages.profileIcon):
-        NetworkImageWithLoader(
-          imageSrc!,
-          radius: 100,
-        ),
+        child: imageSrc == null || imageSrc!.isEmpty
+            ? SvgPicture.asset(
+                AppImages.profileIcon,
+                colorFilter: ColorFilter.mode(
+                    Theme.of(context).primaryColor, BlendMode.srcIn),
+              )
+            : NetworkImageWithLoader(
+                imageSrc!,
+                radius: 100,
+              ),
       ),
       title: Row(
         children: [

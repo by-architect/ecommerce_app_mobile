@@ -73,7 +73,7 @@ class NotifyMeCard extends StatelessWidget {
                 CupertinoSwitch(
                   onChanged: onChanged,
                   value: isNotify,
-                  activeColor: AppColors.blueMaterialColor.shade900,
+                  activeColor: AppColors.blueMaterialColorDark.shade900,
                 )
               ],
             ),
