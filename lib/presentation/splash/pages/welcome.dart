@@ -123,7 +123,7 @@ class _Page extends StatelessWidget {
           SizedBox(
             width: 300,
             height: 300,
-            child: SvgPicture.asset(image),
+            child: SvgPicture.asset(image,),
           ),
           Column(
             children: [

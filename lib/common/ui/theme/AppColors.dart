@@ -55,14 +55,18 @@ class AppColors {
 
   static const Color purpleColor = Color(0xFF7B61FF);
   static const Color cyanColor = Colors.cyan;
-  static const Color blueColorDark = Color.fromARGB(255, 9, 4, 70);
-  static const Color blueColorLight = Color(0xFFC08552);
   static const Color successColor = Color(0xFF2ED573);
   static const Color warningColor = Color(0xFFFFBE21);
   static const Color errorColor = Color(0xFFEA5B5B);
 
-  static const  primaryColor = AppColors.blueColorLight;
-  static const  primaryColorDark = AppColors.blueColorDark;
+  //App colors
+  static const Color blueColorDark = Color.fromARGB(255, 9, 4, 70);
+
+  static const Color yellowColorLight = Color(0xFFC08552);
+  static const Color yellowColorDark = Color(0xFF8F552A);
+
+  static const  primaryColor = AppColors.yellowColorLight;
+  static const  primaryColorDark = AppColors.yellowColorDark;
 
   static const MaterialColor blueMaterialColorDark = MaterialColor(
     0xFF090446, // Use the original color as the primary key
@@ -80,7 +84,23 @@ class AppColors {
     },
   );
 
-  static const MaterialColor blueMaterialColorLight = MaterialColor(
+  static const MaterialColor yellowMaterialColorDark = MaterialColor(
+    0xFF8F552A, // Use the original color as the primary key
+    <int, Color>{
+      50: Color(0xFF3A2D27),  // Darker lightest shade
+      100: Color(0xFF5B4B3C),  // Darker light shade
+      200: Color(0xFF7D6A54),  // Slightly darker
+      300: Color(0xFF9F886B),  // Mid-tone dark
+      400: Color(0xFFBFA283),  // Darker mid-tone
+      500: Color(0xFFC08552),  // Your original color
+      600: Color(0xFFB77D4B),  // Darker variant
+      700: Color(0xFFAC7242),  // Darker variant
+      800: Color(0xFFA1683A),  // Darker variant
+      900: Color(0xFF8F552A),  // Darker variant
+    },
+  );
+
+  static const MaterialColor yellowMaterialColorLight = MaterialColor(
     0xFFC08552, // Use the original color as the primary key
     <int, Color>{
       50: Color(0xFFF3E7DF),

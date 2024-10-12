@@ -12,7 +12,7 @@ class AppStyles {
     style: ElevatedButton.styleFrom(
       padding: const EdgeInsets.all(AppSizes.defaultPadding),
       backgroundColor: AppColors.primaryColor,
-      foregroundColor: Colors.white,
+      foregroundColor: AppColors.whiteColor,
       minimumSize: const Size(double.infinity, 32),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(AppSizes.defaultBorderRadius)),
@@ -23,7 +23,7 @@ class AppStyles {
     style: ElevatedButton.styleFrom(
       padding: const EdgeInsets.all(AppSizes.defaultPadding),
       backgroundColor: AppColors.primaryColorDark,
-      foregroundColor: Colors.white,
+      foregroundColor: AppColors.whiteColor80,
       minimumSize: const Size(double.infinity, 32),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(AppSizes.defaultBorderRadius)),
@@ -41,15 +41,23 @@ class AppStyles {
   static const defaultNavigationBarThemeDark = BottomNavigationBarThemeData(
     backgroundColor: AppColors.blackColor,
     selectedItemColor: AppColors.primaryColorDark,
-    unselectedItemColor: AppColors.whiteColor,
+    unselectedItemColor: AppColors.whiteColor80,
     selectedIconTheme: IconThemeData(color: AppColors.primaryColorDark),
     unselectedIconTheme: IconThemeData(color: AppColors.whiteColor40),
     showUnselectedLabels: false,
   );
 
-  static const dialogLightTheme = DialogTheme(
+
+
+  //todo: handle
+  static const dialogThemeLight = DialogTheme(
     backgroundColor: AppColors.whiteColor,
   );
+  static const dialogThemeDark = DialogTheme(
+    backgroundColor: AppColors.blackColor,
+  );
+
+
 
   static const chipThemeLight = ChipThemeData(
     brightness: Brightness.light,
@@ -82,11 +90,12 @@ class AppStyles {
     );
   }
 
+  //todo: handle
   static final textButtonThemeData = TextButtonThemeData(
     style: TextButton.styleFrom(foregroundColor: AppColors.primaryColorDark),
   );
 
-  static const InputDecorationTheme lightInputDecorationTheme = InputDecorationTheme(
+  static const InputDecorationTheme inputDecorationThemeLight = InputDecorationTheme(
     fillColor: AppColors.lightGreyColor,
     filled: true,
     border: AppStyles.outlineInputBorder,
@@ -97,7 +106,7 @@ class AppStyles {
     errorBorder: errorOutlineInputBorder,
   );
 
-  static const InputDecorationTheme darkInputDecorationTheme = InputDecorationTheme(
+  static const InputDecorationTheme inputDecorationThemeDark = InputDecorationTheme(
     fillColor: AppColors.darkGreyColor,
     filled: true,
     border: AppStyles.outlineInputBorder,
@@ -108,6 +117,7 @@ class AppStyles {
     errorBorder: errorOutlineInputBorder,
   );
 
+  //todo: handle
   static const OutlineInputBorder outlineInputBorder = OutlineInputBorder(
     borderRadius: BorderRadius.all(Radius.circular(AppSizes.defaultBorderRadius)),
     borderSide: BorderSide(color: AppColors.greyColor, width: AppSizes.defaultBoxWidth),
@@ -125,7 +135,7 @@ class AppStyles {
     ),
   );
 
-  static OutlineInputBorder secodaryOutlineInputBorder(BuildContext context) {
+  static OutlineInputBorder secondaryOutlineInputBorder(BuildContext context) {
     return OutlineInputBorder(
       borderRadius: const BorderRadius.all(Radius.circular(AppSizes.defaultBorderRadius)),
       borderSide: BorderSide(
@@ -144,6 +154,10 @@ class AppStyles {
     side: const BorderSide(color: AppColors.whiteColor40),
   );
 
+
+
+
+
   static const AppBarTheme appBarLightTheme = AppBarTheme(
     backgroundColor: Colors.white,
     elevation: 0,
@@ -155,17 +169,19 @@ class AppStyles {
     ),
   );
 
-  static const AppBarTheme appBarDarkTheme = AppBarTheme(
+  static AppBarTheme appBarDarkTheme = const AppBarTheme(
     backgroundColor: AppColors.blackColor,
     elevation: 0,
-    iconTheme: IconThemeData(color: Colors.white),
+    iconTheme: IconThemeData(color: AppColors.whiteColor80),
     titleTextStyle: TextStyle(
       fontSize: 16,
       fontWeight: FontWeight.w500,
-      color: Colors.white,
+      color: AppColors.whiteColor80,
     ),
   );
 
+
+  //todo:
   static ScrollbarThemeData scrollbarThemeData = ScrollbarThemeData(
     trackColor: WidgetStateProperty.all(AppColors.primaryColor),
   );
@@ -193,7 +209,7 @@ class AppStyles {
     ),
     dataTextStyle: const TextStyle(
       fontWeight: FontWeight.w500,
-      color: Colors.white,
+      color: AppColors.whiteColor80,
       fontSize: 12,
     ),
   );
