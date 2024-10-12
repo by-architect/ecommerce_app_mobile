@@ -57,6 +57,7 @@ class _MainScreenState extends State<MainScreen> {
 
     super.initState();
   }
+
   @override
   void dispose() {
     pageController.dispose();
@@ -129,7 +130,8 @@ class _MainScreenState extends State<MainScreen> {
                       ),
                       Container(
                         decoration: BoxDecoration(
-                            color: Colors.white,
+                          color: Theme.of(context).scaffoldBackgroundColor,
+/*
                             borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(20),
                                 topRight: Radius.circular(20)),
@@ -141,7 +143,9 @@ class _MainScreenState extends State<MainScreen> {
                                 offset:
                                     Offset(0, 3), // changes position of shadow
                               ),
-                            ]),
+                            ]
+*/
+                        ),
                         height: 68,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -158,7 +162,6 @@ class _MainScreenState extends State<MainScreen> {
                             ),
                             _NavBarItem(
                               icon: AppImages.categoryIcon,
-
                               isSelected: selectedIndex == 1,
                               onClicked: () {
                                 pageController.jumpToPage(1);
