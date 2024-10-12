@@ -1,11 +1,10 @@
-import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/color_filters.dart';
+import 'package:ecommerce_app_mobile/presentation/common/widgets/text_market.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../common/ui/assets/AppImages.dart';
-import '../../../common/ui/theme/AppText.dart';
 
 class AppBarPopUp extends StatefulWidget implements PreferredSizeWidget {
 
@@ -28,7 +27,7 @@ class _AppBarPopUpState extends State<AppBarPopUp> {
     leadingWidth: 0,
     titleSpacing: AppSizes.defaultPadding,
     centerTitle: false,
-    title: Text(AppText.marketName.capitalizeEveryWord,style: Theme.of(context).textTheme.titleLarge?.copyWith(color: AppColors.blackColor,fontWeight:  FontWeight.bold,fontStyle: FontStyle.italic),),
+    title: const TextMarket(),
       actions: [
         Padding(
           padding: const EdgeInsets.all(AppSizes.spaceBtwHorizontalFields),

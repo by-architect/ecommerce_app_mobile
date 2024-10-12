@@ -9,6 +9,7 @@ import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
 import 'package:ecommerce_app_mobile/data/service/impl/user_service_impl.dart';
 import 'package:ecommerce_app_mobile/data/service/user_service.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/pages/email_verification_screen.dart';
+import 'package:ecommerce_app_mobile/presentation/common/widgets/text_market.dart';
 import 'package:ecommerce_app_mobile/presentation/search/page/search_screen.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/resource.dart';
@@ -37,12 +38,7 @@ class AppBarMain extends StatelessWidget implements PreferredSizeWidget {
       titleSpacing: AppSizes.defaultPadding,
       leadingWidth: 0,
       centerTitle: false,
-      title: Text(
-        AppText.marketName.capitalizeEveryWord,
-        style: Theme.of(context).textTheme.titleLarge?.copyWith(
-            fontWeight: FontWeight.bold,
-            fontStyle: FontStyle.italic),
-      ),
+      title: const TextMarket(),
       actions: [
         IconButton(
           onPressed: () {

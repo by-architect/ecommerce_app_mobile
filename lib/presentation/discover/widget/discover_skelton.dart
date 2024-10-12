@@ -33,7 +33,7 @@ class _DiscoverCategorySkeleton extends StatelessWidget {
           Skeleton(
             height: 32,
             width: 32,
-            radious: 8,
+            radius: 8,
           ),
           SizedBox(width: AppSizes.defaultPadding),
           Expanded(

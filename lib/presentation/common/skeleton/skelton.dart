@@ -8,11 +8,11 @@ class Skeleton extends StatelessWidget {
         this.height,
         this.width,
         this.layer = 1,
-        this.radious = AppSizes.defaultPadding});
+        this.radius = AppSizes.defaultPadding});
 
   final double? height, width;
   final int layer;
-  final double radious;
+  final double radius;
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +21,8 @@ class Skeleton extends StatelessWidget {
       width: width,
       padding: const EdgeInsets.all(AppSizes.defaultPadding / 2),
       decoration: BoxDecoration(
-          color: Theme.of(context).iconTheme.color!.withOpacity(0.04 * layer),
-          borderRadius: BorderRadius.all(Radius.circular(radious))),
+          color: Theme.of(context).iconTheme.color!.withOpacity(0.08 * layer),
+          borderRadius: BorderRadius.all(Radius.circular(radius))),
     );
   }
 }
