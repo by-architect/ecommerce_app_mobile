@@ -1,3 +1,4 @@
+import 'package:ecommerce_app_mobile/common/ui/theme/color_filters.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -24,10 +25,7 @@ class ProfileMenuListTile extends StatelessWidget {
         svgSrc,
         height: 24,
         width: 24,
-        colorFilter: ColorFilter.mode(
-          Theme.of(context).iconTheme.color!,
-          BlendMode.srcIn,
-        ),
+        colorFilter: ColorFilters.iconThemeColor(context),
       ),
       title: Text(
         text,

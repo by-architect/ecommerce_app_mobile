@@ -1,3 +1,4 @@
+import 'package:ecommerce_app_mobile/common/ui/theme/color_filters.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -69,6 +70,7 @@ class VerifyEmailCard extends StatelessWidget {
                       height: 100,
                       child: SvgPicture.asset(
                         AppImages.verifyEmail,
+                        colorFilter: ColorFilters.pinkToPrimaryColor(context),
                       ))),
             ],
           ),

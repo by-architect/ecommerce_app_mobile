@@ -1,3 +1,4 @@
+import 'package:ecommerce_app_mobile/common/ui/theme/color_filters.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -23,7 +24,7 @@ class FormInfoSkeleton extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        Expanded(flex: 5, child: SvgPicture.asset(image)),
+        Expanded(flex: 5, child: SvgPicture.asset(image,colorFilter: ColorFilters.pinkToPrimaryColor(context),)),
         Flexible(
             flex: 1,
             child: Text(

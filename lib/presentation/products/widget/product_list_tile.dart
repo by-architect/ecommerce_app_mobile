@@ -1,4 +1,5 @@
 import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
+import 'package:ecommerce_app_mobile/common/ui/theme/color_filters.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -27,12 +28,12 @@ class ProductListTile extends StatelessWidget {
           leading: svgSrc != null? SvgPicture.asset(
             svgSrc!,
             height: 24,
-            color: Theme.of(context).textTheme.bodyLarge!.color,
+            colorFilter: ColorFilters.iconThemeColor(context),
           ):null,
           title: Text(title),
           trailing: SvgPicture.asset(
             AppImages.miniRightIcon,
-            color: Theme.of(context).textTheme.bodyMedium!.color,
+            colorFilter: ColorFilters.iconThemeColor(context),
           ),
         ),
         if (isShowBottomBorder) const Divider(height: 1),

@@ -5,6 +5,8 @@ import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../common/ui/theme/color_filters.dart';
+
 
 class LocationPermissionStoreAvailabilityScreen extends StatelessWidget {
   const LocationPermissionStoreAvailabilityScreen({super.key});
@@ -53,10 +55,7 @@ class LocationPermissionStoreAvailabilityScreen extends StatelessWidget {
                             child: SvgPicture.asset(
                               AppImages.searchIcon,
                               height: 24,
-                              color: Theme.of(context)
-                                  .inputDecorationTheme
-                                  .hintStyle!
-                                  .color,
+                              colorFilter: ColorFilters.greyIconColorFilter(context),
                             ),
                           ),
                         ),

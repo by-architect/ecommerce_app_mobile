@@ -2,6 +2,7 @@ import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppStyles.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
+import 'package:ecommerce_app_mobile/common/ui/theme/color_filters.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -69,7 +70,7 @@ class TextFieldSearch extends StatelessWidget {
                     icon: SvgPicture.asset(
                       AppImages.filterIcon,
                       height: 24,
-                      color: AppColors.greyColor,
+                      colorFilter: ColorFilters.greyIconColorFilter(context),
                     ),
                   ),
                 ),

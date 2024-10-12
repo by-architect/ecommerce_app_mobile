@@ -2,6 +2,7 @@ import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
+import 'package:ecommerce_app_mobile/common/ui/theme/color_filters.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -55,7 +56,7 @@ class NotifyMeCard extends StatelessWidget {
                     ),
                     child: SvgPicture.asset(
                       AppImages.notificationIcon,
-                      color: Colors.white,
+                      //todo: set color filter to colorfilters
                     ),
                   ),
                 ),

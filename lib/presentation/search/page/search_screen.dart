@@ -2,6 +2,7 @@ import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
+import 'package:ecommerce_app_mobile/common/ui/theme/color_filters.dart';
 import 'package:ecommerce_app_mobile/data/model/categories.dart';
 import 'package:ecommerce_app_mobile/presentation/common/skeleton/product_skeleton.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/app_bar_pop_up.dart';
@@ -273,7 +274,7 @@ class _RecentSearchRow extends StatelessWidget {
             ),
             leading: SvgPicture.asset(
               AppImages.clockIcon,
-              color: AppColors.greyColor,
+              colorFilter: ColorFilters.greyIconColorFilter(context),
               width: 30,
               height: 30,
             ),

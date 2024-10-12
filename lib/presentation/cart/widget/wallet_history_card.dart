@@ -4,6 +4,7 @@ import 'package:ecommerce_app_mobile/presentation/cart/widget/secondary_prouduct
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../common/ui/theme/color_filters.dart';
 import '../../../data/model/product.dart';
 
 //todo: unimplemented
@@ -35,7 +36,7 @@ class WalletHistoryCard extends StatelessWidget {
             minLeadingWidth: 24,
             leading: SvgPicture.asset(
               isReturn ? "assets/icons/Return.svg" : "assets/icons/Product.svg",
-              color: Theme.of(context).iconTheme.color,
+              colorFilter: ColorFilters.greyIconColorFilter(context),
               height: 24,
               width: 24,
             ),

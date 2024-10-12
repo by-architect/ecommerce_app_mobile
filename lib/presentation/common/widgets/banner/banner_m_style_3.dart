@@ -1,5 +1,6 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppStyles.dart';
+import 'package:ecommerce_app_mobile/common/ui/theme/color_filters.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/svg.dart';
@@ -77,7 +78,7 @@ class BannerMStyle3 extends StatelessWidget {
                   child: SvgPicture.asset(
                     "assets/icons/Arrow - Right.svg",
                     colorFilter:
-                        const ColorFilter.mode(Colors.black, BlendMode.srcIn),
+                      ColorFilters.iconThemeColor(context)
                   ),
                 ),
               ),

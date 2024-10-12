@@ -2,6 +2,7 @@ import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
+import 'package:ecommerce_app_mobile/common/ui/theme/color_filters.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/pages/email_verification_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/main/bloc/main_blocs.dart';
 import 'package:ecommerce_app_mobile/presentation/main/bloc/main_events.dart';
@@ -155,10 +156,7 @@ class ProfileForm extends StatelessWidget {
               AppImages.logoutIcon,
               height: 24,
               width: 24,
-              colorFilter: const ColorFilter.mode(
-                AppColors.errorColor,
-                BlendMode.srcIn,
-              ),
+              colorFilter: ColorFilters.errorColorFilter,
             ),
             title: Text(
               AppText.logOut.capitalizeEveryWord,

@@ -1,5 +1,6 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
+import 'package:ecommerce_app_mobile/common/ui/theme/color_filters.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -38,9 +39,7 @@ class _AppBarPopUpState extends State<AppBarPopUp> {
             icon: SvgPicture.asset(
               AppImages.closeIcon,
               height: 24,
-              colorFilter: ColorFilter.mode(
-                  Theme.of(context).textTheme.bodyLarge!.color!,
-                  BlendMode.srcIn),
+              colorFilter:ColorFilters.iconThemeColor(context)
             ),
           ),
         ),

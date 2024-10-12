@@ -1,6 +1,7 @@
 import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
+import 'package:ecommerce_app_mobile/common/ui/theme/color_filters.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -37,7 +38,7 @@ class ProductQuantity extends StatelessWidget {
                     padding: const EdgeInsets.all(AppSizes.defaultPadding / 2)),
                 child: SvgPicture.asset(
                   AppImages.minusIcon,
-                  color: Theme.of(context).iconTheme.color,
+                  colorFilter: ColorFilters.iconThemeColor(context),
                 ),
               ),
             ),
@@ -62,7 +63,7 @@ class ProductQuantity extends StatelessWidget {
                     padding: const EdgeInsets.all(AppSizes.defaultPadding / 2)),
                 child: SvgPicture.asset(
                   AppImages.plusIcon,
-                  color: Theme.of(context).iconTheme.color,
+                  colorFilter: ColorFilters.iconThemeColor(context),
                 ),
               ),
             ),

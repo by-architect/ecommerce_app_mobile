@@ -1,4 +1,5 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
+import 'package:ecommerce_app_mobile/common/ui/theme/color_filters.dart';
 import 'package:ecommerce_app_mobile/data/fakerepository/fake_models.dart';
 import 'package:ecommerce_app_mobile/data/model/review.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/network_image_with_loader.dart';
@@ -45,7 +46,7 @@ class ReviewUserCard extends StatelessWidget {
                       child:user.firebaseUser.photoURL !=null? NetworkImageWithLoader(
                         user.firebaseUser.photoURL! ,
                         radius: 100,
-                      ): SvgPicture.asset(AppImages.profileIcon,width: 24,height: 24,color: AppColors.greyColor,),
+                      ): SvgPicture.asset(AppImages.profileIcon,width: 24,height: 24,colorFilter: ColorFilters.greyIconColorFilter(context),),
                     ),
                   ),
                   const SizedBox(width: AppSizes.spaceBtwHorizontalFields,),

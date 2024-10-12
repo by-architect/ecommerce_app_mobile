@@ -2,6 +2,7 @@ import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppStyles.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
+import 'package:ecommerce_app_mobile/common/ui/theme/color_filters.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/svg.dart';
@@ -92,7 +93,7 @@ class BannerMStyle4 extends StatelessWidget {
                   child: SvgPicture.asset(
                     AppImages.arrowRight,
                     colorFilter:
-                        const ColorFilter.mode(Colors.black, BlendMode.srcIn),
+                      ColorFilters.iconThemeColor(context)
                   ),
                 ),
               ),

@@ -1,6 +1,7 @@
 import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppStyles.dart';
+import 'package:ecommerce_app_mobile/common/ui/theme/color_filters.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'banner_discount_tag.dart';
@@ -73,8 +74,7 @@ class BannerMStyle2 extends StatelessWidget {
                   ),
                   child: SvgPicture.asset(
                     AppImages.arrowRight,
-                    colorFilter:
-                        const ColorFilter.mode(Colors.black, BlendMode.srcIn),
+                    colorFilter:ColorFilters.iconThemeColor(context)
                   ),
                 ),
               ),

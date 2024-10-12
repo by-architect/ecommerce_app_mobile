@@ -5,7 +5,9 @@ import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/ButtonPrimary.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/button_secondary.dart';
+import 'package:ecommerce_app_mobile/common/ui/theme/color_filters.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/text_button_default.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/helper/color_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -76,13 +78,16 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               buttonOneText: AppText.signIn.capitalizeEveryWord,
               buttonTwoText: AppText.signUp.capitalizeEveryWord,
               onButtonOneTap: () {
-                Navigator.of(context).pushNamedAndRemoveUntil(Screens.signInScreen, (route) => false);
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                    Screens.signInScreen, (route) => false);
               },
               onButtonTwoTap: () {
-                Navigator.of(context).pushNamedAndRemoveUntil(Screens.signUpScreen, (route) => false);
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                    Screens.signUpScreen, (route) => false);
               },
               onSkipButton: () {
-                Navigator.of(context).pushNamedAndRemoveUntil(Screens.mainScreen, (route) => false);
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                    Screens.mainScreen, (route) => false);
               },
             ),
           ],
@@ -123,19 +128,24 @@ class _Page extends StatelessWidget {
           SizedBox(
             width: 300,
             height: 300,
-            child: SvgPicture.asset(image,),
+            child: SvgPicture.asset(image,
+                colorFilter: ColorFilters.pinkToPrimaryColor(context)),
           ),
           Column(
             children: [
               Text(title,
-                  textAlign: TextAlign.center, style: Theme.of(context).textTheme.headlineMedium),
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.headlineMedium),
               const SizedBox(
                 height: 12,
               ),
               Text(
                 content,
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.greyColor),
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyLarge
+                    ?.copyWith(color: AppColors.greyColor),
               ),
             ],
           ),
@@ -161,7 +171,8 @@ class _Page extends StatelessWidget {
                         width: 400,
                         height: 50,
                         child: TextButtonDefault(
-                            onPressed: onSkipButton!, text: AppText.commonSkip.capitalizeFirstWord),
+                            onPressed: onSkipButton!,
+                            text: AppText.commonSkip.capitalizeFirstWord),
                       )
                   ],
                 )

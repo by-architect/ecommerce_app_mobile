@@ -2,6 +2,7 @@ import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppStyles.dart';
+import 'package:ecommerce_app_mobile/common/ui/theme/color_filters.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -33,8 +34,7 @@ class ProfileCard extends StatelessWidget {
         child: imageSrc == null || imageSrc!.isEmpty
             ? SvgPicture.asset(
                 AppImages.profileIcon,
-                colorFilter: ColorFilter.mode(
-                    Theme.of(context).primaryColor, BlendMode.srcIn),
+                colorFilter: ColorFilters.primaryIconColorFilter(context),
               )
             : NetworkImageWithLoader(
                 imageSrc!,

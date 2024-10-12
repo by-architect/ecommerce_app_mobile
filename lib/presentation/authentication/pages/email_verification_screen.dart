@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
+import 'package:ecommerce_app_mobile/common/ui/theme/color_filters.dart';
 import 'package:ecommerce_app_mobile/data/viewmodel/user/user_service_state.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/ButtonPrimary.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/app_bar_pop_back.dart';
@@ -120,7 +121,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                   child: SizedBox(
                     width: 300,
                     height: 300,
-                    child: SvgPicture.asset(AppImages.openedEmail),
+                    child: SvgPicture.asset(AppImages.openedEmail,colorFilter: ColorFilters.pinkToPrimaryColor(context),),
                   ),
                 ),
                 Flexible(

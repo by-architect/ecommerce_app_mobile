@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../common/ui/theme/color_filters.dart';
+
 class DividerListTile extends StatelessWidget {
   const DividerListTile({
     super.key,
@@ -31,9 +33,7 @@ class DividerListTile extends StatelessWidget {
           trailing: isShowForwardArrow
               ? SvgPicture.asset(
             AppImages.miniRightIcon,
-            colorFilter: ColorFilter.mode(
-                Theme.of(context).iconTheme.color!.withOpacity(0.4),
-                BlendMode.srcIn),
+            colorFilter: ColorFilters.greyIconColorFilter(context),
           )
               : null,
         ),
@@ -68,8 +68,7 @@ class DividerListTileWithTrilingText extends StatelessWidget {
             svgSrc,
             height: 24,
             width: 24,
-            colorFilter: ColorFilter.mode(
-                Theme.of(context).iconTheme.color!, BlendMode.srcIn),
+            colorFilter: ColorFilters.iconThemeColor(context),
           ),
           title: Text(
             title,
@@ -83,9 +82,7 @@ class DividerListTileWithTrilingText extends StatelessWidget {
                 Text(trilingText),
                 SvgPicture.asset(
                   AppImages.miniRightIcon,
-                  colorFilter: ColorFilter.mode(
-                      Theme.of(context).iconTheme.color!.withOpacity(0.4),
-                      BlendMode.srcIn),
+                  colorFilter: ColorFilters.iconThemeColor(context),
                 ),
               ],
             ),

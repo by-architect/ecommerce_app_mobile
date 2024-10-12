@@ -2,6 +2,7 @@ import 'package:ecommerce_app_mobile/common/constant/Screens.dart';
 import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
+import 'package:ecommerce_app_mobile/common/ui/theme/color_filters.dart';
 import 'package:ecommerce_app_mobile/presentation/main/page/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -21,6 +22,7 @@ class AddedToCartMessageScreen extends StatelessWidget {
               SvgPicture.asset(
                 AppImages.successfulPurchase,
                 height: MediaQuery.of(context).size.height * 0.3,
+                colorFilter: ColorFilters.pinkToPrimaryColor(context),
               ),
               const Spacer(flex: 2),
               Text(

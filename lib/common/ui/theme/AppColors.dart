@@ -115,4 +115,8 @@ class AppColors {
       900: Color(0xFF8F552A),
     },
   );
+
+  //Svg picture original colors
+  static const Color svgPicturePinkColor = Color(0x006C63FF);
+
 }
