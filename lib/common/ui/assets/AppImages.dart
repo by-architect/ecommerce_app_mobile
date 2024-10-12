@@ -61,6 +61,9 @@ class AppImages{
   static const miniRightIcon = "${_iconPath}miniRight$_formatSvg";
 
   static const profileIcon = "${_iconPath}Profile$_formatSvg";
+  static const categoryIcon = "${_iconPath}Category$_formatSvg";
+  static const cartIcon = "${_iconPath}Cart$_formatSvg";
+  static const shopIcon = "${_iconPath}Shop$_formatSvg";
 
   static const orderIcon = "${_iconPath}Order$_formatSvg";
   static const addressIcon = "${_iconPath}Address$_formatSvg";

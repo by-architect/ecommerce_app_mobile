@@ -98,5 +98,6 @@ class MainBlocs extends Bloc<MainEvents, MainStates> {
           categories: state.categories,
           userStatus: UserStatus(event.user)));
     },);
+
   }
 }

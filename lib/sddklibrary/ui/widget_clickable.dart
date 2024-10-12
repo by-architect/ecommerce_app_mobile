@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 class ClickableWidget extends StatelessWidget {
   final Function() onPressed;
   final Widget child;
-  const ClickableWidget({super.key, required this.onPressed, required this.child});
+  final OutlinedBorder? shape;
+  const ClickableWidget({super.key, required this.onPressed, required this.child, this.shape});
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +11,7 @@ class ClickableWidget extends StatelessWidget {
       side: BorderSide.none,
      padding: EdgeInsets.zero,
       elevation: 0,
-      shape: const RoundedRectangleBorder(
+      shape: shape ?? const RoundedRectangleBorder(
         borderRadius: BorderRadius.zero
       )
 
