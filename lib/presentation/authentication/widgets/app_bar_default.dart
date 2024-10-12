@@ -39,7 +39,6 @@ class AppBarMain extends StatelessWidget implements PreferredSizeWidget {
       title: Text(
         AppText.marketName.capitalizeEveryWord,
         style: Theme.of(context).textTheme.titleLarge?.copyWith(
-            color: AppColors.blackColor,
             fontWeight: FontWeight.bold,
             fontStyle: FontStyle.italic),
       ),

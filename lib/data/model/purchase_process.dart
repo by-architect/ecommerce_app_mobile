@@ -26,6 +26,9 @@ class PurchaseStatus {
 
 enum PurchaseStatusType {
   onCart, //sepette
+ //ödemeye başlandı,
+ //ödeme sitesi açıldı (ödeme sitesinden işlem id al)
+ //ödeme başarılı veya başarısız (eğer daha sonra ödeme zaman aşımına uğrarsa veya bir hata olursa işlem idyi tekrar sorgula ve işlemin gerçekleşip gerçekleşmediğini algıla)
   paid, // ödendi
   orderTaken, //sipariş alındı
   shipped, //kargolandı
