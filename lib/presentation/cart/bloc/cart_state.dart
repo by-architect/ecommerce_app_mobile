@@ -42,10 +42,10 @@ class CartState {
       final cartUtil = new CartUtil(items);
       return CartState(
           items: items,
-          subTotal: cartUtil.calculateSubtotal(),
-          shippingFee: cartUtil.calculateShippingFee(),
-          discount: cartUtil.calculateDiscount(),
-          total: cartUtil.calculateTotal());
+          subTotal: cartUtil.subtotal,
+          shippingFee: cartUtil.shippingFee,
+          discount: cartUtil.discount,
+          total: cartUtil.total);
     } else {
       return CartState(
           items: items ?? this.items,

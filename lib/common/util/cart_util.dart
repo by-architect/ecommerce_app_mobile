@@ -3,10 +3,19 @@ import 'package:ecommerce_app_mobile/data/model/cart_item.dart';
 
 class CartUtil {
   final List<CartItem> items;
+  late final double subtotal;
+  late final double shippingFee;
+  late final double discount;
+  late final double total;
 
-  CartUtil(this.items);
+  CartUtil(this.items) {
+    subtotal = _calculateSubtotal();
+    shippingFee = _calculateShippingFee();
+    discount = _calculateDiscount();
+    total = _calculateTotal();
+  }
 
-  double calculateSubtotal() {
+  double _calculateSubtotal() {
     double result = 0;
     for (var item in items) {
       result += item.quantity * item.subProduct.price;
@@ -14,11 +23,11 @@ class CartUtil {
     return result;
   }
 
-  double calculateShippingFee() {
+  double _calculateShippingFee() {
     return FakeAppDefaults.shippingFee;
   }
 
-  double calculateDiscount() {
+  double _calculateDiscount() {
     double result = 0;
     for (var item in items) {
       result += item.quantity * item.subProduct.discount;
@@ -26,11 +35,12 @@ class CartUtil {
     return result;
   }
 
-  double calculateTotal() {
+  double _calculateTotal() {
     double result = 0;
     for (var item in items) {
       result += item.quantity * item.subProduct.priceAfterDiscounting;
     }
+    result -= shippingFee;
     return result;
   }
 }
