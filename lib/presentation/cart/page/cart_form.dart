@@ -1,3 +1,4 @@
+import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/fakerepository/fake_app_defaults.dart';
@@ -11,6 +12,7 @@ import 'package:ecommerce_app_mobile/presentation/cart/widget/order_summary.dart
 import 'package:ecommerce_app_mobile/presentation/cart/page/paying_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/cart/widget/cart_item_widget.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/ButtonPrimary.dart';
+import 'package:ecommerce_app_mobile/presentation/common/widgets/form_info_skeleton.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/ui/dialog_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,98 +42,106 @@ class _CartFormState extends State<CartForm> {
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(AppSizes.defaultPadding),
-            child: CustomScrollView(
-              slivers: [
-                SliverToBoxAdapter(
-                  child: Text(
-                    AppText.cartPageReviewYourOrder.capitalizeEveryWord,
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
+            child: state.items.isNotEmpty
+                ? CustomScrollView(
+                    slivers: [
+                      SliverToBoxAdapter(
+                        child: Text(
+                          AppText.cartPageReviewYourOrder.capitalizeEveryWord,
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                      ),
+                      const SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: AppSizes.spaceBtwVerticalFields,
+                        ),
+                      ),
+                      SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                        childCount: state.items.length,
+                        (context, index) => Padding(
+                          padding: const EdgeInsets.symmetric(vertical: AppSizes.spaceBtwVerticalFieldsSmall / 2),
+                          child: CartItemWidget(
+                              numOfItem: state.items[index].quantity,
+                              onIncrement: () {
+                                CartItem cartItem = state.items[index];
+                                if (cartItem.quantity == FakeAppDefaults.maxQuantityOfProduct ||
+                                    cartItem.quantity == cartItem.subProduct.quantity) {
+                                } else if (cartItem.quantity > FakeAppDefaults.maxQuantityOfProduct) {
+                                  //todo: fake app defaults max quantity kısmını serverdan çek
+                                  BlocProvider.of<CartBloc>(context).add(ChangeCartItem(
+                                    cartItem: cartItem.copyWith(quantity: FakeAppDefaults.maxQuantityOfProduct),
+                                  ));
+                                } else if (cartItem.quantity > cartItem.subProduct.quantity) {
+                                  BlocProvider.of<CartBloc>(context).add(ChangeCartItem(
+                                    cartItem: cartItem.copyWith(quantity: cartItem.subProduct.quantity),
+                                  ));
+                                } else {
+                                  BlocProvider.of<CartBloc>(context).add(ChangeCartItem(
+                                    cartItem: cartItem.increaseQuantity(),
+                                  ));
+                                }
+                              },
+                              onDecrement: () {
+                                CartItem cartItem = state.items[index];
+                                if (cartItem.quantity > 0) {
+                                  BlocProvider.of<CartBloc>(context)
+                                      .add(ChangeCartItem(cartItem: cartItem.decreaseQuantity()));
+                                }
+                              },
+                              cartItem: state.items[index]),
+                        ),
+                      )),
+                      const SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: AppSizes.spaceBtwVerticalFields,
+                        ),
+                      ),
+                      SliverToBoxAdapter(
+                        child: OrderSummaryCard(
+                          discount: state.discount,
+                          shippingFee: state.shippingFee,
+                          subtotal: state.subTotal,
+                          total: state.total,
+                          isReturn: false,
+                        ),
+                      ),
+                      const SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: AppSizes.spaceBtwVerticalFieldsLarge,
+                        ),
+                      ),
+                      SliverToBoxAdapter(
+                        child: ButtonPrimary(
+                            text: AppText.commonContinue.capitalizeFirstWord,
+                            onTap: () {
+                              if (!widget.user.firebaseUser.emailVerified) {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => EmailVerificationScreen(user: widget.user),
+                                ));
+                              } else if (false /*todo: check to address before buy screen*/) {
+                                //todo: add address screen
+                              } else {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => const PayingScreen(),
+                                ));
+                              }
+                            }),
+                      ),
+                      const SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: AppSizes.spaceBtwVerticalFields,
+                        ),
+                      ),
+                    ],
+                  )
+                : Padding(
+                  padding: const EdgeInsets.all(24),
+                  child: FormInfoSkeleton(
+                      image: AppImages.cartImage,
+                      message: AppText.infoEmptyCart.capitalizeEveryWord,
+                    ),
                 ),
-                const SliverToBoxAdapter(
-                  child: SizedBox(
-                    height: AppSizes.spaceBtwVerticalFields,
-                  ),
-                ),
-                SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                  childCount: state.items.length,
-                  (context, index) => Padding(
-                    padding: const EdgeInsets.symmetric(vertical: AppSizes.spaceBtwVerticalFieldsSmall / 2),
-                    child: CartItemWidget(
-                      numOfItem: state.items[index].quantity,
-                        onIncrement: () {
-                          CartItem cartItem = state.items[index];
-                          if (cartItem.quantity == FakeAppDefaults.maxQuantityOfProduct ||
-                              cartItem.quantity == cartItem.subProduct.quantity) {
-                          } else if (cartItem.quantity > FakeAppDefaults.maxQuantityOfProduct) {
-                            //todo: fake app defaults max quantity kısmını serverdan çek
-                            BlocProvider.of<CartBloc>(context).add(ChangeCartItem(
-                              cartItem: cartItem.copyWith(quantity: FakeAppDefaults.maxQuantityOfProduct),
-                            ));
-                          } else if (cartItem.quantity > cartItem.subProduct.quantity) {
-                            BlocProvider.of<CartBloc>(context).add(ChangeCartItem(
-                              cartItem: cartItem.copyWith(quantity: cartItem.subProduct.quantity),
-                            ));
-                          } else {
-                            BlocProvider.of<CartBloc>(context).add(ChangeCartItem(
-                              cartItem: cartItem.increaseQuantity(),
-                            ));
-                          }
-                        },
-                        onDecrement: () {
-                          CartItem cartItem = state.items[index];
-                          if (cartItem.quantity > 0) {
-                            BlocProvider.of<CartBloc>(context)
-                                .add(ChangeCartItem(cartItem: cartItem.decreaseQuantity()));
-                          }
-                        },
-                        cartItem: state.items[index]),
-                  ),
-                )),
-                const SliverToBoxAdapter(
-                  child: SizedBox(
-                    height: AppSizes.spaceBtwVerticalFields,
-                  ),
-                ),
-                SliverToBoxAdapter(
-                  child: OrderSummaryCard(
-                    discount: state.discount,
-                    shippingFee: state.shippingFee,
-                    subtotal: state.subTotal,
-                    total: state.total,
-                    isReturn: false,
-                  ),
-                ),
-                const SliverToBoxAdapter(
-                  child: SizedBox(
-                    height: AppSizes.spaceBtwVerticalFieldsLarge,
-                  ),
-                ),
-                SliverToBoxAdapter(
-                  child: ButtonPrimary(
-                      text: AppText.commonContinue.capitalizeFirstWord,
-                      onTap: () {
-                        if (!widget.user.firebaseUser.emailVerified) {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => EmailVerificationScreen(user: widget.user),
-                          ));
-                        } else if (false /*todo: check to address before buy screen*/) {
-                          //todo: add address screen
-                        } else {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const PayingScreen(),
-                          ));
-                        }
-                      }),
-                ),
-                const SliverToBoxAdapter(
-                  child: SizedBox(
-                    height: AppSizes.spaceBtwVerticalFields,
-                  ),
-                ),
-              ],
-            ),
           ),
         ),
       ),

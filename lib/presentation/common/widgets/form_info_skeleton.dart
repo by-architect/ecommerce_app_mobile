@@ -3,28 +3,27 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../common/ui/theme/AppText.dart';
 import 'button_secondary.dart';
 
 class FormInfoSkeleton extends StatelessWidget {
   final String image;
   final String message;
-  final String buttonText;
-  final Function() onTap;
+  final String? buttonText;
+  final Function()? onTap;
 
-  const FormInfoSkeleton(
-      {super.key,
-      required this.image,
-      required this.message,
-      required this.onTap,
-      required this.buttonText});
+  const FormInfoSkeleton({super.key, required this.image, required this.message, this.onTap, this.buttonText});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        Expanded(flex: 5, child: SvgPicture.asset(image,colorFilter: ColorFilters.pinkToPrimaryColor(context),)),
+        Expanded(
+            flex: 5,
+            child: SvgPicture.asset(
+              image,
+              colorFilter: ColorFilters.pinkToPrimaryColor(context),
+            )),
         Flexible(
             flex: 1,
             child: Text(
@@ -33,10 +32,12 @@ class FormInfoSkeleton extends StatelessWidget {
             )),
         Flexible(
             flex: 1,
-            child: ButtonSecondary(
-              text: buttonText,
-              onTap: onTap,
-            ))
+            child: onTap == null
+                ? const SizedBox.shrink()
+                : ButtonSecondary(
+                    text: buttonText ?? "",
+                    onTap: onTap,
+                  ))
       ],
     );
   }

@@ -256,6 +256,7 @@ class AppText {
   static const infoPleaseLoginToSeeYourProfile = AppText("Please login to see your profile");
   static const infoPasswordChangedSuccessfully = AppText("Password changed successfully");
   static const infoProfileSettingsChangedSuccessfully = AppText("Profile settings changed successfully");
+  static const infoEmptyCart = AppText("Upps! Your bucket is empty, let's start to shop");
 
 
 // Navigation
