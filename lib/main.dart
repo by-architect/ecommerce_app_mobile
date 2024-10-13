@@ -5,6 +5,7 @@ import 'package:ecommerce_app_mobile/firebase_options.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/pages/sign_in_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/pages/sign_up_screen.dart';
+import 'package:ecommerce_app_mobile/presentation/cart/bloc/cart_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/common/screen/loading_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/discover/bloc/discover_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/home/bloc/home_bloc.dart';
@@ -51,6 +52,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (BuildContext context) => ChangePasswordBloc()),
           BlocProvider(create: (BuildContext context) => ProductDetailsBloc()),
           BlocProvider(create: (BuildContext context) => EditProfileBloc()),
+          BlocProvider(create: (BuildContext context) => CartBloc()),
         ],
         child: MaterialApp(
             debugShowCheckedModeBanner: false,

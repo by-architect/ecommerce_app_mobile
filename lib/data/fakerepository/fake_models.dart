@@ -1,5 +1,6 @@
 import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/data/model/banner.dart';
+import 'package:ecommerce_app_mobile/data/model/cart_item.dart';
 import 'package:ecommerce_app_mobile/data/model/categories.dart';
 import 'package:ecommerce_app_mobile/data/model/product.dart';
 import 'package:ecommerce_app_mobile/data/model/product_details_item.dart';
@@ -74,6 +75,18 @@ class FakeProductModels {
     category231,
     category3,
     category4
+  ];
+
+  static CartItem cartItem1 = CartItem(id: "0", product: product1,subProduct: subProduct1,quantity: 2);
+  static CartItem cartItem2 = CartItem(id: "1", product: product2,subProduct: subProduct2,quantity: 3);
+  static CartItem cartItem3 = CartItem(id: "2", product: product3,subProduct: subProduct3,quantity: 4);
+  static CartItem cartItem4 = CartItem(id: "3", product: product4,subProduct: subProduct4,quantity: 5);
+
+  static List<CartItem> cartItems = [
+    cartItem1,
+    cartItem2,
+    cartItem3,
+    cartItem4,
   ];
 
   static Categories categories = Categories(categoriesUnSorted);

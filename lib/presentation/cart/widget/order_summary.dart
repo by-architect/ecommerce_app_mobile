@@ -9,16 +9,14 @@ import '../../../common/ui/theme/AppSizes.dart';
 class OrderSummaryCard extends StatelessWidget {
   const OrderSummaryCard({
     super.key,
-    this.isReturn = false,
-    required this.date,
-    required this.amount,
-    required this.product,
+    this.isReturn = false, required this.subtotal, required this.shippingFee, required this.discount, required this.total,
   });
 
   final bool isReturn;
-  final String date;
-  final double amount;
-  final Product product;
+  final double subtotal;
+  final double shippingFee;
+  final double discount;
+  final double total;
 
   @override
   Widget build(BuildContext context) {
@@ -41,17 +39,18 @@ class OrderSummaryCard extends StatelessWidget {
               ],
             ),
             const SizedBox(height: AppSizes.spaceBtwVerticalFields),
-            _Row(title: AppText.cartPageSubtotal.capitalizeFirstWord, amount: "23"),
+            _Row(title: AppText.cartPageSubtotal.capitalizeFirstWord, amount: subtotal.toString()),
             const SizedBox(height: AppSizes.spaceBtwVerticalFieldsSmall),
             _Row(
               title: AppText.cartPageShippingFee.capitalizeEveryWord,
+              amount: shippingFee == 0.0 ? null : shippingFee.toString() ,
             ),
             const SizedBox(height: AppSizes.spaceBtwVerticalFieldsSmall),
-            _Row(title: AppText.cartPageDiscount.capitalizeFirstWord, amount: "23"),
+            _Row(title: AppText.cartPageDiscount.capitalizeFirstWord, amount: discount.toString()),
             const SizedBox(height: AppSizes.spaceBtwVerticalFieldsSmall),
             const Divider(),
             const SizedBox(height: AppSizes.spaceBtwVerticalFieldsSmall),
-            _Row(title: AppText.cartPageTotal.capitalizeFirstWord, amount: "23"),
+            _Row(title: AppText.cartPageTotal.capitalizeFirstWord, amount: total.toString()),
           ],
         ),
       ),

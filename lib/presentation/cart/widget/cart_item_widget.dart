@@ -8,16 +8,19 @@ import 'package:flutter/material.dart';
 
 import '../../common/widgets/network_image_with_loader.dart';
 
-class SecondaryProductCard extends StatelessWidget {
-  const SecondaryProductCard({
+class CartItemWidget extends StatelessWidget {
+  const CartItemWidget({
     super.key,
-    this.press,
+    this.onPressed,
     this.style,
-    required this.cartItem,
+    required this.cartItem, required this.onIncrement, required this.onDecrement, required this.numOfItem,
   });
 
   final CartItem cartItem;
-  final VoidCallback? press;
+  final int numOfItem;
+  final VoidCallback? onPressed;
+  final VoidCallback onIncrement;
+  final VoidCallback onDecrement;
   final ButtonStyle? style;
 
   @override
@@ -126,9 +129,9 @@ class SecondaryProductCard extends StatelessWidget {
                     children: [
                       cartItem.subProduct.availableInStock
                           ? ProductQuantity(
-                              numOfItem: cartItem.subProduct.quantity,
-                              onIncrement: () {},
-                              onDecrement: () {},
+                              numOfItem: numOfItem,
+                              onIncrement: onIncrement,
+                              onDecrement: onDecrement,
                               isSmall: true,
                             )
                           : const ProductAvailabilityTag(
