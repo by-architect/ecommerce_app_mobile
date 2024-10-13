@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:ecommerce_app_mobile/data/fakerepository/fake_models.dart';
+import 'package:ecommerce_app_mobile/data/model/cart_item.dart';
 import 'package:ecommerce_app_mobile/data/model/category.dart';
 import 'package:ecommerce_app_mobile/data/model/product.dart';
 import 'package:ecommerce_app_mobile/data/model/product_details_item.dart';
@@ -168,11 +169,6 @@ class FakeProductService implements ProductService {
     return const ResourceStatus.success("");
   }
 
-  @override
-  Future<ResourceStatus<List<Product>>> getProductsOnCart() async {
-    await Future.delayed(const Duration(seconds: 1));
-    return ResourceStatus.success(FakeProductModels.products);
-  }
 
   @override
   Future<ResourceStatus> addPurchaseProcess(PurchaseProcessState purchaseProcess,String uid) async {
@@ -181,8 +177,18 @@ class FakeProductService implements ProductService {
   }
 
   @override
-  Future<ResourceStatus<PurchaseProcess>> getCart(String uid) {
-    // TODO: implement getCart
-    throw UnimplementedError();
+  Future<ResourceStatus<List<CartItem>>> getCart(String uid) async {
+    await Future.delayed(const Duration(seconds: 1));
+    return ResourceStatus.success(FakeProductModels.cartItems );
   }
+
+  @override
+  Future updateCartItem(CartItem cartItem) async {
+
+  }
+
+  @override
+  Future deleteCartItem(String cartItemId) async {
+  }
+
 }

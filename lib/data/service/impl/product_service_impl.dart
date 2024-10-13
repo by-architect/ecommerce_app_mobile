@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce_app_mobile/data/model/Reviews.dart';
+import 'package:ecommerce_app_mobile/data/model/cart_item.dart';
 import 'package:ecommerce_app_mobile/data/model/product_details_item.dart';
 import 'package:ecommerce_app_mobile/data/model/purchase_process.dart';
 import 'package:ecommerce_app_mobile/data/model/recent_search.dart';
@@ -232,11 +233,6 @@ class ProductServiceImpl extends ProductService {
     throw UnimplementedError();
   }
 
-  @override
-  Future<ResourceStatus<List<Product>>> getProductsOnCart() {
-    // TODO: implement getProductsOnCart
-    throw UnimplementedError();
-  }
 
   @override
   Future<ResourceStatus> addPurchaseProcess(PurchaseProcessState purchaseProcess,String uid) {
@@ -245,8 +241,22 @@ class ProductServiceImpl extends ProductService {
   }
 
   @override
-  Future<ResourceStatus<PurchaseProcess>> getCart(String uid) {
+  Future<ResourceStatus<List<CartItem>>> getCart(String uid) {
+    // TODO: dont get unavaliable carts
+
     // TODO: implement getCart
+    throw UnimplementedError();
+  }
+
+  @override
+  Future updateCartItem(CartItem cartItem) {
+    // TODO: implement updateCartItem
+    throw UnimplementedError();
+  }
+
+  @override
+  Future deleteCartItem(String cartItemId) {
+    // TODO: implement deleteCartItem
     throw UnimplementedError();
   }
 }

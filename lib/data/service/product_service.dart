@@ -1,3 +1,4 @@
+import 'package:ecommerce_app_mobile/data/model/cart_item.dart';
 import 'package:ecommerce_app_mobile/data/model/category.dart';
 import 'package:ecommerce_app_mobile/data/model/product.dart';
 import 'package:ecommerce_app_mobile/data/model/product_details_item.dart';
@@ -47,10 +48,11 @@ abstract class ProductService {
   Future<ResourceStatus<Reviews>> getReviews(String productId);
   Future<ResourceStatus> addReview(ReviewState reviewState);
   Future<ResourceStatus<List<Product>>> getYouMayAlsoLike(String categoryId);
-  Future<ResourceStatus<List<Product>>> getProductsOnCart();
   Future<ResourceStatus<List<ProductDetailsItem>>> getProductDetails(String productId);
 
   Future<ResourceStatus> addPurchaseProcess(PurchaseProcessState purchaseProcess, String uid);
-  Future<ResourceStatus<PurchaseProcess>> getCart(String uid);
+  Future<ResourceStatus<List<CartItem>>> getCart(String uid);
+  Future updateCartItem(CartItem cartItem);
+  Future deleteCartItem(String cartItemId);
 
 }
