@@ -9,7 +9,11 @@ import '../../../common/ui/theme/AppSizes.dart';
 class OrderSummaryCard extends StatelessWidget {
   const OrderSummaryCard({
     super.key,
-    this.isReturn = false, required this.subtotal, required this.shippingFee, required this.discount, required this.total,
+    this.isReturn = false,
+    required this.subtotal,
+    required this.shippingFee,
+    required this.discount,
+    required this.total,
   });
 
   final bool isReturn;
@@ -39,18 +43,18 @@ class OrderSummaryCard extends StatelessWidget {
               ],
             ),
             const SizedBox(height: AppSizes.spaceBtwVerticalFields),
-            _Row(title: AppText.cartPageSubtotal.capitalizeFirstWord, amount: subtotal.toString()),
+            _Row(title: AppText.cartPageSubtotal.capitalizeFirstWord, amount: subtotal),
             const SizedBox(height: AppSizes.spaceBtwVerticalFieldsSmall),
             _Row(
               title: AppText.cartPageShippingFee.capitalizeEveryWord,
-              amount: shippingFee == 0.0 ? null : shippingFee.toString() ,
+              amount: shippingFee,
             ),
             const SizedBox(height: AppSizes.spaceBtwVerticalFieldsSmall),
-            _Row(title: AppText.cartPageDiscount.capitalizeFirstWord, amount: discount.toString()),
+            _Row(title: AppText.cartPageDiscount.capitalizeFirstWord, amount: discount),
             const SizedBox(height: AppSizes.spaceBtwVerticalFieldsSmall),
             const Divider(),
             const SizedBox(height: AppSizes.spaceBtwVerticalFieldsSmall),
-            _Row(title: AppText.cartPageTotal.capitalizeFirstWord, amount: total.toString()),
+            _Row(title: AppText.cartPageTotal.capitalizeFirstWord, amount: total),
           ],
         ),
       ),
@@ -60,12 +64,12 @@ class OrderSummaryCard extends StatelessWidget {
 
 class _Row extends StatelessWidget {
   final String title;
-  final String? amount;
+  final double amount;
 
   const _Row({
     super.key,
     required this.title,
-    this.amount,
+   required this.amount,
   });
 
   @override
@@ -77,7 +81,7 @@ class _Row extends StatelessWidget {
           title,
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 16),
         ),
-        amount == null
+        amount == 0.0
             ? Text(
                 AppText.cartPageFree.capitalizeFirstWord,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(color: AppColors.successColor),
