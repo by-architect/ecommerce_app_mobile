@@ -3,6 +3,8 @@ import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/color_filters.dart';
+import 'package:ecommerce_app_mobile/presentation/common/widgets/ButtonPrimary.dart';
+import 'package:ecommerce_app_mobile/presentation/common/widgets/button_secondary.dart';
 import 'package:ecommerce_app_mobile/presentation/main/page/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -15,7 +17,8 @@ class AddedToCartMessageScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding),
+          padding:
+              const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding),
           child: Column(
             children: [
               const Spacer(),
@@ -27,7 +30,10 @@ class AddedToCartMessageScreen extends StatelessWidget {
               const Spacer(flex: 2),
               Text(
                 AppText.productDetailsPageAddedToCart.capitalizeEveryWord,
-                style: Theme.of(context).textTheme.headlineSmall!.copyWith(fontWeight: FontWeight.w500),
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineSmall!
+                    .copyWith(fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: AppSizes.defaultPadding / 2),
               Text(
@@ -35,18 +41,19 @@ class AddedToCartMessageScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               const Spacer(flex: 2),
-              OutlinedButton(
-                onPressed: () {
+              ButtonSecondary(
+                onTap: () {
                   Navigator.of(context).pop();
                 },
-                child: Text(AppText.productDetailsPageContinueShopping.capitalizeEveryWord),
+                text: AppText
+                    .productDetailsPageContinueShopping.capitalizeEveryWord,
               ),
               const SizedBox(height: AppSizes.defaultPadding),
-              ElevatedButton(
-                onPressed: () {
+              ButtonPrimary(
+                onTap: () {
                   //todo: go to cart
                 },
-                child: Text(AppText.productDetailsPageCheckout.capitalizeFirstWord),
+                text: AppText.productDetailsPageCheckout.capitalizeFirstWord,
               ),
               const Spacer(),
             ],

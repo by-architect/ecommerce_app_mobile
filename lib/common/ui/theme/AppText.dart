@@ -312,7 +312,9 @@ class AppText {
   static const productPageUnitPrice = AppText("Unit price");
   static const productPageNotifyMe = AppText("Notify when product back to stock.");
   static const productPageAvailableInStock = AppText("Available in stock");
+  static const productPageAvailableInStockSmall = AppText("Available");
   static const productPageUnAvailableInStock = AppText("Currently unavailable");
+  static const productPageUnAvailableInStockSmall = AppText("Unavailable");
   static const productPageStorePickupAvailability = AppText("Store pickup availability");
 
 // Product Details Page

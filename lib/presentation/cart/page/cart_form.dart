@@ -1,6 +1,7 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/fakerepository/fake_models.dart';
+import 'package:ecommerce_app_mobile/data/model/cart_item.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/pages/email_verification_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/cart/widget/order_summary.dart';
 import 'package:ecommerce_app_mobile/presentation/cart/page/paying_screen.dart';
@@ -41,7 +42,7 @@ class CartForm extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(vertical: AppSizes.spaceBtwVerticalFieldsSmall / 2),
                   child: SecondaryProductCard(
-                    product: FakeProductModels.products[index],
+                    cartItem: CartItem(FakeProductModels.products[index], FakeProductModels.subProduct2, index),
                   ),
                 ),
               )),

@@ -260,7 +260,7 @@ class FakeProductModels {
       barcode: "4203854832",
       addedDate: DateTime.now(),
       modifiedDate: DateTime.now(),
-      quantity: 4,
+      quantity: 0,
       price: 200,
       discount: 0,
       productFeatureOptionIds: ["0", "3", "7"]);

@@ -11,27 +11,31 @@ class ProductQuantity extends StatelessWidget {
     super.key,
     required this.numOfItem,
     required this.onIncrement,
-    required this.onDecrement,
+    required this.onDecrement, this.isSmall = false,
   });
 
   final int? numOfItem;
   final VoidCallback onIncrement, onDecrement;
+  final bool isSmall;
 
   @override
   Widget build(BuildContext context) {
+    const double largeSize = 40;
+    const double smallSize = 30;
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
+       if(!isSmall) Text(
           AppText.productPageQuantity.capitalizeFirstWord,
           style: Theme.of(context).textTheme.titleSmall,
         ),
-        const SizedBox(height: AppSizes.defaultPadding),
+       if(!isSmall) const SizedBox(height: AppSizes.defaultPadding),
         Row(
           children: [
             SizedBox(
-              height: 40,
-              width: 40,
+              height: isSmall ? smallSize : largeSize,
+              width: isSmall ? smallSize : largeSize,
               child: OutlinedButton(
                 onPressed: onDecrement,
                 style: OutlinedButton.styleFrom(
@@ -43,7 +47,7 @@ class ProductQuantity extends StatelessWidget {
               ),
             ),
             SizedBox(
-              width: 40,
+              width: isSmall ? smallSize : largeSize,
               child: Center(
                 child: Text(
                  numOfItem == null ? "?": numOfItem.toString(),
@@ -55,8 +59,8 @@ class ProductQuantity extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 40,
-              width: 40,
+              height: isSmall ? smallSize : largeSize,
+              width: isSmall ? smallSize : largeSize,
               child: OutlinedButton(
                 onPressed: onIncrement,
                 style: OutlinedButton.styleFrom(

@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../common/ui/theme/color_filters.dart';
+import '../../../data/fakerepository/fake_models.dart';
+import '../../../data/model/cart_item.dart';
 import '../../../data/model/product.dart';
 
 //todo: unimplemented
@@ -61,9 +63,8 @@ class WalletHistoryCard extends StatelessWidget {
               padding:
                   const EdgeInsets.only(bottom: AppSizes.defaultPadding, left: AppSizes.defaultPadding, right: AppSizes.defaultPadding),
               child: SecondaryProductCard(
-                product: products[index],
-
-              ),
+                    cartItem: CartItem(FakeProductModels.products[index], FakeProductModels.subProduct1, index),
+                  ),
             ),
           ),
         ],
