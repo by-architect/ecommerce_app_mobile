@@ -64,7 +64,7 @@ class AddressCard extends StatelessWidget {
                   children: [
                     Flexible(
                       child: Text(
-                        "${address.area} ${address.street} ${address.floor}:${address.apartmentNo}\n${address.state}, ${address.city}, ${address.country}\n  ",
+                        "${address.area} ${address.street} ${address.floor}:${address.apartmentNo}\n, ${address.city}, ${address.country}\n  ",
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                     ),

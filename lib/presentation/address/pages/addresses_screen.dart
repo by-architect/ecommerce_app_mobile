@@ -3,6 +3,7 @@ import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/fakerepository/fake_models.dart';
 import 'package:ecommerce_app_mobile/presentation/address/widgets/address_card.dart';
+import 'package:ecommerce_app_mobile/presentation/address/widgets/map_picker.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/app_bar_pop_back.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/button_secondary.dart';
 import 'package:flutter/cupertino.dart';
@@ -23,7 +24,9 @@ class AddressesScreen extends StatelessWidget {
           child: Column(
             children: [
               ButtonSecondary(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => MapPicker(),));
+                },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

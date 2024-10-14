@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 class Address {
   final String id;
@@ -9,7 +8,6 @@ class Address {
   final String apartmentNo;
   final int floor;
   final String doorNo;
-  final String state;
   final String city;
   final String country;
   final double latitude;
@@ -26,7 +24,6 @@ class Address {
       required this.apartmentNo,
       required this.floor,
       required this.doorNo,
-      required this.state,
       required this.city,
       required this.country,
       required this.latitude,
