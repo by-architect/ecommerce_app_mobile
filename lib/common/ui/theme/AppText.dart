@@ -373,6 +373,10 @@ class AppText {
   //edit profile
   static const editProfilePageEditProfile = AppText("Edit profile");
 
+  //address page
+  static const addressesPageEditProfile = AppText("Addresses");
+
+
 
 // Pages Common
   static const commonPageFilter = AppText("Filter");

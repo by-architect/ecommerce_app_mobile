@@ -22,4 +22,6 @@ class ColorFilters {
 
   static ColorFilter get errorColorFilter =>
       const ColorFilter.mode(AppColors.errorColor, BlendMode.srcIn);
+
+  static ColorFilter oneColorForIcon(Color color) => ColorFilter.mode(color, BlendMode.srcIn);
 }

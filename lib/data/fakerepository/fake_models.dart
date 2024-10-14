@@ -1,4 +1,5 @@
 import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
+import 'package:ecommerce_app_mobile/data/model/address.dart';
 import 'package:ecommerce_app_mobile/data/model/banner.dart';
 import 'package:ecommerce_app_mobile/data/model/cart_item.dart';
 import 'package:ecommerce_app_mobile/data/model/categories.dart';
@@ -88,6 +89,62 @@ class FakeProductModels {
     cartItem3,
     cartItem4,
   ];
+
+ static final address1 = Address(
+    addressName: "Home",
+    id: "1",
+    phoneNo: 2334323452,
+    street: "123 Main St",
+    area: "Downtown",
+    apartmentNo: "A-203",
+    floor: 2,
+    doorNo: "5B",
+    state: "California",
+    city: "Los Angeles",
+    country: "USA",
+    latitude: 34.052235,
+    longitude: -118.243683,
+    openAddress: "123 Main St, A-203, 2nd Floor, Los Angeles, CA",
+    userNote: "Leave the package at the front desk if no one answers.",
+  );
+
+// Example Address 2
+ static final address2 = Address(
+    addressName: "Work",
+    id: "2",
+    phoneNo: 9876543210,
+    street: "456 Corporate Ave",
+    area: "Business District",
+    apartmentNo: "Suite 1500",
+    floor: 15,
+    doorNo: "15A",
+    state: "New York",
+    city: "New York",
+    country: "USA",
+    latitude: 40.712776,
+    longitude: -74.005974,
+    openAddress: "456 Corporate Ave, Suite 1500, 15th Floor, New York, NY",
+    userNote: "Deliver to the reception desk.",
+  );
+
+// Example Address 3
+ static final address3 = Address(
+    addressName: "Vacation Home",
+    id: "3",
+    phoneNo: 1122334455,
+    street: "789 Ocean Drive",
+    area: "Beachside",
+    apartmentNo: "",
+    floor: 0,
+    doorNo: "2",
+    state: "Florida",
+    city: "Miami",
+    country: "USA",
+    latitude: 25.761681,
+    longitude: -80.191788,
+    openAddress: "789 Ocean Drive, Beachside, Miami, FL",
+    userNote: "Call upon arrival to open the gate.",
+  );
 
   static Categories categories = Categories(categoriesUnSorted);
 

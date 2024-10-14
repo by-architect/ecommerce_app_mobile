@@ -67,6 +67,7 @@ class AppImages{
 
   static const orderIcon = "${_iconPath}Order$_formatSvg";
   static const addressIcon = "${_iconPath}Address$_formatSvg";
+  static const locationIcon = "${_iconPath}Location$_formatSvg";
   static const passwordIcon = "${_iconPath}Lock$_formatSvg";
   static const helpIcon = "${_iconPath}Help$_formatSvg";
   static const fAQIcon = "${_iconPath}FAQ$_formatSvg";

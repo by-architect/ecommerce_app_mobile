@@ -3,6 +3,7 @@ class Screens{
   static const signUpScreen = "signUpScreen";
   static const passwordRecoveryScreen = "passwordRecoveryScreen";
   static const mainScreen = "homeScreen";
+ static const addressScreen = "addressScreen";
 
   // static const searchScreen = "searchScreen";
  // static const productScreen = "productScreen";
@@ -10,7 +11,7 @@ class Screens{
 
  //todo:unimplemented
   static const notificationScreen = "notificationScreen";
-  static var onSaleScreen = "onSaleScreen";
+  static const onSaleScreen = "onSaleScreen";
   static const entryPointScreenRoute = "entryPointScreen";
 
 

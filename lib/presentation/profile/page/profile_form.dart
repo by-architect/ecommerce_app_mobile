@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../common/constant/Screens.dart';
 import '../../../data/model/user.dart';
 import '../widget/profile_card.dart';
 import '../widget/profile_menu_item_list.dart';
@@ -88,13 +89,13 @@ class ProfileForm extends StatelessWidget {
             text: AppText.profilePageAddresses.capitalizeFirstWord,
             svgSrc: AppImages.addressIcon,
             press: () {
-              // Navigator.pushNamed(context, addressesScreenRoute);
+              Navigator.pushNamed(context, Screens.addressScreen);
             },
           ),
           const SizedBox(height: AppSizes.defaultPadding),
           Padding(
-            padding: const EdgeInsets.symmetric(
-                horizontal: AppSizes.defaultPadding, vertical: AppSizes.defaultPadding / 2),
+            padding:
+                const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding, vertical: AppSizes.defaultPadding / 2),
             child: Text(
               AppText.account.capitalizeFirstWord,
               style: Theme.of(context).textTheme.titleSmall,
@@ -125,8 +126,8 @@ class ProfileForm extends StatelessWidget {
           const SizedBox(height: AppSizes.defaultPadding),
 
           Padding(
-            padding: const EdgeInsets.symmetric(
-                horizontal: AppSizes.defaultPadding, vertical: AppSizes.defaultPadding / 2),
+            padding:
+                const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding, vertical: AppSizes.defaultPadding / 2),
             child: Text(
               AppText.profilePageHelpAndSupport.capitalizeEveryWord,
               style: Theme.of(context).textTheme.titleSmall,

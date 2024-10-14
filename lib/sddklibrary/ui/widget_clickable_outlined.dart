@@ -7,26 +7,23 @@ import 'package:flutter/material.dart';
 import '../../common/ui/theme/AppColors.dart';
 
 class WidgetClickableOutlined extends StatelessWidget {
-  const WidgetClickableOutlined(
-      {super.key,
-      this.onPressed,
-      required this.child,
-      this.shape,
-      this.style});
+  const WidgetClickableOutlined({super.key, this.onPressed, required this.child, this.shape, this.style, this.minimumSize, this.maximumSize});
 
   final Function()? onPressed;
   final Widget child;
   final OutlinedBorder? shape;
   final ButtonStyle? style;
+  final Size? minimumSize;
+  final Size? maximumSize;
 
   @override
   Widget build(BuildContext context) {
     return style == null
         ? OutlinedButton(
             onPressed: onPressed,
-            style: context.isDarkMode
-                ? AppStyles.clickableWidgetOutlinedStyleDark
-                : AppStyles.clickableWidgetOutlinedStyleLight,
+            style: AppStyles.clickableWidgetOutlinedStyle(context,
+                minimumSize:minimumSize, maximumSize: maximumSize),
+        // minimumSize: Size(256, 114), maximumSize: Size(256, 114)),
             child: child,
           )
         : OutlinedButton(
