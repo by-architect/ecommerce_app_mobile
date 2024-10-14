@@ -19,11 +19,11 @@ class AddressCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final selectedColor = Theme.of(context).primaryColor;
     return Padding(
-      padding: const EdgeInsets.all(AppSizes.defaultSpace),
+      padding: const EdgeInsets.symmetric(vertical: AppSizes.spaceBtwVerticalFieldsSmall),
       child: WidgetClickableOutlined(
           style: AppStyles.clickableWidgetOutlinedStyle(context).copyWith(
             minimumSize: const WidgetStatePropertyAll(Size(200, 185)),
-            maximumSize: const WidgetStatePropertyAll(Size(500, 185)),
+            maximumSize: const WidgetStatePropertyAll(Size(200, 190)),
             side: WidgetStatePropertyAll(
               BorderSide(
                   color: isSelected ? selectedColor : Theme.of(context).dividerColor,
@@ -62,9 +62,11 @@ class AddressCard extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Text(
-                      "${address.area} ${address.street} ${address.floor}:${address.apartmentNo}\n${address.state}, ${address.city}, ${address.country}\n  ",
-                      style: Theme.of(context).textTheme.bodyMedium,
+                    Flexible(
+                      child: Text(
+                        "${address.area} ${address.street} ${address.floor}:${address.apartmentNo}\n${address.state}, ${address.city}, ${address.country}\n  ",
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
                     ),
                   ],
                 ),

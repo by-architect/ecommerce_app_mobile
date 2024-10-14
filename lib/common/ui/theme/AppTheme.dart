@@ -17,7 +17,7 @@ class AppTheme {
               bodyMedium: TextStyle(color: AppColors.blackColor40)),
           elevatedButtonTheme: AppStyles.elevatedButtonThemeDataLight,
           textButtonTheme: AppStyles.textButtonThemeData,
-          outlinedButtonTheme: AppStyles.outlinedButtonTheme(),
+          outlinedButtonTheme: AppStyles.outlinedButtonTheme( isDarkMode: false),
           inputDecorationTheme: AppStyles.inputDecorationThemeLight,
           dialogTheme: AppStyles.dialogThemeLight,
           checkboxTheme: AppStyles.checkboxThemeData.copyWith(
@@ -47,7 +47,7 @@ class AppTheme {
               ),
           elevatedButtonTheme: AppStyles.elevatedButtonThemeDataDark,
           textButtonTheme: AppStyles.textButtonThemeData,
-          outlinedButtonTheme: AppStyles.outlinedButtonTheme(),
+          outlinedButtonTheme: AppStyles.outlinedButtonTheme(isDarkMode: true),
           inputDecorationTheme: AppStyles.inputDecorationThemeDark,
           checkboxTheme: AppStyles.checkboxThemeData.copyWith(
               side: const BorderSide(color: AppColors.whiteColor40)),

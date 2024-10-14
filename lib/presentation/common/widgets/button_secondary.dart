@@ -5,23 +5,25 @@ import 'package:flutter/material.dart';
 import '../../../common/ui/theme/AppColors.dart';
 
 class ButtonSecondary extends StatelessWidget {
-  final String text;
+  final String? text;
   final Function()? onTap;
+  final Widget? child;
 
   const ButtonSecondary({
-    required this.text,
+    this.text,
     this.onTap,
     super.key,
+    this.child,
   });
 
   @override
   Widget build(BuildContext context) {
     return OutlinedButton(
         onPressed: onTap,
-        child: Text(
-          text,
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: context.isDarkMode ? AppColors.whiteColor : AppColors.blackColor),
-        ));
+        child: child ??
+            Text(
+              text??"",
+            ));
   }
 
 /*

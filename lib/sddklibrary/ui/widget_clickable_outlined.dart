@@ -16,6 +16,7 @@ class WidgetClickableOutlined extends StatelessWidget {
   final Size? minimumSize;
   final Size? maximumSize;
 
+
   @override
   Widget build(BuildContext context) {
     return style == null

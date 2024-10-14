@@ -90,6 +90,7 @@ class FakeProductModels {
     cartItem4,
   ];
 
+  static final addresses = [address1,address2, address3];
  static final address1 = Address(
     addressName: "Home",
     id: "1",

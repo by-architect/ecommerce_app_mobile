@@ -374,7 +374,8 @@ class AppText {
   static const editProfilePageEditProfile = AppText("Edit profile");
 
   //address page
-  static const addressesPageEditProfile = AppText("Addresses");
+  static const addressesPageAddresses = AppText("Addresses");
+  static const addressesPageAddAddress = AppText("Add New Address");
 
 
 

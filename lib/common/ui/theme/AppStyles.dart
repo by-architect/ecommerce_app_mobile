@@ -74,12 +74,14 @@ class AppStyles {
     ),
   );
 
-  static OutlinedButtonThemeData outlinedButtonTheme({Color borderColor = AppColors.blackColor10}) {
+  static OutlinedButtonThemeData outlinedButtonTheme({required bool isDarkMode}) {
     return OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
+        overlayColor: AppColors.whiteColor20,
+        foregroundColor:isDarkMode ? AppColors.whiteColor80 :  AppColors.blackColor80,
         padding: const EdgeInsets.all(AppSizes.defaultPadding),
         minimumSize: const Size(double.infinity, 32),
-        side: BorderSide(width: 1.5, color: borderColor),
+        side: BorderSide(width: 1, color:isDarkMode ? AppColors.whiteColor80 :  AppColors.blackColor40),
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(AppSizes.defaultBorderRadius)),
         ),
