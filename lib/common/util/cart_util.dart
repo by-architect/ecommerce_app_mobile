@@ -40,7 +40,7 @@ class CartUtil {
     for (var item in items) {
       result += item.quantity * item.subProduct.priceAfterDiscounting;
     }
-    result -= shippingFee;
+    result += shippingFee;
     return result;
   }
 }

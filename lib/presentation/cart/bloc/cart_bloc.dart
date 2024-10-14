@@ -1,4 +1,3 @@
-import 'package:ecommerce_app_mobile/data/fakerepository/fake_models.dart';
 import 'package:ecommerce_app_mobile/data/model/cart_item.dart';
 import 'package:ecommerce_app_mobile/data/provider/product_service_provider.dart';
 import 'package:ecommerce_app_mobile/presentation/cart/bloc/cart_event.dart';
@@ -11,25 +10,16 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     on<GetCart>(
           (event, emit) async {
         emit(CartLoadingState(items: state.items,
-            subTotal: state.subTotal,
-            shippingFee: state.shippingFee,
-            discount: state.discount,
-            total: state.total));
+        ));
         final items = await service.getCart(event.user);
         if (items.isSuccess) {
           emit(CartSuccessState(items: items.data!,
-              subTotal: state.subTotal,
-              shippingFee: state.shippingFee,
-              discount: state.discount,
-              total: state.total));
+          ));
         }
         else {
           emit(CartFailState(items: state.items,
-              subTotal: state.subTotal,
-              shippingFee: state.shippingFee,
               fail: items.error!,
-              discount: state.discount,
-              total: state.total));
+              ));
         }
       },
     );
