@@ -1,5 +1,6 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
+import 'package:ecommerce_app_mobile/data/fakerepository/fake_app_defaults.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature_handler.dart';
 import 'package:ecommerce_app_mobile/data/model/purchase_process.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/pages/sign_in_screen.dart';
@@ -118,7 +119,7 @@ class _ProductBuyNowScreenState extends State<ProductBuyNowScreen> {
                             onIncrement: () {
                               final selectedSubProduct = state.selectedSubProduct;
                               if (selectedSubProduct != null &&
-                                  selectedSubProduct.quantity > state.quantity) {
+                                  selectedSubProduct.quantity > state.quantity && FakeAppDefaults.maxQuantityOfProduct > state.quantity) {
                                 BlocProvider.of<ProductDetailsBloc>(context).add(IncreaseQuantity());
                               }
                             },
@@ -150,57 +151,6 @@ class _ProductBuyNowScreenState extends State<ProductBuyNowScreen> {
                       options: state.optionMatrix[columnIndex],
                     ),
                   )),
-                  /*
-                  SliverPadding(
-                    padding: const EdgeInsets.symmetric(vertical: AppSizes.defaultPadding),
-                    sliver: ProductListTile(
-                      title: "Size guide",
-                      svgSrc: "assets/icons/Sizeguid.svg",
-                      isShowBottomBorder: true,
-                      press: () {
-                        customModalBottomSheet(
-                          context,
-                          height: MediaQuery.of(context).size.height * 0.9,
-                          child: const SizeGuideScreen(),
-                        );
-                      },
-                    ),
-                  ),
-      */
-                  /*
-                  SliverPadding(
-                    padding: const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding),
-                    sliver: SliverToBoxAdapter(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(height: AppSizes.defaultPadding / 2),
-                          Text(
-                            "Store pickup availability",
-                            style: Theme.of(context).textTheme.titleSmall,
-                          ),
-                          const SizedBox(height: AppSizes.defaultPadding / 2),
-                          const Text("Select a size to check store availability and In-Store pickup options.")
-                        ],
-                      ),
-                    ),
-                  ),
-                  SliverPadding(
-                    padding: const EdgeInsets.symmetric(vertical: AppSizes.defaultPadding),
-                    sliver: ProductListTile(
-                      title: "Check stores",
-                      svgSrc: "assets/icons/Stores.svg",
-                      isShowBottomBorder: true,
-                      press: () {
-                        customModalBottomSheet(
-                          context,
-                          height: MediaQuery.of(context).size.height * 0.92,
-                          child: const LocationPermissionStoreAvailabilityScreen(),
-                        );
-                      },
-                    ),
-                  ),
-      */
                   const SliverToBoxAdapter(child: SizedBox(height: AppSizes.spaceBtwVerticalFields))
                 ],
               ),

@@ -48,7 +48,7 @@ class _CartFormState extends State<CartForm> {
           child: Padding(
               padding: const EdgeInsets.all(AppSizes.defaultPadding),
               child: switch (state) {
-                CartLoadingState _ =>  const LoadingScreen(),
+                CartLoadingState _ => const LoadingScreen(),
                 CartFailState failState => FailForm(
                     fail: failState.fail,
                     onRefreshTap: () {

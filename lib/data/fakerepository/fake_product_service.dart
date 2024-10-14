@@ -179,7 +179,8 @@ class FakeProductService implements ProductService {
   @override
   Future<ResourceStatus<List<CartItem>>> getCart(String uid) async {
     await Future.delayed(const Duration(seconds: 1));
-    return ResourceStatus.success(FakeProductModels.cartItems );
+    final cartItems = FakeProductModels.cartItems.where((element) => element.subProduct.availableInStock,).toList();
+    return ResourceStatus.success(cartItems);
   }
 
   @override

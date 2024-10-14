@@ -80,7 +80,7 @@ class FakeProductModels {
   static CartItem cartItem1 = CartItem(id: "0", product: product1,subProduct: subProduct1,quantity: 2);
   static CartItem cartItem2 = CartItem(id: "1", product: product2,subProduct: subProduct2,quantity: 3);
   static CartItem cartItem3 = CartItem(id: "2", product: product3,subProduct: subProduct3,quantity: 4);
-  static CartItem cartItem4 = CartItem(id: "3", product: product4,subProduct: subProduct4,quantity: 5);
+  static CartItem cartItem4 = CartItem(id: "3", product: product4,subProduct: subProduct4,quantity: 2);
 
   static List<CartItem> cartItems = [
     cartItem1,
@@ -283,7 +283,7 @@ class FakeProductModels {
       barcode: "4203854832",
       addedDate: DateTime.now(),
       modifiedDate: DateTime.now(),
-      quantity: 4,
+      quantity: 8,
       price: 300,
       discount: 0,
       productFeatureOptionIds: ["0", "3", "8"]);
@@ -293,7 +293,7 @@ class FakeProductModels {
       barcode: "4203854832",
       addedDate: DateTime.now(),
       modifiedDate: DateTime.now(),
-      quantity: 4,
+      quantity: 6,
       price: 400,
       discount: 0,
       productFeatureOptionIds: ["0", "3", "6"]);
@@ -303,7 +303,7 @@ class FakeProductModels {
       barcode: "4203854832",
       addedDate: DateTime.now(),
       modifiedDate: DateTime.now(),
-      quantity: 4,
+      quantity: 2,
       price: 500,
       discount: 0,
       productFeatureOptionIds: ["0", "5", "6"]);
@@ -314,7 +314,7 @@ class FakeProductModels {
       barcode: "4203854832",
       addedDate: DateTime.now(),
       modifiedDate: DateTime.now(),
-      quantity: 4,
+      quantity: 2,
       price: 100,
       discount: 0,
       productFeatureOptionIds: ["0", "5", "7"]);
