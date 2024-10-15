@@ -30,6 +30,9 @@ android {
     namespace = "com.emindev.ecommerce.ecommerce_app_mobile"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
