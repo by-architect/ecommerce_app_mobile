@@ -2,6 +2,7 @@ import 'package:ecommerce_app_mobile/common/constant/Screens.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppTheme.dart';
 import 'package:ecommerce_app_mobile/data/viewmodel/user/user_service_bloc.dart';
 import 'package:ecommerce_app_mobile/firebase_options.dart';
+import 'package:ecommerce_app_mobile/presentation/address/bloc/add_address_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/addresses_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/address/pages/add_address_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/address/pages/addresses_screen.dart';
@@ -57,6 +58,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (BuildContext context) => EditProfileBloc()),
           BlocProvider(create: (BuildContext context) => CartBloc()),
           BlocProvider(create: (BuildContext context) => AddressesBloc()),
+          BlocProvider(create: (BuildContext context) => AddAddressBloc()),
         ],
         child: MaterialApp(
             debugShowCheckedModeBanner: false,

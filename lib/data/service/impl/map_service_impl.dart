@@ -21,11 +21,11 @@ class MapServiceImpl implements MapService {
         throw NetworkDeviceDisconnectedException("Network Device is down");
       }
       var url = Uri.parse(
-          "${ApiConst.openCageBase}${ApiConst.openCageGeocode}json?q=${Uri.encodeComponent("${latitude.toString()},${longitude.toString()}")}&key=${ApiConst.openCageApiKey}");
+          "${ApiConst.openCageBase}${ApiConst.openCageGeocode}json?q=$longitude%252C$latitude&key=${ApiConst.openCageApiKey}");
       var response = await http.get(url).timeout(AppDurations.postTimeout);
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        final addressState = AddressState.fromMap(response.body);
+        final addressState = AddressState.fromMapService(response.body);
         return ResourceStatus.success(addressState);
       } else {
         return ResourceStatus.fail(Fail(

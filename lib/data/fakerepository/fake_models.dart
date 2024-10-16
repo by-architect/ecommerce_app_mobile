@@ -59,7 +59,6 @@ class FakeUserModels {
 }
 
 class FakeMapModels {
-  static const currentLocation = LatLng(36.811260, 34.618270);
 }
 
 class FakeProductModels {
