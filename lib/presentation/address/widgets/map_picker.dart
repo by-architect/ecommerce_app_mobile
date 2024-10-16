@@ -13,20 +13,22 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:location/location.dart';
+
+import '../../../common/ui/theme/AppSizes.dart';
 
 class MapPicker extends StatefulWidget {
-  const MapPicker({super.key});
+  const MapPicker({super.key, required this.onNextPressed});
+
+  final Function() onNextPressed;
 
   @override
-  _MapPickerState createState() => _MapPickerState();
+  State<MapPicker> createState() => _MapPickerState();
 }
 
 class _MapPickerState extends State<MapPicker> {
   LatLng? _currentLocation;
   LatLng _centerLocation = FakeMapModels.currentLocation;
   final MapController _mapController = MapController();
-  final Location _locationService = Location();
   late final DialogUtil dialog;
 
   @override
@@ -54,59 +56,49 @@ class _MapPickerState extends State<MapPicker> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          FlutterMap(
-            mapController: _mapController,
-            options: MapOptions(
-              initialCenter: _centerLocation,
-              initialZoom: 13.0,
-              onPointerUp: (event, point) {
-                setState(() {
-                  _centerLocation = _mapController.camera.center;
-                });
-                Log.test(title: "center", data: _mapController.camera.center);
-                Log.test(title: "clicked", data: point);
-              },
-/*
-            onTap: (tapPosition, point) {
-             _mapController.move(point, 13);
+    return Stack(
+      children: [
+        FlutterMap(
+          mapController: _mapController,
+          options: MapOptions(
+            initialCenter: _centerLocation,
+            initialZoom: 13.0,
+            onPointerUp: (event, point) {
+              setState(() {
+                _centerLocation = _mapController.camera.center;
+              });
+              Log.test(title: "center", data: _mapController.camera.center);
+              Log.test(title: "clicked", data: point);
             },
-*/
-/*
-              onTap: (tapPosition, point) {
-                setState(() {
-                  _centerLocation = point;
-                });
-                _mapController.move(_centerLocation, _mapController.camera.zoom);
-              },
-*/
-            ),
-            children: [
-              TileLayer(
-                urlTemplate: MapConstants.mapBaseImageUrl,
-                userAgentPackageName: AppConstants.packageName, // Replace with your app's package name
-              ),
-            ],
           ),
-          const Center(
-            child: Icon(
-              Icons.location_on,
-              color: AppColors.errorColor,
-              size: 40,
+          children: [
+            TileLayer(
+              urlTemplate: MapConstants.mapBaseImageUrl,
+              userAgentPackageName: AppConstants.packageName, // Replace with your app's package name
             ),
+          ],
+        ),
+        const Center(
+          child: Icon(
+            Icons.location_on,
+            color: AppColors.errorColor,
+            size: 40,
           ),
-          Positioned(
-            top: 16,
-            left: 16,
+        ),
+        Positioned(
+          top: AppSizes.defaultPadding,
+          left: AppSizes.defaultPadding,
+          child: SizedBox(
+            width: 50,
+            height: 50,
             child: FloatingActionButton(
+              foregroundColor: context.isDarkMode ? AppColors.whiteColor90 : AppColors.blackColor,
+              backgroundColor: context.isDarkMode ? AppColors.blackColor : AppColors.whiteColor,
               child: const Icon(Icons.my_location),
               onPressed: () {
                 if (_currentLocation != null) {
                   setState(() {
                     _centerLocation = _currentLocation!;
-
                   });
                   _mapController.move(_currentLocation!, 13);
                 } else {
@@ -115,20 +107,34 @@ class _MapPickerState extends State<MapPicker> {
               },
             ),
           ),
-          Positioned(
-            bottom: 16,
-            left: 16,
-            child: Container(
-              decoration: AppStyles.defaultBoxDecoration.copyWith(color:context.isDarkMode? AppColors.darkGreyColor: AppColors.whiteColor),
-              padding: const EdgeInsets.all(8),
-              child: Text(
-                'Marked Location: ${_centerLocation.latitude.toStringAsFixed(6)}, ${_centerLocation.longitude.toStringAsFixed(6)}',
-                style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
+        Positioned(
+          left: AppSizes.defaultPadding,
+          bottom: AppSizes.defaultPadding,
+          right: AppSizes.defaultPadding,
+          child: Row(
+            children: [
+              Flexible(
+                child: Container(
+                  decoration: AppStyles.defaultBoxDecoration
+                      .copyWith(color: context.isDarkMode ? AppColors.darkGreyColor : AppColors.whiteColor,),
+                  padding: const EdgeInsets.all(8),
+                  child: Text(
+                    //todo: handle marked location
+                    'Marked Location: ${_centerLocation.latitude.toStringAsFixed(6)}, ${_centerLocation.longitude.toStringAsFixed(6)}',
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
               ),
-            ),
+              const SizedBox(width: AppSizes.spaceBtwHorizontalFieldsLarge),
+              FloatingActionButton(
+                onPressed: widget.onNextPressed,
+                child: const Icon(Icons.navigate_next_sharp),
+              )
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

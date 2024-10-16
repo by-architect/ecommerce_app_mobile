@@ -78,10 +78,10 @@ class AppStyles {
     return OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
         overlayColor: AppColors.whiteColor20,
-        foregroundColor:isDarkMode ? AppColors.whiteColor80 :  AppColors.blackColor80,
+        foregroundColor: isDarkMode ? AppColors.whiteColor80 : AppColors.blackColor80,
         padding: const EdgeInsets.all(AppSizes.defaultPadding),
         minimumSize: const Size(double.infinity, 32),
-        side: BorderSide(width: 1, color:isDarkMode ? AppColors.whiteColor80 :  AppColors.blackColor40),
+        side: BorderSide(width: 1, color: isDarkMode ? AppColors.whiteColor80 : AppColors.blackColor40),
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(AppSizes.defaultBorderRadius)),
         ),
@@ -236,13 +236,9 @@ class AppStyles {
       ));
 
   static FloatingActionButtonThemeData floatActionThemeLight = const FloatingActionButtonThemeData(
-   backgroundColor: AppColors.primaryColor,
-   foregroundColor: AppColors.whiteColor90
-  );
+      backgroundColor: AppColors.primaryColor, foregroundColor: AppColors.whiteColor90);
   static FloatingActionButtonThemeData floatActionThemeDark = const FloatingActionButtonThemeData(
-      backgroundColor: AppColors.primaryColorDark,
-      foregroundColor: AppColors.whiteColor10
-  );
+      backgroundColor: AppColors.primaryColorDark, foregroundColor: AppColors.whiteColor10);
 
 /*
 

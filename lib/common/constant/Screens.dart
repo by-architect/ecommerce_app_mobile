@@ -4,6 +4,7 @@ class Screens{
   static const passwordRecoveryScreen = "passwordRecoveryScreen";
   static const mainScreen = "homeScreen";
  static const addressScreen = "addressScreen";
+ static const addAddressScreen = "addAddressScreen";
 
   // static const searchScreen = "searchScreen";
  // static const productScreen = "productScreen";

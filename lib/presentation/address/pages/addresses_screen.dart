@@ -1,3 +1,4 @@
+import 'package:ecommerce_app_mobile/common/constant/Screens.dart';
 import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
@@ -25,18 +26,22 @@ class AddressesScreen extends StatelessWidget {
             children: [
               ButtonSecondary(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => MapPicker(),));
+                  Navigator.pushNamed(context, Screens.addAddressScreen);
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SvgPicture.asset(AppImages.locationIcon),
-                    const SizedBox(width: AppSizes.spaceBtwHorizontalFields,),
+                    const SizedBox(
+                      width: AppSizes.spaceBtwHorizontalFields,
+                    ),
                     Text(AppText.addressesPageAddAddress.capitalizeEveryWord)
                   ],
                 ),
               ),
-              const SizedBox(height: AppSizes.spaceBtwVerticalFields,),
+              const SizedBox(
+                height: AppSizes.spaceBtwVerticalFields,
+              ),
               Expanded(
                 child: ListView.builder(
                   itemBuilder: (context, index) => AddressCard(

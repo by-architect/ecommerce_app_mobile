@@ -2,6 +2,7 @@ import 'package:ecommerce_app_mobile/common/constant/Screens.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppTheme.dart';
 import 'package:ecommerce_app_mobile/data/viewmodel/user/user_service_bloc.dart';
 import 'package:ecommerce_app_mobile/firebase_options.dart';
+import 'package:ecommerce_app_mobile/presentation/address/pages/add_address_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/address/pages/addresses_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/pages/sign_in_screen.dart';
@@ -64,6 +65,7 @@ class MyApp extends StatelessWidget {
               Screens.signUpScreen: (context) => const SignUpScreen(),
               Screens.mainScreen: (context) => const MainScreen(),
               Screens.addressScreen: (context) => const AddressesScreen(),
+              Screens.addAddressScreen: (context) => const AddAddressScreen(),
             },
             home:const MainScreen()));
   }
