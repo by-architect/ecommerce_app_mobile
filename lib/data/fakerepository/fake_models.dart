@@ -11,6 +11,7 @@ import 'package:ecommerce_app_mobile/data/model/review.dart';
 import 'package:ecommerce_app_mobile/data/model/user.dart';
 import 'package:ecommerce_app_mobile/presentation/home/constant/banner_style.dart';
 import 'package:flutter/material.dart';
+import 'package:latlong2/latlong.dart';
 
 import '../../common/constant/gender.dart';
 import '../../presentation/authentication/bloc/user_state.dart';
@@ -57,6 +58,10 @@ class FakeUserModels {
 */
 }
 
+class FakeMapModels {
+  static const currentLocation = LatLng(36.811260, 34.618270);
+}
+
 class FakeProductModels {
   static Category category1 = Category(id: "0", name: "Elbiseler", superId: "", layer: 0);
   static Category category2 = Category(id: "1", name: "Ayakkabılar", superId: "", layer: 0);
@@ -78,10 +83,10 @@ class FakeProductModels {
     category4
   ];
 
-  static CartItem cartItem1 = CartItem(id: "0", product: product1,subProduct: subProduct1,quantity: 2);
-  static CartItem cartItem2 = CartItem(id: "1", product: product2,subProduct: subProduct2,quantity: 3);
-  static CartItem cartItem3 = CartItem(id: "2", product: product3,subProduct: subProduct3,quantity: 4);
-  static CartItem cartItem4 = CartItem(id: "3", product: product4,subProduct: subProduct4,quantity: 2);
+  static CartItem cartItem1 = CartItem(id: "0", product: product1, subProduct: subProduct1, quantity: 2);
+  static CartItem cartItem2 = CartItem(id: "1", product: product2, subProduct: subProduct2, quantity: 3);
+  static CartItem cartItem3 = CartItem(id: "2", product: product3, subProduct: subProduct3, quantity: 4);
+  static CartItem cartItem4 = CartItem(id: "3", product: product4, subProduct: subProduct4, quantity: 2);
 
   static List<CartItem> cartItems = [
     cartItem1,
@@ -90,8 +95,8 @@ class FakeProductModels {
     cartItem4,
   ];
 
-  static final addresses = [address1,address2, address3];
- static final address1 = Address(
+  static final addresses = [address1, address2, address3];
+  static final address1 = Address(
     addressName: "Home",
     id: "1",
     phoneNo: 2334323452,
@@ -109,7 +114,7 @@ class FakeProductModels {
   );
 
 // Example Address 2
- static final address2 = Address(
+  static final address2 = Address(
     addressName: "Work",
     id: "2",
     phoneNo: 9876543210,
@@ -127,7 +132,7 @@ class FakeProductModels {
   );
 
 // Example Address 3
- static final address3 = Address(
+  static final address3 = Address(
     addressName: "Vacation Home",
     id: "3",
     phoneNo: 1122334455,
@@ -173,10 +178,7 @@ class FakeProductModels {
     productFeatureType: ProductFeatureType.character,
   );
   static final ProductFeature productFeatureColor = ProductFeature(
-      id: "1",
-      name: "Color",
-      options: [_option4, _option5, _option6],
-      productFeatureType: ProductFeatureType.color);
+      id: "1", name: "Color", options: [_option4, _option5, _option6], productFeatureType: ProductFeatureType.color);
 
   static final allProductFeatures =
       AllProductFeatures([productFeatureSize, productFeatureColor, productFeatureMaterial]);
@@ -415,10 +417,8 @@ class FakeProductModels {
       double discount = index % 6 == 3 ? price / (index + 1) : 0;
 
       // Randomly selecting feature options (sizes, colors, materials)
-      String materialOptionId =
-          productFeatureMaterial.options[(index % productFeatureMaterial.options.length)].id;
-      String colorOptionId =
-          productFeatureColor.options[(index % productFeatureColor.options.length)].id;
+      String materialOptionId = productFeatureMaterial.options[(index % productFeatureMaterial.options.length)].id;
+      String colorOptionId = productFeatureColor.options[(index % productFeatureColor.options.length)].id;
       String sizeOptionId = productFeatureSize.options[index % productFeatureMaterial.options.length].id;
 
       subProductList.add(SubProduct(
@@ -458,7 +458,6 @@ class FakeProductModels {
         subProduct6,
         subProduct7,
         subProduct8,
-
       ]));
 
   static Product product2 = Product(

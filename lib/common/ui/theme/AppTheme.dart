@@ -12,6 +12,7 @@ class AppTheme {
           primarySwatch: AppColors.yellowMaterialColorLight,
           fontFamily: "PlusJakarta",
           scaffoldBackgroundColor: Colors.white,
+          floatingActionButtonTheme: AppStyles.floatActionThemeLight,
           iconTheme: const IconThemeData(color: Colors.black),
           textTheme: const TextTheme(
               bodyMedium: TextStyle(color: AppColors.blackColor40)),
@@ -34,6 +35,7 @@ class AppTheme {
           primaryColor: AppColors.yellowColorDark,
           primarySwatch: AppColors.yellowMaterialColorDark,
           fontFamily: "PlusJakarta",
+          floatingActionButtonTheme: AppStyles.floatActionThemeDark,
           scaffoldBackgroundColor: Colors.black,
           iconTheme: const IconThemeData(color: Colors.white),
           textTheme: const TextTheme(

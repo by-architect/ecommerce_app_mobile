@@ -235,6 +235,15 @@ class AppStyles {
         width: AppSizes.defaultBoxWidth,
       ));
 
+  static FloatingActionButtonThemeData floatActionThemeLight = const FloatingActionButtonThemeData(
+   backgroundColor: AppColors.primaryColor,
+   foregroundColor: AppColors.whiteColor90
+  );
+  static FloatingActionButtonThemeData floatActionThemeDark = const FloatingActionButtonThemeData(
+      backgroundColor: AppColors.primaryColorDark,
+      foregroundColor: AppColors.whiteColor10
+  );
+
 /*
 
 //light

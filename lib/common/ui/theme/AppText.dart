@@ -250,6 +250,9 @@ class AppText {
   static const errorCategoriesNotFound = AppText("Categories not found, please try again later");
   static const errorPasswordIsIncorrect = AppText("Password is incorrect");
   static const errorPleaseSelectProductFeature = AppText("Please select");
+  static const errorGettingLocationPermission = AppText("Location permission denied, please allow permission from settings if location needed");
+  static const errorGettingLocation = AppText("Error occurred while getting location");
+  static const errorOpeningLocationService = AppText("Please open the location service to proceed");
 
   //info
   static const infoPleaseLoginToSeeYourCart = AppText("Please login to see your cart");
