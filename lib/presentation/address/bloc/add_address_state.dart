@@ -1,6 +1,9 @@
 import 'dart:convert';
 
+import '../../../sddklibrary/util/fail.dart';
+
 class AddressState {
+  late final String? id;
   late final String? addressName;
   late final int? phoneNo;
   late final String? street;
@@ -16,19 +19,20 @@ class AddressState {
   late final String? userNote;
 
   AddressState(
-      {required this.addressName,
-      required this.phoneNo,
-      required this.street,
-      required this.area,
-      required this.apartmentNo,
-      required this.floor,
-      required this.doorNo,
-      required this.city,
-      required this.country,
-      required this.longitude,
-      required this.latitude,
-      required this.openAddress,
-      required this.userNote});
+      {required this.id,
+        required this.addressName,
+        required this.phoneNo,
+        required this.street,
+        required this.area,
+        required this.apartmentNo,
+        required this.floor,
+        required this.doorNo,
+        required this.city,
+        required this.country,
+        required this.longitude,
+        required this.latitude,
+        required this.openAddress,
+        required this.userNote});
 
   AddressState.fromMap(String response) {
     final map = json.decode(response);
@@ -49,8 +53,12 @@ class AddressState {
     userNote = null;
     phoneNo = null;
   }
+  AddressState.fromAddress(){
+    //todo:
+  }
 
   AddressState copyWith({
+    String? id,
     String? addressName,
     int? phoneNo,
     String? street,
@@ -66,6 +74,7 @@ class AddressState {
     String? userNote,
   }) {
     return AddressState(
+      id: id ?? this.id,
       addressName: addressName ?? this.addressName,
       phoneNo: phoneNo ?? this.phoneNo,
       street: street ?? this.street,
@@ -87,3 +96,23 @@ class AddressState {
     return 'AddressState{addressName: $addressName, phoneNo: $phoneNo, street: $street, area: $area, apartmentNo: $apartmentNo, floor: $floor, doorNo: $doorNo,  city: $city, country: $country, longitude: $longitude, latitude: $latitude, openAddress: $openAddress, userNote: $userNote}';
   }
 }
+
+class InitialAddressState extends AddressState {
+  InitialAddressState()
+      : super(
+      id: null,
+      openAddress: null,
+      doorNo: null,
+      city: null,
+      apartmentNo: null,
+      area: null,
+      addressName: null,
+      country: null,
+      floor: null,
+      latitude: null,
+      longitude: null,
+      phoneNo: null,
+      street: null,
+      userNote: null);
+}
+

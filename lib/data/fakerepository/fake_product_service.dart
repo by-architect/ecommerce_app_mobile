@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:ecommerce_app_mobile/data/fakerepository/fake_models.dart';
+import 'package:ecommerce_app_mobile/data/model/address.dart';
 import 'package:ecommerce_app_mobile/data/model/cart_item.dart';
 import 'package:ecommerce_app_mobile/data/model/category.dart';
 import 'package:ecommerce_app_mobile/data/model/product.dart';
@@ -9,6 +10,7 @@ import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
 import 'package:ecommerce_app_mobile/data/model/purchase_process.dart';
 import 'package:ecommerce_app_mobile/data/model/recent_search.dart';
 import 'package:ecommerce_app_mobile/data/service/product_service.dart';
+import 'package:ecommerce_app_mobile/presentation/address/bloc/addresses_state.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/purchase_process_state.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/fail.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/resource.dart';
@@ -182,14 +184,42 @@ class FakeProductService implements ProductService {
     final cartItems = FakeProductModels.cartItems.where((element) => element.subProduct.availableInStock,).toList();
     return ResourceStatus.success(cartItems);
   }
-
   @override
-  Future updateCartItem(CartItem cartItem) async {
-
+  Future<ResourceStatus> updateCartItem(CartItem cartItem) {
+    // TODO: implement updateCartItem
+    throw UnimplementedError();
+  }
+  @override
+  Future<ResourceStatus> deleteCartItem(String cartItemId) {
+    // TODO: implement deleteCartItem
+    throw UnimplementedError();
   }
 
   @override
-  Future deleteCartItem(String cartItemId) async {
+  Future<ResourceStatus> addAddress(AddressesState addressState) async {
+    await Future.delayed(const Duration(seconds: 1));
+   return const ResourceStatus.success("");
   }
+
+
+  @override
+  Future<ResourceStatus<List<Address>>> getAddresses(String uid) async {
+    await Future.delayed(const Duration(seconds: 1));
+   return ResourceStatus.success(FakeProductModels.addresses);
+  }
+
+  @override
+  Future<ResourceStatus> removeAddress(AddressesState addressState) async {
+    await Future.delayed(const Duration(seconds: 1));
+    return const ResourceStatus.success("");
+  }
+
+  @override
+  Future<ResourceStatus> updateAddress(AddressesState addressState) async {
+    await Future.delayed(const Duration(seconds: 1));
+    return const ResourceStatus.success("");
+  }
+
+
 
 }

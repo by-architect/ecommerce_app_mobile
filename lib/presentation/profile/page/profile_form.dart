@@ -16,6 +16,7 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../common/constant/Screens.dart';
 import '../../../data/model/user.dart';
+import '../../address/pages/addresses_screen.dart';
 import '../widget/profile_card.dart';
 import '../widget/profile_menu_item_list.dart';
 
@@ -69,7 +70,10 @@ class ProfileForm extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding),
             child: Text(
               AppText.profilePageMarketing.capitalizeFirstWord,
-              style: Theme.of(context).textTheme.titleSmall,
+              style: Theme
+                  .of(context)
+                  .textTheme
+                  .titleSmall,
             ),
           ),
           const SizedBox(height: AppSizes.defaultPadding / 2),
@@ -89,16 +93,21 @@ class ProfileForm extends StatelessWidget {
             text: AppText.profilePageAddresses.capitalizeFirstWord,
             svgSrc: AppImages.addressIcon,
             press: () {
-              Navigator.pushNamed(context, Screens.addressScreen);
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => AddressesScreen(user: user),
+              ));
             },
           ),
           const SizedBox(height: AppSizes.defaultPadding),
           Padding(
             padding:
-                const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding, vertical: AppSizes.defaultPadding / 2),
+            const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding, vertical: AppSizes.defaultPadding / 2),
             child: Text(
               AppText.account.capitalizeFirstWord,
-              style: Theme.of(context).textTheme.titleSmall,
+              style: Theme
+                  .of(context)
+                  .textTheme
+                  .titleSmall,
             ),
           ),
           ProfileMenuListTile(
@@ -106,9 +115,10 @@ class ProfileForm extends StatelessWidget {
             svgSrc: AppImages.passwordIcon,
             press: () {
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => ChangePasswordScreen(
-                  user: user,
-                ),
+                builder: (context) =>
+                    ChangePasswordScreen(
+                      user: user,
+                    ),
               ));
             },
           ),
@@ -117,9 +127,10 @@ class ProfileForm extends StatelessWidget {
             svgSrc: AppImages.profileIcon,
             press: () {
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => EditProfileScreen(
-                  user: user,
-                ),
+                builder: (context) =>
+                    EditProfileScreen(
+                      user: user,
+                    ),
               ));
             },
           ),
@@ -127,10 +138,13 @@ class ProfileForm extends StatelessWidget {
 
           Padding(
             padding:
-                const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding, vertical: AppSizes.defaultPadding / 2),
+            const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding, vertical: AppSizes.defaultPadding / 2),
             child: Text(
               AppText.profilePageHelpAndSupport.capitalizeEveryWord,
-              style: Theme.of(context).textTheme.titleSmall,
+              style: Theme
+                  .of(context)
+                  .textTheme
+                  .titleSmall,
             ),
           ),
           ProfileMenuListTile(

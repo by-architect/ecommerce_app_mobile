@@ -1,3 +1,4 @@
+import 'package:ecommerce_app_mobile/data/model/address.dart';
 import 'package:ecommerce_app_mobile/data/model/cart_item.dart';
 import 'package:ecommerce_app_mobile/data/model/category.dart';
 import 'package:ecommerce_app_mobile/data/model/product.dart';
@@ -5,6 +6,7 @@ import 'package:ecommerce_app_mobile/data/model/product_details_item.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
 import 'package:ecommerce_app_mobile/data/model/purchase_process.dart';
 import 'package:ecommerce_app_mobile/data/model/recent_search.dart';
+import 'package:ecommerce_app_mobile/presentation/address/bloc/addresses_state.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/purchase_process_state.dart';
 
 import '../../presentation/products/bloc/review_state.dart';
@@ -12,6 +14,7 @@ import '../../sddklibrary/util/resource.dart';
 import '../model/Reviews.dart';
 import '../model/review.dart';
 import '../model/tag.dart';
+import '../model/user.dart';
 
 abstract class ProductService {
   Future<ResourceStatus<List<Category>>> getCategories();
@@ -52,7 +55,13 @@ abstract class ProductService {
 
   Future<ResourceStatus> addPurchaseProcess(PurchaseProcessState purchaseProcess, String uid);
   Future<ResourceStatus<List<CartItem>>> getCart(String uid);
-  Future updateCartItem(CartItem cartItem);
-  Future deleteCartItem(String cartItemId);
+  Future<ResourceStatus> updateCartItem(CartItem cartItem);
+  Future<ResourceStatus> deleteCartItem(String cartItemId);
+
+
+  Future<ResourceStatus> addAddress(AddressesState addressState);
+  Future<ResourceStatus> updateAddress(AddressesState addressState);
+  Future<ResourceStatus> removeAddress(AddressesState addressState);
+  Future<ResourceStatus<List<Address>>> getAddresses(String uid);
 
 }

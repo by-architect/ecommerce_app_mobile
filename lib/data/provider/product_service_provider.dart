@@ -8,6 +8,7 @@ import 'package:ecommerce_app_mobile/data/model/product_details_item.dart';
 import 'package:ecommerce_app_mobile/data/model/recent_search.dart';
 import 'package:ecommerce_app_mobile/data/model/user.dart';
 import 'package:ecommerce_app_mobile/data/service/product_service.dart';
+import 'package:ecommerce_app_mobile/presentation/address/bloc/addresses_state.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/purchase_process_state.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/fail.dart';
 
@@ -30,10 +31,8 @@ class ProductServiceProvider {
       final categories = categoriesResource.data!;
       return ResourceStatus.success(Categories(categories));
     } catch (e, s) {
-      return ResourceStatus.fail(Fail(
-          userMessage: AppText.errorFetchingData.capitalizeFirstWord,
-          stackTrace: s,
-          exception: e.toString()));
+      return ResourceStatus.fail(
+          Fail(userMessage: AppText.errorFetchingData.capitalizeFirstWord, stackTrace: s, exception: e.toString()));
     }
   }
 
@@ -173,22 +172,41 @@ class ProductServiceProvider {
     }
   }
 
-  Future<ResourceStatus> addPurchaseProcess(PurchaseProcessState purchaseProcessState,String uid) {
-    return _productService.addPurchaseProcess(purchaseProcessState,uid);
+  Future<ResourceStatus> addPurchaseProcess(PurchaseProcessState purchaseProcessState, String uid) {
+    return _productService.addPurchaseProcess(purchaseProcessState, uid);
   }
+
   Future<ResourceStatus<List<CartItem>>> getCart(User user) {
     return _productService.getCart(user.uid);
   }
 
-  Future updateCartItem(CartItem cartItem,User user) {
-    return _productService.updateCartItem(cartItem,);
+  Future updateCartItem(CartItem cartItem, User user) {
+    return _productService.updateCartItem(
+      cartItem,
+    );
   }
+
   Future deleteCartItem(String cartItem) {
     return _productService.deleteCartItem(cartItem);
   }
 
+  Future<ResourceStatus> addAddress(AddressesState addressState) {
+    return _productService.addAddress(addressState);
+  }
 
-  getProductsOnCartAsResource(Function(Resource) resource,User user) async {
+  Future<ResourceStatus> removeAddress(AddressesState addressState) {
+    return _productService.removeAddress(addressState);
+  }
+
+  Future<ResourceStatus> updateAddress(AddressesState addressState) {
+    return _productService.updateAddress(addressState);
+  }
+
+  Future<ResourceStatus> getAddresses(User user) {
+    return _productService.getAddresses(user.uid);
+  }
+
+  getProductsOnCartAsResource(Function(Resource) resource, User user) async {
     resource(Resource.loading());
     final productResource = await _productService.getCart(user.uid);
     switch (productResource.status) {
@@ -205,5 +223,4 @@ class ProductServiceProvider {
         break;
     }
   }
-
 }

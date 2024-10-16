@@ -1,5 +1,7 @@
-import 'package:ecommerce_app_mobile/presentation/address/bloc/address_state.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/util/resource.dart';
+
+
+import '../../presentation/address/bloc/add_address_state.dart';
+import '../../sddklibrary/util/resource.dart';
 
 abstract  class MapService {
 

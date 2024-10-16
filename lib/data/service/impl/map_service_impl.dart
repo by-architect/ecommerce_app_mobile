@@ -3,13 +3,12 @@ import 'dart:async';
 import 'package:ecommerce_app_mobile/common/constant/app_durations.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/service/map_service.dart';
-import 'package:ecommerce_app_mobile/presentation/address/bloc/address_state.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/fail.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/resource.dart';
 
 import 'package:http/http.dart' as http;
 import '../../../common/constant/api_constants.dart';
+import '../../../presentation/address/bloc/add_address_state.dart';
 import '../../../sddklibrary/constant/exceptions/exceptions.dart';
 import '../../../sddklibrary/helper/network_helper.dart';
 

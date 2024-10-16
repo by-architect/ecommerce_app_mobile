@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce_app_mobile/data/model/Reviews.dart';
+import 'package:ecommerce_app_mobile/data/model/address.dart';
 import 'package:ecommerce_app_mobile/data/model/cart_item.dart';
 import 'package:ecommerce_app_mobile/data/model/product_details_item.dart';
 import 'package:ecommerce_app_mobile/data/model/purchase_process.dart';
 import 'package:ecommerce_app_mobile/data/model/recent_search.dart';
 import 'package:ecommerce_app_mobile/data/model/review.dart';
+import 'package:ecommerce_app_mobile/presentation/address/bloc/addresses_state.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/purchase_process_state.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/review_state.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/constant/exceptions/exception_handler.dart';
@@ -249,14 +251,38 @@ class ProductServiceImpl extends ProductService {
   }
 
   @override
-  Future updateCartItem(CartItem cartItem) {
+  Future<ResourceStatus> updateCartItem(CartItem cartItem) {
     // TODO: implement updateCartItem
     throw UnimplementedError();
   }
 
   @override
-  Future deleteCartItem(String cartItemId) {
+  Future<ResourceStatus> deleteCartItem(String cartItemId) {
     // TODO: implement deleteCartItem
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<ResourceStatus> addAddress(AddressesState addressState) {
+    // TODO: implement addAddress
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<ResourceStatus<List<Address>>> getAddresses(String uid) {
+    // TODO: implement getAddresses
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<ResourceStatus> removeAddress(AddressesState addressState) {
+    // TODO: implement removeAddress
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<ResourceStatus> updateAddress(AddressesState addressState) {
+    // TODO: implement updateAddress
     throw UnimplementedError();
   }
 }
