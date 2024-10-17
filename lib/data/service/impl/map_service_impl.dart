@@ -29,23 +29,23 @@ class MapServiceImpl implements MapService {
         return ResourceStatus.success(addressState);
       } else {
         return ResourceStatus.fail(Fail(
-            userMessage: AppText.errorFetchingData.capitalizeFirstWord, errorCode: response.statusCode.toString()));
+            userMessage: AppText.errorFetchingData.capitalizeFirstWord.get, errorCode: response.statusCode.toString()));
       }
     } catch (exception, stackTrace) {
       if (exception is TimeoutException) {
         return (ResourceStatus.fail(
-            Fail(userMessage: AppText.errorTimeout.capitalizeFirstWord, exception: exception, stackTrace: stackTrace)));
+            Fail(userMessage: AppText.errorTimeout.capitalizeFirstWord.get, exception: exception, stackTrace: stackTrace)));
       } else if (exception is NetworkDeviceDisconnectedException) {
         return ResourceStatus.fail(Fail(
-            userMessage: AppText.errorNetworkDeviceIsDown.capitalizeFirstWord,
+            userMessage: AppText.errorNetworkDeviceIsDown.capitalizeFirstWord.get,
             exception: exception,
             stackTrace: stackTrace));
       } else if (exception is NullDataException) {
         return ResourceStatus.fail(Fail(
-            userMessage: AppText.errorFetchingData.capitalizeFirstWord, exception: exception, stackTrace: stackTrace));
+            userMessage: AppText.errorFetchingData.capitalizeFirstWord.get, exception: exception, stackTrace: stackTrace));
       } else {
         return (ResourceStatus.fail(Fail(
-            userMessage: AppText.errorFetchingData.capitalizeFirstWord, exception: exception, stackTrace: stackTrace)));
+            userMessage: AppText.errorFetchingData.capitalizeFirstWord.get, exception: exception, stackTrace: stackTrace)));
       }
     }
   }

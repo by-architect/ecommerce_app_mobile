@@ -118,7 +118,7 @@ class _MainScreenState extends State<MainScreen> {
                                 : LoginForm(
                                     message: AppText
                                         .infoPleaseLoginToSeeYourCart
-                                        .capitalizeFirstWord,
+                                        .capitalizeFirstWord.get,
                                     image: AppImages.cartImage),
                             state.userStatus.isAuthenticated
                                 ? ProfileForm(
@@ -127,7 +127,7 @@ class _MainScreenState extends State<MainScreen> {
                                 : LoginForm(
                                     message: AppText
                                         .infoPleaseLoginToSeeYourCart
-                                        .capitalizeFirstWord,
+                                        .capitalizeFirstWord.get,
                                     image: AppImages.profileImage),
                             // FailSkeleton(fail: Fail(userMessage: "network fail"),)
                           ],
@@ -257,19 +257,19 @@ class _NavBarItem extends StatelessWidget {
                     items: <BottomNavigationBarItem>[
                       BottomNavigationBarItem(
                         icon: const Icon(Icons.home),
-                        label: AppText.navigationHome.capitalizeFirstWord,
+                        label: AppText.navigationHome.capitalizeFirstWord.get,
                       ),
                       BottomNavigationBarItem(
                         icon: const Icon(Icons.grid_view_rounded),
-                        label: AppText.navigationDiscover.capitalizeFirstWord,
+                        label: AppText.navigationDiscover.capitalizeFirstWord.get,
                       ),
                       BottomNavigationBarItem(
                         icon: const Icon(Icons.shopping_cart),
-                        label: AppText.navigationCart.capitalizeFirstWord,
+                        label: AppText.navigationCart.capitalizeFirstWord.get,
                       ),
                       BottomNavigationBarItem(
                         icon: const Icon(Icons.person_2_outlined),
-                        label: AppText.navigationAccount.capitalizeFirstWord,
+                        label: AppText.navigationAccount.capitalizeFirstWord.get,
                       ),
                     ],
                   ),
@@ -289,14 +289,14 @@ class _NavBarItem extends StatelessWidget {
                             user: state.userStatus.user!,
                           )
                         : LoginForm(
-                            message: AppText.infoPleaseLoginToSeeYourCart.capitalizeFirstWord,
+                            message: AppText.infoPleaseLoginToSeeYourCart.capitalizeFirstWord.get,
                             image: AppImages.cartImage),
                     state.userStatus.isAuthenticated
                         ? ProfileForm(
                             user: state.userStatus.user!,
                           )
                         : LoginForm(
-                            message: AppText.infoPleaseLoginToSeeYourCart.capitalizeFirstWord,
+                            message: AppText.infoPleaseLoginToSeeYourCart.capitalizeFirstWord.get,
                             image: AppImages.profileImage)
                     // FailSkeleton(fail: Fail(userMessage: "network fail"),)
                   ][selectedIndex],

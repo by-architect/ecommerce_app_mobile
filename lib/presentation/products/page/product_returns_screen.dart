@@ -11,7 +11,7 @@ class ProductReturnsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarPopBack(title: AppText.productDetailsPageReturn.capitalizeFirstWord,),
+      appBar: AppBarPopBack(title: AppText.productDetailsPageReturn.capitalizeFirstWord.get,),
       body: SafeArea(
         child: Column(
           children: [

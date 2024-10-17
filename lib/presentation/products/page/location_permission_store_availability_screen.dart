@@ -29,7 +29,7 @@ class LocationPermissionStoreAvailabilityScreen extends StatelessWidget {
                     child: BackButton(),
                   ),
                   Text(
-                    AppText.productPageStorePickupAvailability.capitalizeFirstWord,
+                    AppText.productPageStorePickupAvailability.capitalizeFirstWord.get,
                     style: Theme.of(context).textTheme.titleSmall,
                   ),
                   const SizedBox(width: 40),

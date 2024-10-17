@@ -92,7 +92,7 @@ class DialogUtil {
                   _showingADialog = false;
                   Navigator.of(context).pop();
                 },
-                child: Text(AppText.dismiss.capitalizeFirstWord),
+                child: Text(AppText.dismiss.capitalizeFirstWord.get),
               ),
             ],
           );
@@ -109,7 +109,7 @@ class DialogUtil {
         context: _context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text(AppText.loading.capitalizeFirstWord),
+            title: Text(AppText.loading.capitalizeFirstWord.get),
             actions: const <Widget>[Center(child: CircularProgressIndicator())],
           );
         });
@@ -154,7 +154,7 @@ class FullscreenLoadingDialog extends StatelessWidget {
                       const CircularProgressIndicator(),
                       const SizedBox(height: 16),
                       Text(
-                        message ?? AppText.loading.capitalizeFirstWord,
+                        message ?? AppText.loading.capitalizeFirstWord.get,
                         style: const TextStyle(fontSize: 16),
                         textAlign: TextAlign.center,
                       ),

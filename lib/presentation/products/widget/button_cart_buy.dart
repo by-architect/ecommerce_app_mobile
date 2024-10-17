@@ -59,7 +59,7 @@ class ButtonCartBuy extends StatelessWidget {
                                 style: Theme.of(context).textTheme.titleSmall!.copyWith(color: Colors.white),
                               ),
                               Text(
-                                subTitle ?? AppText.productPageUnitPrice.capitalizeEveryWord,
+                                subTitle ?? AppText.productPageUnitPrice.capitalizeEveryWord.get,
                                 style: const TextStyle(color: Colors.white54, fontWeight: FontWeight.w500),
                               )
                             ],
@@ -73,7 +73,7 @@ class ButtonCartBuy extends StatelessWidget {
                           height: double.infinity,
                           color: Colors.black.withOpacity(0.15),
                           child: Text(
-                            title ?? AppText.productPageBuyNow.capitalizeEveryWord,
+                            title ?? AppText.productPageBuyNow.capitalizeEveryWord.get,
                             style: Theme.of(context).textTheme.titleSmall!.copyWith(color: Colors.white),
                           ),
                         ),

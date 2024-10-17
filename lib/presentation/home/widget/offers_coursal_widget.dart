@@ -46,7 +46,7 @@ class OffersCarouselAndCategories extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(AppSizes.defaultPadding),
           child: Text(
-            AppText.commonPageCategories.capitalizeEveryWord,
+            AppText.commonPageCategories.capitalizeEveryWord.get,
             style: Theme.of(context).textTheme.titleSmall,
           ),
         ),

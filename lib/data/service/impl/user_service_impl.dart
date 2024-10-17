@@ -86,7 +86,7 @@ class UserServiceImpl extends UserService {
       firebase_auth.User? firebaseUser = firebase_auth.FirebaseAuth.instance.currentUser;
       if (firebaseUser == null) {
         return ResourceStatus.fail(Fail(
-            userMessage: AppText.errorCouldNotChangedThePassword.capitalizeFirstWord,
+            userMessage: AppText.errorCouldNotChangedThePassword.capitalizeFirstWord.get,
             exception: "Current user is Null",
             stackTrace: StackTrace.current));
       }
@@ -98,7 +98,7 @@ class UserServiceImpl extends UserService {
     } catch (e, s) {
       if (e is firebase_auth.FirebaseAuthException && e.code == FirebaseExceptions.invalidCredential) {
         return ResourceStatus.fail(Fail(
-            userMessage: AppText.errorPasswordIsIncorrect.capitalizeFirstWord,
+            userMessage: AppText.errorPasswordIsIncorrect.capitalizeFirstWord.get,
             stackTrace: s,
             exception: e,
             errorCode: e.code));
@@ -143,7 +143,7 @@ class UserServiceImpl extends UserService {
       final userResponse = await getUser();
       if (userResponse.status == Status.fail) {
         return ResourceStatus.fail(
-            userResponse.error ?? Fail(userMessage: AppText.errorFetchingData.capitalizeFirstWord));
+            userResponse.error ?? Fail(userMessage: AppText.errorFetchingData.capitalizeFirstWord.get));
       }
       User user = userResponse.data!;
       return ResourceStatus.success(user);
@@ -164,7 +164,7 @@ class UserServiceImpl extends UserService {
       var userResponse = await getUser(userCredential: userCredential);
       if (userResponse.status == Status.fail) {
         return ResourceStatus.fail(
-            userResponse.error ?? Fail(userMessage: AppText.errorFetchingData.capitalizeFirstWord));
+            userResponse.error ?? Fail(userMessage: AppText.errorFetchingData.capitalizeFirstWord.get));
       }
       User user = userResponse.data!;
       // User user = User.fromUserState(userRequest, userCredential.user!, userCredential);
@@ -218,7 +218,7 @@ class UserServiceImpl extends UserService {
       if (!fireStoreUserMap.exists || fireStoreUserMap.data() == null) {
         return ResourceStatus.fail(Fail(
             stackTrace: StackTrace.current,
-            userMessage: AppText.errorFetchingData.capitalizeFirstWord,
+            userMessage: AppText.errorFetchingData.capitalizeFirstWord.get,
             exception: "User exist in firebase auth, not exist in fireStore"));
         //todo: this error message should send to me with logs
       }

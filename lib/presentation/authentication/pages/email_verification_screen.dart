@@ -50,7 +50,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
         case EmailVerifiedState emailVerifiedState:
           BlocProvider.of<MainBlocs>(context).add(UserIsVerifiedEvent(emailVerifiedState.user));
           DialogUtil(context)
-              .toast(AppText.verificationPageEmailVerifiedSuccessfully.capitalizeFirstWord);
+              .toast(AppText.verificationPageEmailVerifiedSuccessfully.capitalizeFirstWord.get);
           Navigator.of(context).pop();
           timer.cancel();
           subscription.cancel();
@@ -90,7 +90,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         //todo: appbar to verification screen
-        appBar: AppBarPopBack(title: AppText.verificationEmail.capitalizeEveryWord,),
+        appBar: AppBarPopBack(title: AppText.verificationEmail.capitalizeEveryWord.get,),
         resizeToAvoidBottomInset: false,
         body: SafeArea(
           child: Padding(
@@ -102,14 +102,14 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                   flex: 0,
                   child: Column(
                     children: [
-                      Text(AppText.verificationPageCheckYourEmail.capitalizeFirstWord,
+                      Text(AppText.verificationPageCheckYourEmail.capitalizeFirstWord.get,
                           textAlign: TextAlign.center,
                           style: Theme.of(context).textTheme.headlineMedium),
                       const SizedBox(
                         height: AppSizes.spaceBtwVerticalFields,
                       ),
                       Text(
-                        AppText.verificationPageEmailBody.capitalizeFirstWord,
+                        AppText.verificationPageEmailBody.capitalizeFirstWord.get,
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
@@ -135,7 +135,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                             child: seconds == 0
                                 ? ButtonPrimary(
                                     text: seconds == 0
-                                        ? AppText.verificationPageSendEmailAgain.capitalizeFirstWord
+                                        ? AppText.verificationPageSendEmailAgain.capitalizeFirstWord.get
                                         : seconds.toString(),
                                     onTap: () {
                                       if (seconds == 0) {
@@ -147,7 +147,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                                   )
                                 : ButtonSecondary(
                                     text: seconds == 0
-                                        ? AppText.verificationPageSendEmailAgain.capitalizeFirstWord
+                                        ? AppText.verificationPageSendEmailAgain.capitalizeFirstWord.get
                                         : seconds.toString(),
                                     onTap: () {
                                       if (seconds == 0) {

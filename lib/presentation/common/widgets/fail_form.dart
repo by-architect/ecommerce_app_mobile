@@ -30,6 +30,6 @@ class _FailForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FormInfoSkeleton(image: image, message: fail.userMessage, onTap: onTap, buttonText: AppText.refresh.capitalizeFirstWord);
+    return FormInfoSkeleton(image: image, message: fail.userMessage, onTap: onTap, buttonText: AppText.refresh.capitalizeFirstWord.get);
   }
 }

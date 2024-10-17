@@ -48,10 +48,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           controller: pageController,
           children: [
             _Page(
-                title: AppText.welcomePageOneTitle.capitalizeEveryWord,
-                content: AppText.welcomePageOneContent.capitalizeFirstWord,
+                title: AppText.welcomePageOneTitle.capitalizeEveryWord.get,
+                content: AppText.welcomePageOneContent.capitalizeFirstWord.get,
                 image: AppImages.shoppingBags,
-                buttonOneText: AppText.commonNext.capitalizeFirstWord,
+                buttonOneText: AppText.commonNext.capitalizeFirstWord.get,
                 onButtonOneTap: () {
                   pageController.animateToPage(
                     pageController.page!.toInt() + 1,
@@ -60,10 +60,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   );
                 }),
             _Page(
-                title: AppText.welcomePageTwoTitle.capitalizeEveryWord,
-                content: AppText.welcomePageTwoContent.capitalizeFirstWord,
+                title: AppText.welcomePageTwoTitle.capitalizeEveryWord.get,
+                content: AppText.welcomePageTwoContent.capitalizeFirstWord.get,
                 image: AppImages.windowShopping,
-                buttonOneText: AppText.commonNext.capitalizeFirstWord,
+                buttonOneText: AppText.commonNext.capitalizeFirstWord.get,
                 onButtonOneTap: () {
                   pageController.animateToPage(
                     pageController.page!.toInt() + 1,
@@ -72,11 +72,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   );
                 }),
             _Page(
-              title: AppText.welcomePageThreeTitle.capitalizeEveryWord,
-              content: AppText.welcomePageThreeContent.capitalizeFirstWord,
+              title: AppText.welcomePageThreeTitle.capitalizeEveryWord.get,
+              content: AppText.welcomePageThreeContent.capitalizeFirstWord.get,
               image: AppImages.signIn,
-              buttonOneText: AppText.signIn.capitalizeEveryWord,
-              buttonTwoText: AppText.signUp.capitalizeEveryWord,
+              buttonOneText: AppText.signIn.capitalizeEveryWord.get,
+              buttonTwoText: AppText.signUp.capitalizeEveryWord.get,
               onButtonOneTap: () {
                 Navigator.of(context).pushNamedAndRemoveUntil(
                     Screens.signInScreen, (route) => false);
@@ -172,7 +172,7 @@ class _Page extends StatelessWidget {
                         height: 50,
                         child: TextButtonDefault(
                             onPressed: onSkipButton!,
-                            text: AppText.commonSkip.capitalizeFirstWord),
+                            text: AppText.commonSkip.capitalizeFirstWord.get),
                       )
                   ],
                 )

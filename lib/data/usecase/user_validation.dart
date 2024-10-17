@@ -16,23 +16,23 @@ class UserValidation {
         userState.password.isEmpty ||
         userState.birthYear.isEmpty ||
         userState.gender == Gender.unselected) {
-      return ValidationResult(false, message: AppText.errorEmptyField.capitalizeFirstWord);
+      return ValidationResult(false, message: AppText.errorEmptyField.capitalizeFirstWord.get);
     }
 
     if (userState.password != userState.passwordConfirm) {
-      return ValidationResult(false, message: AppText.errorPasswordsAreNotMatching.capitalizeFirstWord);
+      return ValidationResult(false, message: AppText.errorPasswordsAreNotMatching.capitalizeFirstWord.get);
     }
     if (!_isValidEmail(userState.email)) {
-      return ValidationResult(false, message: AppText.errorEmailIsNotValid.capitalizeFirstWord);
+      return ValidationResult(false, message: AppText.errorEmailIsNotValid.capitalizeFirstWord.get);
     }
     if (userState.password.length < 8 || userState.password.length > 16) {
-      return ValidationResult(false, message: AppText.errorPasswordLength.capitalizeFirstWord);
+      return ValidationResult(false, message: AppText.errorPasswordLength.capitalizeFirstWord.get);
     }
     if (!userState.birthYear.isDigit) {
-      return ValidationResult(false, message: AppText.errorBirthYearIsNotValid.capitalizeFirstWord);
+      return ValidationResult(false, message: AppText.errorBirthYearIsNotValid.capitalizeFirstWord.get);
     }
     if (userState.birthYear.toInt < 1900 || userState.birthYear.toInt > DateTime.now().year - 5) {
-      return ValidationResult(false, message: AppText.errorBirthYearIsNotValid.capitalizeFirstWord);
+      return ValidationResult(false, message: AppText.errorBirthYearIsNotValid.capitalizeFirstWord.get);
     }
     // if (!_isValidPhoneNo(userState.phoneNo)) return ValidationResult(false, message: AppText.errorPhoneNoIsNotValid);
 
@@ -41,13 +41,13 @@ class UserValidation {
 
   static ValidationResult validateLogin(UserRequestState userState) {
     if (userState.email.isEmpty || userState.password.isEmpty) {
-      return ValidationResult(false, message: AppText.errorEmptyField.capitalizeFirstWord);
+      return ValidationResult(false, message: AppText.errorEmptyField.capitalizeFirstWord.get);
     }
     if (!_isValidEmail(userState.email)) {
-      return ValidationResult(false, message: AppText.errorEmailIsNotValid.capitalizeFirstWord);
+      return ValidationResult(false, message: AppText.errorEmailIsNotValid.capitalizeFirstWord.get);
     }
     if (userState.password.length < 8 || userState.password.length > 16) {
-      return ValidationResult(false, message: AppText.errorPasswordLength.capitalizeFirstWord);
+      return ValidationResult(false, message: AppText.errorPasswordLength.capitalizeFirstWord.get);
     }
     return ValidationResult(true);
   }
@@ -74,14 +74,14 @@ class UserValidation {
         userState.surname.isEmpty ||
         userState.birthYear.isEmpty ||
         userState.gender == Gender.unselected) {
-      return ValidationResult(false, message: AppText.errorEmptyField.capitalizeFirstWord);
+      return ValidationResult(false, message: AppText.errorEmptyField.capitalizeFirstWord.get);
     }
 
     if (!userState.birthYear.isDigit) {
-      return ValidationResult(false, message: AppText.errorBirthYearIsNotValid.capitalizeFirstWord);
+      return ValidationResult(false, message: AppText.errorBirthYearIsNotValid.capitalizeFirstWord.get);
     }
     if (userState.birthYear.toInt < 1900 || userState.birthYear.toInt > DateTime.now().year - 5) {
-      return ValidationResult(false, message: AppText.errorBirthYearIsNotValid.capitalizeFirstWord);
+      return ValidationResult(false, message: AppText.errorBirthYearIsNotValid.capitalizeFirstWord.get);
     }
     // if (!_isValidPhoneNo(userState.phoneNo)) return ValidationResult(false, message: AppText.errorPhoneNoIsNotValid);
 
@@ -90,13 +90,13 @@ class UserValidation {
 
   static ValidationResult validateChangePassword(ChangePasswordState state) {
     if (state.oldPassword.isEmpty || state.newPassword.isEmpty || state.confirmPassword.isEmpty) {
-      return ValidationResult(false, message: AppText.errorEmptyField.capitalizeFirstWord);
+      return ValidationResult(false, message: AppText.errorEmptyField.capitalizeFirstWord.get);
     }
     if (state.newPassword != state.confirmPassword) {
-      return ValidationResult(false, message: AppText.errorPasswordsAreNotMatching.capitalizeFirstWord);
+      return ValidationResult(false, message: AppText.errorPasswordsAreNotMatching.capitalizeFirstWord.get);
     }
     if (state.newPassword.length < 8 || state.newPassword.length > 16) {
-      return ValidationResult(false, message: AppText.errorPasswordLength.capitalizeFirstWord);
+      return ValidationResult(false, message: AppText.errorPasswordLength.capitalizeFirstWord.get);
     }
     return ValidationResult(true);
   }

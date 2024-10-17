@@ -29,7 +29,7 @@ class AddedToCartMessageScreen extends StatelessWidget {
               ),
               const Spacer(flex: 2),
               Text(
-                AppText.productDetailsPageAddedToCart.capitalizeEveryWord,
+                AppText.productDetailsPageAddedToCart.capitalizeEveryWord.get,
                 style: Theme.of(context)
                     .textTheme
                     .headlineSmall!
@@ -37,7 +37,7 @@ class AddedToCartMessageScreen extends StatelessWidget {
               ),
               const SizedBox(height: AppSizes.defaultPadding / 2),
               Text(
-                AppText.productDetailsPageAddedToCart.capitalizeFirstWord,
+                AppText.productDetailsPageAddedToCart.capitalizeFirstWord.get,
                 textAlign: TextAlign.center,
               ),
               const Spacer(flex: 2),
@@ -46,14 +46,14 @@ class AddedToCartMessageScreen extends StatelessWidget {
                   Navigator.of(context).pop();
                 },
                 text: AppText
-                    .productDetailsPageContinueShopping.capitalizeEveryWord,
+                    .productDetailsPageContinueShopping.capitalizeEveryWord.get,
               ),
               const SizedBox(height: AppSizes.defaultPadding),
               ButtonPrimary(
                 onTap: () {
                   //todo: go to cart
                 },
-                text: AppText.productDetailsPageCheckout.capitalizeFirstWord,
+                text: AppText.productDetailsPageCheckout.capitalizeFirstWord.get,
               ),
               const Spacer(),
             ],

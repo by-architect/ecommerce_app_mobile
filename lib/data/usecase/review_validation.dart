@@ -11,13 +11,13 @@ class ReviewValidation {
 
   ValidationResult validate() {
     if(review.star == null){
-      return ValidationResult(false,message: AppText.errorStarMustBeSelected.capitalizeFirstWord);
+      return ValidationResult(false,message: AppText.errorStarMustBeSelected.capitalizeFirstWord.get);
     }
     if(review.title == null || review.title!.isEmpty){
-      return ValidationResult(false,message: AppText.errorTitleCanNotBeEmpty.capitalizeFirstWord);
+      return ValidationResult(false,message: AppText.errorTitleCanNotBeEmpty.capitalizeFirstWord.get);
     }
     if(review.content == null || review.content!.isEmpty){
-      return ValidationResult(false,message: AppText.errorContentCanNotBeEmpty.capitalizeFirstWord);
+      return ValidationResult(false,message: AppText.errorContentCanNotBeEmpty.capitalizeFirstWord.get);
     }
     return ValidationResult(true);
   }

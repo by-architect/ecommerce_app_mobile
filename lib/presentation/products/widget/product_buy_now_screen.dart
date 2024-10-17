@@ -70,8 +70,8 @@ class _ProductBuyNowScreenState extends State<ProductBuyNowScreen> {
         bottomNavigationBar: ButtonCartBuy(
           isLoading: state is PurchaseProcessLoadingState,
           price: state.selectedSubProduct?.price,
-          title: AppText.productDetailsPageAddToCart.capitalizeEveryWord,
-          subTitle: AppText.productDetailsPageTotalPrice.capitalizeEveryWord,
+          title: AppText.productDetailsPageAddToCart.capitalizeEveryWord.get,
+          subTitle: AppText.productDetailsPageTotalPrice.capitalizeEveryWord.get,
           press: () {
             if (state.selectedSubProduct == null) return;
             if (widget.user == null) {

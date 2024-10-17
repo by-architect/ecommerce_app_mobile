@@ -65,7 +65,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             Navigator.of(context).pushNamedAndRemoveUntil(Screens.mainScreen,(route)=> false);
               break;
             case AddUserFailState failState:
-              dialogUtil.info(AppText.errorTitle.capitalizeEveryWord, failState.error.userMessage);
+              dialogUtil.info(AppText.errorTitle.capitalizeEveryWord.get, failState.error.userMessage);
               subscription.cancel();
               break;
 /*
@@ -75,7 +75,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               subscription.cancel();
               break;
             case SendVerificationEmailFailState failState:
-              dialogUtil.info(AppText.errorTitle.capitalizeEveryWord, failState.error.userMessage);
+              dialogUtil.info(AppText.errorTitle.capitalizeEveryWord.get, failState.error.userMessage);
               subscription.cancel();
             default:
               break;
@@ -89,7 +89,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
     return Scaffold(
       appBar: AppBarAuthentication(
-        title: AppText.signUp.capitalizeEveryWord,
+        title: AppText.signUp.capitalizeEveryWord.get,
       ),
       resizeToAvoidBottomInset: false,
       body: Padding(
@@ -107,7 +107,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         padding: const EdgeInsets.only(right: AppSizes.spaceBtwHorizontalFields / 2),
                         child: TextFieldAuthentication(
                           icon: Icons.person,
-                          label: AppText.name.capitalizeFirstWord,
+                          label: AppText.name.capitalizeFirstWord.get,
                           onChanged: (value) {
                             BlocProvider.of<UserBloc>(context).add(NameEvent(value));
                           },
@@ -119,7 +119,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         padding: const EdgeInsets.only(left: AppSizes.spaceBtwHorizontalFields / 2),
                         child: TextFieldAuthentication(
                             icon: Icons.person,
-                            label: AppText.surname.capitalizeFirstWord,
+                            label: AppText.surname.capitalizeFirstWord.get,
                             onChanged: (value) {
                               BlocProvider.of<UserBloc>(context).add(SurnameEvent(value));
                             }),
@@ -137,7 +137,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         padding: const EdgeInsets.only(right: AppSizes.spaceBtwHorizontalFields / 2),
                         child: TextFieldAuthentication(
                           icon: Icons.date_range,
-                          label: AppText.birthYear.capitalizeFirstWord,
+                          label: AppText.birthYear.capitalizeFirstWord.get,
                           onChanged: (value) {
                             BlocProvider.of<UserBloc>(context).add(BirthYearEvent(value));
                           },
@@ -151,7 +151,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               padding: const EdgeInsets.only(left: AppSizes.spaceBtwHorizontalFields / 2),
                               child: DropdownDefault(
                                 value: BlocProvider.of<UserBloc>(context).state.gender,
-                                hint: BlocProvider.of<UserBloc>(context).state.gender.text.capitalizeFirstWord,
+                                hint: BlocProvider.of<UserBloc>(context).state.gender.text.capitalizeFirstWord.get,
                                 onChanged: (Gender? newValue) {
                                   BlocProvider.of<UserBloc>(context).add(GenderEvent(newValue ?? Gender.unselected));
                                 },
@@ -159,7 +159,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   return DropdownMenuItem<Gender>(
                                     value: gender,
                                     child: Text(
-                                      gender.text.capitalizeFirstWord,
+                                      gender.text.capitalizeFirstWord.get,
                                       style: Theme
                                           .of(context)
                                           .textTheme
@@ -181,7 +181,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 TextFieldAuthentication(
                     icon: Icons.email,
-                    label: AppText.email.capitalizeFirstWord,
+                    label: AppText.email.capitalizeFirstWord.get,
                     onChanged: (value) {
                       BlocProvider.of<UserBloc>(context).add(EmailEvent(value));
                     }),
@@ -190,7 +190,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 TextFieldAuthentication(
                     icon: Icons.password,
-                    label: AppText.password.capitalizeFirstWord,
+                    label: AppText.password.capitalizeFirstWord.get,
                     isPassword: true,
                     onChanged: (value) {
                       BlocProvider.of<UserBloc>(context).add(PasswordEvent(value));
@@ -200,7 +200,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 TextFieldAuthentication(
                     icon: Icons.password,
-                    label: AppText.passwordConfirm.capitalizeEveryWord,
+                    label: AppText.passwordConfirm.capitalizeEveryWord.get,
                     isPassword: true,
                     onChanged: (value) {
                       BlocProvider.of<UserBloc>(context).add(PasswordConfirmEvent(value));
@@ -220,7 +220,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      AppText.signUpScreenAlreadyHaveAnAccount.capitalizeFirstWord,
+                      AppText.signUpScreenAlreadyHaveAnAccount.capitalizeFirstWord.get,
                       style: Theme
                           .of(context)
                           .textTheme
@@ -232,7 +232,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     GestureDetector(
                       onTap: () => Navigator.of(context).pushNamedAndRemoveUntil(Screens.signInScreen,(route)=>false),
                       child: Text(
-                        AppText.signIn.capitalizeEveryWord,
+                        AppText.signIn.capitalizeEveryWord.get,
                         style: Theme
                             .of(context)
                             .textTheme
@@ -247,7 +247,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             SizedBox(
               child: BlocBuilder<UserServiceBloc, UserServiceState>(builder: (BuildContext context, UserServiceState state) {
                 return ButtonPrimary(
-                  text: AppText.commonNext.capitalizeFirstWord,
+                  text: AppText.commonNext.capitalizeFirstWord.get,
                   loading: state is AddUserLoadingState || state is SendVerificationEmailLoadingState,
                   onTap: verifyUser,
                 );

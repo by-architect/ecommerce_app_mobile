@@ -118,7 +118,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> with Widget
                 SliverToBoxAdapter(
                   child: ProductListTile(
                     svgSrc: AppImages.productIcon,
-                    title: AppText.productDetailsPageDetails.capitalizeFirstWord,
+                    title: AppText.productDetailsPageDetails.capitalizeFirstWord.get,
                     press: () {
                       customModalBottomSheet(
                         context,
@@ -147,7 +147,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> with Widget
                 SliverToBoxAdapter(
                   child: ProductListTile(
                     svgSrc: AppImages.returnIcon,
-                    title: AppText.productDetailsPageReturns.capitalizeFirstWord,
+                    title: AppText.productDetailsPageReturns.capitalizeFirstWord.get,
                     isShowBottomBorder: true,
                     press: () {
                       customModalBottomSheet(
@@ -171,7 +171,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> with Widget
                 SliverToBoxAdapter(
                   child: ProductListTile(
                     svgSrc: AppImages.chatIcon,
-                    title: AppText.productDetailsPageReviews.capitalizeFirstWord,
+                    title: AppText.productDetailsPageReviews.capitalizeFirstWord.get,
                     isShowBottomBorder: true,
                     press: () {
                       Navigator.of(context).push(MaterialPageRoute(
@@ -187,7 +187,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> with Widget
                   padding: const EdgeInsets.all(AppSizes.defaultPadding),
                   sliver: SliverToBoxAdapter(
                     child: Text(
-                      AppText.productDetailsPageYouMayAlsoLike.capitalizeEveryWord,
+                      AppText.productDetailsPageYouMayAlsoLike.capitalizeEveryWord.get,
                       style: Theme.of(context).textTheme.titleSmall!,
                     ),
                   ),

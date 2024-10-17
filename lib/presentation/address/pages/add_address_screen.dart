@@ -52,7 +52,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
         canPop: state.canPop,
         child: Scaffold(
           appBar: AppBarPopBack(
-            title: AppText.addressesPageAddAddress.capitalizeEveryWord,
+            title: AppText.addressesPageAddAddress.capitalizeEveryWord.get,
           ),
           body: PageView(
             physics: const NeverScrollableScrollPhysics(),

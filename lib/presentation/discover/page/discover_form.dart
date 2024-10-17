@@ -83,7 +83,7 @@ class _DiscoverFormState extends State<DiscoverForm> {
                           ),
                     Text(
                       discoverState.categoryStruct.isFirstLayer
-                          ? AppText.commonPageCategories.capitalizeFirstWord
+                          ? AppText.commonPageCategories.capitalizeFirstWord.get
                           : "${AppText.commonPageCategories} > ${discoverState.categoryStruct.title}",
                       style: Theme.of(context)
                           .textTheme

@@ -60,7 +60,7 @@ class _CartFormState extends State<CartForm> {
                         slivers: [
                           SliverToBoxAdapter(
                             child: Text(
-                              AppText.cartPageReviewYourOrder.capitalizeEveryWord,
+                              AppText.cartPageReviewYourOrder.capitalizeEveryWord.get,
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
                           ),
@@ -129,7 +129,7 @@ class _CartFormState extends State<CartForm> {
                           ),
                           SliverToBoxAdapter(
                             child: ButtonPrimary(
-                                text: AppText.commonContinue.capitalizeFirstWord,
+                                text: AppText.commonContinue.capitalizeFirstWord.get,
                                 onTap: () {
                                   if (!widget.user.firebaseUser.emailVerified) {
                                     Navigator.of(context).push(MaterialPageRoute(
@@ -155,7 +155,7 @@ class _CartFormState extends State<CartForm> {
                         padding: const EdgeInsets.all(24),
                         child: FormInfoSkeleton(
                           image: AppImages.cartImage,
-                          message: AppText.infoEmptyCart.capitalizeEveryWord,
+                          message: AppText.infoEmptyCart.capitalizeEveryWord.get,
                         ),
                       ),
               }),

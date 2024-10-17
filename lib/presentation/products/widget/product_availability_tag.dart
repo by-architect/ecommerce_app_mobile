@@ -26,8 +26,8 @@ class ProductAvailabilityTag extends StatelessWidget {
       child: isSmall
           ? Text(
               isAvailable
-                  ? AppText.productPageAvailableInStockSmall.capitalizeFirstWord
-                  : AppText.productPageUnAvailableInStockSmall.capitalizeFirstWord,
+                  ? AppText.productPageAvailableInStockSmall.capitalizeFirstWord.get
+                  : AppText.productPageUnAvailableInStockSmall.capitalizeFirstWord.get,
               style: Theme.of(context)
                   .textTheme
                   .labelSmall!
@@ -35,8 +35,8 @@ class ProductAvailabilityTag extends StatelessWidget {
             )
           : Text(
               isAvailable
-                  ? AppText.productPageAvailableInStock.capitalizeFirstWord
-                  : AppText.productPageUnAvailableInStock.capitalizeFirstWord,
+                  ? AppText.productPageAvailableInStock.capitalizeFirstWord.get
+                  : AppText.productPageUnAvailableInStock.capitalizeFirstWord.get,
               style: Theme.of(context)
                   .textTheme
                   .labelSmall!

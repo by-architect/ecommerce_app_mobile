@@ -19,7 +19,7 @@ class UnitPrice extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          AppText.productPageUnitPrice.capitalizeEveryWord,
+          AppText.productPageUnitPrice.capitalizeEveryWord.get,
           style: Theme.of(context).textTheme.titleSmall,
         ),
         const SizedBox(height: AppSizes.defaultPadding / 1),

@@ -42,7 +42,7 @@ class _MapPickerState extends State<MapPicker> {
     BlocProvider.of<AddAddressBloc>(context).add(SetInitialLocation(initialCenter));
     BlocProvider.of<AddAddressBloc>(context).stream.listen((state) {
       if (state is AddAddressFailState) {
-        dialog.info(AppText.errorTitle.capitalizeEveryWord, state.fail.userMessage);
+        dialog.info(AppText.errorTitle.capitalizeEveryWord.get, state.fail.userMessage);
       }
     });
     dialog = DialogUtil(context);
@@ -68,7 +68,7 @@ class _MapPickerState extends State<MapPicker> {
     );
     locationResource.onFailure(
       (fail) {
-        dialog.info(AppText.errorGettingLocation.capitalizeEveryWord, fail.userMessage);
+        dialog.info(AppText.errorGettingLocation.capitalizeEveryWord.get, fail.userMessage);
       },
     );
   }
@@ -137,7 +137,7 @@ class _MapPickerState extends State<MapPicker> {
                     ),
                     padding: const EdgeInsets.all(8),
                     child: Text(
-                      state.openAddress ?? "${state.selectedLocation?.latitude ?? AppText.loading.capitalizeFirstWord}, ${state.selectedLocation?.longitude ?? AppText.loading.capitalizeFirstWord}",
+                      state.openAddress ?? "${state.selectedLocation?.latitude ?? AppText.loading.capitalizeFirstWord.get}, ${state.selectedLocation?.longitude ?? AppText.loading.capitalizeFirstWord.get}",
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),

@@ -43,14 +43,14 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                       Icons.arrow_back,
                     )),
                 Text(
-                  AppText.commonPageFilter.capitalizeFirstWord,
+                  AppText.commonPageFilter.capitalizeFirstWord.get,
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 TextButtonDefault(
                     onPressed: () {
                       BlocProvider.of<SearchBloc>(context).add(ClearAllSelectedOptionsEvent());
                     },
-                    text: AppText.commonPageClearAll.capitalizeEveryWord)
+                    text: AppText.commonPageClearAll.capitalizeEveryWord.get)
               ],
             ),
           ),
@@ -63,7 +63,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                   child: Padding(
                     padding: const EdgeInsets.only(right: AppSizes.spaceBtwHorizontalFields/2),
                     child: ButtonPrimary(
-                      text: AppText.commonPageFilter.capitalizeFirstWord,
+                      text: AppText.commonPageFilter.capitalizeFirstWord.get,
                       onTap: () {
                       },
                     ),
@@ -78,7 +78,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                           filterSelected = false;
                         });
                       },
-                      text: AppText.commonPageCategory.capitalizeFirstWord,
+                      text: AppText.commonPageCategory.capitalizeFirstWord.get,
                     ),
                   ),
                 ),
@@ -89,7 +89,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                   child: Padding(
                     padding: const EdgeInsets.only(right: AppSizes.spaceBtwHorizontalFields/2),
                     child: ButtonSecondary(
-                      text: AppText.commonPageFilter.capitalizeFirstWord,
+                      text: AppText.commonPageFilter.capitalizeFirstWord.get,
                       onTap: () {
                         setState(() {
                           filterSelected = true;
@@ -103,7 +103,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                     padding: const EdgeInsets.only(left: AppSizes.spaceBtwHorizontalFields/2),
                     child: ButtonPrimary(
                       onTap: () {},
-                      text: AppText.commonPageCategory.capitalizeFirstWord,
+                      text: AppText.commonPageCategory.capitalizeFirstWord.get,
                     ),
                   ),
                 ),
@@ -232,14 +232,14 @@ class _BottomSheetOption extends StatelessWidget {
                       Icons.arrow_back,
                     )),
                 Text(
-                  AppText.commonPageFilter.capitalizeFirstWord,
+                  AppText.commonPageFilter.capitalizeFirstWord.get,
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 TextButtonDefault(
                     onPressed: () {
                       BlocProvider.of<SearchBloc>(context).add(ClearSelectedOptionsOfFeatureEvent(feature));
                     },
-                    text: AppText.commonPageClearAll.capitalizeEveryWord)
+                    text: AppText.commonPageClearAll.capitalizeEveryWord.get)
               ],
             ),
           ),
@@ -249,7 +249,7 @@ class _BottomSheetOption extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: AppSizes.defaultSpace),
             child: ButtonPrimary(
-              text: AppText.done.capitalizeFirstWord,
+              text: AppText.done.capitalizeFirstWord.get,
               onTap: () {
                 Navigator.pop(context);
               },
@@ -293,7 +293,7 @@ class _OptionRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
         title: Text(
-          featureType == ProductFeatureType.color ? AppText.color.capitalizeFirstWord : option.name,
+          featureType == ProductFeatureType.color ? AppText.color.capitalizeFirstWord.get : option.name,
           style: Theme.of(context).textTheme.titleLarge,
         ),
         leading: Padding(

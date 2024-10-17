@@ -161,21 +161,25 @@ class AppText{
 class AppText {
   final String _text;
 
-
-
   const AppText(this._text); //common
 
-  String get capitalizeFirstWord => StringHelper.capitalizeFirstWord(_text);
+  get capitalizeFirstWord => AppText(StringHelper.capitalizeFirstWord(_text));
 
-  String get capitalizeEveryWord => StringHelper.capitalizeEveryWord(_text);
+  AppText get capitalizeEveryWord => AppText(StringHelper.capitalizeEveryWord(_text));
 
-  String get allLower => _text.toLowerCase();
+ AppText get addStar => AppText("$_text*");
 
-  String get allUpper => _text.toUpperCase();
+  AppText  combineWithText(AppText nextText) => AppText("$_text ${nextText.get}");
+
+  AppText get allLower => AppText(_text.toLowerCase());
+
+  AppText get allUpper => AppText(_text.toUpperCase());
+
+  String get get => _text;
 
   @override
   String toString() {
-    return capitalizeFirstWord;
+    return capitalizeFirstWord.get;
   } // String get text => _text;
 
   ///write string values first words first character big
@@ -250,7 +254,8 @@ class AppText {
   static const errorCategoriesNotFound = AppText("Categories not found, please try again later");
   static const errorPasswordIsIncorrect = AppText("Password is incorrect");
   static const errorPleaseSelectProductFeature = AppText("Please select");
-  static const errorGettingLocationPermission = AppText("Location permission denied, please allow permission from settings if location needed");
+  static const errorGettingLocationPermission =
+      AppText("Location permission denied, please allow permission from settings if location needed");
   static const errorGettingLocation = AppText("Error occurred while getting location");
   static const errorOpeningLocationService = AppText("Please open the location service to proceed");
 
@@ -260,7 +265,6 @@ class AppText {
   static const infoPasswordChangedSuccessfully = AppText("Password changed successfully");
   static const infoProfileSettingsChangedSuccessfully = AppText("Profile settings changed successfully");
   static const infoEmptyCart = AppText("Upps! Your bucket is empty, let's start to shop");
-
 
 // Navigation
   static const navigationHome = AppText("Home");
@@ -276,8 +280,8 @@ class AppText {
   static const welcomePageTwoContent = AppText(
       "Explore personalized recommendations, easy search options, and secure checkout processes designed to enhance your shopping experience.");
   static const welcomePageThreeTitle = AppText("Ready to shop?");
-  static const welcomePageThreeContent =
-      AppText("Sign up or log in now to start your shopping journey. Enjoy exclusive member benefits, track your orders, and more!");
+  static const welcomePageThreeContent = AppText(
+      "Sign up or log in now to start your shopping journey. Enjoy exclusive member benefits, track your orders, and more!");
 
 // Sign Up Screen
   static const signUpScreenAlreadyHaveAnAccount = AppText("Already have an account?");
@@ -291,6 +295,7 @@ class AppText {
   static const verificationPageEmailBody = AppText("We sent a link to your email");
   static const verificationPageCheckYourEmail = AppText("Check your emails, we are waiting for you");
   static const verificationPageSendEmailAgain = AppText("Send email again");
+
   // static const verificationPageAccountCreatedSuccessfully = AppText("Account created successfully");
   static const verificationPageEmailVerifiedSuccessfully = AppText("Email verified successfully");
 
@@ -345,7 +350,8 @@ class AppText {
   static const productDetailsPageReviewSubmitted = AppText("Review submitted successfully");
   static const productDetailsPageSelectedColor = AppText("Selected color");
   static const productDetailsPageAddedToCart = AppText("Added to cart");
-  static const productDetailsPageCompletePurchase = AppText("Click the checkout button to complete the purchase process.");
+  static const productDetailsPageCompletePurchase =
+      AppText("Click the checkout button to complete the purchase process.");
   static const productDetailsPageContinueShopping = AppText("Continue shopping");
   static const productDetailsPageCheckout = AppText("Checkout");
 
@@ -379,8 +385,6 @@ class AppText {
   //address page
   static const addressesPageAddresses = AppText("Addresses");
   static const addressesPageAddAddress = AppText("Add New Address");
-
-
 
 // Pages Common
   static const commonPageFilter = AppText("Filter");

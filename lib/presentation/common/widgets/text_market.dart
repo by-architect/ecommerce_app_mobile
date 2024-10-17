@@ -9,7 +9,7 @@ class TextMarket extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-        AppText.marketName.capitalizeEveryWord,
+        AppText.marketName.capitalizeEveryWord.get,
         style: Theme.of(context).textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.bold,
             fontStyle: FontStyle.italic),

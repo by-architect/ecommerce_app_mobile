@@ -26,7 +26,7 @@ class ExceptionHandler extends FirebaseExceptions {
               stackTrace: stackTrace)));
         case ExceptionHandler.nullUserId:
           return (ResourceStatus.fail(Fail(
-              userMessage: AppText.errorFetchingData.capitalizeFirstWord,
+              userMessage: AppText.errorFetchingData.capitalizeFirstWord.get,
               exception: exception,
               errorCode: exception.code,
               stackTrace: stackTrace)));
@@ -63,7 +63,7 @@ class ExceptionHandler extends FirebaseExceptions {
                 stackTrace: stackTrace));
           } else {
             return (ResourceStatus.fail(Fail(
-                userMessage: AppText.errorFetchingData.capitalizeFirstWord,
+                userMessage: AppText.errorFetchingData.capitalizeFirstWord.get,
                 exception: exception,
                 errorCode: exception.code,
                 stackTrace: stackTrace)));
@@ -71,30 +71,30 @@ class ExceptionHandler extends FirebaseExceptions {
       }
     } else if (exception is UserNotAuthenticatedException) {
       return ResourceStatus.fail(Fail(
-          userMessage: AppText.errorAuthenticate.capitalizeFirstWord,
+          userMessage: AppText.errorAuthenticate.capitalizeFirstWord.get,
           exception: exception,
           stackTrace: stackTrace));
     } else if (exception is TimeoutException) {
       // Log.error("Time out:", exception.message ?? "");
       return (ResourceStatus.fail(Fail(
-          userMessage: AppText.errorTimeout.capitalizeFirstWord,
+          userMessage: AppText.errorTimeout.capitalizeFirstWord.get,
           exception: exception,
           stackTrace: stackTrace)));
     } else if (exception is NetworkDeviceDisconnectedException) {
       // Log.error("Network Device Down", exception.message);
       return ResourceStatus.fail(Fail(
-          userMessage: AppText.errorNetworkDeviceIsDown.capitalizeFirstWord,
+          userMessage: AppText.errorNetworkDeviceIsDown.capitalizeFirstWord.get,
           exception: exception,
           stackTrace: stackTrace));
     } else if (exception is NullDataException) {
       return ResourceStatus.fail(Fail(
-          userMessage: AppText.errorFetchingData.capitalizeFirstWord,
+          userMessage: AppText.errorFetchingData.capitalizeFirstWord.get,
           exception: exception,
           stackTrace: stackTrace));
     } else {
       // Log.error("Unknown Error", exception.toString());
       return (ResourceStatus.fail(Fail(
-          userMessage: AppText.errorFetchingData.capitalizeFirstWord,
+          userMessage: AppText.errorFetchingData.capitalizeFirstWord.get,
           exception: exception,
           stackTrace: stackTrace)));
     }

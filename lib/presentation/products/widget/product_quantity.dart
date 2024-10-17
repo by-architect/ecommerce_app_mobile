@@ -27,7 +27,7 @@ class ProductQuantity extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
        if(!isSmall) Text(
-          AppText.productPageQuantity.capitalizeFirstWord,
+          AppText.productPageQuantity.capitalizeFirstWord.get,
           style: Theme.of(context).textTheme.titleSmall,
         ),
        if(!isSmall) const SizedBox(height: AppSizes.defaultPadding),

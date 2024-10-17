@@ -71,9 +71,9 @@ class Categories {
       return ResourceStatus.success(CategoryNode(currentCategories.reversed.toList()));
     } catch (exception, stackTrace) {
       if (exception is CategoryNotFoundException) {
-        return ResourceStatus.fail(Fail(userMessage: AppText.errorLoadingCategories.capitalizeFirstWord, exception: exception, stackTrace: stackTrace));
+        return ResourceStatus.fail(Fail(userMessage: AppText.errorLoadingCategories.capitalizeFirstWord.get, exception: exception, stackTrace: stackTrace));
       } else {
-        return ResourceStatus.fail(Fail(userMessage: AppText.errorLoadingCategories.capitalizeFirstWord, exception: exception, stackTrace: stackTrace));
+        return ResourceStatus.fail(Fail(userMessage: AppText.errorLoadingCategories.capitalizeFirstWord.get, exception: exception, stackTrace: stackTrace));
       }
     }
   }

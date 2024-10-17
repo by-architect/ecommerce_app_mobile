@@ -46,7 +46,7 @@ class _ProductFeatureWidgetState extends State<ProductFeatureWidget> {
               ),
               if (!widget.options.isAnySelected)
                 Text(
-                  AppText.errorPleaseSelectProductFeature.capitalizeFirstWord,
+                  AppText.errorPleaseSelectProductFeature.capitalizeFirstWord.get,
                   style: Theme.of(context).textTheme.titleSmall?.copyWith(color: AppColors.errorColor),
                 )
             ],

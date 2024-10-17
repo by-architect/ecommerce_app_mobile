@@ -41,7 +41,7 @@ class _AddressesScreenState extends State<AddressesScreen> {
     return BlocBuilder<AddressesBloc, AddressesState>(
       builder: (BuildContext context, AddressesState state) => Scaffold(
           appBar: AppBarPopBack(
-            title: AppText.addressesPageAddresses.capitalizeFirstWord,
+            title: AppText.addressesPageAddresses.capitalizeFirstWord.get,
           ),
           body: Padding(
             padding: const EdgeInsets.all(AppSizes.defaultPadding),
@@ -58,7 +58,7 @@ class _AddressesScreenState extends State<AddressesScreen> {
                       const SizedBox(
                         width: AppSizes.spaceBtwHorizontalFields,
                       ),
-                      Text(AppText.addressesPageAddAddress.capitalizeEveryWord)
+                      Text(AppText.addressesPageAddAddress.capitalizeEveryWord.get)
                     ],
                   ),
                 ),

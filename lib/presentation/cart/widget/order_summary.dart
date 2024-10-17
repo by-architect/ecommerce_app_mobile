@@ -37,24 +37,24 @@ class OrderSummaryCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  AppText.cartPageOrderSummary.capitalizeEveryWord,
+                  AppText.cartPageOrderSummary.capitalizeEveryWord.get,
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
               ],
             ),
             const SizedBox(height: AppSizes.spaceBtwVerticalFields),
-            _Row(title: AppText.cartPageSubtotal.capitalizeFirstWord, amount: subtotal),
+            _Row(title: AppText.cartPageSubtotal.capitalizeFirstWord.get, amount: subtotal),
             const SizedBox(height: AppSizes.spaceBtwVerticalFieldsSmall),
             _Row(
-              title: AppText.cartPageShippingFee.capitalizeEveryWord,
+              title: AppText.cartPageShippingFee.capitalizeEveryWord.get,
               amount: shippingFee,
             ),
             const SizedBox(height: AppSizes.spaceBtwVerticalFieldsSmall),
-            _Row(title: AppText.cartPageDiscount.capitalizeFirstWord, amount: discount),
+            _Row(title: AppText.cartPageDiscount.capitalizeFirstWord.get, amount: discount),
             const SizedBox(height: AppSizes.spaceBtwVerticalFieldsSmall),
             const Divider(),
             const SizedBox(height: AppSizes.spaceBtwVerticalFieldsSmall),
-            _Row(title: AppText.cartPageTotal.capitalizeFirstWord, amount: total),
+            _Row(title: AppText.cartPageTotal.capitalizeFirstWord.get, amount: total),
           ],
         ),
       ),
@@ -83,7 +83,7 @@ class _Row extends StatelessWidget {
         ),
         amount == 0.0
             ? Text(
-                AppText.cartPageFree.capitalizeFirstWord,
+                AppText.cartPageFree.capitalizeFirstWord.get,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(color: AppColors.successColor),
               )
             : Text(

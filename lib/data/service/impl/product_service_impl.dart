@@ -47,7 +47,7 @@ class ProductServiceImpl extends ProductService {
       //todo: if there is no category in server, it is fatal error, check it
       if (categoryList.isEmpty) {
         return ResourceStatus.fail(Fail(
-            userMessage: AppText.errorCategoriesNotFound.capitalizeFirstWord,
+            userMessage: AppText.errorCategoriesNotFound.capitalizeFirstWord.get,
             exception: NullDataException(
                 "Categories not found \n there might be no category added in server, fatal error")));
       }
@@ -118,7 +118,7 @@ class ProductServiceImpl extends ProductService {
           .timeout(AppDurations.postTimeout);
       if (!productResponse.exists) {
         return ResourceStatus.fail(
-            Fail(userMessage: AppText.errorProductDoesNotExist.capitalizeFirstWord));
+            Fail(userMessage: AppText.errorProductDoesNotExist.capitalizeFirstWord.get));
       }
       final Product product = Product.fromMap(productResponse.data()!);
 

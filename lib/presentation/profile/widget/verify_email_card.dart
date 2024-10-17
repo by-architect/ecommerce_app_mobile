@@ -40,7 +40,7 @@ class VerifyEmailCard extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      AppText.profilePageVerifyEmailText.capitalizeFirstWord,
+                      AppText.profilePageVerifyEmailText.capitalizeFirstWord.get,
                       style: Theme.of(context)
                           .textTheme
                           .headlineSmall
@@ -55,7 +55,7 @@ class VerifyEmailCard extends StatelessWidget {
                           color: AppColors.whiteColor,
                           borderRadius: BorderRadius.circular(AppSizes.defaultBorderRadius)),
                       child: TextButtonDefault(
-                          text: AppText.profilePageVerifyNow.capitalizeEveryWord,
+                          text: AppText.profilePageVerifyNow.capitalizeEveryWord.get,
                           textStyle: Theme.of(context)
                               .textTheme
                               .titleSmall

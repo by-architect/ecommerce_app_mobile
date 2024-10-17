@@ -14,7 +14,7 @@ class LocationHandler {
         return ResourceStatus.fail(Fail(
           exception: "Location permission denied",
           stackTrace: StackTrace.current,
-          userMessage: AppText.errorGettingLocationPermission.capitalizeFirstWord,
+          userMessage: AppText.errorGettingLocationPermission.capitalizeFirstWord.get,
         ));
       }
     }
@@ -25,7 +25,7 @@ class LocationHandler {
         return ResourceStatus.fail(Fail(
             exception: "Location permission denied",
             stackTrace: StackTrace.current,
-            userMessage: AppText.errorOpeningLocationService.capitalizeFirstWord));
+            userMessage: AppText.errorOpeningLocationService.capitalizeFirstWord.get));
       }
     }
 
@@ -34,6 +34,6 @@ class LocationHandler {
       return ResourceStatus.success(LatLng(locationData.latitude!, locationData.longitude!));
     } catch (e, s) {
       return ResourceStatus.fail(
-          Fail(userMessage: AppText.errorGettingLocation.capitalizeFirstWord, exception: e, stackTrace: s));
+          Fail(userMessage: AppText.errorGettingLocation.capitalizeFirstWord.get, exception: e, stackTrace: s));
     }
   }}

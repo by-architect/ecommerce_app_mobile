@@ -47,7 +47,7 @@ class ChangePasswordScreen extends StatelessWidget {
               streamSubscription.cancel();
               break;
             case ChangePasswordSuccessState _:
-              dialogUtil.toast(AppText.infoPasswordChangedSuccessfully.capitalizeFirstWord);
+              dialogUtil.toast(AppText.infoPasswordChangedSuccessfully.capitalizeFirstWord.get);
               Navigator.of(context).pop();
               streamSubscription.cancel();
           }
@@ -57,7 +57,7 @@ class ChangePasswordScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBarPopBack(
-        title: AppText.changePasswordPageChangePassword.capitalizeEveryWord,
+        title: AppText.changePasswordPageChangePassword.capitalizeEveryWord.get,
       ),
       body: BlocBuilder<ChangePasswordBloc, ChangePasswordState>(
         builder: (BuildContext context, ChangePasswordState state) => Padding(
@@ -66,7 +66,7 @@ class ChangePasswordScreen extends StatelessWidget {
             children: [
               TextFieldAuthentication(
                   icon: Icons.password,
-                  label: AppText.oldPassword.capitalizeFirstWord,
+                  label: AppText.oldPassword.capitalizeFirstWord.get,
                   isPassword: true,
                   onChanged: (value) {
                     BlocProvider.of<ChangePasswordBloc>(context).add(OldPasswordEvent(value));
@@ -75,7 +75,7 @@ class ChangePasswordScreen extends StatelessWidget {
                 height: AppSizes.spaceBtwVerticalFields,
               ),
               TextFieldAuthentication(
-                  label: AppText.newPassword.capitalizeFirstWord,
+                  label: AppText.newPassword.capitalizeFirstWord.get,
                   isPassword: true,
                   icon: Icons.password_outlined,
                   onChanged: (value) {
@@ -86,7 +86,7 @@ class ChangePasswordScreen extends StatelessWidget {
               ),
               TextFieldAuthentication(
                   icon: Icons.password_rounded,
-                  label: AppText.passwordConfirm.capitalizeFirstWord,
+                  label: AppText.passwordConfirm.capitalizeFirstWord.get,
                   isPassword: true,
                   onChanged: (value) {
                     BlocProvider.of<ChangePasswordBloc>(context).add(ConfirmPasswordEvent(value));
@@ -95,7 +95,7 @@ class ChangePasswordScreen extends StatelessWidget {
                 height: AppSizes.spaceBtwVerticalFieldsLarge,
               ),
               ButtonPrimary(
-                text: AppText.save.capitalizeFirstWord,
+                text: AppText.save.capitalizeFirstWord.get,
                 loading: state is ChangePasswordLoadingState,
                 onTap: () {
                   final passwordState = state;

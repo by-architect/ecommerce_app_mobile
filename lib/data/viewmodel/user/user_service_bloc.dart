@@ -93,7 +93,7 @@ class UserServiceBloc extends Bloc<UserServiceEvent, UserServiceState> {
             break;
         }
       }else{
-        emit(GetUserFailState(Fail(userMessage: AppText.errorAuthenticate.capitalizeFirstWord)));
+        emit(GetUserFailState(Fail(userMessage: AppText.errorAuthenticate.capitalizeFirstWord.get)));
       }
     });
     on<LoginEvent>((event,emit) async {

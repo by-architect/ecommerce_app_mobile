@@ -28,7 +28,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
               fail: resourceBestSeller.error ??
                   resourceDiscount.error ??
                   resourceLastAdded.error ??
-                  Fail(userMessage: AppText.errorFetchingData.capitalizeFirstWord),
+                  Fail(userMessage: AppText.errorFetchingData.capitalizeFirstWord.get),
               bestSellerProducts: state.bestSellerProducts,
               lastAddedProducts: state.lastAddedProducts,
               discountedProducts: state.discountedProducts));

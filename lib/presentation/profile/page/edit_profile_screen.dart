@@ -64,7 +64,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         (state) {
           switch (state) {
             case EditProfileSuccessState _:
-              dialog.toast(AppText.infoProfileSettingsChangedSuccessfully.capitalizeFirstWord);
+              dialog.toast(AppText.infoProfileSettingsChangedSuccessfully.capitalizeFirstWord.get);
               streamSubscription.cancel();
               Navigator.of(context).pop();
               break;
@@ -79,7 +79,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
     return Scaffold(
       appBar: AppBarPopBack(
-        title: AppText.editProfilePageEditProfile.capitalizeEveryWord,
+        title: AppText.editProfilePageEditProfile.capitalizeEveryWord.get,
       ),
       body: BlocBuilder<EditProfileBloc, EditProfileState>(
         builder: (BuildContext context, EditProfileState state) => Padding(
@@ -94,7 +94,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       child: TextFieldAuthentication(
                         icon: Icons.person,
                         textEditingController:nameController,
-                        label: AppText.name.capitalizeFirstWord,
+                        label: AppText.name.capitalizeFirstWord.get,
                         onChanged: (value) {
                           BlocProvider.of<EditProfileBloc>(context).add(NameEvent(value));
                         },
@@ -106,7 +106,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       padding: const EdgeInsets.only(left: AppSizes.spaceBtwHorizontalFields / 2),
                       child: TextFieldAuthentication(
                           icon: Icons.person,
-                          label: AppText.surname.capitalizeFirstWord,
+                          label: AppText.surname.capitalizeFirstWord.get,
                           textEditingController: surnameController,
                           onChanged: (value) {
                             BlocProvider.of<EditProfileBloc>(context).add(SurnameEvent(value));
@@ -125,7 +125,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       padding: const EdgeInsets.only(right: AppSizes.spaceBtwHorizontalFields / 2),
                       child: TextFieldAuthentication(
                         icon: Icons.date_range,
-                        label: AppText.birthYear.capitalizeFirstWord,
+                        label: AppText.birthYear.capitalizeFirstWord.get,
                         textEditingController: birthDateController,
                         onChanged: (value) {
                           BlocProvider.of<EditProfileBloc>(context).add(BirthYearEvent(value));
@@ -138,7 +138,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       padding: const EdgeInsets.only(left: AppSizes.spaceBtwHorizontalFields / 2),
                       child: DropdownDefault(
                         value: state.gender,
-                        hint: state.gender.text.capitalizeFirstWord,
+                        hint: state.gender.text.capitalizeFirstWord.get,
                         onChanged: (Gender? newValue) {
                           BlocProvider.of<EditProfileBloc>(context)
                               .add(GenderEvent(newValue ?? Gender.unselected));
@@ -147,7 +147,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           return DropdownMenuItem<Gender>(
                             value: gender,
                             child: Text(
-                              gender.text.capitalizeFirstWord,
+                              gender.text.capitalizeFirstWord.get,
                               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                                   color: gender == Gender.unselected
                                       ? AppColors.greyColor
@@ -171,7 +171,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 }),
             */
               ButtonPrimary(
-                text: AppText.save.capitalizeFirstWord,
+                text: AppText.save.capitalizeFirstWord.get,
                 loading: state is EditProfileLoadingState,
                 onTap: () {
                   final userState = state;

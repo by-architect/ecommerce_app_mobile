@@ -60,7 +60,7 @@ class _SignInScreenState extends State<SignInScreen> {
               streamSubscription.cancel();
               break;
             case LoginUserFailState failState:
-              dialogUtil.info(AppText.errorTitle.capitalizeEveryWord,
+              dialogUtil.info(AppText.errorTitle.capitalizeEveryWord.get,
                   failState.error.userMessage);
               break;
           }
@@ -73,7 +73,7 @@ class _SignInScreenState extends State<SignInScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBarAuthentication(
-        title: AppText.signIn.capitalizeFirstWord,
+        title: AppText.signIn.capitalizeFirstWord.get,
       ),
       body: Padding(
           padding: const EdgeInsets.all(AppSizes.defaultSpace),
@@ -100,7 +100,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 children: [
                   TextFieldAuthentication(
                     icon: Icons.email,
-                    label: AppText.email.capitalizeFirstWord,
+                    label: AppText.email.capitalizeFirstWord.get,
                     onChanged: (value) {
                       BlocProvider.of<UserBloc>(context).add(EmailEvent(value));
                     },
@@ -110,7 +110,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                   TextFieldAuthentication(
                     icon: Icons.password,
-                    label: AppText.password.capitalizeFirstWord,
+                    label: AppText.password.capitalizeFirstWord.get,
                     isPassword: true,
                     onChanged: (value) {
                       BlocProvider.of<UserBloc>(context)
@@ -125,7 +125,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     children: [
                       Text(
                         AppText
-                            .signInPageDoNotHaveAnAccount.capitalizeFirstWord,
+                            .signInPageDoNotHaveAnAccount.capitalizeFirstWord.get,
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       const SizedBox(
@@ -136,7 +136,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             .pushNamedAndRemoveUntil(
                                 Screens.signUpScreen, (route) => false),
                         child: Text(
-                          AppText.signUp.capitalizeEveryWord,
+                          AppText.signUp.capitalizeEveryWord.get,
                           style: Theme.of(context)
                               .textTheme
                               .bodyMedium
@@ -149,7 +149,7 @@ class _SignInScreenState extends State<SignInScreen> {
               )),
               BlocBuilder<UserServiceBloc, UserServiceState>(
                 builder: (BuildContext context, state) => ButtonPrimary(
-                  text: AppText.signIn.capitalizeEveryWord,
+                  text: AppText.signIn.capitalizeEveryWord.get,
                   loading: state is LoginUserLoadingState,
                   onTap: verifyUser,
                 ),

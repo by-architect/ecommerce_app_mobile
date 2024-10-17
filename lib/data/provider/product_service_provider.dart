@@ -32,7 +32,7 @@ class ProductServiceProvider {
       return ResourceStatus.success(Categories(categories));
     } catch (e, s) {
       return ResourceStatus.fail(
-          Fail(userMessage: AppText.errorFetchingData.capitalizeFirstWord, stackTrace: s, exception: e.toString()));
+          Fail(userMessage: AppText.errorFetchingData.capitalizeFirstWord.get, stackTrace: s, exception: e.toString()));
     }
   }
 
@@ -49,7 +49,7 @@ class ProductServiceProvider {
       emit(ResourceStatus.success(Categories(categories)));
     } catch (e, s) {
       emit(ResourceStatus.fail(Fail(
-          userMessage: AppText.errorFetchingData.capitalizeFirstWord,
+          userMessage: AppText.errorFetchingData.capitalizeFirstWord.get,
           stackTrace: s,
           exception: e.toString())));
     }
@@ -119,7 +119,7 @@ class ProductServiceProvider {
       emit(ResourceStatus.success(productFeatureResource.data!));
     } catch (e, s) {
       emit(ResourceStatus.fail(Fail(
-          userMessage: AppText.errorFetchingData.capitalizeFirstWord,
+          userMessage: AppText.errorFetchingData.capitalizeFirstWord.get,
           stackTrace: s,
           exception: e.toString())));
     }

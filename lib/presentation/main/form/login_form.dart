@@ -17,7 +17,7 @@ class LoginForm extends StatelessWidget {
         padding: const EdgeInsets.all(AppSizes.defaultSpace),
         child: FormInfoSkeleton(
           image: image,
-          buttonText: AppText.signIn.capitalizeEveryWord,
+          buttonText: AppText.signIn.capitalizeEveryWord.get,
           message: message,
           onTap: () {
             Navigator.of(context).pushNamed(Screens.signInScreen);

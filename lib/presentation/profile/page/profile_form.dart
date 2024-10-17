@@ -69,7 +69,7 @@ class ProfileForm extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding),
             child: Text(
-              AppText.profilePageMarketing.capitalizeFirstWord,
+              AppText.profilePageMarketing.capitalizeFirstWord.get,
               style: Theme
                   .of(context)
                   .textTheme
@@ -78,19 +78,19 @@ class ProfileForm extends StatelessWidget {
           ),
           const SizedBox(height: AppSizes.defaultPadding / 2),
           ProfileMenuListTile(
-            text: AppText.profilePageOrders.capitalizeFirstWord,
+            text: AppText.profilePageOrders.capitalizeFirstWord.get,
             svgSrc: AppImages.orderIcon,
             press: () {
               // Navigator.pushNamed(context, ordersScreenRoute);
             },
           ),
           ProfileMenuListTile(
-            text: AppText.productDetailsPageReturns.capitalizeFirstWord,
+            text: AppText.productDetailsPageReturns.capitalizeFirstWord.get,
             svgSrc: AppImages.returnIcon,
             press: () {},
           ),
           ProfileMenuListTile(
-            text: AppText.profilePageAddresses.capitalizeFirstWord,
+            text: AppText.profilePageAddresses.capitalizeFirstWord.get,
             svgSrc: AppImages.addressIcon,
             press: () {
               Navigator.of(context).push(MaterialPageRoute(
@@ -103,7 +103,7 @@ class ProfileForm extends StatelessWidget {
             padding:
             const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding, vertical: AppSizes.defaultPadding / 2),
             child: Text(
-              AppText.account.capitalizeFirstWord,
+              AppText.account.capitalizeFirstWord.get,
               style: Theme
                   .of(context)
                   .textTheme
@@ -111,7 +111,7 @@ class ProfileForm extends StatelessWidget {
             ),
           ),
           ProfileMenuListTile(
-            text: AppText.profilePageChangePassword.capitalizeEveryWord,
+            text: AppText.profilePageChangePassword.capitalizeEveryWord.get,
             svgSrc: AppImages.passwordIcon,
             press: () {
               Navigator.of(context).push(MaterialPageRoute(
@@ -123,7 +123,7 @@ class ProfileForm extends StatelessWidget {
             },
           ),
           ProfileMenuListTile(
-            text: AppText.profilePageEditProfile.capitalizeEveryWord,
+            text: AppText.profilePageEditProfile.capitalizeEveryWord.get,
             svgSrc: AppImages.profileIcon,
             press: () {
               Navigator.of(context).push(MaterialPageRoute(
@@ -140,7 +140,7 @@ class ProfileForm extends StatelessWidget {
             padding:
             const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding, vertical: AppSizes.defaultPadding / 2),
             child: Text(
-              AppText.profilePageHelpAndSupport.capitalizeEveryWord,
+              AppText.profilePageHelpAndSupport.capitalizeEveryWord.get,
               style: Theme
                   .of(context)
                   .textTheme
@@ -148,14 +148,14 @@ class ProfileForm extends StatelessWidget {
             ),
           ),
           ProfileMenuListTile(
-            text: AppText.profilePageGetHelp.capitalizeEveryWord,
+            text: AppText.profilePageGetHelp.capitalizeEveryWord.get,
             svgSrc: AppImages.helpIcon,
             press: () {
               // Navigator.pushNamed(context, getHelpScreenRoute);
             },
           ),
           ProfileMenuListTile(
-            text: AppText.profilePageFAQ.capitalizeFirstWord,
+            text: AppText.profilePageFAQ.capitalizeFirstWord.get,
             svgSrc: AppImages.fAQIcon,
             press: () {},
             isShowDivider: false,
@@ -174,7 +174,7 @@ class ProfileForm extends StatelessWidget {
               colorFilter: ColorFilters.errorColorFilter,
             ),
             title: Text(
-              AppText.logOut.capitalizeEveryWord,
+              AppText.logOut.capitalizeEveryWord.get,
               style: const TextStyle(color: AppColors.errorColor, fontSize: 14, height: 1),
             ),
           )

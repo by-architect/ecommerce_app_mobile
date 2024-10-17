@@ -44,7 +44,7 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
     bool loading = false;
     return Scaffold(
       appBar: AppBarPopBack(
-        title: AppText.productDetailsPageAddReview.capitalizeEveryWord,
+        title: AppText.productDetailsPageAddReview.capitalizeEveryWord.get,
       ),
       body: Padding(
         padding: const EdgeInsets.all(AppSizes.defaultSpace),
@@ -61,7 +61,7 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Divider(),
-                    Text(AppText.productDetailsPageOverallRating.capitalizeFirstWord),
+                    Text(AppText.productDetailsPageOverallRating.capitalizeFirstWord.get),
                     RatingBar.builder(
                       initialRating: 0,
                       itemSize: 30,
@@ -83,7 +83,7 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                 height: AppSizes.spaceBtwVerticalFields,
               ),
               Text(
-                AppText.productDetailsPageSetATitle.capitalizeFirstWord,
+                AppText.productDetailsPageSetATitle.capitalizeFirstWord.get,
                 style: Theme.of(context).textTheme.titleMedium,
                 textAlign: TextAlign.left,
               ),
@@ -95,13 +95,13 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                 onChanged: (value) {
                     reviewState = reviewState.copyWith(title: value);
                 },
-                hint: AppText.productDetailsPageSummarizeReview.capitalizeFirstWord,
+                hint: AppText.productDetailsPageSummarizeReview.capitalizeFirstWord.get,
               ),
               const SizedBox(
                 height: AppSizes.spaceBtwVerticalFieldsSmall,
               ),
               Text(
-                AppText.productDetailsPageWhatDidYouLike.capitalizeFirstWord,
+                AppText.productDetailsPageWhatDidYouLike.capitalizeFirstWord.get,
                 style: Theme.of(context).textTheme.titleMedium,
                 textAlign: TextAlign.left,
               ),
@@ -114,13 +114,13 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                 onChanged: (value) {
                   reviewState = reviewState.copyWith(content: value);
                 },
-                hint: AppText.productDetailsPageWhatShouldShoppersKnow.capitalizeEveryWord,
+                hint: AppText.productDetailsPageWhatShouldShoppersKnow.capitalizeEveryWord.get,
               ),
               const SizedBox(
                 height: AppSizes.spaceBtwVerticalFieldsLarge,
               ),
               ButtonPrimary(
-                text: AppText.productDetailsPageSubmitReview.capitalizeEveryWord,
+                text: AppText.productDetailsPageSubmitReview.capitalizeEveryWord.get,
                 onTap: () {
                   final dialog = DialogUtil(context);
                   ValidationResult validationResult = ReviewValidation(reviewState).validate();
@@ -137,7 +137,7 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                       switch (resource.status) {
                         case Status.success:
                           setState(() {
-                            dialog.toast(AppText.productDetailsPageReviewSubmitted.capitalizeFirstWord);
+                            dialog.toast(AppText.productDetailsPageReviewSubmitted.capitalizeFirstWord.get);
                             loading = false;
                           });
                           Navigator.of(context).pop();
