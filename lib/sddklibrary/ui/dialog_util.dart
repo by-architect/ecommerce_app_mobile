@@ -77,9 +77,7 @@ class DialogUtil {
 
   void info(String title, String content) {
     if (!_showingADialog) {
-      Log.test(title: "dialog util",data: _showingADialog);
       _showingADialog = true;
-      Log.test(title: "dialog util",data: _showingADialog);
       showDialog(
         context: _context,
         builder: (BuildContext context) {

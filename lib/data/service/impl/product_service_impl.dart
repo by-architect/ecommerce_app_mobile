@@ -6,6 +6,7 @@ import 'package:ecommerce_app_mobile/data/model/product_details_item.dart';
 import 'package:ecommerce_app_mobile/data/model/purchase_process.dart';
 import 'package:ecommerce_app_mobile/data/model/recent_search.dart';
 import 'package:ecommerce_app_mobile/data/model/review.dart';
+import 'package:ecommerce_app_mobile/presentation/address/bloc/add_address_state.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/addresses_state.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/purchase_process_state.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/review_state.dart';
@@ -262,11 +263,6 @@ class ProductServiceImpl extends ProductService {
     throw UnimplementedError();
   }
 
-  @override
-  Future<ResourceStatus> addAddress(AddressesState addressState) {
-    // TODO: implement addAddress
-    throw UnimplementedError();
-  }
 
   @override
   Future<ResourceStatus<List<Address>>> getAddresses(String uid) {
@@ -275,14 +271,21 @@ class ProductServiceImpl extends ProductService {
   }
 
   @override
-  Future<ResourceStatus> removeAddress(AddressesState addressState) {
+  Future<ResourceStatus> addAddress(AddressState addressState) {
+    // TODO: implement addAddress
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<ResourceStatus> removeAddress(AddressState addressState) {
     // TODO: implement removeAddress
     throw UnimplementedError();
   }
 
   @override
-  Future<ResourceStatus> updateAddress(AddressesState addressState) {
+  Future<ResourceStatus> updateAddress(AddressState addressState) {
     // TODO: implement updateAddress
     throw UnimplementedError();
   }
+
 }

@@ -22,8 +22,12 @@ import 'package:latlong2/latlong.dart';
 import '../../../common/ui/theme/AppSizes.dart';
 
 class MapPicker extends StatefulWidget {
-  const MapPicker({super.key, required this.onNextPressed});
+  const MapPicker(
+      {super.key, required this.onNextPressed, required this.currentLocation,required  this.openAddress,required  this.selectedLocation});
 
+  final LatLng? currentLocation;
+  final String? openAddress;
+  final LatLng? selectedLocation;
   final Function() onNextPressed;
 
   @override
@@ -41,7 +45,7 @@ class _MapPickerState extends State<MapPicker> {
 
     BlocProvider.of<AddAddressBloc>(context).add(SetInitialLocation(initialCenter));
     BlocProvider.of<AddAddressBloc>(context).stream.listen((state) {
-      if (state is AddAddressFailState) {
+      if (state is MapAddressFailState) {
         dialog.info(AppText.errorTitle.capitalizeEveryWord.get, state.fail.userMessage);
       }
     });
@@ -75,103 +79,83 @@ class _MapPickerState extends State<MapPicker> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AddAddressBloc, AddAddressState>(
-      builder: (BuildContext context, AddAddressState state) => Stack(
-        children: [
-          FlutterMap(
-            mapController: _mapController,
-            options: MapOptions(
-              initialCenter: initialCenter,
-              initialZoom: 13.0,
-              onPointerUp: (event, point) {
-                BlocProvider.of<AddAddressBloc>(context).add(SetSelectedLocation(_mapController.camera.center));
+    return Stack(
+      children: [
+        FlutterMap(
+          mapController: _mapController,
+          options: MapOptions(
+            initialCenter: initialCenter,
+            initialZoom: 13.0,
+            onPointerUp: (event, point) {
+              BlocProvider.of<AddAddressBloc>(context).add(SetSelectedLocation(_mapController.camera.center));
+            },
+          ),
+          children: [
+            TileLayer(
+              urlTemplate: MapConstants.mapBaseImageUrl,
+              userAgentPackageName: AppConstants.packageName, // Replace with your app's package name
+            ),
+          ],
+        ),
+        const Center(
+          child: Icon(
+            Icons.location_on,
+            color: AppColors.errorColor,
+            size: 40,
+          ),
+        ),
+        Positioned(
+          top: AppSizes.defaultPadding,
+          left: AppSizes.defaultPadding,
+          child: SizedBox(
+            width: 50,
+            height: 50,
+            child: FloatingActionButton(
+              heroTag: "location",
+              foregroundColor: context.isDarkMode ? AppColors.whiteColor90 : AppColors.blackColor,
+              backgroundColor: context.isDarkMode ? AppColors.blackColor : AppColors.whiteColor,
+              child: const Icon(Icons.my_location),
+              onPressed: () {
+                if (widget.currentLocation != null) {
+                  BlocProvider.of<AddAddressBloc>(context).add(SetSelectedLocation(widget.currentLocation!));
+                  _mapController.move(widget.currentLocation!, 13);
+                } else {
+                  _getCurrentLocation();
+                }
               },
             ),
+          ),
+        ),
+        Positioned(
+          left: AppSizes.defaultPadding,
+          bottom: AppSizes.defaultPadding,
+          right: AppSizes.defaultPadding,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              TileLayer(
-                urlTemplate: MapConstants.mapBaseImageUrl,
-                userAgentPackageName: AppConstants.packageName, // Replace with your app's package name
-              ),
-            ],
-          ),
-          const Center(
-            child: Icon(
-              Icons.location_on,
-              color: AppColors.errorColor,
-              size: 40,
-            ),
-          ),
-          Positioned(
-            top: AppSizes.defaultPadding,
-            left: AppSizes.defaultPadding,
-            child: SizedBox(
-              width: 50,
-              height: 50,
-              child: FloatingActionButton(
-                heroTag: "location",
-                foregroundColor: context.isDarkMode ? AppColors.whiteColor90 : AppColors.blackColor,
-                backgroundColor: context.isDarkMode ? AppColors.blackColor : AppColors.whiteColor,
-                child: const Icon(Icons.my_location),
-                onPressed: () {
-                  if (state.currentLocation != null) {
-                    BlocProvider.of<AddAddressBloc>(context).add(SetSelectedLocation(state.currentLocation!));
-                    _mapController.move(state.currentLocation!, 13);
-                  } else {
-                    _getCurrentLocation();
-                  }
-                },
-              ),
-            ),
-          ),
-          Positioned(
-            left: AppSizes.defaultPadding,
-            bottom: AppSizes.defaultPadding,
-            right: AppSizes.defaultPadding,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Flexible(
-                  child: Container(
-                    decoration: AppStyles.defaultBoxDecoration.copyWith(
-                      color: context.isDarkMode ? AppColors.darkGreyColor : AppColors.whiteColor,
-                    ),
-                    padding: const EdgeInsets.all(8),
-                    child: Text(
-                      state.openAddress ?? "${state.selectedLocation?.latitude ?? AppText.loading.capitalizeFirstWord.get}, ${state.selectedLocation?.longitude ?? AppText.loading.capitalizeFirstWord.get}",
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
+              Flexible(
+                child: Container(
+                  decoration: AppStyles.defaultBoxDecoration.copyWith(
+                    color: context.isDarkMode ? AppColors.darkGreyColor : AppColors.whiteColor,
+                  ),
+                  padding: const EdgeInsets.all(8),
+                  child: Text(
+                    widget.openAddress ??
+                        "${widget.selectedLocation?.latitude ?? AppText.loading.capitalizeFirstWord.get}, ${widget.selectedLocation?.longitude ?? AppText.loading.capitalizeFirstWord.get}",
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
-                const SizedBox(width: AppSizes.spaceBtwHorizontalFieldsLarge),
-                FloatingActionButton(
-                  heroTag: "next",
-                  onPressed: widget.onNextPressed,
-                  child: const Icon(Icons.navigate_next_sharp),
-                )
-              ],
-            ),
+              ),
+              const SizedBox(width: AppSizes.spaceBtwVerticalFieldsLarge),
+              FloatingActionButton(
+                heroTag: "next",
+                onPressed : widget.onNextPressed,
+                child: const Icon(Icons.navigate_next_sharp),
+              )
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
-/*
-              MarkerLayer(
-                markers: [
-                  if (_currentLocation != null)
-                    Marker(
-                      width: 80.0,
-                      height: 80.0,
-                      point: _currentLocation!,
-                      child:const Icon(Icons.my_location, color: Colors.blue, size: 40.0),
-                    ),
-                  Marker(
-                    width: 80.0,
-                    height: 80.0,
-                    point: _centerLocation,
-                    child: const Icon(Icons.location_on, color: Colors.red, size: 40.0),
-                  ),
-                ],
-              ),
-*/

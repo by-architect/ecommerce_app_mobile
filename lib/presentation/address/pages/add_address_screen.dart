@@ -8,8 +8,6 @@ import 'package:ecommerce_app_mobile/presentation/common/widgets/app_bar_pop_bac
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../sddklibrary/util/Log.dart';
 import '../bloc/add_address_event.dart';
 
 class AddAddressScreen extends StatefulWidget {
@@ -25,7 +23,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
   @override
   void initState() {
     controller.addListener(() {
-      if (controller.page == 0) {
+      if (controller.page?.toInt() == 0) {
         BlocProvider.of<AddAddressBloc>(context).add(PopBackEvent(true));
       } else {
         BlocProvider.of<AddAddressBloc>(context).add(PopBackEvent(false));
@@ -45,7 +43,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
     return BlocBuilder<AddAddressBloc, AddAddressState>(
       builder: (BuildContext context, AddAddressState state) => PopScope(
         onPopInvokedWithResult: (didPop, result) {
-          if(!didPop){
+          if (!didPop) {
             controller.animateToPage(0, duration: AppDurations.defaultDuration, curve: Curves.easeInOut);
           }
         },
@@ -61,14 +59,16 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
               Stack(
                 children: [
                   MapPicker(
+                    selectedLocation: state.selectedLocation,
+                    currentLocation: state.currentLocation,
+                    openAddress: state.openAddress,
                     onNextPressed: () {
-                      Log.test(title: "onNextPressed", data: state);
                       controller.animateToPage(1, duration: AppDurations.defaultDuration, curve: Curves.easeInOut);
                     },
                   ),
                 ],
               ),
-              const EditAddress()
+              EditAddress(state: state)
             ],
           ),
         ),

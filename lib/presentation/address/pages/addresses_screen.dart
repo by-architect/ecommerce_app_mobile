@@ -40,6 +40,7 @@ class _AddressesScreenState extends State<AddressesScreen> {
   Widget build(BuildContext context) {
     return BlocBuilder<AddressesBloc, AddressesState>(
       builder: (BuildContext context, AddressesState state) => Scaffold(
+        resizeToAvoidBottomInset: false,
           appBar: AppBarPopBack(
             title: AppText.addressesPageAddresses.capitalizeFirstWord.get,
           ),

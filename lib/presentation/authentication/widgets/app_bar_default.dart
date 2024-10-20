@@ -91,7 +91,7 @@ Future<void> testScope(User? user) async {
   UserService userService = UserServiceImpl();
 
   if (user == null) {
-    Log.test(title: "change user password", message: "null user");
+    Log.info(title: "change user password", message: "null user");
     return;
   }
   // final resource = await userService.changePassword(user, );

@@ -10,6 +10,7 @@ import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
 import 'package:ecommerce_app_mobile/data/model/purchase_process.dart';
 import 'package:ecommerce_app_mobile/data/model/recent_search.dart';
 import 'package:ecommerce_app_mobile/data/service/product_service.dart';
+import 'package:ecommerce_app_mobile/presentation/address/bloc/add_address_state.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/addresses_state.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/purchase_process_state.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/fail.dart';
@@ -196,7 +197,7 @@ class FakeProductService implements ProductService {
   }
 
   @override
-  Future<ResourceStatus> addAddress(AddressesState addressState) async {
+  Future<ResourceStatus> addAddress(AddressState addressState) async {
     await Future.delayed(const Duration(seconds: 1));
    return const ResourceStatus.success("");
   }
@@ -209,13 +210,13 @@ class FakeProductService implements ProductService {
   }
 
   @override
-  Future<ResourceStatus> removeAddress(AddressesState addressState) async {
+  Future<ResourceStatus> removeAddress(AddressState addressState) async {
     await Future.delayed(const Duration(seconds: 1));
     return const ResourceStatus.success("");
   }
 
   @override
-  Future<ResourceStatus> updateAddress(AddressesState addressState) async {
+  Future<ResourceStatus> updateAddress(AddressState addressState) async {
     await Future.delayed(const Duration(seconds: 1));
     return const ResourceStatus.success("");
   }

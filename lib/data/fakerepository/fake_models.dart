@@ -101,15 +101,16 @@ class FakeProductModels {
     phoneNo: 2334323452,
     street: "123 Main St",
     area: "Downtown",
-    apartmentNo: "A-203",
+    streetNo: "A-203",
     floor: 2,
     doorNo: "5B",
     city: "Los Angeles",
     country: "USA",
+    postCode: "90210",
     latitude: 34.052235,
     longitude: -118.243683,
     openAddress: "123 Main St, A-203, 2nd Floor, Los Angeles, CA",
-    userNote: "Leave the package at the front desk if no one answers.",
+    userNote: "Leave the package at the front desk if no one answers.", state: 'state',
   );
 
 // Example Address 2
@@ -119,15 +120,16 @@ class FakeProductModels {
     phoneNo: 9876543210,
     street: "456 Corporate Ave",
     area: "Business District",
-    apartmentNo: "Suite 1500",
+    streetNo: "Suite 1500",
     floor: 15,
     doorNo: "15A",
     city: "New York",
     country: "USA",
+    postCode: "10001",
     latitude: 40.712776,
     longitude: -74.005974,
     openAddress: "456 Corporate Ave, Suite 1500, 15th Floor, New York, NY",
-    userNote: "Deliver to the reception desk.",
+    userNote: "Deliver to the reception desk.", state: 'state',
   );
 
 // Example Address 3
@@ -137,15 +139,16 @@ class FakeProductModels {
     phoneNo: 1122334455,
     street: "789 Ocean Drive",
     area: "Beachside",
-    apartmentNo: "",
+    streetNo: "",
     floor: 0,
     doorNo: "2",
     city: "Miami",
     country: "USA",
+    postCode: "33101",
     latitude: 25.761681,
     longitude: -80.191788,
     openAddress: "789 Ocean Drive, Beachside, Miami, FL",
-    userNote: "Call upon arrival to open the gate.",
+    userNote: "Call upon arrival to open the gate.", state: 'state',
   );
 
   static Categories categories = Categories(categoriesUnSorted);

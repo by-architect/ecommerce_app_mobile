@@ -1,9 +1,9 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
+import 'package:ecommerce_app_mobile/data/usecase/validation_base.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_state.dart';
 import 'package:ecommerce_app_mobile/presentation/profile/bloc/change_password_state.dart';
 import 'package:ecommerce_app_mobile/presentation/profile/bloc/edit_profile_state.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/string_helper.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/validation_result.dart';
 
 import '../../common/constant/gender.dart';
@@ -22,7 +22,7 @@ class UserValidation {
     if (userState.password != userState.passwordConfirm) {
       return ValidationResult(false, message: AppText.errorPasswordsAreNotMatching.capitalizeFirstWord.get);
     }
-    if (!_isValidEmail(userState.email)) {
+    if (!ValidationBase.isValidEmail(userState.email)) {
       return ValidationResult(false, message: AppText.errorEmailIsNotValid.capitalizeFirstWord.get);
     }
     if (userState.password.length < 8 || userState.password.length > 16) {
@@ -43,7 +43,7 @@ class UserValidation {
     if (userState.email.isEmpty || userState.password.isEmpty) {
       return ValidationResult(false, message: AppText.errorEmptyField.capitalizeFirstWord.get);
     }
-    if (!_isValidEmail(userState.email)) {
+    if (!ValidationBase.isValidEmail(userState.email)) {
       return ValidationResult(false, message: AppText.errorEmailIsNotValid.capitalizeFirstWord.get);
     }
     if (userState.password.length < 8 || userState.password.length > 16) {
@@ -52,22 +52,7 @@ class UserValidation {
     return ValidationResult(true);
   }
 
-  static bool _isValidEmail(String email) {
-    final RegExp regex = RegExp(
-      r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
-    );
 
-    return regex.hasMatch(email);
-  }
-
-  static bool _isValidPhoneNo(String phoneNo) {
-    try {
-      final RegExp regex = RegExp(r'(^(?:[+0]9)?[0-9]{10,12}$)');
-      return regex.hasMatch(phoneNo.toLongPhone.toString());
-    } catch (e) {
-      return false;
-    }
-  }
 
   static ValidationResult validateProfileEdition(EditProfileState userState) {
     if (userState.name.isEmpty ||

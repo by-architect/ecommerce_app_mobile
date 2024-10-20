@@ -48,6 +48,13 @@ class AppStyles {
     showUnselectedLabels: false,
   );
 
+  static const defaultHintStyle = TextStyle(
+    color: AppColors.greyColor,
+    fontWeight: FontWeight.w500,
+    fontSize: 18,
+  );
+
+
   //todo: handle
   static const dialogThemeLight = DialogTheme(
     backgroundColor: AppColors.whiteColor,

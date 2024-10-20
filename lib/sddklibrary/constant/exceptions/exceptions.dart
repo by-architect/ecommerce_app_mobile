@@ -32,3 +32,14 @@ class UserNotAuthenticatedException implements ExceptionBase{
     return 'UserNotAuthenticatedException {message: $message}';
  }
 }
+
+class ValidationException implements ExceptionBase{
+  final String message;
+
+  ValidationException(this.message);
+
+  @override
+  String toString() {
+    return 'ValidationException {message: $message}';
+  }
+}

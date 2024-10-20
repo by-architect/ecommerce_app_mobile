@@ -48,9 +48,8 @@ class _MainScreenState extends State<MainScreen> {
     BlocProvider.of<MainBlocs>(context).stream.listen(
       (state) {
         if (state is InitItemsSuccessState) {
-          BlocProvider.of<DiscoverBloc>(context)
-              .add(GetCategoriesDiscoverEvent(state.categories));
-          if(state.userStatus.isAuthenticated) {
+          BlocProvider.of<DiscoverBloc>(context).add(GetCategoriesDiscoverEvent(state.categories));
+          if (state.userStatus.isAuthenticated) {
             BlocProvider.of<CartBloc>(context).add(GetCart(state.userStatus.user!));
           }
         }
@@ -81,12 +80,9 @@ class _MainScreenState extends State<MainScreen> {
                       child: FailForm(
                         fail: failState.fail,
                         onRefreshTap: () {
-                          BlocProvider.of<MainBlocs>(context)
-                              .add(GetInitItemsEvent());
-                          BlocProvider.of<HomeBloc>(context)
-                              .add(GetProductsHomeEvent());
-                          BlocProvider.of<SearchBloc>(context)
-                              .add(GetRecentSearchesEvent());
+                          BlocProvider.of<MainBlocs>(context).add(GetInitItemsEvent());
+                          BlocProvider.of<HomeBloc>(context).add(GetProductsHomeEvent());
+                          BlocProvider.of<SearchBloc>(context).add(GetRecentSearchesEvent());
                         },
                       ),
                     ),
@@ -116,41 +112,21 @@ class _MainScreenState extends State<MainScreen> {
                                     user: state.userStatus.user!,
                                   )
                                 : LoginForm(
-                                    message: AppText
-                                        .infoPleaseLoginToSeeYourCart
-                                        .capitalizeFirstWord.get,
+                                    message: AppText.infoPleaseLoginToSeeYourCart.capitalizeFirstWord.get,
                                     image: AppImages.cartImage),
                             state.userStatus.isAuthenticated
                                 ? ProfileForm(
                                     user: state.userStatus.user!,
                                   )
                                 : LoginForm(
-                                    message: AppText
-                                        .infoPleaseLoginToSeeYourCart
-                                        .capitalizeFirstWord.get,
+                                    message: AppText.infoPleaseLoginToSeeYourCart.capitalizeFirstWord.get,
                                     image: AppImages.profileImage),
                             // FailSkeleton(fail: Fail(userMessage: "network fail"),)
                           ],
                         ),
                       ),
                       Container(
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).scaffoldBackgroundColor,
-/*
-                            borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(20),
-                                topRight: Radius.circular(20)),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 5,
-                                blurRadius: 7,
-                                offset:
-                                    Offset(0, 3), // changes position of shadow
-                              ),
-                            ]
-*/
-                        ),
+                        decoration: BoxDecoration(color: Theme.of(context).scaffoldBackgroundColor),
                         height: 68,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -217,11 +193,7 @@ class _NavBarItem extends StatelessWidget {
   final Function() onClicked;
   final bool isSelected;
 
-  const _NavBarItem(
-      {super.key,
-      required this.icon,
-      required this.onClicked,
-      required this.isSelected});
+  const _NavBarItem({super.key, required this.icon, required this.onClicked, required this.isSelected});
 
   @override
   Widget build(BuildContext context) {
@@ -234,70 +206,10 @@ class _NavBarItem extends StatelessWidget {
           width: 27,
           height: 27,
           icon,
-          colorFilter: isSelected
-              ? ColorFilters.primaryIconColorFilter(context)
-              : ColorFilters.iconThemeColor(context),
+          colorFilter: isSelected ? ColorFilters.primaryIconColorFilter(context) : ColorFilters.iconThemeColor(context),
         ),
       ),
     );
   }
 }
 
-/*
-*
-                  bottomNavigationBar: BottomNavigationBar(
-                    currentIndex: selectedIndex,
-                    landscapeLayout: BottomNavigationBarLandscapeLayout.spread,
-                    onTap: (int index) {
-                      setState(() {
-                        selectedIndex = index;
-                      });
-                    },
-                    type: BottomNavigationBarType.fixed,
-                    items: <BottomNavigationBarItem>[
-                      BottomNavigationBarItem(
-                        icon: const Icon(Icons.home),
-                        label: AppText.navigationHome.capitalizeFirstWord.get,
-                      ),
-                      BottomNavigationBarItem(
-                        icon: const Icon(Icons.grid_view_rounded),
-                        label: AppText.navigationDiscover.capitalizeFirstWord.get,
-                      ),
-                      BottomNavigationBarItem(
-                        icon: const Icon(Icons.shopping_cart),
-                        label: AppText.navigationCart.capitalizeFirstWord.get,
-                      ),
-                      BottomNavigationBarItem(
-                        icon: const Icon(Icons.person_2_outlined),
-                        label: AppText.navigationAccount.capitalizeFirstWord.get,
-                      ),
-                    ],
-                  ),
-                  body: <Widget>[
-                    HomeForm(
-                      user: state.userStatus.user,
-                      productFeatures: state.features,
-                      categories: state.categories,
-                    ),
-                    DiscoverForm(
-                      user: state.userStatus.user,
-                      categories: state.categories,
-                      features: state.features,
-                    ),
-                    state.userStatus.isAuthenticated
-                        ? CartForm(
-                            user: state.userStatus.user!,
-                          )
-                        : LoginForm(
-                            message: AppText.infoPleaseLoginToSeeYourCart.capitalizeFirstWord.get,
-                            image: AppImages.cartImage),
-                    state.userStatus.isAuthenticated
-                        ? ProfileForm(
-                            user: state.userStatus.user!,
-                          )
-                        : LoginForm(
-                            message: AppText.infoPleaseLoginToSeeYourCart.capitalizeFirstWord.get,
-                            image: AppImages.profileImage)
-                    // FailSkeleton(fail: Fail(userMessage: "network fail"),)
-                  ][selectedIndex],
-*/

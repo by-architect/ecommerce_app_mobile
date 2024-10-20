@@ -6,6 +6,7 @@ import 'package:ecommerce_app_mobile/data/model/product_details_item.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
 import 'package:ecommerce_app_mobile/data/model/purchase_process.dart';
 import 'package:ecommerce_app_mobile/data/model/recent_search.dart';
+import 'package:ecommerce_app_mobile/presentation/address/bloc/add_address_state.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/addresses_state.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/purchase_process_state.dart';
 
@@ -59,9 +60,9 @@ abstract class ProductService {
   Future<ResourceStatus> deleteCartItem(String cartItemId);
 
 
-  Future<ResourceStatus> addAddress(AddressesState addressState);
-  Future<ResourceStatus> updateAddress(AddressesState addressState);
-  Future<ResourceStatus> removeAddress(AddressesState addressState);
+  Future<ResourceStatus> addAddress(AddressState addressState);
+  Future<ResourceStatus> updateAddress(AddressState addressState);
+  Future<ResourceStatus> removeAddress(AddressState addressState);
   Future<ResourceStatus<List<Address>>> getAddresses(String uid);
 
 }
