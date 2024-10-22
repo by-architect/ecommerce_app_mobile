@@ -25,7 +25,7 @@ class CartItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WidgetClickableOutlined(
+    return ClickableWidgetOutlined(
       minimumSize: const Size(256, 114),
       maximumSize: const Size(256, 114),
       onPressed: cartItem.subProduct.availableInStock ? () {} : null,

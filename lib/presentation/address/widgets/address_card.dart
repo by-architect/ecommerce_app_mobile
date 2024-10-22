@@ -23,7 +23,7 @@ class AddressCard extends StatelessWidget {
     final selectedColor = Theme.of(context).primaryColor;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: AppSizes.spaceBtwVerticalFieldsSmall),
-      child: WidgetClickableOutlined(
+      child: ClickableWidgetOutlined(
           style: AppStyles.clickableWidgetOutlinedStyle(context).copyWith(
             minimumSize: const WidgetStatePropertyAll(Size(200, 185)),
             maximumSize: const WidgetStatePropertyAll(Size(200, 200)),

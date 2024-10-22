@@ -54,7 +54,6 @@ class AppStyles {
     fontSize: 18,
   );
 
-
   //todo: handle
   static const dialogThemeLight = DialogTheme(
     backgroundColor: AppColors.whiteColor,
@@ -241,6 +240,11 @@ class AppStyles {
         color: AppColors.greyColor,
         width: AppSizes.defaultBoxWidth,
       ));
+
+  static BoxDecoration blackBoxDecoration(BuildContext context) => BoxDecoration(
+        borderRadius: const BorderRadius.all(Radius.circular(AppSizes.defaultBorderRadius)),
+        border: Border.all(color: Theme.of(context).dividerColor),
+      );
 
   static FloatingActionButtonThemeData floatActionThemeLight = const FloatingActionButtonThemeData(
       backgroundColor: AppColors.primaryColor, foregroundColor: AppColors.whiteColor90);

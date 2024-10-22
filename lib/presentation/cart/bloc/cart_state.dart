@@ -1,4 +1,5 @@
 import 'package:ecommerce_app_mobile/common/util/cart_util.dart';
+import 'package:ecommerce_app_mobile/data/model/address.dart';
 import 'package:ecommerce_app_mobile/data/model/cart_item.dart';
 
 import '../../../sddklibrary/util/fail.dart';
@@ -9,10 +10,9 @@ class CartState {
   late final double shippingFee;
   late final double discount;
   late final double total;
+  final Address? selectedAddress;
 
-  CartState({
-    required this.items,
-  }) {
+  CartState({required this.items, required this.selectedAddress}) {
     CartUtil cartUtil = CartUtil(items);
     subTotal = cartUtil.subtotal;
     shippingFee = cartUtil.shippingFee;
@@ -20,32 +20,31 @@ class CartState {
     total = cartUtil.total;
   }
 
-  CartState calculateAndCopyWith({
-    required List<CartItem> items,
-  }) {
-    return CartState(items: items);
+  CartState calculateAndCopyWith({required List<CartItem> items, Address? selectedAddress}) {
+    return CartState(items: items, selectedAddress: selectedAddress ?? this.selectedAddress);
   }
 }
 
 class InitialState extends CartState {
-  InitialState() : super(items: []);
+  InitialState() : super(items: [], selectedAddress: null);
 }
 
 class CartLoadingState extends CartState {
-  CartLoadingState(
-      {required super.items,
-      });
+  CartLoadingState({
+
+    required super.items, required super.selectedAddress,
+  });
 }
 
 class CartFailState extends CartState {
   final Fail fail;
 
-  CartFailState(
-      {required super.items,
-      required this.fail,
-      });
+  CartFailState({
+    required super.items,
+    required this.fail, required super.selectedAddress,
+  });
 }
 
 class CartSuccessState extends CartState {
-  CartSuccessState({required super.items});
+  CartSuccessState({required super.items, required super.selectedAddress});
 }

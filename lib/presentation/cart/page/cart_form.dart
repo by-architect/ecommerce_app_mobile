@@ -2,7 +2,6 @@ import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/fakerepository/fake_app_defaults.dart';
-import 'package:ecommerce_app_mobile/data/fakerepository/fake_models.dart';
 import 'package:ecommerce_app_mobile/data/model/cart_item.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/pages/email_verification_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/cart/bloc/cart_bloc.dart';
@@ -12,14 +11,9 @@ import 'package:ecommerce_app_mobile/presentation/cart/widget/order_summary.dart
 import 'package:ecommerce_app_mobile/presentation/cart/page/paying_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/cart/widget/cart_item_widget.dart';
 import 'package:ecommerce_app_mobile/presentation/common/screen/loading_screen.dart';
-import 'package:ecommerce_app_mobile/presentation/common/skeleton/product_card_skeleton.dart';
-import 'package:ecommerce_app_mobile/presentation/common/skeleton/product_skeleton.dart';
-import 'package:ecommerce_app_mobile/presentation/common/skeleton/skelton.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/ButtonPrimary.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/fail_form.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/form_info_skeleton.dart';
-import 'package:ecommerce_app_mobile/presentation/home/widget/offers_skeleton.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/ui/dialog_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -139,7 +133,7 @@ class _CartFormState extends State<CartForm> {
                                     //todo: add address screen
                                   } else {
                                     Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => const PayingScreen(),
+                                      builder: (context) => PayingScreen(),
                                     ));
                                   }
                                 }),
@@ -165,45 +159,3 @@ class _CartFormState extends State<CartForm> {
   }
 }
 
-/*
-SafeArea(
-child: Padding(
-padding: const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding),
-child: CustomScrollView(
-slivers: [
-SliverPadding(
-padding: const EdgeInsets.symmetric(vertical: AppSizes.defaultPadding),
-sliver: SliverToBoxAdapter(
-child: WalletBalanceCard(
-balance: 384.90,
-onTabChargeBalance: () {},
-),
-),
-),
-SliverPadding(
-padding: const EdgeInsets.only(top: AppSizes.defaultPadding / 2),
-sliver: SliverToBoxAdapter(
-child: Text(
-"Wallet history",
-style: Theme.of(context).textTheme.titleSmall,
-),
-),
-),
-SliverList(
-delegate: SliverChildBuilderDelegate(
-(context, index) => Padding(
-padding: const EdgeInsets.only(top: AppSizes.defaultPadding),
-child: WalletHistoryCard(
-isReturn: index == 1,
-date: "JUN 12, 2020",
-amount: 129,
-products: FakeProductModels.products,
-),
-),
-childCount: 4,
-),
-)
-],
-),
-),
-)*/

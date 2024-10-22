@@ -244,6 +244,22 @@ class AppText {
   static const addressesPageCountry = AppText("Country");
   static const addressesUserNote = AppText("Directions");
 
+  //payment screen
+  static const paymentPagePaymentMethod = AppText("Payment Method");
+ static const paymentPageCompletePayment = AppText("Complete Payment");
+  static const paymentPageCashOnDelivery = AppText("Cash on delivery");
+  static const paymentPageCreditCard = AppText("Credit card");
+  static const paymentPagePayWithCard = AppText("Pay with card");
+  static const paymentPagePayWithCash = AppText("Pay with cash");
+  static const paymentPagePay = AppText("Pay");
+ static const paymentPageCardNumber = AppText("Card number");
+ static const paymentPageExpiryDate = AppText("Expiry date");
+ static const paymentPageCvcCvv = AppText("CVC / CVV");
+ static const paymentPageSelectAddress = AppText("Select an address");
+ static const paymentPageChangeAddress = AppText("Change address");
+
+
+
 // Pages Common
   static const commonPageFilter = AppText("Filter");
   static const commonPageClearAll = AppText("Clear all");
@@ -251,4 +267,5 @@ class AppText {
   static const commonPageOff = AppText("Off"); // indirim
   static const commonPageCategories = AppText("Categories");
   static const commonPagePhoneNoHintText = AppText("(555) 555 55 55");
+
 }

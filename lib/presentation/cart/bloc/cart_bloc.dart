@@ -9,15 +9,17 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     ProductServiceProvider service = ProductServiceProvider();
     on<GetCart>(
           (event, emit) async {
-        emit(CartLoadingState(items: state.items,
+        emit(CartLoadingState(items: state.items, selectedAddress: state.selectedAddress,
         ));
         final items = await service.getCart(event.user);
         if (items.isSuccess) {
           emit(CartSuccessState(items: items.data!,
+              selectedAddress: state.selectedAddress,
           ));
         }
         else {
           emit(CartFailState(items: state.items,
+              selectedAddress: state.selectedAddress,
               fail: items.error!,
               ));
         }

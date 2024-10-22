@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 
 import '../../common/ui/theme/AppColors.dart';
 
-class WidgetClickableOutlined extends StatelessWidget {
-  const WidgetClickableOutlined({super.key, this.onPressed, required this.child, this.shape, this.style, this.minimumSize, this.maximumSize});
+class ClickableWidgetOutlined extends StatelessWidget {
+  const ClickableWidgetOutlined({super.key, this.onPressed, required this.child, this.shape, this.style, this.minimumSize, this.maximumSize});
 
   final Function()? onPressed;
   final Widget child;
