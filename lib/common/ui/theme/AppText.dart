@@ -100,9 +100,9 @@ class AppText {
   static const errorPleaseSelectProductFeature = AppText("Please select");
   static const errorGettingLocationPermission =
       AppText("Location permission denied, please allow permission from settings if location needed");
-  static const errorGettingLocation = AppText("Error occurred while getting location");
+  static const errorGettingLocation = AppText("Couldn't get location");
   static const errorOpeningLocationService = AppText("Please open the location service to proceed");
- static const errorAddingAddress = AppText("Error While Adding Address");
+ static const errorAddingAddress = AppText("Address Couldn't be added");
 
   //info
   static const infoPleaseLoginToSeeYourCart = AppText("Please login to see your cart");
