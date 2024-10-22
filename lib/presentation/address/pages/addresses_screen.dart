@@ -38,8 +38,7 @@ class _AddressesScreenState extends State<AddressesScreen> {
   @override
   void initState() {
     BlocProvider.of<AddressesBloc>(context).add(GetAddressesEvent(widget.user));
-    BlocProvider.of<AddressesBloc>(context).stream.listen((state) {
-    });
+    BlocProvider.of<AddressesBloc>(context).stream.listen((state) {});
     super.initState();
   }
 
@@ -82,16 +81,10 @@ class _AddressesScreenState extends State<AddressesScreen> {
                 ),
                 Expanded(
                   child: switch (state) {
-                    AddressesLoadingState _ => const Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                        OffersSkeleton(),
-                        SizedBox(
-                          height: AppSizes.spaceBtwVerticalFields,
-                        ),
-                        OffersSkeleton(),
-                        SizedBox(
-                          height: AppSizes.spaceBtwVerticalFields,
-                        ),
-                        OffersSkeleton(),
+                    AddressesLoadingState _ => Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+                        Expanded(child: ListView.builder(itemBuilder: (context, index) => const Padding(
+                            padding: EdgeInsets.symmetric(vertical: AppSizes.spaceBtwVerticalFieldsSmall),
+                            child: OffersSkeleton()), itemCount: 4)),
                       ]),
                     AddressesFailState failState => FailForm(
                         onRefreshTap: () {

@@ -33,7 +33,6 @@ class TextFieldDefault extends StatelessWidget {
       onChanged: onChanged,
       enabled: enabled,
       maxLength: maxLength,
-
       controller: controller,
       decoration: InputDecoration(
         hintText: enableLabel ? null : labelOrHint,

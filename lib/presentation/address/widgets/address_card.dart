@@ -26,7 +26,7 @@ class AddressCard extends StatelessWidget {
       child: WidgetClickableOutlined(
           style: AppStyles.clickableWidgetOutlinedStyle(context).copyWith(
             minimumSize: const WidgetStatePropertyAll(Size(200, 185)),
-            maximumSize: const WidgetStatePropertyAll(Size(200, 190)),
+            maximumSize: const WidgetStatePropertyAll(Size(200, 200)),
             side: WidgetStatePropertyAll(
               BorderSide(
                   color: isSelected ? selectedColor : Theme.of(context).dividerColor,
