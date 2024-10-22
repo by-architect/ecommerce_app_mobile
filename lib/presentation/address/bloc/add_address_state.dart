@@ -51,12 +51,11 @@ class AddressState {
     final result = map['results'][0];
     final components = result['components'];
 
-    Log.test(title: "address", data: components, message: components.runtimeType.toString());
 
     id = null;
     uid = null;
     addressName = null;
-    street = components['road'];
+    street = components['road'] == "unnamed road" ? null : components['road'];
     area = components['suburb'] ?? components['city_district'];
     postCode = components['postcode'];
     streetNo = components['house_number'];
@@ -312,6 +311,63 @@ class AddAddressFailState extends AddAddressState {
   final AddAddressState addressState;
 
   AddAddressFailState({required this.fail, required this.addressState})
+      : super(
+            canPop: addressState.canPop,
+            currentLocation: addressState.currentLocation,
+            selectedLocation: addressState.selectedLocation,
+            uid: addressState.uid,
+            id: addressState.id,
+            addressName: addressState.addressName,
+            phoneNo: addressState.phoneNo,
+            street: addressState.street,
+            area: addressState.area,
+            streetNo: addressState.streetNo,
+            floor: addressState.floor,
+            doorNo: addressState.doorNo,
+            state: addressState.state,
+            city: addressState.city,
+            country: addressState.country,
+            longitude: addressState.longitude,
+            latitude: addressState.latitude,
+            openAddress: addressState.openAddress,
+            userNote: addressState.userNote,
+            postCode: addressState.postCode,
+            isSelected: addressState.isSelected);
+}
+
+class RemoveAddressSuccessState extends AddAddressState {
+  final AddAddressState addressState;
+
+  RemoveAddressSuccessState({required this.addressState})
+      : super(
+            canPop: addressState.canPop,
+            currentLocation: addressState.currentLocation,
+            selectedLocation: addressState.selectedLocation,
+            uid: addressState.uid,
+            id: addressState.id,
+            addressName: addressState.addressName,
+            phoneNo: addressState.phoneNo,
+            street: addressState.street,
+            area: addressState.area,
+            streetNo: addressState.streetNo,
+            floor: addressState.floor,
+            doorNo: addressState.doorNo,
+            state: addressState.state,
+            city: addressState.city,
+            country: addressState.country,
+            longitude: addressState.longitude,
+            latitude: addressState.latitude,
+            openAddress: addressState.openAddress,
+            userNote: addressState.userNote,
+            postCode: addressState.postCode,
+            isSelected: addressState.isSelected);
+}
+
+class RemoveAddressFailState extends AddAddressState {
+  final Fail fail;
+  final AddAddressState addressState;
+
+  RemoveAddressFailState({required this.fail, required this.addressState})
       : super(
             canPop: addressState.canPop,
             currentLocation: addressState.currentLocation,

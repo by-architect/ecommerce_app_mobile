@@ -4,12 +4,9 @@ import 'package:ecommerce_app_mobile/data/service/map_service.dart';
 import 'package:ecommerce_app_mobile/data/usecase/address_validation.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/add_address_state.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/constant/exceptions/exceptions.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/fail.dart';
-import 'package:flutter/animation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../common/constant/app_durations.dart';
 import 'add_address_event.dart';
 
 class AddAddressBloc extends Bloc<AddAddressEvent, AddAddressState> {
@@ -97,6 +94,15 @@ class AddAddressBloc extends Bloc<AddAddressEvent, AddAddressState> {
         } else {
           emit(AddAddressFailState(fail: resource.error!, addressState: state.copyWith()));
         }
+      }
+    });
+    on<RemoveAddressFromServer>((event, emit) async {
+      emit(AddAddressLoadingState(addressState: state.copyWith()));
+      final resource = await productService.removeAddress(state.getAddressState);
+      if (resource.isSuccess) {
+        emit(RemoveAddressSuccessState(addressState: state.copyWith()));
+      } else {
+        emit(RemoveAddressFailState(fail: resource.error!, addressState: state.copyWith()));
       }
     });
   }

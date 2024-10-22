@@ -103,6 +103,7 @@ class AppText {
   static const errorGettingLocation = AppText("Couldn't get location");
   static const errorOpeningLocationService = AppText("Please open the location service to proceed");
  static const errorAddingAddress = AppText("Address Couldn't be added");
+ static const errorRemovingAddress = AppText("Address Couldn't be removed");
 
   //info
   static const infoPleaseLoginToSeeYourCart = AppText("Please login to see your cart");
@@ -110,6 +111,7 @@ class AppText {
   static const infoPasswordChangedSuccessfully = AppText("Password changed successfully");
   static const infoProfileSettingsChangedSuccessfully = AppText("Profile settings changed successfully");
   static const infoEmptyCart = AppText("Upps! Your bucket is empty, let's start to shop");
+ static const infoAddressRemoved = AppText("Address removed successfully");
 
 // Navigation
   static const navigationHome = AppText("Home");

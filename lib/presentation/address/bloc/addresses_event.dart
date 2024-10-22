@@ -14,3 +14,7 @@ class SelectAddressEvent extends AddressesEvent{
   final User user;
     SelectAddressEvent(this.address, this.user);
 }
+class EditModeEvent extends AddressesEvent{
+  final bool editMode;
+  EditModeEvent(this.editMode);
+}

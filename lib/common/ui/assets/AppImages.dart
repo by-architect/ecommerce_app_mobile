@@ -75,6 +75,7 @@ class AppImages{
 
 
   static const editIcon = "${_iconPath}Edit-Bold$_formatSvg";
+  static const deleteIcon = "${_iconPath}Delete$_formatSvg";
 
 
 }

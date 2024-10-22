@@ -80,6 +80,10 @@ class SetUserNote extends AddAddressEvent {
 class AddAddressToServer extends AddAddressEvent {
   AddAddressToServer();
 }
+class RemoveAddressFromServer extends AddAddressEvent
+{
+  RemoveAddressFromServer();
+}
 class ClearStateEvent extends AddAddressEvent{
 
   ClearStateEvent();

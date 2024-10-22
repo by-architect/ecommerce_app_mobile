@@ -212,6 +212,7 @@ class FakeProductService implements ProductService {
   @override
   Future<ResourceStatus> removeAddress(AddressState addressState) async {
     await Future.delayed(const Duration(seconds: 1));
+    return ResourceStatus.fail(Fail(userMessage: "Fake product service fail situation"),);
     return const ResourceStatus.success("");
   }
 

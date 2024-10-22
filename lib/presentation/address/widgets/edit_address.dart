@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:ecommerce_app_mobile/common/ui/theme/AppStyles.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/model/address.dart';
@@ -47,6 +49,7 @@ class _EditAddressState extends State<EditAddress> {
   final TextEditingController addressCityController = TextEditingController();
   final TextEditingController addressCountryController = TextEditingController();
   final TextEditingController addressUserNoteController = TextEditingController();
+  StreamSubscription? streamSubscription;
 
   @override
   void initState() {
@@ -55,7 +58,8 @@ class _EditAddressState extends State<EditAddress> {
     }
     final state = BlocProvider.of<AddAddressBloc>(context).state;
     setControllers(state);
-    BlocProvider.of<AddAddressBloc>(context).stream.listen((state) {
+    streamSubscription = BlocProvider.of<AddAddressBloc>(context).stream.listen((state) {
+      DialogUtil dialogUtil = DialogUtil(context);
       setControllers(state);
       switch (state) {
         case AddAddressSuccessState _:
@@ -63,7 +67,14 @@ class _EditAddressState extends State<EditAddress> {
           Navigator.of(context).pop();
           break;
         case AddAddressFailState failState:
-          DialogUtil(context).info(AppText.errorAddingAddress.capitalizeEveryWord.get, failState.fail.userMessage);
+          dialogUtil.info(AppText.errorAddingAddress.capitalizeEveryWord.get, failState.fail.userMessage);
+          break;
+        case RemoveAddressSuccessState _:
+          dialogUtil.toast(AppText.infoAddressRemoved.capitalizeFirstWord.get);
+          Navigator.of(context).pop();
+          break;
+        case RemoveAddressFailState failState:
+          dialogUtil.info(AppText.errorRemovingAddress.capitalizeEveryWord.get, failState.fail.userMessage);
           break;
       }
     });
@@ -72,7 +83,8 @@ class _EditAddressState extends State<EditAddress> {
 
   @override
   void dispose() {
-    BlocProvider.of<AddAddressBloc>(context).add(ClearStateEvent());
+    streamSubscription?.cancel();
+    streamSubscription = null;
     super.dispose();
   }
 
