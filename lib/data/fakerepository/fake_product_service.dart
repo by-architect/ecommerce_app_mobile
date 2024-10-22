@@ -221,6 +221,21 @@ class FakeProductService implements ProductService {
     return const ResourceStatus.success("");
   }
 
+  @override
+  Future<ResourceStatus<List<Address>>> selectAddress(AddressState selectedAddress, String uid) async{
+    await Future.delayed(const Duration(seconds: 1));
+    final List<Address> newAddressList = [];
+    for (var address in FakeProductModels.addresses) {
+     if(selectedAddress.id == address.id) {
+      newAddressList.add(address.copyWith(isSelected: true)) ;
+     }
+     else {
+      newAddressList.add(address.copyWith(isSelected: false)) ;
+     }
+    }
+    return ResourceStatus.success(newAddressList);
+  }
+
 
 
 }

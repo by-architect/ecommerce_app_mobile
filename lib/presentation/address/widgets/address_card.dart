@@ -10,10 +10,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class AddressCard extends StatelessWidget {
-  const AddressCard({super.key, required this.address, required this.isSelected});
+  const AddressCard({super.key, required this.address, required this.isSelected, required this.onSelected});
 
   final Address address;
   final bool isSelected;
+  final Function() onSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,7 @@ class AddressCard extends StatelessWidget {
                   width: 1), // Change the color and width as needed
             ),
           ),
-          onPressed: () {},
+          onPressed: onSelected,
           child: Padding(
             padding: const EdgeInsets.all(AppSizes.defaultPadding / 3 * 2),
             child: Column(

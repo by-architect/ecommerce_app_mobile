@@ -50,7 +50,8 @@ class _AddressesScreenState extends State<AddressesScreen> {
               children: [
                 ButtonSecondary(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => AddAddressScreen(user: widget.user)));
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (context) => AddAddressScreen(user: widget.user)));
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -87,7 +88,9 @@ class _AddressesScreenState extends State<AddressesScreen> {
                       ),
                     AddressesSuccessState _ || AddressesState _ => ListView.builder(
                         itemBuilder: (context, index) =>
-                            AddressCard(isSelected: false, address: state.addresses[index]),
+                            AddressCard(isSelected: state.addresses[index].isSelected, address: state.addresses[index],onSelected: () {
+                             BlocProvider.of<AddressesBloc>(context).add(SelectAddressEvent(state.addresses[index], widget.user));
+                            },),
                         itemCount: state.addresses.length)
                   },
                 ),

@@ -52,7 +52,6 @@ class _EditAddressState extends State<EditAddress> {
     setControllers(widget.state);
     BlocProvider.of<AddAddressBloc>(context).stream.listen((state) {
       setControllers(state);
-      Log.test(title: "edit address", message: state.runtimeType.toString());
       switch (state) {
         case AddAddressSuccessState _:
           BlocProvider.of<AddressesBloc>(context).add(GetAddressesEvent(widget.user));

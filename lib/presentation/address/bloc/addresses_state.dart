@@ -7,16 +7,23 @@ import 'package:ecommerce_app_mobile/sddklibrary/util/fail.dart';
 import '../../../data/model/address.dart';
 
 class AddressesState {
-final List<Address> addresses;
+  final List<Address> addresses;
 
-AddressesState({required this.addresses});
+  AddressesState({required this.addresses});
+
+  AddressesState copyWith({List<Address>? addresses}) {
+    return AddressesState(
+      addresses: addresses ?? this.addresses,
+    );
+  }
 }
+
 class AddressesLoadingState extends AddressesState {
   AddressesLoadingState({required super.addresses});
-
 }
-class InitialAddressesState extends AddressesState{
- InitialAddressesState():super(addresses: []);
+
+class InitialAddressesState extends AddressesState {
+  InitialAddressesState() : super(addresses: []);
 }
 
 class AddressesSuccessState extends AddressesState {
@@ -26,6 +33,5 @@ class AddressesSuccessState extends AddressesState {
 class AddressesFailState extends AddressesState {
   final Fail fail;
 
-  AddressesFailState({required this.fail,required super.addresses});
-
+  AddressesFailState({required this.fail, required super.addresses});
 }

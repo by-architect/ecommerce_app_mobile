@@ -98,6 +98,7 @@ class FakeProductModels {
   static final address1 = Address(
     addressName: "Home",
     id: "1",
+    uid: "3248543",
     phoneNo: 2334323452,
     street: "123 Main St",
     area: "Downtown",
@@ -111,12 +112,14 @@ class FakeProductModels {
     longitude: -118.243683,
     openAddress: "123 Main St, A-203, 2nd Floor, Los Angeles, CA",
     userNote: "Leave the package at the front desk if no one answers.", state: 'state',
+    isSelected: false
   );
 
 // Example Address 2
   static final address2 = Address(
     addressName: "Work",
     id: "2",
+    uid: "3248543",
     phoneNo: 9876543210,
     street: "456 Corporate Ave",
     area: "Business District",
@@ -130,12 +133,14 @@ class FakeProductModels {
     longitude: -74.005974,
     openAddress: "456 Corporate Ave, Suite 1500, 15th Floor, New York, NY",
     userNote: "Deliver to the reception desk.", state: 'state',
+    isSelected: true
   );
 
 // Example Address 3
   static final address3 = Address(
     addressName: "Vacation Home",
     id: "3",
+    uid: "3248543",
     phoneNo: 1122334455,
     street: "789 Ocean Drive",
     area: "Beachside",
@@ -149,6 +154,7 @@ class FakeProductModels {
     longitude: -80.191788,
     openAddress: "789 Ocean Drive, Beachside, Miami, FL",
     userNote: "Call upon arrival to open the gate.", state: 'state',
+    isSelected: false
   );
 
   static Categories categories = Categories(categoriesUnSorted);

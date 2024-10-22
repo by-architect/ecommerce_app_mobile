@@ -27,16 +27,14 @@ class UserServiceImpl extends UserService {
     try {
       //check network connection
       final networkConnection = await NetworkHelper().isConnectedToNetwork();
-      if (!networkConnection.isConnected)
-        throw NetworkDeviceDisconnectedException("Network Device is down");
+      if (!networkConnection.isConnected) throw NetworkDeviceDisconnectedException("Network Device is down");
 
       //request user creation
       final authResponse = await _firebaseAuth
           .createUserWithEmailAndPassword(email: userState.email, password: userState.password)
           .timeout(AppDurations.postTimeout);
       final responseUser = authResponse.user;
-      if (responseUser == null)
-        throw firebase_auth.FirebaseAuthException(code: ExceptionHandler.nullUserId);
+      if (responseUser == null) throw firebase_auth.FirebaseAuthException(code: ExceptionHandler.nullUserId);
 
       //create user to fire store
       await _fireStore
@@ -50,7 +48,7 @@ class UserServiceImpl extends UserService {
       //catch exceptions
     } catch (exception, stackTrace) {
       final firebaseUser = _firebaseAuth.currentUser;
-      if(firebaseUser!= null) {
+      if (firebaseUser != null) {
         _fireStore.collection(FireStoreCollections.users).doc(firebaseUser.uid);
         firebaseUser.delete();
       }
@@ -62,8 +60,7 @@ class UserServiceImpl extends UserService {
   Future<ResourceStatus<User>> sendVerificationEmail(User user) async {
     try {
       var networkConnection = await NetworkHelper().isConnectedToNetwork();
-      if (!networkConnection.isConnected)
-        throw NetworkDeviceDisconnectedException("Network Device is down");
+      if (!networkConnection.isConnected) throw NetworkDeviceDisconnectedException("Network Device is down");
 
       await user.firebaseUser.sendEmailVerification();
 
@@ -77,8 +74,7 @@ class UserServiceImpl extends UserService {
   Future<ResourceStatus> changePassword(User user, ChangePasswordState state) async {
     try {
       var networkConnection = await NetworkHelper().isConnectedToNetwork();
-      if (!networkConnection.isConnected)
-        throw NetworkDeviceDisconnectedException("Network Device is down");
+      if (!networkConnection.isConnected) throw NetworkDeviceDisconnectedException("Network Device is down");
 
       await user.firebaseUser.reauthenticateWithCredential(
           firebase_auth.EmailAuthProvider.credential(email: user.email, password: state.oldPassword));
@@ -92,8 +88,7 @@ class UserServiceImpl extends UserService {
       }
 
       await firebaseUser.updatePassword(state.newPassword);
-      await _fireStore.collection(FireStoreCollections.users).doc(user.uid).update(
-          {'password': state.newPassword});
+      await _fireStore.collection(FireStoreCollections.users).doc(user.uid).update({'password': state.newPassword});
       return const ResourceStatus.success("");
     } catch (e, s) {
       if (e is firebase_auth.FirebaseAuthException && e.code == FirebaseExceptions.invalidCredential) {
@@ -111,18 +106,14 @@ class UserServiceImpl extends UserService {
   Future<ResourceStatus> editUserSettings(User user, EditProfileState userState) async {
     try {
       var networkConnection = await NetworkHelper().isConnectedToNetwork();
-      if (!networkConnection.isConnected)
-        throw NetworkDeviceDisconnectedException("Network Device is down");
+      if (!networkConnection.isConnected) throw NetworkDeviceDisconnectedException("Network Device is down");
 
       firebase_auth.User? firebaseUser = firebase_auth.FirebaseAuth.instance.currentUser;
       if (firebaseUser == null) {
         throw firebase_auth.FirebaseAuthException(code: FirebaseExceptions.nullUser);
       }
 
-      await _fireStore
-          .collection(FireStoreCollections.users)
-          .doc(user.uid)
-          .update(userState.toMap(user.uid));
+      await _fireStore.collection(FireStoreCollections.users).doc(user.uid).update(userState.toMap(user.uid));
 
       return const ResourceStatus.success("");
     } catch (e, s) {
@@ -156,11 +147,10 @@ class UserServiceImpl extends UserService {
   Future<ResourceStatus<User>> signIn(UserRequestState userRequest) async {
     try {
       final networkConnection = await NetworkHelper().isConnectedToNetwork();
-      if (!networkConnection.isConnected)
-        throw NetworkDeviceDisconnectedException("Network Device is down");
+      if (!networkConnection.isConnected) throw NetworkDeviceDisconnectedException("Network Device is down");
 
-      var userCredential = await _firebaseAuth.signInWithEmailAndPassword(
-          email: userRequest.email, password: userRequest.password);
+      var userCredential =
+          await _firebaseAuth.signInWithEmailAndPassword(email: userRequest.email, password: userRequest.password);
       var userResponse = await getUser(userCredential: userCredential);
       if (userResponse.status == Status.fail) {
         return ResourceStatus.fail(

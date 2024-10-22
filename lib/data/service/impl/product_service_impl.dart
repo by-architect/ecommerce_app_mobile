@@ -288,4 +288,10 @@ class ProductServiceImpl extends ProductService {
     throw UnimplementedError();
   }
 
+  @override
+  Future<ResourceStatus<List<Address>>> selectAddress(AddressState addressState, String uid) {
+    // TODO: implement selectAddress
+    throw UnimplementedError();
+  }
+
 }

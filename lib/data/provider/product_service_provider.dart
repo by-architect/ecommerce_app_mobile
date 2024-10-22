@@ -1,6 +1,7 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/fakerepository/fake_product_service.dart';
 import 'package:ecommerce_app_mobile/data/model/Reviews.dart';
+import 'package:ecommerce_app_mobile/data/model/address.dart';
 import 'package:ecommerce_app_mobile/data/model/cart_item.dart';
 import 'package:ecommerce_app_mobile/data/model/categories.dart';
 import 'package:ecommerce_app_mobile/data/model/category.dart';
@@ -201,6 +202,10 @@ class ProductServiceProvider {
 
   Future<ResourceStatus> updateAddress(AddressState addressState) {
     return _productService.updateAddress(addressState);
+  }
+  Future<ResourceStatus<List<Address>>> selectAddress(AddressState addressState,String uid) {
+    return _productService.selectAddress(addressState,uid);
+
   }
 
   Future<ResourceStatus> getAddresses(User user) {
