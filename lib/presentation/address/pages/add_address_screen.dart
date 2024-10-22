@@ -25,6 +25,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
 
   @override
   void initState() {
+    BlocProvider.of<AddAddressBloc>(context).add(ClearStateEvent());
     controller.addListener(() {
       if (controller.page?.toInt() == 0) {
         BlocProvider.of<AddAddressBloc>(context).add(PopBackEvent(true));
@@ -72,7 +73,6 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                 ],
               ),
               EditAddress(
-                state: state,
                 user: widget.user,
               )
             ],

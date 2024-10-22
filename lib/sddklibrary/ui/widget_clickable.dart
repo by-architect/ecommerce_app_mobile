@@ -11,7 +11,7 @@ class ClickableWidget extends StatelessWidget {
       side: BorderSide.none,
      padding: EdgeInsets.zero,
       elevation: 0,
-      shape: shape ?? const RoundedRectangleBorder(
+      shape: shape ?? const RoundedRectangleBorder( /// CircleBorder() for a circle
         borderRadius: BorderRadius.zero
       )
 

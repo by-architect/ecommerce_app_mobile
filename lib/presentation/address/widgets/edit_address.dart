@@ -1,5 +1,6 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppStyles.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
+import 'package:ecommerce_app_mobile/data/model/address.dart';
 import 'package:ecommerce_app_mobile/data/model/user.dart';
 import 'package:ecommerce_app_mobile/data/usecase/address_validation.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/add_address_bloc.dart';
@@ -23,12 +24,12 @@ import '../bloc/add_address_state.dart';
 class EditAddress extends StatefulWidget {
   const EditAddress({
     super.key,
-    required this.state,
     required this.user,
+    this.address,
   });
 
-  final AddAddressState state;
   final User user;
+  final Address? address;
 
   @override
   State<EditAddress> createState() => _EditAddressState();
@@ -49,7 +50,11 @@ class _EditAddressState extends State<EditAddress> {
 
   @override
   void initState() {
-    setControllers(widget.state);
+    if (widget.address != null) {
+      BlocProvider.of<AddAddressBloc>(context).add(SetAddressEvent(widget.address!));
+    }
+    final state = BlocProvider.of<AddAddressBloc>(context).state;
+    setControllers(state);
     BlocProvider.of<AddAddressBloc>(context).stream.listen((state) {
       setControllers(state);
       switch (state) {
@@ -63,6 +68,12 @@ class _EditAddressState extends State<EditAddress> {
       }
     });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    BlocProvider.of<AddAddressBloc>(context).add(ClearStateEvent());
+    super.dispose();
   }
 
   void setControllers(AddAddressState state) {
@@ -81,176 +92,178 @@ class _EditAddressState extends State<EditAddress> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(AppSizes.defaultPadding),
-        child: Column(
-          children: [
-            //address name
-            Row(children: [
-              Flexible(
-                child: TextFieldDefault(
-                  hint: AppText.addressesPageAddressTitle.capitalizeEveryWord.addStar.get,
-                  controller: addressTitleController,
-                  onChanged: (text) {
-                    BlocProvider.of<AddAddressBloc>(context).add((SetTitle(text)));
-                  },
+    return BlocBuilder<AddAddressBloc, AddAddressState>(
+      builder: (BuildContext context, AddAddressState state) => SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(AppSizes.defaultPadding),
+          child: Column(
+            children: [
+              //address name
+              Row(children: [
+                Flexible(
+                  child: TextFieldDefault(
+                    hint: AppText.addressesPageAddressTitle.capitalizeEveryWord.addStar.get,
+                    controller: addressTitleController,
+                    onChanged: (text) {
+                      BlocProvider.of<AddAddressBloc>(context).add((SetTitle(text)));
+                    },
+                  ),
+                )
+              ]),
+
+              const SizedBox(
+                height: AppSizes.spaceBtwVerticalFields,
+              ),
+              Row(children: [
+                Flexible(
+                  child: TextFieldPhoneNo(
+                    hasStar: true,
+                    controller: addressPhoneNoController,
+                    onChanged: (text) {
+                      BlocProvider.of<AddAddressBloc>(context).add((SetPhoneNo(text)));
+                    },
+                  ),
+                )
+              ]),
+
+              const SizedBox(
+                height: AppSizes.spaceBtwVerticalFields,
+              ),
+
+              Row(children: [
+                Flexible(
+                  child: TextFieldDefault(
+                    hintStyle: AppStyles.defaultHintStyle.copyWith(fontSize: 14),
+                    hint: AppText.addressesPageState.capitalizeFirstWord.addStar.get,
+                    controller: addressStateController,
+                    onChanged: (text) {
+                      BlocProvider.of<AddAddressBloc>(context).add((SetState(text)));
+                    },
+                  ),
                 ),
+                const SizedBox(
+                  width: AppSizes.spaceBtwHorizontalFields,
+                ),
+                Flexible(
+                  child: TextFieldDefault(
+                    hintStyle: AppStyles.defaultHintStyle.copyWith(fontSize: 14),
+                    hint: AppText.addressesPageCity.capitalizeEveryWord.addStar.get,
+                    controller: addressCityController,
+                    onChanged: (text) {
+                      BlocProvider.of<AddAddressBloc>(context).add((SetCity(text)));
+                    },
+                  ),
+                ),
+                const SizedBox(
+                  width: AppSizes.spaceBtwHorizontalFields,
+                ),
+                Flexible(
+                  child: TextFieldDefault(
+                    hintStyle: AppStyles.defaultHintStyle.copyWith(fontSize: 14),
+                    hint: AppText.addressesPageCountry.capitalizeEveryWord.addStar.get,
+                    controller: addressCountryController,
+                    onChanged: (text) {
+                      BlocProvider.of<AddAddressBloc>(context).add((SetCountry(text)));
+                    },
+                  ),
+                ),
+              ]),
+              const SizedBox(
+                height: AppSizes.spaceBtwVerticalFields,
+              ),
+              Row(children: [
+                Flexible(
+                  child: TextFieldDefault(
+                    hintStyle: AppStyles.defaultHintStyle.copyWith(fontSize: 14),
+                    hint: AppText.addressesPageArea.capitalizeFirstWord.addStar.get,
+                    controller: addressAreaController,
+                    onChanged: (text) {
+                      BlocProvider.of<AddAddressBloc>(context).add((SetArea(text)));
+                    },
+                  ),
+                ),
+                const SizedBox(
+                  width: AppSizes.spaceBtwHorizontalFields,
+                ),
+                Flexible(
+                  child: TextFieldDefault(
+                    hintStyle: AppStyles.defaultHintStyle.copyWith(fontSize: 14),
+                    hint: AppText.addressesPageStreet.capitalizeEveryWord.addStar.get,
+                    controller: addressStreetController,
+                    onChanged: (text) {
+                      BlocProvider.of<AddAddressBloc>(context).add((SetStreet(text)));
+                    },
+                  ),
+                ),
+              ]),
+
+              const SizedBox(
+                height: AppSizes.spaceBtwVerticalFields,
+              ),
+              Row(children: [
+                Flexible(
+                  child: TextFieldDefault(
+                    hintStyle: AppStyles.defaultHintStyle.copyWith(fontSize: 14),
+                    hint: AppText.addressesPageStreetNO.capitalizeFirstWord.addStar.get,
+                    controller: addressStreetNoController,
+                    onChanged: (text) {
+                      BlocProvider.of<AddAddressBloc>(context).add((SetStreetNo(text)));
+                    },
+                  ),
+                ),
+                const SizedBox(
+                  width: AppSizes.spaceBtwHorizontalFields,
+                ),
+                Flexible(
+                  child: TextFieldDefault(
+                    hintStyle: AppStyles.defaultHintStyle.copyWith(fontSize: 14),
+                    hint: AppText.addressesPageFloor.capitalizeEveryWord.get,
+                    controller: addressFloorController,
+                    onChanged: (text) {
+                      BlocProvider.of<AddAddressBloc>(context).add((SetFloor(text)));
+                    },
+                  ),
+                ),
+                const SizedBox(
+                  width: AppSizes.spaceBtwHorizontalFields,
+                ),
+                Flexible(
+                  child: TextFieldDefault(
+                    hintStyle: AppStyles.defaultHintStyle.copyWith(fontSize: 14),
+                    hint: AppText.addressesPageDoorNo.capitalizeEveryWord.get,
+                    controller: addressDoorNoController,
+                    onChanged: (text) {
+                      BlocProvider.of<AddAddressBloc>(context).add((SetDoorNo(text)));
+                    },
+                  ),
+                ),
+              ]),
+              const SizedBox(
+                height: AppSizes.spaceBtwVerticalFields,
+              ),
+              Row(children: [
+                Flexible(
+                  child: TextFieldDefault(
+                    hint: AppText.addressesUserNote.capitalizeEveryWord.get,
+                    controller: addressUserNoteController,
+                    onChanged: (text) {
+                      BlocProvider.of<AddAddressBloc>(context).add((SetUserNote(text)));
+                    },
+                  ),
+                )
+              ]),
+              const SizedBox(
+                height: AppSizes.spaceBtwVerticalFieldsLarge,
+              ),
+              ButtonPrimary(
+                text: AppText.save.capitalizeFirstWord.get,
+                loading: state is AddAddressLoadingState,
+                onTap: () {
+                  BlocProvider.of<AddAddressBloc>(context).add(AddAddressToServer());
+                },
               )
-            ]),
-
-            const SizedBox(
-              height: AppSizes.spaceBtwVerticalFields,
-            ),
-            Row(children: [
-              Flexible(
-                child: TextFieldPhoneNo(
-                  hasStar: true,
-                  controller: addressPhoneNoController,
-                  onChanged: (text) {
-                    BlocProvider.of<AddAddressBloc>(context).add((SetPhoneNo(text)));
-                  },
-                ),
-              )
-            ]),
-
-            const SizedBox(
-              height: AppSizes.spaceBtwVerticalFields,
-            ),
-
-            Row(children: [
-              Flexible(
-                child: TextFieldDefault(
-                  hintStyle: AppStyles.defaultHintStyle.copyWith(fontSize: 14),
-                  hint: AppText.addressesPageState.capitalizeFirstWord.addStar.get,
-                  controller: addressStateController,
-                  onChanged: (text) {
-                    BlocProvider.of<AddAddressBloc>(context).add((SetState(text)));
-                  },
-                ),
-              ),
-              const SizedBox(
-                width: AppSizes.spaceBtwHorizontalFields,
-              ),
-              Flexible(
-                child: TextFieldDefault(
-                  hintStyle: AppStyles.defaultHintStyle.copyWith(fontSize: 14),
-                  hint: AppText.addressesPageCity.capitalizeEveryWord.addStar.get,
-                  controller: addressCityController,
-                  onChanged: (text) {
-                    BlocProvider.of<AddAddressBloc>(context).add((SetCity(text)));
-                  },
-                ),
-              ),
-              const SizedBox(
-                width: AppSizes.spaceBtwHorizontalFields,
-              ),
-              Flexible(
-                child: TextFieldDefault(
-                  hintStyle: AppStyles.defaultHintStyle.copyWith(fontSize: 14),
-                  hint: AppText.addressesPageCountry.capitalizeEveryWord.addStar.get,
-                  controller: addressCountryController,
-                  onChanged: (text) {
-                    BlocProvider.of<AddAddressBloc>(context).add((SetCountry(text)));
-                  },
-                ),
-              ),
-            ]),
-            const SizedBox(
-              height: AppSizes.spaceBtwVerticalFields,
-            ),
-            Row(children: [
-              Flexible(
-                child: TextFieldDefault(
-                  hintStyle: AppStyles.defaultHintStyle.copyWith(fontSize: 14),
-                  hint: AppText.addressesPageArea.capitalizeFirstWord.addStar.get,
-                  controller: addressAreaController,
-                  onChanged: (text) {
-                    BlocProvider.of<AddAddressBloc>(context).add((SetArea(text)));
-                  },
-                ),
-              ),
-              const SizedBox(
-                width: AppSizes.spaceBtwHorizontalFields,
-              ),
-              Flexible(
-                child: TextFieldDefault(
-                  hintStyle: AppStyles.defaultHintStyle.copyWith(fontSize: 14),
-                  hint: AppText.addressesPageStreet.capitalizeEveryWord.addStar.get,
-                  controller: addressStreetController,
-                  onChanged: (text) {
-                    BlocProvider.of<AddAddressBloc>(context).add((SetStreet(text)));
-                  },
-                ),
-              ),
-            ]),
-
-            const SizedBox(
-              height: AppSizes.spaceBtwVerticalFields,
-            ),
-            Row(children: [
-              Flexible(
-                child: TextFieldDefault(
-                  hintStyle: AppStyles.defaultHintStyle.copyWith(fontSize: 14),
-                  hint: AppText.addressesPageStreetNO.capitalizeFirstWord.addStar.get,
-                  controller: addressStreetNoController,
-                  onChanged: (text) {
-                    BlocProvider.of<AddAddressBloc>(context).add((SetStreetNo(text)));
-                  },
-                ),
-              ),
-              const SizedBox(
-                width: AppSizes.spaceBtwHorizontalFields,
-              ),
-              Flexible(
-                child: TextFieldDefault(
-                  hintStyle: AppStyles.defaultHintStyle.copyWith(fontSize: 14),
-                  hint: AppText.addressesPageFloor.capitalizeEveryWord.get,
-                  controller: addressFloorController,
-                  onChanged: (text) {
-                    BlocProvider.of<AddAddressBloc>(context).add((SetFloor(text)));
-                  },
-                ),
-              ),
-              const SizedBox(
-                width: AppSizes.spaceBtwHorizontalFields,
-              ),
-              Flexible(
-                child: TextFieldDefault(
-                  hintStyle: AppStyles.defaultHintStyle.copyWith(fontSize: 14),
-                  hint: AppText.addressesPageDoorNo.capitalizeEveryWord.get,
-                  controller: addressDoorNoController,
-                  onChanged: (text) {
-                    BlocProvider.of<AddAddressBloc>(context).add((SetDoorNo(text)));
-                  },
-                ),
-              ),
-            ]),
-            const SizedBox(
-              height: AppSizes.spaceBtwVerticalFields,
-            ),
-            Row(children: [
-              Flexible(
-                child: TextFieldDefault(
-                  hint: AppText.addressesUserNote.capitalizeEveryWord.get,
-                  controller: addressUserNoteController,
-                  onChanged: (text) {
-                    BlocProvider.of<AddAddressBloc>(context).add((SetUserNote(text)));
-                  },
-                ),
-              )
-            ]),
-            const SizedBox(
-              height: AppSizes.spaceBtwVerticalFieldsLarge,
-            ),
-            ButtonPrimary(
-              text: AppText.save.capitalizeFirstWord.get,
-              loading: widget.state is AddAddressLoadingState,
-              onTap: () {
-                BlocProvider.of<AddAddressBloc>(context).add(AddAddressToServer());
-              },
-            )
-          ],
+            ],
+          ),
         ),
       ),
     );

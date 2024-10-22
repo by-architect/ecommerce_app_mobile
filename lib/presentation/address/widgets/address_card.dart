@@ -4,17 +4,19 @@ import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppStyles.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/color_filters.dart';
 import 'package:ecommerce_app_mobile/data/model/address.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/ui/widget_clickable.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/ui/widget_clickable_outlined.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class AddressCard extends StatelessWidget {
-  const AddressCard({super.key, required this.address, required this.isSelected, required this.onSelected});
+  const AddressCard({super.key, required this.address, required this.isSelected, required this.onSelected, required this.onEdit});
 
   final Address address;
   final bool isSelected;
   final Function() onSelected;
+  final Function() onEdit;
 
   @override
   Widget build(BuildContext context) {
@@ -37,24 +39,44 @@ class AddressCard extends StatelessWidget {
             child: Column(
               children: [
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CircleAvatar(
-                      radius: 18,
-                      backgroundColor: AppColors.whiteColor90,
-                      child: SvgPicture.asset(
-                        AppImages.locationIcon,
-                        width: 20,
-                        height: 20,
-                        colorFilter: isSelected ? ColorFilters.oneColorForIcon(selectedColor) : null,
+                    Row(
+                      children: [
+                        CircleAvatar(
+                          radius: 18,
+                          backgroundColor: AppColors.whiteColor90,
+                          child: SvgPicture.asset(
+                            AppImages.locationIcon,
+                            width: 20,
+                            height: 20,
+                            colorFilter: isSelected ? ColorFilters.oneColorForIcon(selectedColor) : null,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: AppSizes.spaceBtwHorizontalFieldsLarge,
+                        ),
+                        Text(
+                          address.addressName,
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium
+                              ?.copyWith(color: isSelected ? selectedColor : null),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 45,
+                      width: 45,
+                      child: ClickableWidget(
+                        shape: const CircleBorder(),
+                        onPressed: onEdit,
+
+                        child: SvgPicture.asset(
+                          AppImages.editIcon,
+                          colorFilter:isSelected ? ColorFilters.oneColorForIcon(selectedColor) : null,
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      width: AppSizes.spaceBtwHorizontalFieldsLarge,
-                    ),
-                    Text(
-                      address.addressName,
-                      style:
-                          Theme.of(context).textTheme.titleMedium?.copyWith(color: isSelected ? selectedColor : null),
                     )
                   ],
                 ),

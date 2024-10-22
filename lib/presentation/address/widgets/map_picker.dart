@@ -23,7 +23,11 @@ import '../../../common/ui/theme/AppSizes.dart';
 
 class MapPicker extends StatefulWidget {
   const MapPicker(
-      {super.key, required this.onNextPressed, required this.currentLocation,required  this.openAddress,required  this.selectedLocation});
+      {super.key,
+      required this.onNextPressed,
+      required this.currentLocation,
+      required this.openAddress,
+      required this.selectedLocation});
 
   final LatLng? currentLocation;
   final String? openAddress;
@@ -149,7 +153,7 @@ class _MapPickerState extends State<MapPicker> {
               const SizedBox(width: AppSizes.spaceBtwVerticalFieldsLarge),
               FloatingActionButton(
                 heroTag: "next",
-                onPressed : widget.onNextPressed,
+                onPressed: widget.onNextPressed,
                 child: const Icon(Icons.navigate_next_sharp),
               )
             ],

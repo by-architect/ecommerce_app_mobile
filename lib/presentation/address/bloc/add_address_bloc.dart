@@ -16,6 +16,15 @@ class AddAddressBloc extends Bloc<AddAddressEvent, AddAddressState> {
   AddAddressBloc() : super(InitialAddressState()) {
     final MapService mapService = MapServiceImpl();
     final ProductServiceProvider productService = ProductServiceProvider();
+
+    on<ClearStateEvent>(
+      (event, emit) {
+        emit(InitialAddressState());
+      },
+    );
+    on<SetAddressEvent>((event, emit) async {
+      emit(state.copyWithAddress(AddressState.fromAddress(event.address)));
+    });
     on<PopBackEvent>((event, emit) {
       emit(state.copyWith(canPop: event.canPop));
     });

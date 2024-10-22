@@ -1,3 +1,4 @@
+import 'package:ecommerce_app_mobile/data/model/address.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/add_address_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:latlong2/latlong.dart';
@@ -7,6 +8,10 @@ class PopBackEvent extends AddAddressEvent {
   final bool canPop;
 
   PopBackEvent(this.canPop);
+}
+class SetAddressEvent extends AddAddressEvent {
+  final Address address;
+  SetAddressEvent(this.address);
 }
 class SetCurrentLocation extends AddAddressEvent {
   final LatLng latLng;
@@ -74,4 +79,8 @@ class SetUserNote extends AddAddressEvent {
 
 class AddAddressToServer extends AddAddressEvent {
   AddAddressToServer();
+}
+class ClearStateEvent extends AddAddressEvent{
+
+  ClearStateEvent();
 }

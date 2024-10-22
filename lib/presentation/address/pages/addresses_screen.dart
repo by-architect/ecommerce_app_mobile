@@ -7,6 +7,7 @@ import 'package:ecommerce_app_mobile/presentation/address/bloc/addresses_bloc.da
 import 'package:ecommerce_app_mobile/presentation/address/bloc/addresses_state.dart';
 import 'package:ecommerce_app_mobile/presentation/address/pages/add_address_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/address/widgets/address_card.dart';
+import 'package:ecommerce_app_mobile/presentation/address/widgets/edit_address.dart';
 import 'package:ecommerce_app_mobile/presentation/address/widgets/map_picker.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/app_bar_pop_back.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/button_secondary.dart';
@@ -87,10 +88,21 @@ class _AddressesScreenState extends State<AddressesScreen> {
                         fail: failState.fail,
                       ),
                     AddressesSuccessState _ || AddressesState _ => ListView.builder(
-                        itemBuilder: (context, index) =>
-                            AddressCard(isSelected: state.addresses[index].isSelected, address: state.addresses[index],onSelected: () {
-                             BlocProvider.of<AddressesBloc>(context).add(SelectAddressEvent(state.addresses[index], widget.user));
-                            },),
+                        itemBuilder: (context, index) => AddressCard(
+                              isSelected: state.addresses[index].isSelected,
+                              address: state.addresses[index],
+                              onSelected: () {
+                                BlocProvider.of<AddressesBloc>(context)
+                                    .add(SelectAddressEvent(state.addresses[index], widget.user));
+                              },
+                              onEdit: () {
+                                showBottomSheet(
+                                    context: context,
+                                    builder: (context) => Scaffold(body: EditAddress(
+                                        address: state.addresses[index],
+                                        user: widget.user)));
+                              },
+                            ),
                         itemCount: state.addresses.length)
                   },
                 ),

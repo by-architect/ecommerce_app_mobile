@@ -74,5 +74,7 @@ class AppImages{
   static const logoutIcon = "${_iconPath}Logout$_formatSvg";
 
 
+  static const editIcon = "${_iconPath}Edit-Bold$_formatSvg";
+
 
 }
