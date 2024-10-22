@@ -8,10 +8,13 @@ import 'package:ecommerce_app_mobile/presentation/common/widgets/app_bar_pop_bac
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../data/model/user.dart';
 import '../bloc/add_address_event.dart';
 
 class AddAddressScreen extends StatefulWidget {
-  const AddAddressScreen({super.key});
+  const AddAddressScreen({super.key, required this.user});
+
+  final User user;
 
   @override
   State<AddAddressScreen> createState() => _AddAddressScreenState();
@@ -68,7 +71,10 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                   ),
                 ],
               ),
-              EditAddress(state: state)
+              EditAddress(
+                state: state,
+                user: widget.user,
+              )
             ],
           ),
         ),

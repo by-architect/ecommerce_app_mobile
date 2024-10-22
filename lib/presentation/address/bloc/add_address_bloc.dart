@@ -81,13 +81,13 @@ class AddAddressBloc extends Bloc<AddAddressEvent, AddAddressState> {
         emit(AddAddressFailState(
             fail: Fail(userMessage: validationResult.message, exception: ValidationException(validationResult.message)),
             addressState: state.copyWith()));
-      }
-
-      final resource = await productService.addAddress(state.getAddressState);
-      if (resource.isSuccess) {
-        emit(AddAddressSuccessState(addressState: state.copyWith()));
       } else {
-        emit(AddAddressFailState(fail: resource.error!, addressState: state.copyWith()));
+        final resource = await productService.addAddress(state.getAddressState);
+        if (resource.isSuccess) {
+          emit(AddAddressSuccessState(addressState: state.copyWith()));
+        } else {
+          emit(AddAddressFailState(fail: resource.error!, addressState: state.copyWith()));
+        }
       }
     });
   }

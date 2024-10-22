@@ -1,8 +1,11 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppStyles.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
+import 'package:ecommerce_app_mobile/data/model/user.dart';
 import 'package:ecommerce_app_mobile/data/usecase/address_validation.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/add_address_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/add_address_event.dart';
+import 'package:ecommerce_app_mobile/presentation/address/bloc/addresses_bloc.dart';
+import 'package:ecommerce_app_mobile/presentation/address/bloc/addresses_event.dart';
 import 'package:ecommerce_app_mobile/presentation/address/pages/addresses_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/widgets/TextFieldPhoneNo.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/ButtonPrimary.dart';
@@ -19,10 +22,14 @@ import '../bloc/add_address_state.dart';
 
 class EditAddress extends StatefulWidget {
   const EditAddress({
-    super.key, required this.state,
+    super.key,
+    required this.state,
+    required this.user,
   });
 
   final AddAddressState state;
+  final User user;
+
   @override
   State<EditAddress> createState() => _EditAddressState();
 }
@@ -45,8 +52,10 @@ class _EditAddressState extends State<EditAddress> {
     setControllers(widget.state);
     BlocProvider.of<AddAddressBloc>(context).stream.listen((state) {
       setControllers(state);
+      Log.test(title: "edit address", message: state.runtimeType.toString());
       switch (state) {
         case AddAddressSuccessState _:
+          BlocProvider.of<AddressesBloc>(context).add(GetAddressesEvent(widget.user));
           Navigator.of(context).pop();
           break;
         case AddAddressFailState failState:

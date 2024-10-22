@@ -5,6 +5,7 @@ import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/fakerepository/fake_models.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/addresses_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/addresses_state.dart';
+import 'package:ecommerce_app_mobile/presentation/address/pages/add_address_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/address/widgets/address_card.dart';
 import 'package:ecommerce_app_mobile/presentation/address/widgets/map_picker.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/app_bar_pop_back.dart';
@@ -35,12 +36,11 @@ class _AddressesScreenState extends State<AddressesScreen> {
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AddressesBloc, AddressesState>(
       builder: (BuildContext context, AddressesState state) => Scaffold(
-        resizeToAvoidBottomInset: false,
+          resizeToAvoidBottomInset: false,
           appBar: AppBarPopBack(
             title: AppText.addressesPageAddresses.capitalizeFirstWord.get,
           ),
@@ -50,7 +50,7 @@ class _AddressesScreenState extends State<AddressesScreen> {
               children: [
                 ButtonSecondary(
                   onTap: () {
-                    Navigator.pushNamed(context, Screens.addAddressScreen);
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => AddAddressScreen(user: widget.user)));
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
