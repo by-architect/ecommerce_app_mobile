@@ -9,8 +9,10 @@ class TextFieldPhoneNo extends StatefulWidget {
   final Function(String) onChanged;
   final bool hasStar;
   final TextEditingController? controller;
+  final bool enableLabel;
 
-  const TextFieldPhoneNo({super.key, required this.onChanged,  this.hasStar = false, this.controller});
+  const TextFieldPhoneNo(
+      {super.key, required this.onChanged, this.hasStar = false, this.controller, this.enableLabel = false});
 
   @override
   State<TextFieldPhoneNo> createState() => _TextFieldPhoneNoState();
@@ -32,6 +34,11 @@ class _TextFieldPhoneNoState extends State<TextFieldPhoneNo> {
       decoration: InputDecoration(
         hintText:
             widget.hasStar ? AppText.commonPagePhoneNoHintText.addStar.get : AppText.commonPagePhoneNoHintText.get,
+        labelText: widget.enableLabel
+            ? widget.hasStar
+                ? AppText.phoneNo.capitalizeEveryWord.addStar.get
+                : AppText.phoneNo.capitalizeEveryWord.addStar.get
+            : null,
         hintStyle: AppStyles.defaultHintStyle,
         prefixIcon: const Icon(Icons.phone),
         prefixIconColor: AppColors.greyColor,

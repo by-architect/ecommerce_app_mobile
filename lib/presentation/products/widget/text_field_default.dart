@@ -6,10 +6,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class TextFieldDefault extends StatelessWidget {
-  const TextFieldDefault({super.key, required this.onChanged, required this.hint, this.maxLines, this.maxLength, this.hintStyle, this.enabled = true, this.controller});
+  const TextFieldDefault(
+      {super.key,
+      required this.onChanged,
+      required this.labelOrHint,
+      this.maxLines,
+      this.maxLength,
+      this.hintStyle,
+      this.enabled = true,
+      this.enableLabel = false,
+      this.controller});
 
   final Function(String) onChanged;
-  final String hint;
+  final String labelOrHint;
+  final bool enableLabel;
   final TextStyle? hintStyle;
   final int? maxLines;
   final int? maxLength;
@@ -21,13 +31,15 @@ class TextFieldDefault extends StatelessWidget {
     return TextField(
       maxLines: maxLines,
       onChanged: onChanged,
-       enabled: enabled,
+      enabled: enabled,
       maxLength: maxLength,
-     controller: controller,
 
+      controller: controller,
       decoration: InputDecoration(
-        hintText: hint,
-        hintStyle:hintStyle ?? AppStyles.defaultHintStyle,
+        hintText: enableLabel ? null : labelOrHint,
+        hintStyle: hintStyle ?? AppStyles.defaultHintStyle,
+        labelText: enableLabel ? labelOrHint : null,
+        counterText: "",
       ),
     );
   }

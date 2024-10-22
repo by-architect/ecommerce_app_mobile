@@ -95,7 +95,7 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                 onChanged: (value) {
                     reviewState = reviewState.copyWith(title: value);
                 },
-                hint: AppText.productDetailsPageSummarizeReview.capitalizeFirstWord.get,
+                labelOrHint: AppText.productDetailsPageSummarizeReview.capitalizeFirstWord.get,
               ),
               const SizedBox(
                 height: AppSizes.spaceBtwVerticalFieldsSmall,
@@ -114,7 +114,7 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                 onChanged: (value) {
                   reviewState = reviewState.copyWith(content: value);
                 },
-                hint: AppText.productDetailsPageWhatShouldShoppersKnow.capitalizeEveryWord.get,
+                labelOrHint: AppText.productDetailsPageWhatShouldShoppersKnow.capitalizeEveryWord.get,
               ),
               const SizedBox(
                 height: AppSizes.spaceBtwVerticalFieldsLarge,

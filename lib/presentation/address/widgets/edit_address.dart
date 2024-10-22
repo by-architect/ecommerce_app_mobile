@@ -114,7 +114,9 @@ class _EditAddressState extends State<EditAddress> {
               Row(children: [
                 Flexible(
                   child: TextFieldDefault(
-                    hint: AppText.addressesPageAddressTitle.capitalizeEveryWord.addStar.get,
+                    maxLength: 30,
+                    enableLabel: true,
+                    labelOrHint: AppText.addressesPageAddressTitle.capitalizeEveryWord.addStar.get,
                     controller: addressTitleController,
                     onChanged: (text) {
                       BlocProvider.of<AddAddressBloc>(context).add((SetTitle(text)));
@@ -129,6 +131,7 @@ class _EditAddressState extends State<EditAddress> {
               Row(children: [
                 Flexible(
                   child: TextFieldPhoneNo(
+                    enableLabel: true,
                     hasStar: true,
                     controller: addressPhoneNoController,
                     onChanged: (text) {
@@ -145,8 +148,10 @@ class _EditAddressState extends State<EditAddress> {
               Row(children: [
                 Flexible(
                   child: TextFieldDefault(
+                    maxLength: 20,
+                    enableLabel: true,
                     hintStyle: AppStyles.defaultHintStyle.copyWith(fontSize: 14),
-                    hint: AppText.addressesPageState.capitalizeFirstWord.addStar.get,
+                    labelOrHint: AppText.addressesPageState.capitalizeFirstWord.addStar.get,
                     controller: addressStateController,
                     onChanged: (text) {
                       BlocProvider.of<AddAddressBloc>(context).add((SetState(text)));
@@ -158,8 +163,10 @@ class _EditAddressState extends State<EditAddress> {
                 ),
                 Flexible(
                   child: TextFieldDefault(
+                    maxLength: 20,
+                    enableLabel: true,
                     hintStyle: AppStyles.defaultHintStyle.copyWith(fontSize: 14),
-                    hint: AppText.addressesPageCity.capitalizeEveryWord.addStar.get,
+                    labelOrHint: AppText.addressesPageCity.capitalizeEveryWord.addStar.get,
                     controller: addressCityController,
                     onChanged: (text) {
                       BlocProvider.of<AddAddressBloc>(context).add((SetCity(text)));
@@ -171,8 +178,10 @@ class _EditAddressState extends State<EditAddress> {
                 ),
                 Flexible(
                   child: TextFieldDefault(
+                    enableLabel: true,
+                    maxLength: 20,
                     hintStyle: AppStyles.defaultHintStyle.copyWith(fontSize: 14),
-                    hint: AppText.addressesPageCountry.capitalizeEveryWord.addStar.get,
+                    labelOrHint: AppText.addressesPageCountry.capitalizeEveryWord.addStar.get,
                     controller: addressCountryController,
                     onChanged: (text) {
                       BlocProvider.of<AddAddressBloc>(context).add((SetCountry(text)));
@@ -186,8 +195,10 @@ class _EditAddressState extends State<EditAddress> {
               Row(children: [
                 Flexible(
                   child: TextFieldDefault(
+                    enableLabel: true,
+                    maxLength: 30,
                     hintStyle: AppStyles.defaultHintStyle.copyWith(fontSize: 14),
-                    hint: AppText.addressesPageArea.capitalizeFirstWord.addStar.get,
+                    labelOrHint: AppText.addressesPageArea.capitalizeFirstWord.addStar.get,
                     controller: addressAreaController,
                     onChanged: (text) {
                       BlocProvider.of<AddAddressBloc>(context).add((SetArea(text)));
@@ -199,8 +210,10 @@ class _EditAddressState extends State<EditAddress> {
                 ),
                 Flexible(
                   child: TextFieldDefault(
+                    enableLabel: true,
+                    maxLength: 30,
                     hintStyle: AppStyles.defaultHintStyle.copyWith(fontSize: 14),
-                    hint: AppText.addressesPageStreet.capitalizeEveryWord.addStar.get,
+                    labelOrHint: AppText.addressesPageStreet.capitalizeEveryWord.addStar.get,
                     controller: addressStreetController,
                     onChanged: (text) {
                       BlocProvider.of<AddAddressBloc>(context).add((SetStreet(text)));
@@ -215,8 +228,10 @@ class _EditAddressState extends State<EditAddress> {
               Row(children: [
                 Flexible(
                   child: TextFieldDefault(
+                    enableLabel: true,
+                    maxLength: 20,
                     hintStyle: AppStyles.defaultHintStyle.copyWith(fontSize: 14),
-                    hint: AppText.addressesPageStreetNO.capitalizeFirstWord.addStar.get,
+                    labelOrHint: AppText.addressesPageStreetNO.capitalizeFirstWord.addStar.get,
                     controller: addressStreetNoController,
                     onChanged: (text) {
                       BlocProvider.of<AddAddressBloc>(context).add((SetStreetNo(text)));
@@ -228,8 +243,10 @@ class _EditAddressState extends State<EditAddress> {
                 ),
                 Flexible(
                   child: TextFieldDefault(
+                    enableLabel: true,
+                    maxLength: 20,
                     hintStyle: AppStyles.defaultHintStyle.copyWith(fontSize: 14),
-                    hint: AppText.addressesPageFloor.capitalizeEveryWord.get,
+                    labelOrHint: AppText.addressesPageFloor.capitalizeEveryWord.get,
                     controller: addressFloorController,
                     onChanged: (text) {
                       BlocProvider.of<AddAddressBloc>(context).add((SetFloor(text)));
@@ -241,8 +258,10 @@ class _EditAddressState extends State<EditAddress> {
                 ),
                 Flexible(
                   child: TextFieldDefault(
+                    enableLabel: true,
+                    maxLength: 20,
                     hintStyle: AppStyles.defaultHintStyle.copyWith(fontSize: 14),
-                    hint: AppText.addressesPageDoorNo.capitalizeEveryWord.get,
+                    labelOrHint: AppText.addressesPageDoorNo.capitalizeEveryWord.get,
                     controller: addressDoorNoController,
                     onChanged: (text) {
                       BlocProvider.of<AddAddressBloc>(context).add((SetDoorNo(text)));
@@ -256,7 +275,9 @@ class _EditAddressState extends State<EditAddress> {
               Row(children: [
                 Flexible(
                   child: TextFieldDefault(
-                    hint: AppText.addressesUserNote.capitalizeEveryWord.get,
+                    maxLength: 100,
+                    enableLabel: true,
+                    labelOrHint: AppText.addressesUserNote.capitalizeEveryWord.get,
                     controller: addressUserNoteController,
                     onChanged: (text) {
                       BlocProvider.of<AddAddressBloc>(context).add((SetUserNote(text)));

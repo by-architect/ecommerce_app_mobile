@@ -118,7 +118,6 @@ class _AddressesScreenState extends State<AddressesScreen> {
                                         ))).closed.then(
                                   (value) {
                                     BlocProvider.of<AddressesBloc>(context).add(EditModeEvent(false));
-                                    Log.test(title: "showBottomNav", message: state.editMode.toString());
                                   },
                                 );
                               },
