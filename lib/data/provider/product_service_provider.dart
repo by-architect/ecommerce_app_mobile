@@ -200,9 +200,6 @@ class ProductServiceProvider {
     return _productService.removeAddress(addressState);
   }
 
-  Future<ResourceStatus> updateAddress(AddressState addressState) {
-    return _productService.updateAddress(addressState);
-  }
   Future<ResourceStatus<List<Address>>> selectAddress(AddressState addressState,String uid) {
     return _productService.selectAddress(addressState,uid);
 

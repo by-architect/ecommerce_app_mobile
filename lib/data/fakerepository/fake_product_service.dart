@@ -215,11 +215,6 @@ class FakeProductService implements ProductService {
     return const ResourceStatus.success("");
   }
 
-  @override
-  Future<ResourceStatus> updateAddress(AddressState addressState) async {
-    await Future.delayed(const Duration(seconds: 1));
-    return const ResourceStatus.success("");
-  }
 
   @override
   Future<ResourceStatus<List<Address>>> selectAddress(AddressState selectedAddress, String uid) async{
