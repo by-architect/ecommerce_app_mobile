@@ -20,6 +20,10 @@ class CartState {
     total = cartUtil.total;
   }
 
+  CartState copyWith({List<CartItem>? items, Address? selectedAddress}) {
+    return CartState(items: items ?? this.items, selectedAddress: selectedAddress ?? this.selectedAddress);
+  }
+
   CartState calculateAndCopyWith({required List<CartItem> items, Address? selectedAddress}) {
     return CartState(items: items, selectedAddress: selectedAddress ?? this.selectedAddress);
   }

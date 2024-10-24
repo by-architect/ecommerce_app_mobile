@@ -2,6 +2,7 @@ import 'package:ecommerce_app_mobile/data/provider/product_service_provider.dart
 import 'package:ecommerce_app_mobile/presentation/address/bloc/add_address_state.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/addresses_event.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/addresses_state.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/resource.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,7 +21,7 @@ class AddressesBloc extends Bloc<AddressesEvent, AddressesState> {
         final resource = await service.getAddresses(event.user);
 
         if (resource.isSuccess) {
-          emit(AddressesSuccessState(addresses: resource.data, editMode: state.editMode));
+          emit(AddressesSuccessState(addresses: resource.data!, editMode: state.editMode));
         } else {
           emit(AddressesFailState(fail: resource.error!, addresses: state.addresses, editMode: state.editMode));
         }

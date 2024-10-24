@@ -133,7 +133,7 @@ class _CartFormState extends State<CartForm> {
                                     //todo: add address screen
                                   } else {
                                     Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => PaymentScreen(),
+                                      builder: (context) => PaymentScreen(user: widget.user,),
                                     ));
                                   }
                                 }),

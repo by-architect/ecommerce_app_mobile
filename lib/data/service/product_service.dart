@@ -64,5 +64,6 @@ abstract class ProductService {
   Future<ResourceStatus<List<Address>>> selectAddress(AddressState addressState,String uid);
   Future<ResourceStatus> removeAddress(AddressState addressState);
   Future<ResourceStatus<List<Address>>> getAddresses(String uid);
+  Future<ResourceStatus<Address>> getSelectedAddress(String uid);
 
 }

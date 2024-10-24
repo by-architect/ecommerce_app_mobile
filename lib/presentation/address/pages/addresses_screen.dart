@@ -4,6 +4,7 @@ import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/fakerepository/fake_models.dart';
+import 'package:ecommerce_app_mobile/data/model/address.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/add_address_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/add_address_event.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/addresses_bloc.dart';
@@ -26,9 +27,10 @@ import '../../common/widgets/fail_form.dart';
 import '../bloc/addresses_event.dart';
 
 class AddressesScreen extends StatefulWidget {
-  const AddressesScreen({super.key, required this.user});
+  const AddressesScreen({super.key, required this.user, this.onSelected});
 
   final User user;
+  final Function(Address address)? onSelected;
 
   @override
   State<AddressesScreen> createState() => _AddressesScreenState();
@@ -82,9 +84,12 @@ class _AddressesScreenState extends State<AddressesScreen> {
                 Expanded(
                   child: switch (state) {
                     AddressesLoadingState _ => Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                        Expanded(child: ListView.builder(itemBuilder: (context, index) => const Padding(
-                            padding: EdgeInsets.symmetric(vertical: AppSizes.spaceBtwVerticalFieldsSmall),
-                            child: OffersSkeleton()), itemCount: 4)),
+                        Expanded(
+                            child: ListView.builder(
+                                itemBuilder: (context, index) => const Padding(
+                                    padding: EdgeInsets.symmetric(vertical: AppSizes.spaceBtwVerticalFieldsSmall),
+                                    child: OffersSkeleton()),
+                                itemCount: 4)),
                       ]),
                     AddressesFailState failState => FailForm(
                         onRefreshTap: () {
@@ -97,6 +102,10 @@ class _AddressesScreenState extends State<AddressesScreen> {
                               isSelected: state.addresses[index].isSelected,
                               address: state.addresses[index],
                               onSelected: () {
+                                if (widget.onSelected != null) {
+                                  widget.onSelected!(state.addresses[index]);
+                                  Navigator.of(context).pop();
+                                }
                                 BlocProvider.of<AddressesBloc>(context)
                                     .add(SelectAddressEvent(state.addresses[index], widget.user));
                               },

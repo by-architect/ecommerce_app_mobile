@@ -205,8 +205,12 @@ class ProductServiceProvider {
 
   }
 
-  Future<ResourceStatus> getAddresses(User user) {
+  Future<ResourceStatus<List<Address>>> getAddresses(User user) {
     return _productService.getAddresses(user.uid);
+  }
+
+  Future<ResourceStatus<Address>> getSelectedAddress(User user) {
+    return _productService.getSelectedAddress(user.uid);
   }
 
   getProductsOnCartAsResource(Function(Resource) resource, User user) async {

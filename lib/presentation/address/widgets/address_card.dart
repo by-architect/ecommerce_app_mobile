@@ -11,12 +11,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class AddressCard extends StatelessWidget {
-  const AddressCard({super.key, required this.address, required this.isSelected, required this.onSelected, required this.onEdit});
+  const AddressCard(
+      {super.key, required this.address, required this.isSelected, required this.onSelected, this.onEdit});
 
   final Address address;
   final bool isSelected;
   final Function() onSelected;
-  final Function() onEdit;
+  final Function()? onEdit;
 
   @override
   Widget build(BuildContext context) {
@@ -65,19 +66,19 @@ class AddressCard extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(
-                      height: 45,
-                      width: 45,
-                      child: ClickableWidget(
-                        shape: const CircleBorder(),
-                        onPressed: onEdit,
-
-                        child: SvgPicture.asset(
-                          AppImages.editIcon,
-                          colorFilter:isSelected ? ColorFilters.oneColorForIcon(selectedColor) : null,
+                    if (onEdit != null)
+                      SizedBox(
+                        height: 45,
+                        width: 45,
+                        child: ClickableWidget(
+                          shape: const CircleBorder(),
+                          onPressed: onEdit!,
+                          child: SvgPicture.asset(
+                            AppImages.editIcon,
+                            colorFilter: isSelected ? ColorFilters.oneColorForIcon(selectedColor) : null,
+                          ),
                         ),
-                      ),
-                    )
+                      )
                   ],
                 ),
                 const SizedBox(

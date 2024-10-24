@@ -8,40 +8,56 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   CartBloc() : super(InitialState()) {
     ProductServiceProvider service = ProductServiceProvider();
     on<GetCart>(
-          (event, emit) async {
-        emit(CartLoadingState(items: state.items, selectedAddress: state.selectedAddress,
+      (event, emit) async {
+        emit(CartLoadingState(
+          items: state.items,
+          selectedAddress: state.selectedAddress,
         ));
         final items = await service.getCart(event.user);
         if (items.isSuccess) {
-          emit(CartSuccessState(items: items.data!,
-              selectedAddress: state.selectedAddress,
+          emit(CartSuccessState(
+            items: items.data!,
+            selectedAddress: state.selectedAddress,
           ));
-        }
-        else {
-          emit(CartFailState(items: state.items,
-              selectedAddress: state.selectedAddress,
-              fail: items.error!,
-              ));
+        } else {
+          emit(CartFailState(
+            items: state.items,
+            selectedAddress: state.selectedAddress,
+            fail: items.error!,
+          ));
         }
       },
     );
     on<ChangeCartItem>(
-          (event, emit) {
+      (event, emit) {
         List<CartItem> cartItems = state.items.toList();
         if (event.cartItem.quantity != 0) {
           int index = cartItems.indexWhere(
-                (element) => element.id == event.cartItem.id,
+            (element) => element.id == event.cartItem.id,
           );
           cartItems[index] = event.cartItem;
 
           service.updateCartItem(event.cartItem, event.user);
         } else {
           cartItems.removeWhere(
-                (element) => element.id == event.cartItem.id,
+            (element) => element.id == event.cartItem.id,
           );
           service.deleteCartItem(event.cartItem.id);
         }
         emit(state.calculateAndCopyWith(items: cartItems));
+      },
+    );
+    on<GetSelectedAddress>((event, emit) async {
+      final resource = await service.getSelectedAddress(event.user);
+      if (resource.isSuccess) {
+        emit(state.copyWith(selectedAddress: resource.data!));
+      } else {
+        emit(state.copyWith(selectedAddress: null));
+      }
+    });
+    on<SelectAddress>(
+      (event, emit) {
+        emit(state.copyWith(selectedAddress: event.address));
       },
     );
   }

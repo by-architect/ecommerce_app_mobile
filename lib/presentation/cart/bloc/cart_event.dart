@@ -1,3 +1,4 @@
+import 'package:ecommerce_app_mobile/data/model/address.dart';
 import 'package:ecommerce_app_mobile/data/model/cart_item.dart';
 
 import '../../../data/model/user.dart';
@@ -38,10 +39,11 @@ class CvvEvent extends CartEvent{
   CvvEvent({required this.cvv});
 }
 class SelectAddress extends CartEvent{
-  final String address;
+  final Address address;
   SelectAddress({required this.address});
 }
 
 class GetSelectedAddress extends CartEvent{
-  GetSelectedAddress();
+  final User user;
+  GetSelectedAddress(this.user);
 }

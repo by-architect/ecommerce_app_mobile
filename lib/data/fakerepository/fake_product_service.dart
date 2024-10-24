@@ -232,6 +232,12 @@ class FakeProductService implements ProductService {
     return ResourceStatus.success(newAddressList);
   }
 
+  @override
+  Future<ResourceStatus<Address>> getSelectedAddress(String uid) async {
+    await Future.delayed(const Duration(seconds: 1));
+    return ResourceStatus.success(FakeProductModels.addresses[0]);
+  }
+
 
 
 }
