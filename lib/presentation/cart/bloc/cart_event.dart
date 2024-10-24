@@ -19,9 +19,8 @@ class GetCart extends CartEvent{
 }
 
 class NameSurnameEvent extends CartEvent{
-  final String name;
-  final String surname;
-  NameSurnameEvent({required this.name,required this.surname});
+  final String nameSurname;
+  NameSurnameEvent({required this.nameSurname});
 }
 
 class CardNumberEvent extends CartEvent{

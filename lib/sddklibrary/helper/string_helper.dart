@@ -11,6 +11,7 @@ extension StringExtentions on String{
     if (isEmpty) return this;
     return this[0].toUpperCase() + substring(1);
   }
+  String get clearSpaces => replaceAll(RegExp(r'\s+'), ' ').trim();
 }
 
 class StringHelper{

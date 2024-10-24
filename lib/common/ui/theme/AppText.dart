@@ -133,6 +133,13 @@ class AppText {
   static const errorOpeningLocationService = AppText("Please open the location service to proceed");
  static const errorAddingAddress = AppText("Address Couldn't be added");
  static const errorRemovingAddress = AppText("Address Couldn't be removed");
+ static const errorAddressMustBeSelected = AppText("Address must be selected");
+ static const errorInvalidCardDetails = AppText("Invalid card details");
+static const errorInvalidNameSurname = AppText("Invalid name and surname");
+ static const errorInvalidCardNumber = AppText("invalid card number");
+ static const errorInvalidOrExpiredCardDate = AppText("invalid or expired card date");
+ static const errorInvalidCVVCode = AppText("invalid CVV code");
+ static const errorCouldNotValidate = AppText("Could not validate");
 
   //info
   static const infoPleaseLoginToSeeYourCart = AppText("Please login to see your cart");
@@ -296,5 +303,6 @@ class AppText {
   static const commonPageOff = AppText("Off"); // indirim
   static const commonPageCategories = AppText("Categories");
   static const commonPagePhoneNoHintText = AppText("(555) 555 55 55");
+
 
 }

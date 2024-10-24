@@ -18,7 +18,7 @@ class TextFieldDefault extends StatelessWidget {
     this.enableLabel = false,
     this.controller, this.inputFormatters});
 
-  final Function(String) onChanged;
+  final Function(String text) onChanged;
   final String labelOrHint;
   final bool enableLabel;
   final TextStyle? hintStyle;
