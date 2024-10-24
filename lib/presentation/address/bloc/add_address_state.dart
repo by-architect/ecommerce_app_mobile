@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:ecommerce_app_mobile/data/model/address.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:latlong2/latlong.dart';
 
 import '../../../sddklibrary/util/fail.dart';
@@ -25,6 +24,7 @@ class AddressState {
   late final String? openAddress;
   late final String? userNote;
   late final bool isSelected;
+  late final bool deleted;
 
   AddressState(
       {required this.id,
@@ -44,13 +44,13 @@ class AddressState {
       required this.latitude,
       required this.openAddress,
       required this.userNote,
-      this.isSelected = false});
+      this.isSelected = false,
+      this.deleted = false});
 
   AddressState.fromMapService(String response) {
     final map = json.decode(response);
     final result = map['results'][0];
     final components = result['components'];
-
 
     id = null;
     uid = null;
@@ -70,6 +70,7 @@ class AddressState {
     userNote = null;
     phoneNo = null;
     isSelected = false;
+    deleted = false;
   }
 
   AddressState.fromAddress(Address address) {
@@ -91,11 +92,12 @@ class AddressState {
     openAddress = address.openAddress;
     userNote = address.userNote;
     isSelected = address.isSelected;
+    deleted = address.deleted;
   }
 
   @override
   String toString() {
-    return 'AddressState{id: $id, addressName: $addressName, phoneNo: $phoneNo, street: $street, area: $area, apartmentNo: $streetNo, floor: $floor, doorNo: $doorNo, city: $city, country: $country, longitude: $longitude, latitude: $latitude, openAddress: $openAddress, userNote: $userNote}';
+    return 'AddressState{id: $id, uid: $uid, addressName: $addressName, phoneNo: $phoneNo, street: $street, area: $area, streetNo: $streetNo, floor: $floor, doorNo: $doorNo, state: $state, city: $city, country: $country, postCode: $postCode, longitude: $longitude, latitude: $latitude, openAddress: $openAddress, userNote: $userNote, isSelected: $isSelected, deleted: $deleted}';
   }
 }
 
@@ -125,7 +127,8 @@ class AddAddressState extends AddressState {
       required super.userNote,
       required super.state,
       required super.postCode,
-      required super.isSelected});
+      required super.isSelected,
+      required super.deleted});
 
   AddAddressState copyWith(
       {bool? canPop,
@@ -148,7 +151,8 @@ class AddAddressState extends AddressState {
       LatLng? currentLocation,
       LatLng? selectedLocation,
       String? uid,
-      bool? isSelected}) {
+      bool? isSelected,
+      bool? deleted}) {
     return AddAddressState(
         canPop: canPop ?? this.canPop,
         currentLocation: currentLocation ?? this.currentLocation,
@@ -170,7 +174,8 @@ class AddAddressState extends AddressState {
         latitude: latitude ?? this.latitude,
         openAddress: openAddress ?? this.openAddress,
         userNote: userNote ?? this.userNote,
-        isSelected: isSelected ?? this.isSelected);
+        isSelected: isSelected ?? this.isSelected,
+        deleted: deleted ?? this.deleted);
   }
 
   AddAddressState copyWithAddress(AddressState addressState) {
@@ -197,7 +202,8 @@ class AddAddressState extends AddressState {
         latitude: addressState.latitude,
         openAddress: addressState.openAddress,
         userNote: addressState.userNote,
-        isSelected: addressState.isSelected);
+        isSelected: addressState.isSelected,
+        deleted: addressState.deleted);
   }
 
   AddressState get getAddressState => AddressState(
@@ -247,7 +253,8 @@ class MapAddressFailState extends AddAddressState {
             postCode: addressState.postCode,
             openAddress: addressState.openAddress,
             userNote: addressState.userNote,
-            isSelected: addressState.isSelected);
+            isSelected: addressState.isSelected,
+            deleted: addressState.deleted);
 }
 
 class AddAddressLoadingState extends AddAddressState {
@@ -275,7 +282,8 @@ class AddAddressLoadingState extends AddAddressState {
             openAddress: addressState.openAddress,
             userNote: addressState.userNote,
             postCode: addressState.postCode,
-            isSelected: addressState.isSelected);
+            isSelected: addressState.isSelected,
+            deleted: addressState.deleted);
 }
 
 class AddAddressSuccessState extends AddAddressState {
@@ -303,7 +311,8 @@ class AddAddressSuccessState extends AddAddressState {
             openAddress: addressState.openAddress,
             userNote: addressState.userNote,
             postCode: addressState.postCode,
-            isSelected: addressState.isSelected);
+            isSelected: addressState.isSelected,
+            deleted: addressState.deleted);
 }
 
 class AddAddressFailState extends AddAddressState {
@@ -332,7 +341,8 @@ class AddAddressFailState extends AddAddressState {
             openAddress: addressState.openAddress,
             userNote: addressState.userNote,
             postCode: addressState.postCode,
-            isSelected: addressState.isSelected);
+            isSelected: addressState.isSelected,
+            deleted: addressState.deleted);
 }
 
 class RemoveAddressSuccessState extends AddAddressState {
@@ -360,7 +370,8 @@ class RemoveAddressSuccessState extends AddAddressState {
             openAddress: addressState.openAddress,
             userNote: addressState.userNote,
             postCode: addressState.postCode,
-            isSelected: addressState.isSelected);
+            isSelected: addressState.isSelected,
+            deleted: addressState.deleted);
 }
 
 class RemoveAddressFailState extends AddAddressState {
@@ -389,32 +400,33 @@ class RemoveAddressFailState extends AddAddressState {
             openAddress: addressState.openAddress,
             userNote: addressState.userNote,
             postCode: addressState.postCode,
-            isSelected: addressState.isSelected);
+            isSelected: addressState.isSelected,
+            deleted: addressState.deleted);
 }
 
 class InitialAddressState extends AddAddressState {
   InitialAddressState()
       : super(
-          selectedLocation: null,
-          currentLocation: null,
-          canPop: true,
-          uid: null,
-          id: null,
-          openAddress: null,
-          doorNo: null,
-          city: null,
-          streetNo: null,
-          area: null,
-          addressName: null,
-          state: null,
-          country: null,
-          floor: null,
-          postCode: null,
-          latitude: null,
-          longitude: null,
-          phoneNo: null,
-          street: null,
-          userNote: null,
-          isSelected: false,
-        );
+            selectedLocation: null,
+            currentLocation: null,
+            canPop: true,
+            uid: null,
+            id: null,
+            openAddress: null,
+            doorNo: null,
+            city: null,
+            streetNo: null,
+            area: null,
+            addressName: null,
+            state: null,
+            country: null,
+            floor: null,
+            postCode: null,
+            latitude: null,
+            longitude: null,
+            phoneNo: null,
+            street: null,
+            userNote: null,
+            isSelected: false,
+            deleted: false);
 }

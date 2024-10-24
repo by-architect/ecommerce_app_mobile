@@ -18,6 +18,7 @@ class Address {
   final String openAddress;
   final String userNote;
   final bool isSelected;
+  final bool deleted;
 
   Address(
       {required this.addressName,
@@ -37,7 +38,9 @@ class Address {
       required this.longitude,
       required this.openAddress,
       required this.isSelected,
-      required this.userNote});
+      required this.userNote,
+      this.deleted = false
+      });
 
   Address copyWith({
     String? addressName,
@@ -57,7 +60,9 @@ class Address {
     String? openAddress,
     bool? isSelected,
     String? userNote,
-    String? uid
+    String? uid,
+    bool? deleted,
+
   }) {
     return Address(
       addressName: addressName ?? this.addressName,
@@ -78,6 +83,7 @@ class Address {
       openAddress: openAddress ?? this.openAddress,
       isSelected: isSelected ?? this.isSelected,
       userNote: userNote ?? this.userNote,
+      deleted: deleted ?? this.deleted
     );
   }
 }
