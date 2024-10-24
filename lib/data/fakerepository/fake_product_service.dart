@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:ecommerce_app_mobile/data/fakerepository/fake_models.dart';
@@ -186,14 +187,12 @@ class FakeProductService implements ProductService {
     return ResourceStatus.success(cartItems);
   }
   @override
-  Future<ResourceStatus> updateCartItem(CartItem cartItem) {
-    // TODO: implement updateCartItem
-    throw UnimplementedError();
+  Future<ResourceStatus> updateCartItem(CartItem cartItem) async{
+    return const ResourceStatus.success("");
   }
   @override
-  Future<ResourceStatus> deleteCartItem(String cartItemId) {
-    // TODO: implement deleteCartItem
-    throw UnimplementedError();
+  Future<ResourceStatus> deleteCartItem(String cartItemId) async{
+    return const ResourceStatus.success("");
   }
 
   @override
