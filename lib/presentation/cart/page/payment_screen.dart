@@ -3,6 +3,7 @@ import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/fakerepository/fake_models.dart';
 import 'package:ecommerce_app_mobile/presentation/address/widgets/address_card.dart';
+import 'package:ecommerce_app_mobile/presentation/authentication/widgets/TextFieldPhoneNo.dart';
 import 'package:ecommerce_app_mobile/presentation/cart/bloc/cart_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/cart/bloc/cart_state.dart';
 import 'package:ecommerce_app_mobile/presentation/cart/widget/card_info.dart';
@@ -14,9 +15,11 @@ import 'package:ecommerce_app_mobile/presentation/products/widget/text_field_def
 import 'package:ecommerce_app_mobile/sddklibrary/helper/string_helper.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/ui/widget_clickable.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/ui/widget_clickable_outlined.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:flutter_multi_formatter/formatters/masked_input_formatter.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -25,8 +28,8 @@ import '../../../common/ui/theme/color_filters.dart';
 
 //todo: unimplemented
 
-class PayingScreen extends StatelessWidget {
-  PayingScreen({super.key});
+class PaymentScreen extends StatelessWidget {
+  PaymentScreen({super.key});
 
   final TextEditingController nameSurnameController = TextEditingController();
   final TextEditingController cardNumberController = TextEditingController();
@@ -49,8 +52,7 @@ class PayingScreen extends StatelessWidget {
                 const SizedBox(height: AppSizes.spaceBtwVerticalFields),
                 if (state.selectedAddress != null)
                   AddressCard(address: state.selectedAddress!, isSelected: false, onSelected: () {}, onEdit: () {}),
-                if (state.selectedAddress != null)
-                const SizedBox(height: AppSizes.spaceBtwVerticalFields),
+                if (state.selectedAddress != null) const SizedBox(height: AppSizes.spaceBtwVerticalFields),
                 ClickableWidgetOutlined(
                     onPressed: () {},
                     child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -63,7 +65,9 @@ class PayingScreen extends StatelessWidget {
                       ),
                     ])),
                 const SizedBox(height: AppSizes.spaceBtwVerticalFieldsLarge),
-                _Title(title: AppText.paymentPagePaymentMethod.capitalizeEveryWord.get,),
+                _Title(
+                  title: AppText.paymentPagePaymentMethod.capitalizeEveryWord.get,
+                ),
                 const SizedBox(height: AppSizes.spaceBtwVerticalFields),
                 Container(
                   padding: const EdgeInsets.all(AppSizes.defaultPadding),
@@ -110,6 +114,9 @@ class PayingScreen extends StatelessWidget {
                                 if (text.length == 1 && text.toInt > 1) {
                                   cardDateController.text = "0$text";
                                 }
+                                if (text.isNotEmpty && text.length < 3 && text.toInt > 12) {
+                                  cardDateController.text = text.removeLast();
+                                }
                               },
                               isNumber: true,
                               controller: cardDateController,
@@ -126,7 +133,9 @@ class PayingScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: AppSizes.spaceBtwVerticalFieldsLarge),
-                _Title(title: AppText.cartPageOrderSummary.capitalizeEveryWord.get,),
+                _Title(
+                  title: AppText.cartPageOrderSummary.capitalizeEveryWord.get,
+                ),
                 const SizedBox(height: AppSizes.spaceBtwVerticalFields),
                 OrderSummaryCard(
                   discount: state.discount,

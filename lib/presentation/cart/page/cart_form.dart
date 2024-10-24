@@ -8,7 +8,7 @@ import 'package:ecommerce_app_mobile/presentation/cart/bloc/cart_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/cart/bloc/cart_event.dart';
 import 'package:ecommerce_app_mobile/presentation/cart/bloc/cart_state.dart';
 import 'package:ecommerce_app_mobile/presentation/cart/widget/order_summary.dart';
-import 'package:ecommerce_app_mobile/presentation/cart/page/paying_screen.dart';
+import 'package:ecommerce_app_mobile/presentation/cart/page/payment_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/cart/widget/cart_item_widget.dart';
 import 'package:ecommerce_app_mobile/presentation/common/screen/loading_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/ButtonPrimary.dart';
@@ -133,7 +133,7 @@ class _CartFormState extends State<CartForm> {
                                     //todo: add address screen
                                   } else {
                                     Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => PayingScreen(),
+                                      builder: (context) => PaymentScreen(),
                                     ));
                                   }
                                 }),
