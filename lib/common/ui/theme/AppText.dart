@@ -71,6 +71,35 @@ class AppText {
   static const year = AppText("Y");
   static const ago = AppText("Ago");
 
+  //currency
+  static const uSDollar = AppText("USD");
+  static const euro = AppText("Euro");
+  static const pound = AppText("Pound");
+  static const indianRupee = AppText("Indian Rupee");
+  static const russianRuble = AppText("Russian Ruble");
+  static const japaneseYen = AppText("Japanese Yen");
+  static const chineseYuan = AppText("Chinese Yuan");
+  static const southKoreanWon = AppText("South Korean Won");
+  static const kazakhstaniTenge = AppText("Kazakhstani Tenge");
+  static const thaiBaht = AppText("Thai Baht");
+  static const ukrainianHryvnia = AppText("Ukrainian Hryvnia");
+  static const vietnameseDong = AppText("Vietnamese Dong");
+  static const southAfricanRand = AppText("South African Rand");
+  static const uAE = AppText("UAE");
+  static const bangladeshiTaka = AppText("Bangladeshi Taka");
+  static const swissFranc = AppText("Swiss Franc");
+  static const danishKrone = AppText("Danish Krone");
+  static const indonesianRupiah = AppText("Indonesian Rupiah");
+  static const malaysianRinggit = AppText("Malaysian Ringgit");
+  static const philippinePeso = AppText("Philippine Peso");
+  static const polishZloty = AppText("Polish Zloty");
+  static const qatariRiyal = AppText("Qatari Riyal");
+  static const romanianLeu = AppText("Romanian Leu");
+  static const swedishKrona = AppText("Swedish Krona");
+  static const turkishLira = AppText("Turkish Lira");
+
+
+
 // Errors
   static const errorTitle = AppText("Error"); //todo: make it more soft
   static const errorEmptyPhone = AppText("Please fill phone no");
