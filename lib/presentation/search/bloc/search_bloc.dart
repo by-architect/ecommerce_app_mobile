@@ -79,7 +79,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
     on<ClearAllSelectedOptionsEvent>(
       (event, emit) {
-        emit(state.copyWith(selectedFeatureOptions: []));
+        emit(state.copyWith(selectedFeatureOptions: [],selectedCategories: []));
       },
     );
 
