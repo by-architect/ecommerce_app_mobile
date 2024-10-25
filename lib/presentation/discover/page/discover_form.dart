@@ -1,8 +1,8 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/model/categories.dart';
+import 'package:ecommerce_app_mobile/data/model/category_struct.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
-import 'package:ecommerce_app_mobile/presentation/discover/bloc/discover_bloc.dart';
-import 'package:ecommerce_app_mobile/presentation/discover/bloc/discover_state.dart';
+import 'package:ecommerce_app_mobile/presentation/discover/widget/categories_lister_widget.dart';
 import 'package:ecommerce_app_mobile/presentation/products/widget/product_list_tile.dart';
 import 'package:ecommerce_app_mobile/presentation/search/bloc/search_bloc.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
@@ -16,7 +16,6 @@ import '../../../data/model/user.dart';
 import '../../main/widget/search_widget.dart';
 import '../../search/bloc/search_event.dart';
 import '../../search/page/search_screen.dart';
-import '../bloc/discover_event.dart';
 
 class DiscoverForm extends StatefulWidget {
   final AllProductFeatures features;
@@ -38,10 +37,8 @@ class _DiscoverFormState extends State<DiscoverForm> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(AppSizes.defaultSpace),
-      child: BlocBuilder<DiscoverBloc, DiscoverState>(
-          builder: (BuildContext context, DiscoverState discoverState) {
-        return Column(
+        padding: const EdgeInsets.all(AppSizes.defaultSpace),
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextFieldSearch(
@@ -51,7 +48,7 @@ class _DiscoverFormState extends State<DiscoverForm> {
                 BlocProvider.of<SearchBloc>(context).add(GetProductsEvent());
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => SearchScreen(
-                      user: widget.user,
+                          user: widget.user,
                           features: widget.features,
                           categories: widget.categories,
                         )));
@@ -60,80 +57,22 @@ class _DiscoverFormState extends State<DiscoverForm> {
             const SizedBox(
               height: AppSizes.spaceBtwVerticalFields,
             ),
-            SizedBox(
-              height: 60,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: AppSizes.defaultPadding, vertical: AppSizes.defaultPadding / 2),
-                child: Row(
-                  children: [
-                    discoverState.categoryStruct.isFirstLayer
-                        ? const Flexible(flex: 1, child: SizedBox())
-                        : Flexible(
-                            flex: 1,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: GestureDetector(
-                                  onTap: () {
-                                    BlocProvider.of<DiscoverBloc>(context)
-                                        .add(PreviousCategoryLayerEvent());
-                                  },
-                                  child: const Icon(Icons.arrow_back)),
-                            ),
-                          ),
-                    Text(
-                      discoverState.categoryStruct.isFirstLayer
-                          ? AppText.commonPageCategories.capitalizeFirstWord.get
-                          : "${AppText.commonPageCategories} > ${discoverState.categoryStruct.title}",
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleLarge
-                          ?.copyWith(fontWeight: FontWeight.bold, fontSize: 20),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: AppSizes.spaceBtwVerticalFields,
-            ),
             Expanded(
-              child: ListView.builder(
-                itemCount: discoverState.categoryStruct.currentLayer.length,
-                itemBuilder: (context, index) => ProductListTile(
-                  title: discoverState.categoryStruct.currentLayer[index].name,
-                  isShowBottomBorder: discoverState.categoryStruct.currentLayer[index].id ==
-                      discoverState.categoryStruct.currentLayer.last.id,
-                  press: () {
-                    if (discoverState.categoryStruct
-                        .isLastLayer(discoverState.categoryStruct.currentLayer[index])) {
-                      BlocProvider.of<SearchBloc>(context)
-                          .add(
-                          SelectedCategoriesEvent([discoverState.categoryStruct.currentLayer[index]])
-);
-                      BlocProvider.of<SearchBloc>(context).add(GetProductsEvent());
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => SearchScreen(
-                             user: widget.user,
-                            features: widget.features,
-                            categories: widget.categories,
-                          )));
-                    } else {
-                      BlocProvider.of<DiscoverBloc>(context)
-                          .add(NextCategoryLayerEvent(discoverState.categoryStruct.currentLayer[index]));
-                    }
-                    /*
-                        if (state.selectedCategory != null) {
-                        }
-                  */
-                  },
-                ),
-              ),
+              child: CategoriesListerWidget(
+                  categoryStruct: CategoryStruct(widget.categories),
+                  onLastItemPressed: (category) {
+                    BlocProvider.of<SearchBloc>(context).add(SelectedCategoriesEvent([category]));
+                    BlocProvider.of<SearchBloc>(context).add(GetProductsEvent());
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => SearchScreen(
+                              user: widget.user,
+                              features: widget.features,
+                              categories: widget.categories,
+                            )));
+                  }),
             ),
           ],
-        );
-      }),
-    );
+        ));
   }
 }
 

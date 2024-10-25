@@ -24,8 +24,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../cart/bloc/cart_bloc.dart';
 import '../../cart/bloc/cart_event.dart';
-import '../../discover/bloc/discover_bloc.dart';
-import '../../discover/bloc/discover_event.dart';
 import '../../home/bloc/home_bloc.dart';
 import '../../home/bloc/home_event.dart';
 
@@ -48,7 +46,6 @@ class _MainScreenState extends State<MainScreen> {
     BlocProvider.of<MainBlocs>(context).stream.listen(
       (state) {
         if (state is InitItemsSuccessState) {
-          BlocProvider.of<DiscoverBloc>(context).add(GetCategoriesDiscoverEvent(state.categories));
           if (state.userStatus.isAuthenticated) {
             BlocProvider.of<CartBloc>(context).add(GetCart(state.userStatus.user!));
           }

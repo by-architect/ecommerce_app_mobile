@@ -4,25 +4,19 @@ import 'package:ecommerce_app_mobile/data/viewmodel/user/user_service_bloc.dart'
 import 'package:ecommerce_app_mobile/firebase_options.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/add_address_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/addresses_bloc.dart';
-import 'package:ecommerce_app_mobile/presentation/address/pages/add_address_screen.dart';
-import 'package:ecommerce_app_mobile/presentation/address/pages/addresses_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/pages/sign_in_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/pages/sign_up_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/cart/bloc/cart_bloc.dart';
-import 'package:ecommerce_app_mobile/presentation/common/screen/loading_screen.dart';
-import 'package:ecommerce_app_mobile/presentation/discover/bloc/discover_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/home/bloc/home_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/main/bloc/main_blocs.dart';
 import 'package:ecommerce_app_mobile/presentation/main/page/main_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/prodcut_list_screen_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_bloc.dart';
-import 'package:ecommerce_app_mobile/presentation/products/page/product_list_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/profile/bloc/change_password_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/profile/bloc/edit_profile_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/search/bloc/search_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/splash/bloc/welcome_blocs.dart';
-import 'package:ecommerce_app_mobile/presentation/splash/pages/welcome.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,7 +43,6 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (BuildContext context) => WelcomeBlocs()),
           BlocProvider(create: (BuildContext context) => UserBloc()),
           BlocProvider(create: (BuildContext context) => UserServiceBloc()),
-          BlocProvider(create: (BuildContext context) => DiscoverBloc()),
           BlocProvider(create: (BuildContext context) => SearchBloc()),
           BlocProvider(create: (BuildContext context) => ProductScreenBloc()),
           BlocProvider(create: (BuildContext context) => HomeBloc()),
