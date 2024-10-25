@@ -147,6 +147,12 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
             ):*/const SizedBox.shrink() ,
           ),
           const SizedBox(height: AppSizes.spaceBtwVerticalFields),
+          Padding(
+            padding: const EdgeInsets.all(AppSizes.defaultPadding),
+            child: ButtonPrimary(text: AppText.apply.capitalizeFirstWord.get, onTap: () {
+              //todo: apply changes
+            },),
+          )
         ],
       ),
     );
@@ -166,21 +172,7 @@ class _FilterRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ProductListTile(title: feature.name, press: onTap,isShowBottomBorder: showBottomDivider,)
-      /*ListTile(
-      title: Padding(
-        padding: const EdgeInsets.only(left: AppSizes.defaultPadding),
-        child: Text(
-          feature.name,
-          style: Theme.of(context).textTheme.titleLarge,
-        ),
-      ),
-      onTap: onTap,
-      trailing: const Padding(
-        padding: EdgeInsets.only(right: AppSizes.defaultPadding),
-        child: Icon(Icons.chevron_right),
-      ),
-    )*/;
+    return ProductListTile(title: feature.name, press: onTap,isShowBottomBorder: showBottomDivider,);
   }
 }
 
@@ -323,34 +315,4 @@ class _OptionRow extends StatelessWidget {
   }
 }
 
-/*
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: Text('Filter'),
-        actions: [
-          TextButton(
-            child: Text('Clear All', style: TextStyle(color: Colors.purple)),
-            onPressed: () {},
-          ),
-        ],
-      ),
-*/
 
-/*
-*
-featureWithOption.productFeature.options.map((option) {
-                                  return ChoiceChip(
-                                    onSelected: ((selected) {
-                                      List<ProductFeatureWithSelectedOption> list = state.features;
-                                      list[index] = ProductFeatureWithSelectedOption(featureWithOption.productFeature, option);
-                                      BlocProvider.of<SearchBloc>(context).add(ProductOptionEvent(list));
-                                    }),
-                                    label: Text(option.name),
-                                    selected: featureWithOption.selectedOption.id == option.id,
-                                  );
-                                }).toList(),
-*
-* */
