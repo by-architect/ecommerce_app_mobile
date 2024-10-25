@@ -64,7 +64,8 @@ class AppStyles {
 
   static const chipThemeLight = ChipThemeData(
     brightness: Brightness.light,
-    backgroundColor: AppColors.whiteColor,
+    backgroundColor: Colors.transparent,
+    shape: defaultOutlinedBorder,
     labelStyle: TextStyle(fontSize: 12, color: AppColors.blackColor),
     secondarySelectedColor: AppColors.whiteColor,
     secondaryLabelStyle: TextStyle(color: AppColors.cyanColor),
@@ -74,6 +75,8 @@ class AppStyles {
   );
   static const chipThemeDark = ChipThemeData(
     brightness: Brightness.dark,
+    shape: defaultOutlinedBorder,
+    backgroundColor: Colors.transparent,
     labelStyle: TextStyle(fontSize: 12, color: AppColors.greyColor),
     side: BorderSide(
       color: AppColors.greyColor,
@@ -120,6 +123,11 @@ class AppStyles {
     enabledBorder: outlineInputBorder,
     focusedBorder: focusedOutlineInputBorder,
     errorBorder: errorOutlineInputBorder,
+  );
+
+  static const OutlinedBorder defaultOutlinedBorder = RoundedRectangleBorder(
+    borderRadius: BorderRadius.all(Radius.circular(AppSizes.defaultBorderRadius)),
+    side: BorderSide(color: AppColors.greyColor, width: AppSizes.defaultBoxWidth),
   );
 
   //todo: handle

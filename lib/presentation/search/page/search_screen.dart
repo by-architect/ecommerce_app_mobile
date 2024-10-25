@@ -114,6 +114,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   onTabFilter: () {
                     showModalBottomSheet(
                       context: context,
+                      isScrollControlled: true,
                       builder: (context) => FilterBottomSheet(
                         features: widget.features,
                       ),

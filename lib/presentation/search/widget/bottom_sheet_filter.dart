@@ -1,10 +1,14 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
+import 'package:ecommerce_app_mobile/common/ui/theme/AppStyles.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/model/category.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/ButtonPrimary.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/button_secondary.dart';
+import 'package:ecommerce_app_mobile/presentation/common/widgets/chip_default,.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/text_button_default.dart';
+import 'package:ecommerce_app_mobile/presentation/products/widget/color_dot.dart';
 import 'package:ecommerce_app_mobile/presentation/products/widget/product_list_tile.dart';
+import 'package:ecommerce_app_mobile/presentation/search/widget/color_chip.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,8 +19,10 @@ import '../bloc/search_state.dart';
 
 class FilterBottomSheet extends StatefulWidget {
   final AllProductFeatures features;
+
   const FilterBottomSheet({
-    super.key, required this.features,
+    super.key,
+    required this.features,
   });
 
   @override
@@ -25,133 +31,164 @@ class FilterBottomSheet extends StatefulWidget {
 
 class _FilterBottomSheetState extends State<FilterBottomSheet> {
   bool filterSelected = true;
+
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      child: Column(
+    return BlocBuilder<SearchBloc, SearchState>(
+      builder: (BuildContext context, SearchState state) => Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(AppSizes.defaultSpace),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: const Icon(
-                      Icons.arrow_back,
-                    )),
-                Text(
-                  AppText.commonPageFilter.capitalizeFirstWord.get,
-                  style: Theme.of(context).textTheme.titleMedium,
+          Expanded(
+            child: CustomScrollView(
+              slivers: [
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.all(AppSizes.defaultSpace),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: const Icon(
+                              Icons.arrow_back,
+                            )),
+                        Text(
+                          AppText.commonPageFilter.capitalizeFirstWord.get,
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                        TextButtonDefault(
+                            onPressed: () {
+                              BlocProvider.of<SearchBloc>(context).add(ClearAllSelectedOptionsEvent());
+                            },
+                            text: AppText.commonPageClearAll.capitalizeEveryWord.get)
+                      ],
+                    ),
+                  ),
                 ),
-                TextButtonDefault(
-                    onPressed: () {
-                      BlocProvider.of<SearchBloc>(context).add(ClearAllSelectedOptionsEvent());
-                    },
-                    text: AppText.commonPageClearAll.capitalizeEveryWord.get)
+                if (state.selectedFeatureOptions.isNotEmpty)
+                  SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: AppSizes.defaultPadding, right: AppSizes.defaultPadding),
+                      child: Wrap(
+                        spacing: 8.0,
+                        runSpacing: 8.0,
+                        children: state.selectedFeatureOptions
+                            .map(
+                                (option) => option.isColor ? ColorChip(color: option.color) : ChipDefault(label: option.name))
+                            .toList(),
+                      ),
+                    ),
+                  ),
+                const SliverToBoxAdapter(child: SizedBox(height: AppSizes.spaceBtwVerticalFields)),
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: AppSizes.defaultSpace),
+                    child: filterSelected
+                        ? Row(
+                            children: [
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(right: AppSizes.spaceBtwHorizontalFields / 2),
+                                  child: ButtonPrimary(
+                                    text: AppText.commonPageFilter.capitalizeFirstWord.get,
+                                    onTap: () {},
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: AppSizes.spaceBtwHorizontalFields / 2),
+                                  child: ButtonSecondary(
+                                    onTap: () {
+                                      setState(() {
+                                        filterSelected = false;
+                                      });
+                                    },
+                                    text: AppText.commonPageCategory.capitalizeFirstWord.get,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
+                        : Row(
+                            children: [
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(right: AppSizes.spaceBtwHorizontalFields / 2),
+                                  child: ButtonSecondary(
+                                    text: AppText.commonPageFilter.capitalizeFirstWord.get,
+                                    onTap: () {
+                                      setState(() {
+                                        filterSelected = true;
+                                      });
+                                    },
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: AppSizes.spaceBtwHorizontalFields / 2),
+                                  child: ButtonPrimary(
+                                    onTap: () {},
+                                    text: AppText.commonPageCategory.capitalizeFirstWord.get,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                  ),
+                ),
+                const SliverToBoxAdapter(child: SizedBox(height: AppSizes.spaceBtwVerticalFieldsLarge)),
+
+                //todo: get categories and select
+
+                SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    childCount: widget.features.length,
+                    (context, index) => filterSelected
+                        ? _FilterRow(
+                            showBottomDivider: widget.features.isLastByIndex(index),
+                            feature: widget.features.get[index],
+                            onTap: () {
+                              showModalBottomSheet(
+                                context: context,
+                                builder: (context) => _BottomSheetOption(
+                                  feature: widget.features.get[index],
+                                ),
+                              );
+                            })
+                        : const SizedBox.shrink(),
+                  ),
+                ),
+                /*state.categoriesByLayer.isNotEmpty ?  Expanded(
+                  child: ListView.builder(
+                    itemCount: state.categoriesByLayer.first.length,
+                    itemBuilder: (context, index) => _CategoryRow(
+                        category: state.categoriesByLayer.first[index],
+                        onTap: () {
+                          showModalBottomSheet(
+                            context: context,
+                            builder: (context) => _BottomSheetOption(
+                              feature: state.features[index],
+                            ),
+                          );
+                        }),
+                  ),
+                ):*/
+
+                const SliverToBoxAdapter(child: SizedBox(height: AppSizes.spaceBtwVerticalFields)),
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: AppSizes.defaultSpace),
-            child: filterSelected ?
-            Row(
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: AppSizes.spaceBtwHorizontalFields/2),
-                    child: ButtonPrimary(
-                      text: AppText.commonPageFilter.capitalizeFirstWord.get,
-                      onTap: () {
-                      },
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: AppSizes.spaceBtwHorizontalFields/2),
-                    child: ButtonSecondary(
-                      onTap: () {
-                        setState(() {
-                          filterSelected = false;
-                        });
-                      },
-                      text: AppText.commonPageCategory.capitalizeFirstWord.get,
-                    ),
-                  ),
-                ),
-              ],
-            ): Row(
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: AppSizes.spaceBtwHorizontalFields/2),
-                    child: ButtonSecondary(
-                      text: AppText.commonPageFilter.capitalizeFirstWord.get,
-                      onTap: () {
-                        setState(() {
-                          filterSelected = true;
-                        });
-                      },
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: AppSizes.spaceBtwHorizontalFields/2),
-                    child: ButtonPrimary(
-                      onTap: () {},
-                      text: AppText.commonPageCategory.capitalizeFirstWord.get,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: AppSizes.spaceBtwVerticalFieldsLarge),
-
-          //todo: get categories and select
-
-          BlocBuilder<SearchBloc, SearchState>(
-            builder: (BuildContext context, SearchState state) => filterSelected ?Expanded(
-              child: ListView.builder(
-                itemCount: widget.features.length,
-                itemBuilder: (context, index) => _FilterRow(
-                  showBottomDivider: widget.features.isLastByIndex(index),
-                    feature: widget.features.get[index],
-                    onTap: () {
-                      showModalBottomSheet(
-                        context: context,
-                        builder: (context) => _BottomSheetOption(
-                          feature: widget.features.get[index],
-                        ),
-                      );
-                    }),
-              ),
-            ):/*state.categoriesByLayer.isNotEmpty ?  Expanded(
-              child: ListView.builder(
-                itemCount: state.categoriesByLayer.first.length,
-                itemBuilder: (context, index) => _CategoryRow(
-                    category: state.categoriesByLayer.first[index],
-                    onTap: () {
-                      showModalBottomSheet(
-                        context: context,
-                        builder: (context) => _BottomSheetOption(
-                          feature: state.features[index],
-                        ),
-                      );
-                    }),
-              ),
-            ):*/const SizedBox.shrink() ,
-          ),
-          const SizedBox(height: AppSizes.spaceBtwVerticalFields),
           Padding(
             padding: const EdgeInsets.all(AppSizes.defaultPadding),
-            child: ButtonPrimary(text: AppText.apply.capitalizeFirstWord.get, onTap: () {
-              //todo: apply changes
-            },),
+            child: ButtonPrimary(
+              text: AppText.apply.capitalizeFirstWord.get,
+              onTap: () {
+                //todo: apply changes
+              },
+            ),
           )
         ],
       ),
@@ -167,12 +204,17 @@ class _FilterRow extends StatelessWidget {
   const _FilterRow({
     super.key,
     required this.onTap,
-    required this.feature, required this.showBottomDivider,
+    required this.feature,
+    required this.showBottomDivider,
   });
 
   @override
   Widget build(BuildContext context) {
-    return ProductListTile(title: feature.name, press: onTap,isShowBottomBorder: showBottomDivider,);
+    return ProductListTile(
+      title: feature.name,
+      press: onTap,
+      isShowBottomBorder: showBottomDivider,
+    );
   }
 }
 
@@ -180,8 +222,7 @@ class _CategoryRow extends StatelessWidget {
   final Category category;
   final Function() onTap;
 
-
-  const _CategoryRow({required this.category,required this.onTap});
+  const _CategoryRow({required this.category, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -201,6 +242,7 @@ class _CategoryRow extends StatelessWidget {
     );
   }
 }
+
 class _BottomSheetOption extends StatelessWidget {
   final ProductFeature feature;
 
@@ -279,7 +321,8 @@ class _OptionRow extends StatelessWidget {
   final Function() onTap;
   final ProductFeatureType featureType;
 
-  const _OptionRow({super.key, required this.isSelected, required this.onTap, required this.option, required this.featureType});
+  const _OptionRow(
+      {super.key, required this.isSelected, required this.onTap, required this.option, required this.featureType});
 
   @override
   Widget build(BuildContext context) {
@@ -298,21 +341,11 @@ class _OptionRow extends StatelessWidget {
           ),
         ),
         trailing: featureType == ProductFeatureType.color
-            ? Padding(
+            ? ColorChip(
+                color: option.color,
                 padding: const EdgeInsets.only(right: AppSizes.defaultSpace),
-                child: Container(
-                  width: 30,
-                  height: 20,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black, width: AppSizes.defaultBoxWidth),
-                    borderRadius: const BorderRadius.all(Radius.circular(AppSizes.defaultBorderRadius)),
-                    color: option.color,
-                  ),
-                ),
               )
             : const SizedBox.shrink(),
         onTap: onTap);
   }
 }
-
-

@@ -70,6 +70,10 @@ class ProductFeatureOption {
 
   Color get color => Color(name.toInt);
 
+  bool get isColor => name.isHexColor;
+
+
+
   @override
   String toString() {
     return '_Option{id: $id, name: $name}';
