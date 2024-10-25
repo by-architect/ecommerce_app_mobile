@@ -59,7 +59,6 @@ class _DiscoverFormState extends State<DiscoverForm> {
             ),
             Expanded(
               child: CategoriesListerWidget(
-                  categoryStruct: CategoryStruct(widget.categories),
                   onLastItemPressed: (category) {
                     BlocProvider.of<SearchBloc>(context).add(SelectedCategoriesEvent([category]));
                     BlocProvider.of<SearchBloc>(context).add(GetProductsEvent());
@@ -69,58 +68,10 @@ class _DiscoverFormState extends State<DiscoverForm> {
                               features: widget.features,
                               categories: widget.categories,
                             )));
-                  }),
+                  }, categories: widget.categories,),
             ),
           ],
         ));
   }
 }
 
-/*
-class _CategoryItem extends StatelessWidget {
-  final Category category;
-  final Function() onTap;
-
-  const _CategoryItem({super.key, required this.category, required this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return RowItemDefault(
-            text: Row(
-              children: [
-                const SizedBox(
-                  width: 50,
-                ),
-                Text(
-                  category.name,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headlineLarge
-                      ?.copyWith(fontWeight: FontWeight.normal, fontStyle: FontStyle.italic, fontSize: 30),
-                ),
-              ],
-            ),
-            onTap: onTap)
-        */
-/*GestureDetector(
-      onTap: onTap,
-      child: SizedBox(
-        height: 70.0,
-        child: Row(
-          children: [
-            const SizedBox(
-              width: 50,
-            ),
-            Text(
-              category.name,
-              style: Theme.of(context).textTheme.headlineLarge?.copyWith(fontWeight: FontWeight.normal,fontStyle: FontStyle.italic,fontSize: 30),
-            ),
-          ],
-        ),
-      ),
-    )*/ /*
-
-        ;
-  }
-}
-*/

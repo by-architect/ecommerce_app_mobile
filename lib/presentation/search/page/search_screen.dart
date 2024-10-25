@@ -116,7 +116,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       context: context,
                       isScrollControlled: true,
                       builder: (context) => FilterBottomSheet(
-                        features: widget.features,
+                        features: widget.features, categories: widget.categories,
                       ),
                     );
                     // BlocProvider.of<SearchBloc>(context).add(ToggleContainerEvent());

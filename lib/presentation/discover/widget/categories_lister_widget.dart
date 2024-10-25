@@ -1,3 +1,4 @@
+import 'package:ecommerce_app_mobile/data/model/categories.dart';
 import 'package:ecommerce_app_mobile/data/model/category_struct.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,10 +9,10 @@ import '../../../data/model/category.dart';
 import '../../products/widget/product_list_tile.dart';
 
 class CategoriesListerWidget extends StatefulWidget {
-  final CategoryStruct categoryStruct;
+  final Categories categories;
   final Function(Category category) onLastItemPressed;
 
-  const CategoriesListerWidget({super.key, required this.categoryStruct, required this.onLastItemPressed});
+  const CategoriesListerWidget({super.key,  required this.onLastItemPressed, required this.categories});
 
   @override
   State<CategoriesListerWidget> createState() => _CategoriesListerWidgetState();
@@ -22,7 +23,7 @@ class _CategoriesListerWidgetState extends State<CategoriesListerWidget> {
 
   @override
   void initState() {
-    currentCategoryStruct = widget.categoryStruct;
+    currentCategoryStruct = CategoryStruct(widget.categories);
     super.initState();
   }
 
@@ -65,7 +66,7 @@ class _CategoriesListerWidgetState extends State<CategoriesListerWidget> {
         const SizedBox(
           height: AppSizes.spaceBtwVerticalFields,
         ),
-        Expanded(
+        Flexible(
           child: ListView.builder(
             itemCount: currentCategoryStruct.currentLayer.length,
             itemBuilder: (context, index) => ProductListTile(

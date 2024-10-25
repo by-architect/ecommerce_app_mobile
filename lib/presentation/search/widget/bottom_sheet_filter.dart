@@ -1,13 +1,16 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppStyles.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
+import 'package:ecommerce_app_mobile/data/model/categories.dart';
 import 'package:ecommerce_app_mobile/data/model/category.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/ButtonPrimary.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/button_secondary.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/chip_default,.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/text_button_default.dart';
+import 'package:ecommerce_app_mobile/presentation/discover/widget/categories_lister_widget.dart';
 import 'package:ecommerce_app_mobile/presentation/products/widget/color_dot.dart';
 import 'package:ecommerce_app_mobile/presentation/products/widget/product_list_tile.dart';
+import 'package:ecommerce_app_mobile/presentation/search/widget/categories_lister_widget_sliver.dart';
 import 'package:ecommerce_app_mobile/presentation/search/widget/color_chip.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,10 +22,12 @@ import '../bloc/search_state.dart';
 
 class FilterBottomSheet extends StatefulWidget {
   final AllProductFeatures features;
+  final Categories categories;
 
   const FilterBottomSheet({
     super.key,
     required this.features,
+    required this.categories,
   });
 
   @override
@@ -66,17 +71,18 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                     ),
                   ),
                 ),
-                if (state.selectedFeatureOptions.isNotEmpty)
+                if (state.selectedFeatureOptions.isNotEmpty || state.selectedCategories.isNotEmpty)
                   SliverToBoxAdapter(
                     child: Padding(
                       padding: const EdgeInsets.only(left: AppSizes.defaultPadding, right: AppSizes.defaultPadding),
                       child: Wrap(
                         spacing: 8.0,
                         runSpacing: 8.0,
-                        children: state.selectedFeatureOptions
-                            .map(
-                                (option) => option.isColor ? ColorChip(color: option.color) : ChipDefault(label: option.name))
-                            .toList(),
+                        children: [
+                          ...state.selectedCategories.map((category) => ChipDefault(label: category.name)),
+                          ...state.selectedFeatureOptions.map((option) =>
+                              option.isColor ? ColorChip(color: option.color) : ChipDefault(label: option.name)),
+                        ],
                       ),
                     ),
                   ),
@@ -141,41 +147,29 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                 ),
                 const SliverToBoxAdapter(child: SizedBox(height: AppSizes.spaceBtwVerticalFieldsLarge)),
 
-                //todo: get categories and select
+                filterSelected
+                    ? SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                            childCount: widget.features.length,
+                            (context, index) => _FilterRow(
+                                showBottomDivider: widget.features.isLastByIndex(index),
+                                feature: widget.features.get[index],
+                                onTap: () {
+                                  showModalBottomSheet(
+                                    context: context,
+                                    builder: (context) => _BottomSheetOption(
+                                      feature: widget.features.get[index],
+                                    ),
+                                  );
+                                })),
+                      )
+                    : CategoriesListerWidgetSliver(
+                        categories: widget.categories,
+                        onLastItemPressed: (category) {
+                          BlocProvider.of<SearchBloc>(context).add(SelectedCategoriesEvent([category]));
+                        },
+                      ),
 
-                SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    childCount: widget.features.length,
-                    (context, index) => filterSelected
-                        ? _FilterRow(
-                            showBottomDivider: widget.features.isLastByIndex(index),
-                            feature: widget.features.get[index],
-                            onTap: () {
-                              showModalBottomSheet(
-                                context: context,
-                                builder: (context) => _BottomSheetOption(
-                                  feature: widget.features.get[index],
-                                ),
-                              );
-                            })
-                        : const SizedBox.shrink(),
-                  ),
-                ),
-                /*state.categoriesByLayer.isNotEmpty ?  Expanded(
-                  child: ListView.builder(
-                    itemCount: state.categoriesByLayer.first.length,
-                    itemBuilder: (context, index) => _CategoryRow(
-                        category: state.categoriesByLayer.first[index],
-                        onTap: () {
-                          showModalBottomSheet(
-                            context: context,
-                            builder: (context) => _BottomSheetOption(
-                              feature: state.features[index],
-                            ),
-                          );
-                        }),
-                  ),
-                ):*/
 
                 const SliverToBoxAdapter(child: SizedBox(height: AppSizes.spaceBtwVerticalFields)),
               ],
@@ -218,6 +212,7 @@ class _FilterRow extends StatelessWidget {
   }
 }
 
+/*
 class _CategoryRow extends StatelessWidget {
   final Category category;
   final Function() onTap;
@@ -242,6 +237,7 @@ class _CategoryRow extends StatelessWidget {
     );
   }
 }
+*/
 
 class _BottomSheetOption extends StatelessWidget {
   final ProductFeature feature;
