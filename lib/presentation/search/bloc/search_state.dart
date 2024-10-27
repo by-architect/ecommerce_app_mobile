@@ -1,4 +1,3 @@
-import 'package:ecommerce_app_mobile/data/model/categories.dart';
 import 'package:ecommerce_app_mobile/data/model/category.dart';
 import 'package:ecommerce_app_mobile/data/model/recent_search.dart';
 
@@ -13,6 +12,7 @@ class SearchState {
   final List<RecentSearch> recentSearches;
   final List<Product> products;
   final bool isSearchFocused;
+
   bool get canPopState => products.isEmpty ? true : !isSearchFocused;
 
   SearchState(
@@ -45,109 +45,56 @@ class SearchState {
 
 class InitSearchState extends SearchState {
   InitSearchState()
-      : super(isSearchFocused: true,searchText: "",  recentSearches: [], selectedCategories: [], products: [], selectedFeatureOptions: []);
+      : super(
+            isSearchFocused: true,
+            searchText: "",
+            recentSearches: [],
+            selectedCategories: [],
+            products: [],
+            selectedFeatureOptions: []);
 }
 
 class ProductLoadingState extends SearchState {
-  ProductLoadingState(
-      {required super.searchText,
-      required super.selectedCategories,
-       required super.isSearchFocused,
-      required super.recentSearches,
-      required super.products,
-      required super.selectedFeatureOptions});
+  final SearchState state;
 
+  ProductLoadingState({required this.state})
+      : super(
+            searchText: state.searchText,
+            recentSearches: state.recentSearches,
+            selectedCategories: state.selectedCategories,
+            products: state.products,
+            isSearchFocused: state.isSearchFocused,
+            selectedFeatureOptions: state.selectedFeatureOptions);
 
-  @override
-  ProductLoadingState copyWith(
-      {String? searchText,
-      List<ProductFeatureOption>? selectedFeatureOptions,
-      List<Category>? selectedCategories,
-        bool? isSearchFocused,
-      bool? isFilterContainerActive,
-      List<RecentSearch>? recentSearches,
-      List<Product>? products}) {
-    return ProductLoadingState(
-        searchText: searchText ?? this.searchText,
-        recentSearches: recentSearches ?? this.recentSearches,
-        isSearchFocused: isSearchFocused ?? this.isSearchFocused,
-        selectedCategories: selectedCategories ?? this.selectedCategories,
-        products: products ?? this.products,
-        selectedFeatureOptions: selectedFeatureOptions ?? this.selectedFeatureOptions);
-  }
 }
 
 class ProductSuccessState extends SearchState {
-  ProductSuccessState(
-      {required super.searchText,
-      required super.recentSearches,
-      required super.selectedCategories,
-      required super.products,
-        required super.isSearchFocused,
-        required super.selectedFeatureOptions});
 
-  @override
-  ProductSuccessState copyWith(
-      {String? searchText,
-      List<ProductFeatureOption>? selectedFeatureOptions,
-      List<Category>? selectedCategories,
-        bool? isSearchFocused,
-      bool? isFilterContainerActive,
-      List<RecentSearch>? recentSearches,
-      List<Product>? products}) {
-    return ProductSuccessState(
-        searchText: searchText ?? this.searchText,
-        recentSearches: recentSearches ?? this.recentSearches,
-        isSearchFocused: isSearchFocused ?? this.isSearchFocused,
-        selectedCategories: selectedCategories ?? this.selectedCategories,
-        products: products ?? this.products,
-        selectedFeatureOptions: selectedFeatureOptions ?? this.selectedFeatureOptions);
-  }
+  final SearchState state;
+
+  ProductSuccessState({required this.state})
+      : super(
+            searchText: state.searchText,
+            recentSearches: state.recentSearches,
+            selectedCategories: state.selectedCategories,
+            products: state.products,
+            isSearchFocused: state.isSearchFocused,
+            selectedFeatureOptions: state.selectedFeatureOptions);
+
 }
 
 class ProductFailState extends SearchState {
   final Fail fail;
+  final SearchState state;
 
-  ProductFailState(
-      {required super.searchText,
-        required super.isSearchFocused,
-        required super.recentSearches,
-      required super.products,
-      required super.selectedCategories,
-      required super.selectedFeatureOptions,
-      required this.fail});
+  ProductFailState({required this.state, required this.fail})
+      : super(
+            searchText: state.searchText,
+            recentSearches: state.recentSearches,
+            selectedCategories: state.selectedCategories,
+            products: state.products,
+            isSearchFocused: state.isSearchFocused,
+            selectedFeatureOptions: state.selectedFeatureOptions);
 
-  @override
-  ProductFailState copyWith(
-      {String? searchText,
-      List<ProductFeatureOption>? selectedFeatureOptions,
-        bool? isSearchFocused,
-      List<Category>? selectedCategories,
-      bool? isFilterContainerActive,
-      List<RecentSearch>? recentSearches,
-      List<Product>? products}) {
-    return ProductFailState(
-        searchText: searchText ?? this.searchText,
-        recentSearches: recentSearches ?? this.recentSearches,
-        selectedCategories: selectedCategories ?? this.selectedCategories,
-        isSearchFocused: isSearchFocused ?? this.isSearchFocused,
-        products: products ?? this.products,
-        selectedFeatureOptions: selectedFeatureOptions ?? this.selectedFeatureOptions,
-        fail: fail);
-  }
-}
-
-class GetCategoriesFailState extends SearchState{
-  final Fail fail;
-  GetCategoriesFailState(this.fail, {required super.searchText, required super.isSearchFocused, required super.selectedCategories,  required super.recentSearches, required super.products, required super.selectedFeatureOptions});
-  
-}
-class GetCategoriesSuccessState extends SearchState{
-  GetCategoriesSuccessState({required super.searchText, required super.isSearchFocused, required super.selectedCategories, required super.recentSearches, required super.products, required super.selectedFeatureOptions});
-  
-}
-class GetCategoriesLoadingState extends SearchState{
-  GetCategoriesLoadingState({required super.searchText, required super.isSearchFocused, required super.selectedCategories,  required super.recentSearches, required super.products, required super.selectedFeatureOptions});
-  
 }
 

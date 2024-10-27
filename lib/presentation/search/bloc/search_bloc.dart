@@ -79,7 +79,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
     on<ClearAllSelectedOptionsEvent>(
       (event, emit) {
-        emit(state.copyWith(selectedFeatureOptions: [],selectedCategories: []));
+        emit(state.copyWith(selectedFeatureOptions: [], selectedCategories: []));
       },
     );
 
@@ -87,8 +87,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       (event, emit) {
         List<ProductFeatureOption> selectedFeatureOptions = state.selectedFeatureOptions;
         for (var featureOption in event.productFeature.options) {
-            selectedFeatureOptions.removeWhere((option) => option.id == featureOption.id);
-          }
+          selectedFeatureOptions.removeWhere((option) => option.id == featureOption.id);
+        }
         emit(state.copyWith(selectedFeatureOptions: selectedFeatureOptions));
       },
     );
@@ -105,71 +105,10 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         }
       },
     );
-/*
-    on<GetCategoriesEvent>(
-      (event, emit) async {
-        if (state.categoriesByLayer.isEmpty) {
-          final resource = await service.getCategoriesByLayer();
-          resource.onSuccess(
-            (data) {
-              emit(state.copyWith(categories: data));
-            },
-          );
-          resource.onFailure(
-                (fail) {
-              emit(ProductFailState(
-                  searchText: state.searchText,
-                  categoriesByLayer: state.categoriesByLayer,
-                  isSearchFocused: state.isSearchFocused,
-                  recentSearches: state.recentSearches,
-                  products: state.products,
-                  selectedCategories: state.selectedCategories,
-                  selectedFeatureOptions: state.selectedFeatureOptions,
-                  fail: fail));
-            },
-          );
-        }
-      },
-    );
-*/
-/*
-    on<GetProductFeaturesEvent>(
-      (event, emit) async {
-        if (state.features.isEmpty) {
-          final resource = await service.getProductFeatures();
-          resource.onSuccess(
-            (data) {
-              emit(state.copyWith(features: data));
-            },
-          );
-          resource.onFailure(
-            (fail) {
-              emit(ProductFailState(
-                  searchText: state.searchText,
-                  features: state.features,
-                  categoriesByLayer: state.categoriesByLayer,
-                  isSearchFocused: state.isSearchFocused,
-                  recentSearches: state.recentSearches,
-                  products: state.products,
-                  selectedCategories: state.selectedCategories,
-                  selectedFeatureOptions: state.selectedFeatureOptions,
-                  fail: fail));
-            },
-          );
-        }
-      },
-    );
-*/
 
     on<GetProductsEvent>(
       (event, emit) async {
-        emit(ProductLoadingState(
-            searchText: state.searchText,
-            isSearchFocused: false,
-            recentSearches: state.recentSearches,
-            selectedCategories: state.selectedCategories,
-            products: state.products,
-            selectedFeatureOptions: state.selectedFeatureOptions));
+        emit(ProductLoadingState(state: state.copyWith(isSearchFocused: false)));
 
         final response = await service.getProductsBySearchEvent(
             searchText: state.searchText,
@@ -179,31 +118,14 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         switch (response.status) {
           case Status.success:
             emit(ProductSuccessState(
-                searchText: state.searchText,
-                recentSearches: state.recentSearches,
-                isSearchFocused: state.isSearchFocused,
-                selectedCategories: state.selectedCategories,
-                products: response.data!,
-                selectedFeatureOptions: state.selectedFeatureOptions));
+              state: state.copyWith(products: response.data!),
+            ));
             break;
           case Status.fail:
-            emit(ProductFailState(
-                searchText: state.searchText,
-                recentSearches: state.recentSearches,
-                isSearchFocused: state.isSearchFocused,
-                selectedCategories: state.selectedCategories,
-                products: state.products,
-                selectedFeatureOptions: state.selectedFeatureOptions,
-                fail: response.error!));
+            emit(ProductFailState(state: state.copyWith(), fail: response.error!));
             break;
           case Status.loading:
-            emit(ProductLoadingState(
-                searchText: state.searchText,
-                isSearchFocused: state.isSearchFocused,
-                recentSearches: state.recentSearches,
-                selectedCategories: state.selectedCategories,
-                products: state.products,
-                selectedFeatureOptions: state.selectedFeatureOptions));
+            emit(ProductLoadingState(state: state.copyWith(isSearchFocused: false)));
             break;
           case Status.stable:
             break;
