@@ -24,7 +24,8 @@ class CategoriesWidget extends StatelessWidget {
   const CategoriesWidget({
     super.key,
     required this.categoriesByLayer,
-    required this.features, required this.user,
+    required this.features,
+    required this.user,
   });
 
   @override
@@ -41,28 +42,28 @@ class CategoriesWidget extends StatelessWidget {
                   left: index == 0 ? AppSizes.defaultPadding : AppSizes.defaultPadding / 2,
                   right: index == categories.length - 1 ? AppSizes.defaultPadding : 0),
               child: _CategoryBtn(
-                categoryName: index == 0
-                    ? AppText.homePageAllCategories.capitalizeEveryWord.get
-                    : categories[index - 1].name,
+                categoryName:
+                    index == 0 ? AppText.homePageAllCategories.capitalizeEveryWord.get : categories[index - 1].name,
                 isFirst: index == 0,
                 press: () {
                   if (index != 0) {
                     BlocProvider.of<SearchBloc>(context)
-                        .add(SelectedCategoriesEvent([categories[index - 1]]));
+                        .add(SelectFilterAndGetProductsDirectlyEvent(categories: [categories[index - 1]]));
                     BlocProvider.of<SearchBloc>(context).add(GetProductsEvent());
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => SearchScreen(
-                          user: user,
+                              user: user,
                               features: features,
                               categories: categoriesByLayer,
                             )));
                   } else {
+                    //todo: is it necessary
                     BlocProvider.of<SearchBloc>(context)
-                        .add(SelectedCategoriesEvent(categoriesByLayer.lastLayer));
+                        .add(SelectFilterAndGetProductsDirectlyEvent(categories: categoriesByLayer.lastLayer));
                     BlocProvider.of<SearchBloc>(context).add(GetProductsEvent());
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => SearchScreen(
-                          user: user,
+                              user: user,
                               features: features,
                               categories: categoriesByLayer,
                             )));

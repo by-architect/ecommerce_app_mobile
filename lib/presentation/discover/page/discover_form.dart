@@ -46,8 +46,7 @@ class _DiscoverFormState extends State<DiscoverForm> {
               textEditingController: textEditingController,
               onFieldSubmitted: (value) {
                 if (value == null || value.isEmpty) return;
-                BlocProvider.of<SearchBloc>(context).add(SearchTextEvent(value));
-                BlocProvider.of<SearchBloc>(context).add(GetProductsEvent());
+                BlocProvider.of<SearchBloc>(context).add(SearchTextAndGetProductsEvent(value));
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => SearchScreen(
                           user: widget.user,
@@ -63,8 +62,8 @@ class _DiscoverFormState extends State<DiscoverForm> {
             Expanded(
               child: CategoriesListerWidget(
                 onLastItemPressed: (category) {
-                  BlocProvider.of<SearchBloc>(context).add(SelectedCategoriesEvent([category]));
-                  BlocProvider.of<SearchBloc>(context).add(GetProductsEvent());
+                  BlocProvider.of<SearchBloc>(context)
+                      .add(SelectFilterAndGetProductsDirectlyEvent(categories: [category]));
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => SearchScreen(
                             user: widget.user,
