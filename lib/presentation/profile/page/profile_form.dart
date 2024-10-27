@@ -70,10 +70,7 @@ class ProfileForm extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding),
             child: Text(
               AppText.profilePageMarketing.capitalizeFirstWord.get,
-              style: Theme
-                  .of(context)
-                  .textTheme
-                  .titleSmall,
+              style: Theme.of(context).textTheme.titleSmall,
             ),
           ),
           const SizedBox(height: AppSizes.defaultPadding / 2),
@@ -101,13 +98,10 @@ class ProfileForm extends StatelessWidget {
           const SizedBox(height: AppSizes.defaultPadding),
           Padding(
             padding:
-            const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding, vertical: AppSizes.defaultPadding / 2),
+                const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding, vertical: AppSizes.defaultPadding / 2),
             child: Text(
               AppText.account.capitalizeFirstWord.get,
-              style: Theme
-                  .of(context)
-                  .textTheme
-                  .titleSmall,
+              style: Theme.of(context).textTheme.titleSmall,
             ),
           ),
           ProfileMenuListTile(
@@ -115,10 +109,9 @@ class ProfileForm extends StatelessWidget {
             svgSrc: AppImages.passwordIcon,
             press: () {
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) =>
-                    ChangePasswordScreen(
-                      user: user,
-                    ),
+                builder: (context) => ChangePasswordScreen(
+                  user: user,
+                ),
               ));
             },
           ),
@@ -127,10 +120,9 @@ class ProfileForm extends StatelessWidget {
             svgSrc: AppImages.profileIcon,
             press: () {
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) =>
-                    EditProfileScreen(
-                      user: user,
-                    ),
+                builder: (context) => EditProfileScreen(
+                  user: user,
+                ),
               ));
             },
           ),
@@ -138,13 +130,10 @@ class ProfileForm extends StatelessWidget {
 
           Padding(
             padding:
-            const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding, vertical: AppSizes.defaultPadding / 2),
+                const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding, vertical: AppSizes.defaultPadding / 2),
             child: Text(
               AppText.profilePageHelpAndSupport.capitalizeEveryWord.get,
-              style: Theme
-                  .of(context)
-                  .textTheme
-                  .titleSmall,
+              style: Theme.of(context).textTheme.titleSmall,
             ),
           ),
           ProfileMenuListTile(

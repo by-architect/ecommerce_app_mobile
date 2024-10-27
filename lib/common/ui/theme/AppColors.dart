@@ -65,8 +65,8 @@ class AppColors {
   static const Color yellowColorLight = Color(0xFFC08552);
   static const Color yellowColorDark = Color(0xFF8F552A);
 
-  static const  primaryColor = AppColors.yellowColorLight;
-  static const  primaryColorDark = AppColors.yellowColorDark;
+  static const primaryColor = AppColors.yellowColorLight;
+  static const primaryColorDark = AppColors.yellowColorDark;
 
   static const MaterialColor blueMaterialColorDark = MaterialColor(
     0xFF090446, // Use the original color as the primary key
@@ -84,24 +84,25 @@ class AppColors {
     },
   );
 
+  // Theme.of(context).primaryColor.asMaterialColor.shade900
   static const MaterialColor yellowMaterialColorDark = MaterialColor(
-    0xFF8F552A, // Use the original color as the primary key
+    0xFF8F552A,
     <int, Color>{
-      50: Color(0xFF3A2D27),  // Darker lightest shade
-      100: Color(0xFF5B4B3C),  // Darker light shade
-      200: Color(0xFF7D6A54),  // Slightly darker
-      300: Color(0xFF9F886B),  // Mid-tone dark
-      400: Color(0xFFBFA283),  // Darker mid-tone
-      500: Color(0xFFC08552),  // Your original color
-      600: Color(0xFFB77D4B),  // Darker variant
-      700: Color(0xFFAC7242),  // Darker variant
-      800: Color(0xFFA1683A),  // Darker variant
-      900: Color(0xFF8F552A),  // Darker variant
+      50: Color(0xFF3A2D27), // Darker lightest shade
+      100: Color(0xFF5B4B3C), // Darker light shade
+      200: Color(0xFF7D6A54), // Slightly darker
+      300: Color(0xFF9F886B), // Mid-tone dark
+      400: Color(0xFFBFA283), // Darker mid-tone
+      500: Color(0xFFC08552), // Your original color
+      600: Color(0xFFB77D4B), // Darker variant
+      700: Color(0xFFAC7242), // Darker variant
+      800: Color(0xFFA1683A), // Darker variant
+      900: Color(0xFF8F552A), // Darker variant
     },
   );
 
   static const MaterialColor yellowMaterialColorLight = MaterialColor(
-    0xFFC08552, // Use the original color as the primary key
+    0xFFC08552,
     <int, Color>{
       50: Color(0xFFF3E7DF),
       100: Color(0xFFE0C5B4),
@@ -118,5 +119,4 @@ class AppColors {
 
   //Svg picture original colors
   static const Color svgPicturePinkColor = Color(0x006C63FF);
-
 }

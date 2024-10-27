@@ -2,11 +2,11 @@ import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
+import 'package:ecommerce_app_mobile/common/ui/theme/AppTheme.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/color_filters.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 
 class NotifyMeCard extends StatelessWidget {
   const NotifyMeCard({
@@ -22,8 +22,7 @@ class NotifyMeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.symmetric(
-            horizontal: AppSizes.defaultPadding, vertical: AppSizes.defaultPadding / 2),
+        padding: const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding, vertical: AppSizes.defaultPadding / 2),
         child: Container(
           decoration: BoxDecoration(
             color: isNotify ? Theme.of(context).primaryColor : Colors.transparent,
@@ -31,13 +30,7 @@ class NotifyMeCard extends StatelessWidget {
               Radius.circular(AppSizes.defaultBorderRadius),
             ),
             border: Border.all(
-              color: isNotify
-                  ? Colors.transparent
-                  : Theme.of(context)
-                      .textTheme
-                      .bodyLarge!
-                      .color!
-                      .withOpacity(0.1),
+              color: isNotify ? Colors.transparent : Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.1),
             ),
           ),
           child: Padding(
@@ -65,17 +58,14 @@ class NotifyMeCard extends StatelessWidget {
                   child: Text(
                     AppText.productPageNotifyMe.capitalizeEveryWord.get,
                     style: TextStyle(
-                        color: isNotify
-                            ? Colors.white
-                            : Theme.of(context).textTheme.bodyLarge!.color,
+                        color: isNotify ? Colors.white : Theme.of(context).textTheme.bodyLarge!.color,
                         fontWeight: FontWeight.w500),
                   ),
                 ),
                 CupertinoSwitch(
-                  onChanged: onChanged,
-                  value: isNotify,
-                  activeColor: AppColors.blueMaterialColorDark.shade900,
-                )
+                    onChanged: onChanged,
+                    value: isNotify,
+                    activeColor: Theme.of(context).primaryColor.asMaterialColor.shade900)
               ],
             ),
           ),

@@ -184,7 +184,8 @@ class ProductServiceImpl extends ProductService {
       List<ProductFeatureOption>? selectedFeatureOptions,
       List<Category>? selectedCategories,
       List<Tag>? selectedTags}) {
-    // TODO: implement getProductsBySearchEvents
+    //todo:get products which include one of the selected categories
+    //todo: get products which include all of the selected tags
     throw UnimplementedError();
   }
 
