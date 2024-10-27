@@ -36,12 +36,14 @@ class _DiscoverFormState extends State<DiscoverForm> {
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController textEditingController = TextEditingController();
     return Padding(
         padding: const EdgeInsets.all(AppSizes.defaultSpace),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextFieldSearch(
+              textEditingController: textEditingController,
               onFieldSubmitted: (value) {
                 if (value == null || value.isEmpty) return;
                 BlocProvider.of<SearchBloc>(context).add(SearchTextEvent(value));
@@ -52,6 +54,7 @@ class _DiscoverFormState extends State<DiscoverForm> {
                           features: widget.features,
                           categories: widget.categories,
                         )));
+                textEditingController.clear();
               },
             ),
             const SizedBox(
@@ -59,19 +62,20 @@ class _DiscoverFormState extends State<DiscoverForm> {
             ),
             Expanded(
               child: CategoriesListerWidget(
-                  onLastItemPressed: (category) {
-                    BlocProvider.of<SearchBloc>(context).add(SelectedCategoriesEvent([category]));
-                    BlocProvider.of<SearchBloc>(context).add(GetProductsEvent());
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => SearchScreen(
-                              user: widget.user,
-                              features: widget.features,
-                              categories: widget.categories,
-                            )));
-                  }, categories: widget.categories,),
+                onLastItemPressed: (category) {
+                  BlocProvider.of<SearchBloc>(context).add(SelectedCategoriesEvent([category]));
+                  BlocProvider.of<SearchBloc>(context).add(GetProductsEvent());
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => SearchScreen(
+                            user: widget.user,
+                            features: widget.features,
+                            categories: widget.categories,
+                          )));
+                },
+                categories: widget.categories,
+              ),
             ),
           ],
         ));
   }
 }
-
