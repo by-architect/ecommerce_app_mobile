@@ -13,6 +13,7 @@ import 'package:ecommerce_app_mobile/presentation/search/bloc/search_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/search/bloc/search_event.dart';
 import 'package:ecommerce_app_mobile/presentation/search/bloc/search_state.dart';
 import 'package:ecommerce_app_mobile/presentation/search/widget/bottom_sheet_filter.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -58,6 +59,8 @@ class _SearchScreenState extends State<SearchScreen> {
     BlocProvider.of<SearchBloc>(context).stream.listen(
       (state) {
         textEditingController.text = state.searchText;
+        Log.test(
+            title: "search state",data: state,message: state.runtimeType.toString());
       },
     );
     super.initState();
@@ -97,7 +100,7 @@ class _SearchScreenState extends State<SearchScreen> {
             child: Column(
               children: [
                 TextFieldSearch(
-                  isFilterIconActive: state is ProductSuccessState,
+                  isFilterIconActive: state.products.isNotEmpty && !state.isSearchFocused,
                   autofocus: state.isSearchFocused,
                   focusNode: focusNode,
                   textEditingController: textEditingController,
@@ -171,7 +174,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         ),
                       )
                     : switch (state) {
-                        ProductLoadingState() => Expanded(
+                        ProductLoadingState _ => Expanded(
                             child: ListView.builder(
                                 itemCount: 6,
                                 itemBuilder: (context, index) => const ProductsSkeleton())),

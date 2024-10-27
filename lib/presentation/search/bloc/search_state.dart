@@ -41,6 +41,11 @@ class SearchState {
         selectedFeatureOptions: selectedFeatureOptions ?? this.selectedFeatureOptions,
         selectedCategories: selectedCategories ?? this.selectedCategories);
   }
+
+  @override
+  String toString() {
+    return 'SearchState{searchText: $searchText, selectedFeatureOptions: $selectedFeatureOptions, selectedCategories: $selectedCategories, recentSearches: $recentSearches, products: $products, isSearchFocused: $isSearchFocused}';
+  }
 }
 
 class InitSearchState extends SearchState {
@@ -66,10 +71,27 @@ class ProductLoadingState extends SearchState {
             isSearchFocused: state.isSearchFocused,
             selectedFeatureOptions: state.selectedFeatureOptions);
 
+  @override
+  ProductLoadingState copyWith({
+    String? searchText,
+    List<ProductFeatureOption>? selectedFeatureOptions,
+    List<Category>? selectedCategories,
+    List<RecentSearch>? recentSearches,
+    bool? isSearchFocused,
+    List<Product>? products,
+  }) {
+    return ProductLoadingState(
+        state: SearchState(
+            searchText: searchText ?? state.searchText,
+            isSearchFocused: isSearchFocused ?? state.isSearchFocused,
+            recentSearches: recentSearches ?? state.recentSearches,
+            products: products ?? state.products,
+            selectedFeatureOptions: selectedFeatureOptions ?? state.selectedFeatureOptions,
+            selectedCategories: selectedCategories ?? state.selectedCategories));
+  }
 }
 
 class ProductSuccessState extends SearchState {
-
   final SearchState state;
 
   ProductSuccessState({required this.state})
@@ -81,6 +103,23 @@ class ProductSuccessState extends SearchState {
             isSearchFocused: state.isSearchFocused,
             selectedFeatureOptions: state.selectedFeatureOptions);
 
+  @override
+  SearchState copyWith(
+      {String? searchText,
+      List<ProductFeatureOption>? selectedFeatureOptions,
+      List<Category>? selectedCategories,
+      List<RecentSearch>? recentSearches,
+      bool? isSearchFocused,
+      List<Product>? products}) {
+    return ProductSuccessState(
+        state: SearchState(
+            searchText: searchText ?? state.searchText,
+            isSearchFocused: isSearchFocused ?? state.isSearchFocused,
+            recentSearches: recentSearches ?? state.recentSearches,
+            products: products ?? state.products,
+            selectedFeatureOptions: selectedFeatureOptions ?? state.selectedFeatureOptions,
+            selectedCategories: selectedCategories ?? state.selectedCategories));
+  }
 }
 
 class ProductFailState extends SearchState {
@@ -96,5 +135,22 @@ class ProductFailState extends SearchState {
             isSearchFocused: state.isSearchFocused,
             selectedFeatureOptions: state.selectedFeatureOptions);
 
+  @override
+  SearchState copyWith(
+      {String? searchText,
+      List<ProductFeatureOption>? selectedFeatureOptions,
+      List<Category>? selectedCategories,
+      List<RecentSearch>? recentSearches,
+      bool? isSearchFocused,
+      List<Product>? products}) {
+    return ProductFailState(
+        state: SearchState(
+            searchText: searchText ?? state.searchText,
+            isSearchFocused: isSearchFocused ?? state.isSearchFocused,
+            recentSearches: recentSearches ?? state.recentSearches,
+            products: products ?? state.products,
+            selectedFeatureOptions: selectedFeatureOptions ?? state.selectedFeatureOptions,
+            selectedCategories: selectedCategories ?? state.selectedCategories),
+        fail: fail);
+  }
 }
-
