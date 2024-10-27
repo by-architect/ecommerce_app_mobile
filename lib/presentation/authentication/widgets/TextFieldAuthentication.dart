@@ -1,5 +1,3 @@
-import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
-import 'package:ecommerce_app_mobile/common/ui/theme/AppStyles.dart';
 import 'package:flutter/material.dart';
 
 class TextFieldAuthentication extends StatelessWidget {

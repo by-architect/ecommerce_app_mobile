@@ -27,8 +27,10 @@ Future<void> main() async {
       WidgetsFlutterBinding.ensureInitialized(); // for use firebase before loading
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
  //todo: it is for test
- //  FlutterNativeSplash.remove();
+  FlutterNativeSplash.remove();
+
   runApp(const MyApp());
 }
 
@@ -62,6 +64,6 @@ class MyApp extends StatelessWidget {
               Screens.signUpScreen: (context) => const SignUpScreen(),
               Screens.mainScreen: (context) => const MainScreen(),
             },
-            home:const MainScreen()));
+            home:const SignInScreen()));
   }
 }

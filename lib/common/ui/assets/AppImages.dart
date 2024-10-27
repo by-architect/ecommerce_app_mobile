@@ -8,6 +8,9 @@ class AppImages{
   static const String _formatSvg = '.svg';
   static const String _formatJson = '.json';
 
+  ///images
+  static const String loginImage = '${_imagePath}login_light$_formatPng';
+
   ///lotties
   static const restaurantOpenLottie = '${_lottiePath}restaurant-open$_formatJson';
 

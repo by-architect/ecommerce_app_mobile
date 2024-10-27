@@ -331,6 +331,7 @@ class FakeProductModels {
   static const productDemoImg4 = "https://i.imgur.com/q9oF9Yq.png";
   static const productDemoImg5 = "https://i.imgur.com/MsppAcx.png";
   static const productDemoImg6 = "https://i.imgur.com/JfyZlnO.png";
+  static const loginDemoImage= AppImages.loginImage;
 
   static SubProduct subProduct1 = SubProduct(
       id: "100",
