@@ -59,8 +59,6 @@ class _SearchScreenState extends State<SearchScreen> {
     BlocProvider.of<SearchBloc>(context).stream.listen(
       (state) {
         textEditingController.text = state.searchText;
-        Log.test(
-            title: "search state",data: state,message: state.runtimeType.toString());
       },
     );
     super.initState();
@@ -115,6 +113,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     BlocProvider.of<SearchBloc>(context).add(SearchTextEvent(text ?? ""));
                   },
                   onTabFilter: () {
+                    BlocProvider.of<SearchBloc>(context).add(LoadCachedFiltersEvent());
                     showModalBottomSheet(
                       context: context,
                       isScrollControlled: true,
@@ -160,8 +159,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                       onTap: () {
                                         textEditingController.text = state.getSearchReversed[index].text;
                                         BlocProvider.of<SearchBloc>(context)
-                                            .add(SearchTextEvent(state.getSearchReversed[index].text));
-                                        BlocProvider.of<SearchBloc>(context).add(GetProductsEvent());
+                                            .add(SearchTextAndGetProductsEvent(state.getSearchReversed[index].text));
                                         focusNode.unfocus();
                                       },
                                       onDeleteTap: () {

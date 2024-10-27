@@ -9,6 +9,8 @@ class SearchState {
   final String searchText;
   final List<ProductFeatureOption> selectedFeatureOptions;
   final List<Category> selectedCategories;
+  final List<ProductFeatureOption> productFeatureOptionsFilterCache;
+  final List<Category> categoriesFilterCache;
   final List<RecentSearch> recentSearches;
   final List<Product> products;
   final bool isSearchFocused;
@@ -18,6 +20,8 @@ class SearchState {
   SearchState(
       {required this.searchText,
       required this.isSearchFocused,
+      required this.productFeatureOptionsFilterCache,
+      required this.categoriesFilterCache,
       required this.selectedCategories,
       required this.recentSearches,
       required this.products,
@@ -31,12 +35,16 @@ class SearchState {
     List<Category>? selectedCategories,
     List<RecentSearch>? recentSearches,
     bool? isSearchFocused,
+    List<ProductFeatureOption>? productFeatureOptionsFilterCache,
+    List<Category>? categoriesFilterCache,
     List<Product>? products,
   }) {
     return SearchState(
         searchText: searchText ?? this.searchText,
         isSearchFocused: isSearchFocused ?? this.isSearchFocused,
         recentSearches: recentSearches ?? this.recentSearches,
+        productFeatureOptionsFilterCache: productFeatureOptionsFilterCache ?? this.productFeatureOptionsFilterCache,
+        categoriesFilterCache: categoriesFilterCache ?? this.categoriesFilterCache,
         products: products ?? this.products,
         selectedFeatureOptions: selectedFeatureOptions ?? this.selectedFeatureOptions,
         selectedCategories: selectedCategories ?? this.selectedCategories);
@@ -54,6 +62,8 @@ class InitSearchState extends SearchState {
             isSearchFocused: true,
             searchText: "",
             recentSearches: [],
+            productFeatureOptionsFilterCache: [],
+            categoriesFilterCache: [],
             selectedCategories: [],
             products: [],
             selectedFeatureOptions: []);
@@ -67,6 +77,8 @@ class ProductLoadingState extends SearchState {
             searchText: state.searchText,
             recentSearches: state.recentSearches,
             selectedCategories: state.selectedCategories,
+            categoriesFilterCache: state.categoriesFilterCache,
+            productFeatureOptionsFilterCache: state.productFeatureOptionsFilterCache,
             products: state.products,
             isSearchFocused: state.isSearchFocused,
             selectedFeatureOptions: state.selectedFeatureOptions);
@@ -76,6 +88,8 @@ class ProductLoadingState extends SearchState {
     String? searchText,
     List<ProductFeatureOption>? selectedFeatureOptions,
     List<Category>? selectedCategories,
+    List<ProductFeatureOption>? productFeatureOptionsFilterCache,
+    List<Category>? categoriesFilterCache,
     List<RecentSearch>? recentSearches,
     bool? isSearchFocused,
     List<Product>? products,
@@ -85,6 +99,9 @@ class ProductLoadingState extends SearchState {
             searchText: searchText ?? state.searchText,
             isSearchFocused: isSearchFocused ?? state.isSearchFocused,
             recentSearches: recentSearches ?? state.recentSearches,
+            productFeatureOptionsFilterCache:
+                productFeatureOptionsFilterCache ?? state.productFeatureOptionsFilterCache,
+            categoriesFilterCache: categoriesFilterCache ?? state.categoriesFilterCache,
             products: products ?? state.products,
             selectedFeatureOptions: selectedFeatureOptions ?? state.selectedFeatureOptions,
             selectedCategories: selectedCategories ?? state.selectedCategories));
@@ -99,6 +116,8 @@ class ProductSuccessState extends SearchState {
             searchText: state.searchText,
             recentSearches: state.recentSearches,
             selectedCategories: state.selectedCategories,
+            categoriesFilterCache: state.categoriesFilterCache,
+            productFeatureOptionsFilterCache: state.productFeatureOptionsFilterCache,
             products: state.products,
             isSearchFocused: state.isSearchFocused,
             selectedFeatureOptions: state.selectedFeatureOptions);
@@ -108,6 +127,8 @@ class ProductSuccessState extends SearchState {
       {String? searchText,
       List<ProductFeatureOption>? selectedFeatureOptions,
       List<Category>? selectedCategories,
+      List<Category>? categoriesFilterCache,
+      List<ProductFeatureOption>? productFeatureOptionsFilterCache,
       List<RecentSearch>? recentSearches,
       bool? isSearchFocused,
       List<Product>? products}) {
@@ -115,6 +136,9 @@ class ProductSuccessState extends SearchState {
         state: SearchState(
             searchText: searchText ?? state.searchText,
             isSearchFocused: isSearchFocused ?? state.isSearchFocused,
+            categoriesFilterCache: categoriesFilterCache ?? state.categoriesFilterCache,
+            productFeatureOptionsFilterCache:
+                productFeatureOptionsFilterCache ?? state.productFeatureOptionsFilterCache,
             recentSearches: recentSearches ?? state.recentSearches,
             products: products ?? state.products,
             selectedFeatureOptions: selectedFeatureOptions ?? state.selectedFeatureOptions,
@@ -131,6 +155,8 @@ class ProductFailState extends SearchState {
             searchText: state.searchText,
             recentSearches: state.recentSearches,
             selectedCategories: state.selectedCategories,
+            categoriesFilterCache: state.categoriesFilterCache,
+            productFeatureOptionsFilterCache: state.productFeatureOptionsFilterCache,
             products: state.products,
             isSearchFocused: state.isSearchFocused,
             selectedFeatureOptions: state.selectedFeatureOptions);
@@ -140,6 +166,8 @@ class ProductFailState extends SearchState {
       {String? searchText,
       List<ProductFeatureOption>? selectedFeatureOptions,
       List<Category>? selectedCategories,
+      List<Category>? categoriesFilterCache,
+      List<ProductFeatureOption>? productFeatureOptionsFilterCache,
       List<RecentSearch>? recentSearches,
       bool? isSearchFocused,
       List<Product>? products}) {
@@ -148,6 +176,9 @@ class ProductFailState extends SearchState {
             searchText: searchText ?? state.searchText,
             isSearchFocused: isSearchFocused ?? state.isSearchFocused,
             recentSearches: recentSearches ?? state.recentSearches,
+            productFeatureOptionsFilterCache:
+                productFeatureOptionsFilterCache ?? state.productFeatureOptionsFilterCache,
+            categoriesFilterCache: categoriesFilterCache ?? state.categoriesFilterCache,
             products: products ?? state.products,
             selectedFeatureOptions: selectedFeatureOptions ?? state.selectedFeatureOptions,
             selectedCategories: selectedCategories ?? state.selectedCategories),

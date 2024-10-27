@@ -8,6 +8,7 @@ import 'package:ecommerce_app_mobile/presentation/common/widgets/button_secondar
 import 'package:ecommerce_app_mobile/presentation/common/widgets/chip_default,.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/text_button_default.dart';
 import 'package:ecommerce_app_mobile/presentation/discover/widget/categories_lister_widget.dart';
+import 'package:ecommerce_app_mobile/presentation/products/bloc/product_list_screen_event.dart';
 import 'package:ecommerce_app_mobile/presentation/products/widget/color_dot.dart';
 import 'package:ecommerce_app_mobile/presentation/products/widget/product_list_tile.dart';
 import 'package:ecommerce_app_mobile/presentation/search/widget/categories_lister_widget_sliver.dart';
@@ -38,6 +39,13 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
   bool filterSelected = true;
 
   @override
+  void initState() {
+    BlocProvider.of<SearchBloc>(context).add(LoadCachedFiltersEvent());
+    super.initState();
+  }
+
+
+  @override
   Widget build(BuildContext context) {
     return BlocBuilder<SearchBloc, SearchState>(
       builder: (BuildContext context, SearchState state) => Column(
@@ -64,14 +72,14 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                         ),
                         TextButtonDefault(
                             onPressed: () {
-                              BlocProvider.of<SearchBloc>(context).add(ClearAllSelectedOptionsEvent());
+                              BlocProvider.of<SearchBloc>(context).add(ClearCachedFiltersEvent());
                             },
                             text: AppText.commonPageClearAll.capitalizeEveryWord.get)
                       ],
                     ),
                   ),
                 ),
-                if (state.selectedFeatureOptions.isNotEmpty || state.selectedCategories.isNotEmpty)
+                if (state.productFeatureOptionsFilterCache.isNotEmpty || state.categoriesFilterCache.isNotEmpty)
                   SliverToBoxAdapter(
                     child: Padding(
                       padding: const EdgeInsets.only(left: AppSizes.defaultPadding, right: AppSizes.defaultPadding),
@@ -79,8 +87,8 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                         spacing: 8.0,
                         runSpacing: 8.0,
                         children: [
-                          ...state.selectedCategories.map((category) => ChipDefault(label: category.name)),
-                          ...state.selectedFeatureOptions.map((option) =>
+                          ...state.categoriesFilterCache.map((category) => ChipDefault(label: category.name)),
+                          ...state.productFeatureOptionsFilterCache.map((option) =>
                               option.isColor ? ColorChip(color: option.color) : ChipDefault(label: option.name)),
                         ],
                       ),
@@ -146,7 +154,6 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                   ),
                 ),
                 const SliverToBoxAdapter(child: SizedBox(height: AppSizes.spaceBtwVerticalFieldsLarge)),
-
                 filterSelected
                     ? SliverList(
                         delegate: SliverChildBuilderDelegate(
@@ -166,11 +173,10 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                     : CategoriesListerWidgetSliver(
                         categories: widget.categories,
                         onLastItemPressed: (category) {
-                          BlocProvider.of<SearchBloc>(context).add(SelectedCategoriesEvent([category]));
+                          BlocProvider.of<SearchBloc>(context)
+                              .add(SelectFilterAndGetProductsDirectlyEvent(categories: [category]));
                         },
                       ),
-
-
                 const SliverToBoxAdapter(child: SizedBox(height: AppSizes.spaceBtwVerticalFields)),
               ],
             ),
@@ -180,7 +186,8 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
             child: ButtonPrimary(
               text: AppText.apply.capitalizeFirstWord.get,
               onTap: () {
-                //todo: apply changes
+                BlocProvider.of<SearchBloc>(context).add(ApplyFiltersAndGetProductsEvent());
+                Navigator.pop(context);
               },
             ),
           )
@@ -267,7 +274,7 @@ class _BottomSheetOption extends StatelessWidget {
                 ),
                 TextButtonDefault(
                     onPressed: () {
-                      BlocProvider.of<SearchBloc>(context).add(ClearSelectedOptionsOfFeatureEvent(feature));
+                      BlocProvider.of<SearchBloc>(context).add(ClearCachedFiltersOfFeatureOptionEvent(feature));
                     },
                     text: AppText.commonPageClearAll.capitalizeEveryWord.get)
               ],
@@ -292,16 +299,17 @@ class _BottomSheetOption extends StatelessWidget {
             child: ListView.builder(
                 itemCount: feature.options.length,
                 itemBuilder: (context, index) => _OptionRow(
-                    isSelected: state.selectedFeatureOptions.contains(feature.options[index]),
+                    isSelected: state.productFeatureOptionsFilterCache.contains(feature.options[index]),
                     featureType: feature.productFeatureType,
                     onTap: () {
-                      List<ProductFeatureOption> selectedFeatureOptions = state.selectedFeatureOptions;
-                      if (state.selectedFeatureOptions.contains(feature.options[index])) {
+                      List<ProductFeatureOption> selectedFeatureOptions = state.productFeatureOptionsFilterCache;
+                      if (state.productFeatureOptionsFilterCache.contains(feature.options[index])) {
                         selectedFeatureOptions.remove(feature.options[index]);
                       } else {
                         selectedFeatureOptions.add(feature.options[index]);
                       }
-                      BlocProvider.of<SearchBloc>(context).add(SelectedFeatureOptionsEvent(selectedFeatureOptions));
+                      BlocProvider.of<SearchBloc>(context)
+                          .add(AddFilterToCacheEvent(featureOptions: selectedFeatureOptions));
                     },
                     option: feature.options[index])),
           )
