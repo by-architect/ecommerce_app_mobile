@@ -6,6 +6,7 @@ import 'package:ecommerce_app_mobile/data/model/category.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/ButtonPrimary.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/button_secondary.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/chip_default,.dart';
+import 'package:ecommerce_app_mobile/presentation/common/widgets/chip_primary.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/text_button_default.dart';
 import 'package:ecommerce_app_mobile/presentation/discover/widget/categories_lister_widget.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/product_list_screen_event.dart';
@@ -87,7 +88,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                         spacing: 8.0,
                         runSpacing: 8.0,
                         children: [
-                          ...state.categoriesFilterCache.map((category) => ChipDefault(label: category.name)),
+                          ...state.categoriesFilterCache.map((category) => ChipPrimary(label: category.name)),
                           ...state.productFeatureOptionsFilterCache.map((option) =>
                               option.isColor ? ColorChip(color: option.color) : ChipDefault(label: option.name)),
                         ],
@@ -174,7 +175,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                         categories: widget.categories,
                         onLastItemPressed: (category) {
                           BlocProvider.of<SearchBloc>(context)
-                              .add(SelectFilterAndGetProductsDirectlyEvent(categories: [category]));
+                              .add(AddFilterToCacheEvent(categories: [category]));
                         },
                       ),
                 const SliverToBoxAdapter(child: SizedBox(height: AppSizes.spaceBtwVerticalFields)),

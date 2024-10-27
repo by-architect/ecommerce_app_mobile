@@ -1,12 +1,14 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppStyles.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
+import 'package:ecommerce_app_mobile/common/ui/theme/AppTheme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class ChipDefault extends StatelessWidget {
-  const ChipDefault({super.key, required this.label});
+import '../../../sddklibrary/util/Log.dart';
 
+class ChipPrimary extends StatelessWidget {
+
+  const ChipPrimary({super.key, required this.label});
   final String label;
 
 
@@ -14,7 +16,8 @@ class ChipDefault extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       child: Chip(
-        label: Text(label),
+        label: Text(label,),
+        backgroundColor: Theme.of(context).primaryColor.asMaterialColor.shade100,
       ),
     );
   }
