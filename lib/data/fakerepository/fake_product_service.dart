@@ -124,7 +124,7 @@ class FakeProductService implements ProductService {
   @override
   Future<ResourceStatus<List<Product>>> getProductByDiscount(int count) async {
     // await Future.delayed(const Duration(seconds: 2));
-    final List<Product> products = FakeProductModels.products.where((product) => product.subProducts.getIdealSubProduct.discount != 0).toList();
+    final List<Product> products = FakeProductModels.products.where((product) => product.subProducts.getIdealSubProduct.hasDiscount).toList();
     return ResourceStatus.success(products);
   }
 

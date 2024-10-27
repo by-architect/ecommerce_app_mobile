@@ -53,7 +53,7 @@ class ProductCard extends StatelessWidget {
                   product.firstImageOrEmpty,
                   radius: AppSizes.defaultBorderRadius,
                 ),
-                if (idealSubProduct.discount != 0)
+                if (idealSubProduct.hasDiscount)
                   Positioned(
                     right: AppSizes.defaultPadding / 2,
                     top: AppSizes.defaultPadding / 2,

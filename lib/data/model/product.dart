@@ -86,8 +86,7 @@ class Product {
     };
   }
 
-  ResourceStatus<CategoryNode> categoryNode(Categories categories) =>
-      categories.getNodeFromLastCategoryId(categoryId);
+  ResourceStatus<CategoryNode> categoryNode(Categories categories) => categories.getNodeFromLastCategoryId(categoryId);
 
   @override
   String toString() {
@@ -125,11 +124,13 @@ class SubProduct {
       required this.discount,
       required this.productFeatureOptionIds});
 
-  int get discountPercent => discount == 0 ? 0 : ((discount / price) * 100).toInt();
+  bool get hasDiscount => discount != 0.0;
+
+  int get discountPercent => !hasDiscount ? 0 : ((discount / price) * 100).toInt();
 
   bool get availableInStock => quantity != 0;
 
-  double get priceAfterDiscounting => discount == 0 ? price : (price - discount);
+  double get priceAfterDiscounting => !hasDiscount ? price : (price - discount);
 
   @override
   String toString() {
@@ -160,8 +161,7 @@ class SubProducts {
   List<SubProduct> get get => _subProducts;
 
   SubProduct get getIdealSubProduct {
-    if (_subProducts.isEmpty)
-      throw NullDataException("Sub products have an empty list, couldn't get idealSubProduct");
+    if (_subProducts.isEmpty) throw NullDataException("Sub products have an empty list, couldn't get idealSubProduct");
     SubProduct? highDiscountedProduct = _subProducts.first;
     SubProduct lowPricedProduct = _subProducts.first;
     for (var subProduct in _subProducts) {
@@ -169,9 +169,7 @@ class SubProducts {
       final highDiscountPercent = highDiscountedProduct?.discountPercent;
       if (lowPricedProduct.price > subProduct.price) lowPricedProduct = subProduct;
       if (discountPercent == 0) continue;
-      if (highDiscountedProduct == null ||
-          highDiscountPercent == null ||
-          highDiscountPercent < discountPercent) {
+      if (highDiscountedProduct == null || highDiscountPercent == null || highDiscountPercent < discountPercent) {
         highDiscountedProduct = subProduct;
         continue;
       }
@@ -183,8 +181,7 @@ class SubProducts {
     }
   }
 
-  static List<SubProduct> getSubProductsWhichContainsOption(
-      String optionId, List<SubProduct> subProductList) {
+  static List<SubProduct> getSubProductsWhichContainsOption(String optionId, List<SubProduct> subProductList) {
     return subProductList
         .where(
           (subProduct) => subProduct.productFeatureOptionIds.contains(optionId),

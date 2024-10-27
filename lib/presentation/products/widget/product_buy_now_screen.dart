@@ -2,9 +2,7 @@ import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/fakerepository/fake_app_defaults.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature_handler.dart';
-import 'package:ecommerce_app_mobile/data/model/purchase_process.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/pages/sign_in_screen.dart';
-import 'package:ecommerce_app_mobile/presentation/authentication/pages/sign_up_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/app_bar_pop_back.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/network_image_with_loader.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_bloc.dart';
@@ -15,7 +13,6 @@ import 'package:ecommerce_app_mobile/presentation/products/widget/product_featur
 import 'package:ecommerce_app_mobile/presentation/products/widget/product_quantity.dart';
 import 'package:ecommerce_app_mobile/presentation/products/widget/unit_price.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/ui/dialog_util.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../data/model/product.dart';
@@ -43,8 +40,11 @@ class ProductBuyNowScreen extends StatefulWidget {
 class _ProductBuyNowScreenState extends State<ProductBuyNowScreen> {
   @override
   void initState() {
-    BlocProvider.of<ProductDetailsBloc>(context).stream.listen(
-      (state) {
+    BlocProvider
+        .of<ProductDetailsBloc>(context)
+        .stream
+        .listen(
+          (state) {
         if (state is PurchaseProcessFailState) {
           DialogUtil(context).toast(state.fail.userMessage);
         }
@@ -63,101 +63,103 @@ class _ProductBuyNowScreenState extends State<ProductBuyNowScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProductDetailsBloc, ProductDetailsState>(
-      builder: (BuildContext context, ProductDetailsState state) => Scaffold(
-        appBar: AppBarPopBack(
-          title: widget.product.name,
-        ),
-        bottomNavigationBar: ButtonCartBuy(
-          isLoading: state is PurchaseProcessLoadingState,
-          price: state.selectedSubProduct?.price,
-          title: AppText.productDetailsPageAddToCart.capitalizeEveryWord.get,
-          subTitle: AppText.productDetailsPageTotalPrice.capitalizeEveryWord.get,
-          press: () {
-            if (state.selectedSubProduct == null) return;
-            if (widget.user == null) {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const SignInScreen(),
-              ));
-            } else {
-              BlocProvider.of<ProductDetailsBloc>(context).add(AddPurchaseProcessEvent(
-                  PurchaseProcessState(
-                      quantity: state.quantity,
-                      productId: widget.product.id,
-                      subProductId: state.selectedSubProduct!.id),
-                  widget.user!.uid));
-            }
-          },
-        ),
-        body: Column(
-          children: [
-            Expanded(
-              child: CustomScrollView(
-                slivers: [
-                  const SliverToBoxAdapter(child: SizedBox(height: AppSizes.spaceBtwVerticalFields)),
-                  SliverToBoxAdapter(
-                    child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding),
-                        child: AspectRatio(
-                          aspectRatio: 1.05,
-                          child: NetworkImageWithLoader(widget.product.firstImageOrEmpty),
-                        )),
-                  ),
-                  SliverPadding(
-                    padding: const EdgeInsets.all(AppSizes.defaultPadding),
-                    sliver: SliverToBoxAdapter(
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            child: UnitPrice(
-                              price: state.selectedSubProduct?.price,
-                              priceAfterDiscount: state.selectedSubProduct?.priceAfterDiscounting,
-                            ),
-                          ),
-                          ProductQuantity(
-                            numOfItem: state.selectedSubProduct == null ? null : state.quantity,
-                            onIncrement: () {
-                              final selectedSubProduct = state.selectedSubProduct;
-                              if (selectedSubProduct != null &&
-                                  selectedSubProduct.quantity > state.quantity && FakeAppDefaults.maxQuantityOfProduct > state.quantity) {
-                                BlocProvider.of<ProductDetailsBloc>(context).add(IncreaseQuantity());
-                              }
-                            },
-                            onDecrement: () {
-                              if (state.quantity > 1) {
-                                BlocProvider.of<ProductDetailsBloc>(context).add(DecreaseQuantity());
-                              }
-                            },
-                          ),
-                        ],
+      builder: (BuildContext context, ProductDetailsState state) =>
+          Scaffold(
+            appBar: AppBarPopBack(
+              title: widget.product.name,
+            ),
+            bottomNavigationBar: ButtonCartBuy(
+              isLoading: state is PurchaseProcessLoadingState,
+              price: state.selectedSubProduct?.price,
+              title: AppText.productDetailsPageAddToCart.capitalizeEveryWord.get,
+              subTitle: AppText.productDetailsPageTotalPrice.capitalizeEveryWord.get,
+              press: () {
+                if (state.selectedSubProduct == null) return;
+                if (widget.user == null) {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const SignInScreen(),
+                  ));
+                } else {
+                  BlocProvider.of<ProductDetailsBloc>(context).add(AddPurchaseProcessEvent(
+                      PurchaseProcessState(
+                          quantity: state.quantity,
+                          productId: widget.product.id,
+                          subProductId: state.selectedSubProduct!.id),
+                      widget.user!.uid));
+                }
+              },
+            ),
+            body: Column(
+              children: [
+                Expanded(
+                  child: CustomScrollView(
+                    slivers: [
+                      const SliverToBoxAdapter(child: SizedBox(height: AppSizes.spaceBtwVerticalFields)),
+                      SliverToBoxAdapter(
+                        child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding),
+                            child: AspectRatio(
+                              aspectRatio: 1.05,
+                              child: NetworkImageWithLoader(widget.product.firstImageOrEmpty),
+                            )),
                       ),
-                    ),
-                  ),
-                  const SliverToBoxAdapter(child: Divider()),
-                  /*state is SelectedProductFeaturesLoadingState
+                      SliverPadding(
+                        padding: const EdgeInsets.all(AppSizes.defaultPadding),
+                        sliver: SliverToBoxAdapter(
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                child: UnitPrice(
+                                  subProduct: state.selectedSubProduct,
+                                ),
+                              ),
+                              ProductQuantity(
+                                numOfItem: state.selectedSubProduct == null ? null : state.quantity,
+                                onIncrement: () {
+                                  final selectedSubProduct = state.selectedSubProduct;
+                                  if (selectedSubProduct != null &&
+                                      selectedSubProduct.quantity > state.quantity &&
+                                      FakeAppDefaults.maxQuantityOfProduct > state.quantity) {
+                                    BlocProvider.of<ProductDetailsBloc>(context).add(IncreaseQuantity());
+                                  }
+                                },
+                                onDecrement: () {
+                                  if (state.quantity > 1) {
+                                    BlocProvider.of<ProductDetailsBloc>(context).add(DecreaseQuantity());
+                                  }
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SliverToBoxAdapter(child: Divider()),
+                      /*state is SelectedProductFeaturesLoadingState
                       ? const SliverToBoxAdapter(
                           child: CircularProgressIndicator(),
                         )
                       : */
-                  SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                    childCount: state.optionMatrix.length,
-                    (context, columnIndex) => ProductFeatureWidget(
-                      onSelected: (selectedOption, rowIndex) {
-                        BlocProvider.of<ProductDetailsBloc>(context).add(SelectProductFeatureOptionEvent(
-                            selectedOption: selectedOption,
-                            productFeatureHandler: widget.productFeatureHandler));
-                      },
-                      options: state.optionMatrix[columnIndex],
-                    ),
-                  )),
-                  const SliverToBoxAdapter(child: SizedBox(height: AppSizes.spaceBtwVerticalFields))
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
+                      SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                            childCount: state.optionMatrix.length,
+                                (context, columnIndex) =>
+                                ProductFeatureWidget(
+                                  onSelected: (selectedOption, rowIndex) {
+                                    BlocProvider.of<ProductDetailsBloc>(context).add(SelectProductFeatureOptionEvent(
+                                        selectedOption: selectedOption,
+                                        productFeatureHandler: widget.productFeatureHandler));
+                                  },
+                                  options: state.optionMatrix[columnIndex],
+                                ),
+                          )),
+                      const SliverToBoxAdapter(child: SizedBox(height: AppSizes.spaceBtwVerticalFields))
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
     );
   }
 }
