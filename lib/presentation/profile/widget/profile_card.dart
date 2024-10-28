@@ -3,6 +3,7 @@ import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppStyles.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/color_filters.dart';
+import 'package:ecommerce_app_mobile/presentation/common/widgets/profile_image_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -28,18 +29,9 @@ class ProfileCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       onTap: press,
-      leading: CircleAvatar(
-        backgroundColor: Colors.transparent,
+      leading: ProfileImageWidget(
+        imageSrc: imageSrc,
         radius: 28,
-        child: imageSrc == null || imageSrc!.isEmpty
-            ? SvgPicture.asset(
-                AppImages.profileIcon,
-                colorFilter: ColorFilters.primaryIconColorFilter(context),
-              )
-            : NetworkImageWithLoader(
-                imageSrc!,
-                radius: 100,
-              ),
       ),
       title: Row(
         children: [

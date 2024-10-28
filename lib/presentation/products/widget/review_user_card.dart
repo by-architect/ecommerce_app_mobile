@@ -3,6 +3,7 @@ import 'package:ecommerce_app_mobile/common/ui/theme/color_filters.dart';
 import 'package:ecommerce_app_mobile/data/fakerepository/fake_models.dart';
 import 'package:ecommerce_app_mobile/data/model/review.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/network_image_with_loader.dart';
+import 'package:ecommerce_app_mobile/presentation/common/widgets/profile_image_widget.dart';
 import 'package:ecommerce_app_mobile/presentation/products/widget/rate_bar.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/date_helper.dart';
 import 'package:flutter/cupertino.dart';
@@ -38,17 +39,7 @@ class ReviewUserCard extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  SizedBox(
-                    width: 30,
-                    height: 30,
-                    child: CircleAvatar(
-                      radius: 28,
-                      child:user.firebaseUser.photoURL !=null? NetworkImageWithLoader(
-                        user.firebaseUser.photoURL! ,
-                        radius: 100,
-                      ): SvgPicture.asset(AppImages.profileIcon,width: 24,height: 24,colorFilter: ColorFilters.greyIconColorFilter(context),),
-                    ),
-                  ),
+                  ProfileImageWidget(radius: 12,imageSrc:  user.firebaseUser.photoURL ,),
                   const SizedBox(width: AppSizes.spaceBtwHorizontalFields,),
                   Text("${user.name} ${user.surname}",style: Theme.of(context).textTheme.titleMedium,),
                 ],
