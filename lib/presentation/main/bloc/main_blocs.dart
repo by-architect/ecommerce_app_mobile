@@ -20,7 +20,7 @@ class MainBlocs extends Bloc<MainEvents, MainStates> {
     });
 
     on<GetInitItemsEvent>(
-          (event, emit) async {
+      (event, emit) async {
         emit(InitItemsLoadingState(
             themeMode: state.themeMode,
             features: state.features,
@@ -71,7 +71,7 @@ class MainBlocs extends Bloc<MainEvents, MainStates> {
       },
     );
     on<LogOutEvent>(
-          (event, emit) async {
+      (event, emit) async {
         final resource = await userService.signOut();
         switch (resource.status) {
           case Status.success:
@@ -84,20 +84,32 @@ class MainBlocs extends Bloc<MainEvents, MainStates> {
           case Status.fail:
             break;
           case Status.loading:
-          // TODO: Handle this case.
+            // TODO: Handle this case.
             break;
           case Status.stable:
-          // TODO: Handle this case.
+            // TODO: Handle this case.
             break;
         }
       },
     );
-    on<UserIsVerifiedEvent>((event, emit) {
-      emit(InitItemsSuccessState(themeMode: state.themeMode,
-          features: state.features,
-          categories: state.categories,
-          userStatus: UserStatus(event.user)));
-    },);
 
+    on<UserSignedInEvent>(
+      (event, emit) {
+        emit(InitItemsSuccessState(
+            themeMode: state.themeMode,
+            features: state.features,
+            categories: state.categories,
+            userStatus: UserStatus(event.user)));
+      },
+    );
+    on<UserIsVerifiedEvent>(
+      (event, emit) {
+        emit(InitItemsSuccessState(
+            themeMode: state.themeMode,
+            features: state.features,
+            categories: state.categories,
+            userStatus: UserStatus(event.user)));
+      },
+    );
   }
 }

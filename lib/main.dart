@@ -5,6 +5,7 @@ import 'package:ecommerce_app_mobile/firebase_options.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/add_address_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/addresses_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/bloc/sign_in_bloc.dart';
+import 'package:ecommerce_app_mobile/presentation/authentication/bloc/sign_up_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/pages/sign_in_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/pages/sign_up_screen.dart';
@@ -57,6 +58,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (BuildContext context) => AddressesBloc()),
           BlocProvider(create: (BuildContext context) => AddAddressBloc()),
           BlocProvider(create: (BuildContext context) => SignInBloc()),
+          BlocProvider(create: (BuildContext context) => SignUpBloc()),
 
         ],
         child: MaterialApp(

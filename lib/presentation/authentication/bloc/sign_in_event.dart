@@ -11,4 +11,4 @@ class PasswordEvent extends SignInEvent {
   PasswordEvent(this.password);
 }
 
-class LoginEvent extends SignInEvent{}
+class SignInRequestEvent extends SignInEvent{}

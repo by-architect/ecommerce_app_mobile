@@ -8,6 +8,7 @@ import 'package:ecommerce_app_mobile/presentation/authentication/bloc/sign_in_ev
 import 'package:ecommerce_app_mobile/presentation/authentication/bloc/sign_in_state.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/widgets/TextFieldAuthentication.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/ButtonPrimary.dart';
+import 'package:ecommerce_app_mobile/presentation/main/bloc/main_events.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/ui/dialog_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,6 +16,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../common/constant/Screens.dart';
 import '../../../common/ui/theme/AppColors.dart';
 import '../../../data/usecase/user_validation.dart';
+import '../../main/bloc/main_blocs.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -43,10 +45,11 @@ class _SignInScreenState extends State<SignInScreen> {
       final userState = BlocProvider.of<SignInBloc>(context).state;
       final userValidation = UserValidation.validateLogin(userState);
       if (userValidation.success) {
-        BlocProvider.of<SignInBloc>(context).add(LoginEvent());
+        BlocProvider.of<SignInBloc>(context).add(SignInRequestEvent());
         streamSubscription = BlocProvider.of<SignInBloc>(context).stream.listen((state) {
           switch (state) {
-            case SignInSuccessState _:
+            case SignInSuccessState signInSuccessState:
+              BlocProvider.of<MainBlocs>(context).add(UserSignedInEvent(signInSuccessState.user));
               Navigator.of(context).pushNamedAndRemoveUntil(
                 Screens.mainScreen,
                 (route) => false,

@@ -44,6 +44,7 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
         switch (resource.status) {
           case Status.success:
             emit(EditProfileSuccessState(
+                user: resource.data!,
                 name: state.name,
                 surname: state.surname,
                 birthYear: state.birthYear,

@@ -2,6 +2,7 @@ import 'package:ecommerce_app_mobile/sddklibrary/helper/string_helper.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../common/constant/gender.dart';
+import '../../../data/model/user.dart';
 import '../../../sddklibrary/util/fail.dart';
 
 class EditProfileState {
@@ -10,9 +11,7 @@ class EditProfileState {
   final String birthYear;
   final Gender gender;
 
-  EditProfileState(
-      {required this.name, required this.surname, required this.birthYear, required this.gender});
-
+  EditProfileState({required this.name, required this.surname, required this.birthYear, required this.gender});
 
   Map<String, dynamic> toMap(String uid) {
     return {
@@ -38,8 +37,9 @@ class EditProfileInitState extends EditProfileState {
 }
 
 class EditProfileSuccessState extends EditProfileState {
+  final User user;
   EditProfileSuccessState(
-      {required super.name, required super.surname, required super.birthYear, required super.gender});
+      {required this.user,required super.name, required super.surname, required super.birthYear, required super.gender});
 }
 
 class EditProfileFailState extends EditProfileState {

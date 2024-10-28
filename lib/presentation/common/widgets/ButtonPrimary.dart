@@ -20,13 +20,13 @@ class ButtonPrimary extends StatelessWidget {
         onPressed: loading ? null : onTap,
         child: loading
             ? SizedBox(
-          height: 20,
-              width: 20,
-              child: CircularProgressIndicator(
+                height: 20,
+                width: 20,
+                child: CircularProgressIndicator(
                   valueColor:
                       AlwaysStoppedAnimation<Color>(context.isDarkMode ? AppColors.blackColor : AppColors.whiteColor),
                 ),
-            )
+              )
             : Text(
                 text,
               ));

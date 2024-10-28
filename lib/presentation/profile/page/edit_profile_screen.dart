@@ -6,6 +6,7 @@ import 'package:ecommerce_app_mobile/data/model/user.dart';
 import 'package:ecommerce_app_mobile/data/usecase/user_validation.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/ButtonPrimary.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/app_bar_pop_back.dart';
+import 'package:ecommerce_app_mobile/presentation/main/bloc/main_events.dart';
 import 'package:ecommerce_app_mobile/presentation/profile/bloc/edit_profile_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/profile/bloc/edit_profile_event.dart';
 import 'package:ecommerce_app_mobile/presentation/profile/bloc/edit_profile_state.dart';
@@ -20,6 +21,7 @@ import '../../../common/constant/gender.dart';
 import '../../../common/ui/theme/AppColors.dart';
 import '../../authentication/widgets/TextFieldAuthentication.dart';
 import '../../authentication/widgets/dropdown_default.dart';
+import '../../main/bloc/main_blocs.dart';
 
 class EditProfileScreen extends StatefulWidget {
   final User user;
@@ -39,12 +41,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   void initState() {
     BlocProvider.of<EditProfileBloc>(context).add(LoadUserEvent(widget.user));
     BlocProvider.of<EditProfileBloc>(context).stream.listen(
-          (state) {
-            nameController.text = state.name;
-            surnameController.text = state.surname;
-            birthDateController.text = state.birthYear;
-          },
-        );
+      (state) {
+        nameController.text = state.name;
+        surnameController.text = state.surname;
+        birthDateController.text = state.birthYear;
+      },
+    );
     super.initState();
   }
 
@@ -63,10 +65,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       streamSubscription = BlocProvider.of<EditProfileBloc>(context).stream.listen(
         (state) {
           switch (state) {
-            case EditProfileSuccessState _:
+            case EditProfileSuccessState successState:
+              BlocProvider.of<MainBlocs>(context).add(UserSignedInEvent(successState.user));
               dialog.toast(AppText.infoProfileSettingsChangedSuccessfully.capitalizeFirstWord.get);
-              streamSubscription.cancel();
               Navigator.of(context).pop();
+              streamSubscription.cancel();
               break;
             case EditProfileFailState failState:
               dialog.toast(failState.fail.userMessage);
@@ -93,7 +96,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       padding: const EdgeInsets.only(right: AppSizes.spaceBtwHorizontalFields / 2),
                       child: TextFieldAuthentication(
                         icon: Icons.person,
-                        textEditingController:nameController,
+                        textEditingController: nameController,
                         label: AppText.name.capitalizeFirstWord.get,
                         onChanged: (value) {
                           BlocProvider.of<EditProfileBloc>(context).add(NameEvent(value));
@@ -140,8 +143,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         value: state.gender,
                         hint: state.gender.text.capitalizeFirstWord.get,
                         onChanged: (Gender? newValue) {
-                          BlocProvider.of<EditProfileBloc>(context)
-                              .add(GenderEvent(newValue ?? Gender.unselected));
+                          BlocProvider.of<EditProfileBloc>(context).add(GenderEvent(newValue ?? Gender.unselected));
                         },
                         items: Gender.toList().map<DropdownMenuItem<Gender>>((Gender gender) {
                           return DropdownMenuItem<Gender>(
@@ -151,9 +153,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                                   color: gender == Gender.unselected
                                       ? AppColors.greyColor
-                                      : (context.isDarkMode
-                                          ? AppColors.whiteColor
-                                          : AppColors.blackColor)),
+                                      : (context.isDarkMode ? AppColors.whiteColor : AppColors.blackColor)),
                             ),
                           );
                         }).toList(),

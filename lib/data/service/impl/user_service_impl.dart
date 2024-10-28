@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce_app_mobile/common/constant/firestore_collections.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/bloc/sign_in_state.dart';
+import 'package:ecommerce_app_mobile/presentation/authentication/bloc/sign_up_state.dart';
 import 'package:ecommerce_app_mobile/presentation/profile/bloc/change_password_state.dart';
 import 'package:ecommerce_app_mobile/presentation/profile/bloc/edit_profile_state.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/constant/exceptions/exception_handler.dart';
@@ -24,7 +25,7 @@ class UserServiceImpl extends UserService {
   late final _fireStore = FirebaseFirestore.instance;
 
   @override
-  Future<ResourceStatus<User>> addUser(UserRequestState userState) async {
+  Future<ResourceStatus<User>> addUser(SignUpState signUpState) async {
     try {
       //check network connection
       final networkConnection = await NetworkHelper().isConnectedToNetwork();
@@ -32,7 +33,7 @@ class UserServiceImpl extends UserService {
 
       //request user creation
       final authResponse = await _firebaseAuth
-          .createUserWithEmailAndPassword(email: userState.email, password: userState.password)
+          .createUserWithEmailAndPassword(email: signUpState.email, password: signUpState.password)
           .timeout(AppDurations.postTimeout);
       final responseUser = authResponse.user;
       if (responseUser == null) throw firebase_auth.FirebaseAuthException(code: ExceptionHandler.nullUserId);
@@ -41,9 +42,9 @@ class UserServiceImpl extends UserService {
       await _fireStore
           .collection(FireStoreCollections.users)
           .doc(responseUser.uid)
-          .set(userState.toMap(responseUser.uid))
+          .set(signUpState.toMap(responseUser.uid))
           .timeout(AppDurations.postTimeoutLarge);
-      final User userFinal = User.fromUserState(userState, responseUser, authResponse);
+      final User userFinal = User.fromUserState(signUpState, responseUser, authResponse);
       return ResourceStatus.success(userFinal);
 
       //catch exceptions
@@ -104,7 +105,7 @@ class UserServiceImpl extends UserService {
   }
 
   @override
-  Future<ResourceStatus> editUserSettings(User user, EditProfileState userState) async {
+  Future<ResourceStatus<User>> editUserSettings(User user, EditProfileState userState) async {
     try {
       var networkConnection = await NetworkHelper().isConnectedToNetwork();
       if (!networkConnection.isConnected) throw NetworkDeviceDisconnectedException("Network Device is down");
@@ -115,8 +116,9 @@ class UserServiceImpl extends UserService {
       }
 
       await _fireStore.collection(FireStoreCollections.users).doc(user.uid).update(userState.toMap(user.uid));
+      final updatedUser = await getUser(userCredential: user.userCredential);
 
-      return const ResourceStatus.success("");
+      return updatedUser;
     } catch (e, s) {
       return ExceptionHandler.firebaseResourceExceptionHandler(e, s);
     }

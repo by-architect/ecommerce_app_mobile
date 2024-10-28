@@ -1,4 +1,5 @@
 import 'package:ecommerce_app_mobile/common/constant/gender.dart';
+import 'package:ecommerce_app_mobile/presentation/authentication/bloc/sign_up_state.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_state.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/helper.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/string_helper.dart';
@@ -36,7 +37,7 @@ class User {
     userCredential = null;
   }
 
-  User.fromUserState(UserRequestState userState, this.firebaseUser, this.userCredential) {
+  User.fromUserState(SignUpState userState, this.firebaseUser, this.userCredential) {
     uid = firebaseUser.uid;
     name = userState.name;
     surname = userState.surname;

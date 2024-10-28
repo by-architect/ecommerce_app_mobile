@@ -13,7 +13,7 @@ class UserServiceBloc extends Bloc<UserServiceEvent, UserServiceState> {
     UserService userService = UserServiceImpl();
 
     on<AddUserEvent>((event, emit) async {
-      emit(AddUserLoadingState());
+/*      emit(AddUserLoadingState());
 
       final resource = await userService.addUser(event.user);
 
@@ -30,7 +30,7 @@ class UserServiceBloc extends Bloc<UserServiceEvent, UserServiceState> {
         case Status.stable:
           emit(AddUserInitState());
           break;
-      }
+      }*/
     });
 
     on<SendVerificationEmailEvent>((event, emit) async {

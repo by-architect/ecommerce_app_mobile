@@ -19,7 +19,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
         emit(state.copyWith(password: event.password));
       },
     );
-    on<LoginEvent>(
+    on<SignInRequestEvent>(
       (event, emit) async {
         emit(SignInLoadingState(state.copyWith()));
 
