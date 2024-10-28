@@ -78,12 +78,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               buttonOneText: AppText.signIn.capitalizeEveryWord.get,
               buttonTwoText: AppText.signUp.capitalizeEveryWord.get,
               onButtonOneTap: () {
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                    Screens.signInScreen, (route) => false);
+                Navigator.of(context).pushNamed(
+                    Screens.signInScreen, );
               },
               onButtonTwoTap: () {
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                    Screens.signUpScreen, (route) => false);
+                Navigator.of(context).pushNamed(
+                    Screens.signUpScreen );
               },
               onSkipButton: () {
                 Navigator.of(context).pushNamedAndRemoveUntil(

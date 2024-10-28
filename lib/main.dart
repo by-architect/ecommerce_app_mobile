@@ -17,6 +17,7 @@ import 'package:ecommerce_app_mobile/presentation/profile/bloc/change_password_b
 import 'package:ecommerce_app_mobile/presentation/profile/bloc/edit_profile_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/search/bloc/search_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/splash/bloc/welcome_blocs.dart';
+import 'package:ecommerce_app_mobile/presentation/splash/pages/welcome_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -64,6 +65,6 @@ class MyApp extends StatelessWidget {
               Screens.signUpScreen: (context) => const SignUpScreen(),
               Screens.mainScreen: (context) => const MainScreen(),
             },
-            home:const SignInScreen()));
+            home:const WelcomeScreen()));
   }
 }
