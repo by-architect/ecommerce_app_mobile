@@ -38,9 +38,7 @@ class CategoriesWidget extends StatelessWidget {
           ...List.generate(
             categories.length + 1,
             (index) => Padding(
-              padding: EdgeInsets.only(
-                  left: index == 0 ? AppSizes.defaultPadding : AppSizes.defaultPadding / 2,
-                  right: index == categories.length - 1 ? AppSizes.defaultPadding : 0),
+              padding: const EdgeInsets.symmetric(horizontal: AppSizes.spaceBtwHorizontalFieldsTooSmall),
               child: _CategoryBtn(
                 categoryName:
                     index == 0 ? AppText.homePageAllCategories.capitalizeEveryWord.get : categories[index - 1].name,
@@ -57,7 +55,7 @@ class CategoriesWidget extends StatelessWidget {
                               categories: categoriesByLayer,
                             )));
                   } else {
-                    //todo: is it necessary
+                    /// sending all categories of selected layer
                     BlocProvider.of<SearchBloc>(context)
                         .add(SelectFilterAndGetProductsDirectlyEvent(categories: categoriesByLayer.lastLayer));
                     BlocProvider.of<SearchBloc>(context).add(GetProductsEvent());
