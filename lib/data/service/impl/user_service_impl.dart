@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce_app_mobile/common/constant/firestore_collections.dart';
+import 'package:ecommerce_app_mobile/presentation/authentication/bloc/sign_in_state.dart';
 import 'package:ecommerce_app_mobile/presentation/profile/bloc/change_password_state.dart';
 import 'package:ecommerce_app_mobile/presentation/profile/bloc/edit_profile_state.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/constant/exceptions/exception_handler.dart';
@@ -144,13 +145,13 @@ class UserServiceImpl extends UserService {
   }
 
   @override
-  Future<ResourceStatus<User>> signIn(UserRequestState userRequest) async {
+  Future<ResourceStatus<User>> signIn(SignInState signInState) async {
     try {
       final networkConnection = await NetworkHelper().isConnectedToNetwork();
       if (!networkConnection.isConnected) throw NetworkDeviceDisconnectedException("Network Device is down");
 
       var userCredential =
-          await _firebaseAuth.signInWithEmailAndPassword(email: userRequest.email, password: userRequest.password);
+          await _firebaseAuth.signInWithEmailAndPassword(email: signInState.email, password: signInState.password);
       var userResponse = await getUser(userCredential: userCredential);
       if (userResponse.status == Status.fail) {
         return ResourceStatus.fail(

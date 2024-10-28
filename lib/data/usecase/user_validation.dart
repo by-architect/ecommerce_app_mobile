@@ -1,5 +1,6 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/usecase/validation_base.dart';
+import 'package:ecommerce_app_mobile/presentation/authentication/bloc/sign_in_state.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_state.dart';
 import 'package:ecommerce_app_mobile/presentation/profile/bloc/change_password_state.dart';
 import 'package:ecommerce_app_mobile/presentation/profile/bloc/edit_profile_state.dart';
@@ -39,7 +40,7 @@ class UserValidation {
     return ValidationResult(true);
   }
 
-  static ValidationResult validateLogin(UserRequestState userState) {
+  static ValidationResult validateLogin(SignInState userState) {
     if (userState.email.isEmpty || userState.password.isEmpty) {
       return ValidationResult(false, message: AppText.errorEmptyField.capitalizeFirstWord.get);
     }

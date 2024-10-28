@@ -97,7 +97,7 @@ class UserServiceBloc extends Bloc<UserServiceEvent, UserServiceState> {
       }
     });
     on<LoginEvent>((event,emit) async {
-     emit(LoginUserLoadingState());
+/*     emit(LoginUserLoadingState());
      final userLoginResource = await userService.signIn(event.user);
      switch(userLoginResource.status){
 
@@ -112,7 +112,7 @@ class UserServiceBloc extends Bloc<UserServiceEvent, UserServiceState> {
          break;
        case Status.stable:
          break;
-     }
+     }*/
     });
   }
 }

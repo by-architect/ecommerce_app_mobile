@@ -3,10 +3,9 @@ import 'dart:async';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/fakerepository/fake_models.dart';
-import 'package:ecommerce_app_mobile/data/viewmodel/user/user_service_bloc.dart';
-import 'package:ecommerce_app_mobile/data/viewmodel/user/user_service_event.dart';
-import 'package:ecommerce_app_mobile/data/viewmodel/user/user_service_state.dart';
-import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_event.dart';
+import 'package:ecommerce_app_mobile/presentation/authentication/bloc/sign_in_bloc.dart';
+import 'package:ecommerce_app_mobile/presentation/authentication/bloc/sign_in_event.dart';
+import 'package:ecommerce_app_mobile/presentation/authentication/bloc/sign_in_state.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/widgets/TextFieldAuthentication.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/ButtonPrimary.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/ui/dialog_util.dart';
@@ -16,7 +15,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../common/constant/Screens.dart';
 import '../../../common/ui/theme/AppColors.dart';
 import '../../../data/usecase/user_validation.dart';
-import '../bloc/user_bloc.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -28,7 +26,7 @@ class SignInScreen extends StatefulWidget {
 class _SignInScreenState extends State<SignInScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  late StreamSubscription<UserServiceState>? streamSubscription;
+  late StreamSubscription<SignInState>? streamSubscription;
 
   @override
   void dispose() {
@@ -42,21 +40,21 @@ class _SignInScreenState extends State<SignInScreen> {
     DialogUtil dialogUtil = DialogUtil(context);
 
     void verifyUser() {
-      final userState = BlocProvider.of<UserBloc>(context).state;
+      final userState = BlocProvider.of<SignInBloc>(context).state;
       final userValidation = UserValidation.validateLogin(userState);
       if (userValidation.success) {
-        BlocProvider.of<UserServiceBloc>(context).add(LoginEvent(userState));
-        streamSubscription = BlocProvider.of<UserServiceBloc>(context).stream.listen((state) {
+        BlocProvider.of<SignInBloc>(context).add(LoginEvent());
+        streamSubscription = BlocProvider.of<SignInBloc>(context).stream.listen((state) {
           switch (state) {
-            case LoginUserSuccessState _:
+            case SignInSuccessState _:
               Navigator.of(context).pushNamedAndRemoveUntil(
                 Screens.mainScreen,
                 (route) => false,
               );
               streamSubscription?.cancel();
               break;
-            case LoginUserFailState failState:
-              dialogUtil.info(AppText.errorTitle.capitalizeEveryWord.get, failState.error.userMessage);
+            case SignInFailState failState:
+              dialogUtil.info(AppText.errorTitle.capitalizeEveryWord.get, failState.fail.userMessage);
               break;
           }
         });
@@ -84,7 +82,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   icon: Icons.email,
                   label: AppText.email.capitalizeFirstWord.get,
                   onChanged: (value) {
-                    BlocProvider.of<UserBloc>(context).add(EmailEvent(value));
+                    BlocProvider.of<SignInBloc>(context).add(EmailEvent(value));
                   },
                 ),
                 const SizedBox(
@@ -95,16 +93,16 @@ class _SignInScreenState extends State<SignInScreen> {
                   label: AppText.password.capitalizeFirstWord.get,
                   isPassword: true,
                   onChanged: (value) {
-                    BlocProvider.of<UserBloc>(context).add(PasswordEvent(value));
+                    BlocProvider.of<SignInBloc>(context).add(PasswordEvent(value));
                   },
                 ),
                 const SizedBox(
                   height: AppSizes.spaceBtwVerticalFieldsTooLarge,
                 ),
-                BlocBuilder<UserServiceBloc, UserServiceState>(
+                BlocBuilder<SignInBloc, SignInState>(
                   builder: (BuildContext context, state) => ButtonPrimary(
                     text: AppText.signIn.capitalizeEveryWord.get,
-                    loading: state is LoginUserLoadingState,
+                    loading: state is SignInLoadingState,
                     onTap: verifyUser,
                   ),
                 ),
