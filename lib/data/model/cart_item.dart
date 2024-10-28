@@ -33,12 +33,4 @@ class CartItem {
     return copyWith(quantity: quantity -1);
   }
 
-  Map<String, dynamic> toMap(String uid) {
-    return {
-      "uid": uid,
-      "sub_product_id": subProduct.id,
-      "product_id": product.id,
-      "quantity": quantity
-    };
-  }
 }

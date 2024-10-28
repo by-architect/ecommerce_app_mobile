@@ -8,6 +8,7 @@ import 'package:ecommerce_app_mobile/data/model/recent_search.dart';
 import 'package:ecommerce_app_mobile/data/model/review.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/add_address_state.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/addresses_state.dart';
+import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_state.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/purchase_process_state.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/review_state.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/constant/exceptions/exception_handler.dart';
@@ -292,6 +293,12 @@ class ProductServiceImpl extends ProductService {
   @override
   Future<ResourceStatus<Address>> getSelectedAddress(String uid) {
     // TODO: implement getSelectedAddress
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<ResourceStatus> addToCart(CartItemState cartItemState, String uid) {
+    // TODO: implement addToCart
     throw UnimplementedError();
   }
 

@@ -1,5 +1,8 @@
+import 'package:ecommerce_app_mobile/data/model/cart_item.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
 import 'package:ecommerce_app_mobile/data/model/tag.dart';
+import 'package:ecommerce_app_mobile/presentation/cart/bloc/cart_event.dart';
+import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_state.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/purchase_process_state.dart';
 
 import '../../../data/model/product.dart';
@@ -44,9 +47,9 @@ class SelectProductFeatureOptionEvent extends ProductDetailsEvent {
     required this.selectedOption,
   });
 }
-class AddPurchaseProcessEvent extends ProductDetailsEvent{
-  final PurchaseProcessState processState;
+class AddToCartEvent extends ProductDetailsEvent{
   final String uid;
+  final Product product;
 
-  AddPurchaseProcessEvent(this.processState, this.uid);
+  AddToCartEvent({required this.uid,required this.product});
 }

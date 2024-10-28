@@ -8,6 +8,7 @@ import 'package:ecommerce_app_mobile/data/model/purchase_process.dart';
 import 'package:ecommerce_app_mobile/data/model/recent_search.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/add_address_state.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/addresses_state.dart';
+import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_state.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/purchase_process_state.dart';
 
 import '../../presentation/products/bloc/review_state.dart';
@@ -56,6 +57,7 @@ abstract class ProductService {
 
   Future<ResourceStatus> addPurchaseProcess(PurchaseProcessState purchaseProcess, String uid);
   Future<ResourceStatus<List<CartItem>>> getCart(String uid);
+  Future<ResourceStatus> addToCart(CartItemState cartItemState, String uid);
   Future<ResourceStatus> updateCartItem(CartItem cartItem);
   Future<ResourceStatus> deleteCartItem(String cartItemId);
 

@@ -11,6 +11,7 @@ import 'package:ecommerce_app_mobile/data/model/user.dart';
 import 'package:ecommerce_app_mobile/data/service/product_service.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/add_address_state.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/addresses_state.dart';
+import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_state.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/purchase_process_state.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/fail.dart';
 
@@ -186,6 +187,10 @@ class ProductServiceProvider {
     return _productService.updateCartItem(
       cartItem,
     );
+  }
+
+  Future<ResourceStatus> addCartItem(CartItemState cartItem, String uid) {
+    return _productService.addToCart(cartItem, uid);
   }
 
   Future deleteCartItem(String cartItem) {

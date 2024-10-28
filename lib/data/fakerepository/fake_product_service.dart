@@ -17,6 +17,7 @@ import 'package:ecommerce_app_mobile/presentation/products/bloc/purchase_process
 import 'package:ecommerce_app_mobile/sddklibrary/util/fail.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/resource.dart';
 
+import '../../presentation/products/bloc/product_details_state.dart';
 import '../../presentation/products/bloc/review_state.dart';
 import '../model/Reviews.dart';
 import '../model/tag.dart';
@@ -235,6 +236,12 @@ class FakeProductService implements ProductService {
   Future<ResourceStatus<Address>> getSelectedAddress(String uid) async {
     await Future.delayed(const Duration(seconds: 1));
     return ResourceStatus.success(FakeProductModels.addresses[0]);
+  }
+
+  @override
+  Future<ResourceStatus> addToCart(CartItemState cartItemState,String uid) async{
+    await Future.delayed(const Duration(seconds: 1));
+    return const ResourceStatus.success("");
   }
 
 

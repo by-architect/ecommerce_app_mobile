@@ -170,15 +170,54 @@ class SelectedProductFeaturesLoadingState extends ProductDetailsState {
       required super.quantity});
 }
 
-class PurchaseProcessLoadingState extends ProductDetailsState {
-  PurchaseProcessLoadingState({required super.optionMatrix, required super.quantity, required super.selectedSubProduct, required super.productDetailsItems, required super.reviews, required super.youMayAlsoLike});
+class AddToCartLoadingState extends ProductDetailsState {
+  final ProductDetailsState state;
+
+  AddToCartLoadingState(this.state)
+      : super(
+            productDetailsItems: state.productDetailsItems,
+            reviews: state.reviews,
+            youMayAlsoLike: state.youMayAlsoLike,
+            optionMatrix: state.optionMatrix,
+            selectedSubProduct: state.selectedSubProduct,
+            quantity: state.quantity);
 }
-class PurchaseProcessSuccessState extends ProductDetailsState {
-  PurchaseProcessSuccessState({required super.optionMatrix, required super.quantity, required super.selectedSubProduct, required super.productDetailsItems, required super.reviews, required super.youMayAlsoLike});
+
+class AddToCartSuccessState extends ProductDetailsState {
+  final ProductDetailsState state;
+
+  AddToCartSuccessState(this.state)
+      : super(
+            productDetailsItems: state.productDetailsItems,
+            reviews: state.reviews,
+            youMayAlsoLike: state.youMayAlsoLike,
+            optionMatrix: state.optionMatrix,
+            selectedSubProduct: state.selectedSubProduct,
+            quantity: state.quantity);
 }
-class PurchaseProcessFailState extends ProductDetailsState {
+
+class AddToCartFailState extends ProductDetailsState {
+  final ProductDetailsState state;
   final Fail fail;
-  PurchaseProcessFailState({
-    required this.fail,
-    required super.optionMatrix, required super.quantity, required super.selectedSubProduct, required super.productDetailsItems, required super.reviews, required super.youMayAlsoLike});
+
+  AddToCartFailState(this.state, this.fail)
+      : super(
+            productDetailsItems: state.productDetailsItems,
+            reviews: state.reviews,
+            youMayAlsoLike: state.youMayAlsoLike,
+            optionMatrix: state.optionMatrix,
+            selectedSubProduct: state.selectedSubProduct,
+            quantity: state.quantity);
+}
+
+class CartItemState {
+  final Product product;
+  final SubProduct subProduct;
+  final int quantity;
+
+  CartItemState({required this.product, required this.subProduct, required this.quantity});
+
+  Map<String, dynamic> toMap(String uid) {
+    return {"uid": uid, "sub_product_id": subProduct.id, "product_id": product.id, "quantity": quantity};
+  }
 }

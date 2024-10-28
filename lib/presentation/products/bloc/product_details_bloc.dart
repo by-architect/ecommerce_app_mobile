@@ -1,6 +1,7 @@
 import 'package:ecommerce_app_mobile/data/provider/product_service_provider.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_event.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_state.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/util/fail.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/resource.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -147,50 +148,26 @@ class ProductDetailsBloc extends Bloc<ProductDetailsEvent, ProductDetailsState> 
         }
       },
     );
-    on<AddPurchaseProcessEvent>(
+    on<AddToCartEvent>(
       (event, emit) async {
-        emit(PurchaseProcessLoadingState(
-            quantity: state.quantity,
-            selectedSubProduct: state.selectedSubProduct,
-            reviews: state.reviews,
-            youMayAlsoLike: state.youMayAlsoLike,
-            productDetailsItems: state.productDetailsItems,
-            optionMatrix: state.optionMatrix));
-        final resource = await service.addPurchaseProcess(event.processState,event.uid);
+        emit(AddToCartLoadingState(state.copyWith()));
+        if (state.selectedSubProduct == null) return;
+        final resource = await service.addCartItem(
+            CartItemState(subProduct: state.selectedSubProduct!, product: event.product, quantity: state.quantity),
+            event.uid);
         switch (resource.status) {
           case Status.success:
-            emit(PurchaseProcessSuccessState(
-                quantity: state.quantity,
-                selectedSubProduct: state.selectedSubProduct,
-                reviews: state.reviews,
-                youMayAlsoLike: state.youMayAlsoLike,
-                productDetailsItems:state.productDetailsItems,
-                optionMatrix: state.optionMatrix
-            ));
+            emit(AddToCartSuccessState(state.copyWith()));
             break;
           case Status.fail:
-            emit(PurchaseProcessFailState(
-                quantity: state.quantity,
-                selectedSubProduct: state.selectedSubProduct,
-                fail: resource.error!,
-                reviews: state.reviews,
-                youMayAlsoLike: state.youMayAlsoLike,
-                productDetailsItems: state.productDetailsItems,
-                optionMatrix: state.optionMatrix));
+            emit(AddToCartFailState(state.copyWith(), resource.error!));
             break;
           case Status.loading:
-            emit(PurchaseProcessLoadingState(
-                quantity: state.quantity,
-                selectedSubProduct: state.selectedSubProduct,
-                reviews: state.reviews,
-                youMayAlsoLike: state.youMayAlsoLike,
-                productDetailsItems: state.productDetailsItems,
-                optionMatrix: state.optionMatrix));
+            emit(AddToCartLoadingState(state.copyWith()));
             break;
           case Status.stable:
             break;
         }
-
       },
     );
     on<GetProductFeaturesEvent>(
@@ -209,8 +186,7 @@ class ProductDetailsBloc extends Bloc<ProductDetailsEvent, ProductDetailsState> 
             optionMatrix: optionMatrix, selectedSubProduct: event.productFeatureHandler.idealSubProduct);
 
         emit(state.copyWith(
-            optionMatrix: selectedOptionMatrix,
-            selectedSubProduct: event.productFeatureHandler.idealSubProduct));
+            optionMatrix: selectedOptionMatrix, selectedSubProduct: event.productFeatureHandler.idealSubProduct));
       },
     );
     on<SelectProductFeatureOptionEvent>(

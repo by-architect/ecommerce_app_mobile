@@ -18,7 +18,6 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../common/ui/theme/AppSizes.dart';
 import '../../../data/model/user.dart';
-import '../../../sddklibrary/util/Log.dart';
 
 class EmailVerificationScreen extends StatefulWidget {
   final User user;
