@@ -10,10 +10,7 @@ import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_event
 import 'package:ecommerce_app_mobile/presentation/authentication/widgets/TextFieldAuthentication.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/ButtonPrimary.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/ui/dialog_util.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../common/constant/Screens.dart';
@@ -71,10 +68,10 @@ class _SignInScreenState extends State<SignInScreen> {
     return Scaffold(
       body: Column(
         children: [
-          Expanded(
+          Flexible(
               child: Image.asset(
             FakeProductModels.loginDemoImage,
-            fit: BoxFit.fitHeight,
+            fit: BoxFit.fitWidth,
           )),
           const SizedBox(
             height: AppSizes.spaceBtwVerticalFields,
@@ -102,6 +99,16 @@ class _SignInScreenState extends State<SignInScreen> {
                   },
                 ),
                 const SizedBox(
+                  height: AppSizes.spaceBtwVerticalFieldsTooLarge,
+                ),
+                BlocBuilder<UserServiceBloc, UserServiceState>(
+                  builder: (BuildContext context, state) => ButtonPrimary(
+                    text: AppText.signIn.capitalizeEveryWord.get,
+                    loading: state is LoginUserLoadingState,
+                    onTap: verifyUser,
+                  ),
+                ),
+                const SizedBox(
                   height: AppSizes.spaceBtwVerticalFields,
                 ),
                 Row(
@@ -123,16 +130,6 @@ class _SignInScreenState extends State<SignInScreen> {
                       ),
                     ),
                   ],
-                ),
-                const SizedBox(
-                  height: AppSizes.spaceBtwVerticalFields,
-                ),
-                BlocBuilder<UserServiceBloc, UserServiceState>(
-                  builder: (BuildContext context, state) => ButtonPrimary(
-                    text: AppText.signIn.capitalizeEveryWord.get,
-                    loading: state is LoginUserLoadingState,
-                    onTap: verifyUser,
-                  ),
                 ),
               ],
             ),
