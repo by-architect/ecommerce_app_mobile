@@ -51,19 +51,6 @@ class ProfileForm extends StatelessWidget {
               },
             ),
 
-/*
-          Padding(
-            padding: const EdgeInsets.symmetric(
-                horizontal: AppSizes.defaultPadding, vertical: AppSizes.defaultPadding * 1.5),
-            child: GestureDetector(
-              onTap: () {},
-              child: const AspectRatio(
-                aspectRatio: 1.8,
-                child: NetworkImageWithLoader("https://i.imgur.com/dz0BBom.png"),
-              ),
-            ),
-          ),
-*/
 
           const SizedBox(height: AppSizes.defaultPadding),
           Padding(

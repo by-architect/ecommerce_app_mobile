@@ -1,7 +1,5 @@
 import 'package:ecommerce_app_mobile/common/constant/gender.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/bloc/sign_up_state.dart';
-import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_state.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/helper/helper.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/string_helper.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 

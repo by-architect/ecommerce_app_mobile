@@ -1,8 +1,6 @@
 import 'package:ecommerce_app_mobile/data/service/impl/user_service_impl.dart';
-import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_state.dart';
 import 'package:ecommerce_app_mobile/presentation/profile/bloc/change_password_event.dart';
 import 'package:ecommerce_app_mobile/presentation/profile/bloc/change_password_state.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/util/resource.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ChangePasswordBloc extends Bloc<ChangePasswordEvent, ChangePasswordState> {

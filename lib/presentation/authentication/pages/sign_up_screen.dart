@@ -4,7 +4,6 @@ import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 import 'package:ecommerce_app_mobile/data/usecase/user_validation.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
-import 'package:ecommerce_app_mobile/data/viewmodel/user/user_service_state.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/bloc/sign_up_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/bloc/sign_up_state.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/widgets/TextFieldAuthentication.dart';

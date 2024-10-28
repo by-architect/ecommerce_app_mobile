@@ -1,4 +1,3 @@
-import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_state.dart';
 
 import '../../../data/model/user.dart';
 

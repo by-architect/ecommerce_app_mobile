@@ -14,12 +14,12 @@ import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
 
 import '../../common/constant/gender.dart';
-import '../../presentation/authentication/bloc/user_state.dart';
 import '../model/Reviews.dart';
 import '../model/category.dart';
 import '../model/tag.dart';
 
 class FakeUserModels {
+/*
   static UserRequestState emin = UserRequestState(
       name: "emin",
       surname: "demir",
@@ -28,6 +28,7 @@ class FakeUserModels {
       passwordConfirm: "testpassword",
       email: "emindemir1541@proton.me",
       password: "testpassword");
+*/
   static User someUser = User.test(
     "uid",
     "Mustafa",

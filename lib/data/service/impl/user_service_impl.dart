@@ -8,7 +8,6 @@ import 'package:ecommerce_app_mobile/presentation/profile/bloc/change_password_s
 import 'package:ecommerce_app_mobile/presentation/profile/bloc/edit_profile_state.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/constant/exceptions/exception_handler.dart';
 import 'package:ecommerce_app_mobile/common/constant/app_durations.dart';
-import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_state.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/constant/exceptions/firebase_exception_codes.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/fail.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/network_helper.dart';

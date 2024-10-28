@@ -2,7 +2,6 @@ import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/usecase/validation_base.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/bloc/sign_in_state.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/bloc/sign_up_state.dart';
-import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_state.dart';
 import 'package:ecommerce_app_mobile/presentation/profile/bloc/change_password_state.dart';
 import 'package:ecommerce_app_mobile/presentation/profile/bloc/edit_profile_state.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/string_helper.dart';

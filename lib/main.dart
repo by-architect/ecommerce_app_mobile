@@ -1,12 +1,11 @@
 import 'package:ecommerce_app_mobile/common/constant/Screens.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppTheme.dart';
-import 'package:ecommerce_app_mobile/data/viewmodel/user/user_service_bloc.dart';
 import 'package:ecommerce_app_mobile/firebase_options.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/add_address_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/addresses_bloc.dart';
+import 'package:ecommerce_app_mobile/presentation/authentication/bloc/email_verification_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/bloc/sign_in_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/bloc/sign_up_bloc.dart';
-import 'package:ecommerce_app_mobile/presentation/authentication/bloc/user_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/pages/sign_in_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/pages/sign_up_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/cart/bloc/cart_bloc.dart';
@@ -46,8 +45,6 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider(create: (BuildContext context) => MainBlocs()),
           BlocProvider(create: (BuildContext context) => WelcomeBlocs()),
-          BlocProvider(create: (BuildContext context) => UserBloc()),
-          BlocProvider(create: (BuildContext context) => UserServiceBloc()),
           BlocProvider(create: (BuildContext context) => SearchBloc()),
           BlocProvider(create: (BuildContext context) => ProductScreenBloc()),
           BlocProvider(create: (BuildContext context) => HomeBloc()),
@@ -59,6 +56,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (BuildContext context) => AddAddressBloc()),
           BlocProvider(create: (BuildContext context) => SignInBloc()),
           BlocProvider(create: (BuildContext context) => SignUpBloc()),
+          BlocProvider(create: (BuildContext context) => EmailVerificationBloc()),
 
         ],
         child: MaterialApp(
@@ -70,6 +68,6 @@ class MyApp extends StatelessWidget {
               Screens.signUpScreen: (context) => const SignUpScreen(),
               Screens.mainScreen: (context) => const MainScreen(),
             },
-            home:const WelcomeScreen()));
+            home:const MainScreen()));
   }
 }

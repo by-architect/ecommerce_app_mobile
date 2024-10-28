@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/color_filters.dart';
-import 'package:ecommerce_app_mobile/data/viewmodel/user/user_service_state.dart';
+import 'package:ecommerce_app_mobile/presentation/authentication/bloc/email_verification_bloc.dart';
+import 'package:ecommerce_app_mobile/presentation/authentication/bloc/email_verification_event.dart';
+import 'package:ecommerce_app_mobile/presentation/authentication/bloc/email_verification_state.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/ButtonPrimary.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/app_bar_pop_back.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/button_secondary.dart';
@@ -16,8 +18,7 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../common/ui/theme/AppSizes.dart';
 import '../../../data/model/user.dart';
-import '../../../data/viewmodel/user/user_service_bloc.dart';
-import '../../../data/viewmodel/user/user_service_event.dart';
+import '../../../sddklibrary/util/Log.dart';
 
 class EmailVerificationScreen extends StatefulWidget {
   final User user;
@@ -35,25 +36,28 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
 
   @override
   void initState() {
-    BlocProvider.of<UserServiceBloc>(context)
-        .add(SendVerificationEmailEvent(widget.user));
+    BlocProvider.of<EmailVerificationBloc>(context).add(IsUserVerifiedEvent());
+    BlocProvider.of<EmailVerificationBloc>(context).add(SendEmailVerificationEvent(widget.user));
     startTimer();
 
     final timer = Timer.periodic(const Duration(seconds: 3), (timer) {
-      BlocProvider.of<UserServiceBloc>(context).add(IsUserVerifiedEvent());
+      BlocProvider.of<EmailVerificationBloc>(context).add(IsUserVerifiedEvent());
     });
 
-    late StreamSubscription<UserServiceState> subscription;
+    late StreamSubscription<EmailVerificationState> subscription;
 
-    subscription = BlocProvider.of<UserServiceBloc>(context).stream.listen((event) {
+    subscription = BlocProvider.of<EmailVerificationBloc>(context).stream.listen((event) {
+      final dialogUtil = DialogUtil(context);
       switch (event) {
         case EmailVerifiedState emailVerifiedState:
-          BlocProvider.of<MainBlocs>(context).add(UserIsVerifiedEvent(emailVerifiedState.user));
-          DialogUtil(context)
-              .toast(AppText.verificationPageEmailVerifiedSuccessfully.capitalizeFirstWord.get);
+          BlocProvider.of<MainBlocs>(context).add(UserSignedInEvent(emailVerifiedState.user));
+          dialogUtil.toast(AppText.verificationPageEmailVerifiedSuccessfully.capitalizeFirstWord.get);
           Navigator.of(context).pop();
           timer.cancel();
           subscription.cancel();
+          break;
+        case EmailVerificationFailState failState || EmailVerificationFailState failState:
+          dialogUtil.info(AppText.errorEmailNotVerified.capitalizeEveryWord.get, failState.fail.userMessage);
           break;
       }
     });
@@ -90,7 +94,9 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         //todo: appbar to verification screen
-        appBar: AppBarPopBack(title: AppText.verificationEmail.capitalizeEveryWord.get,),
+        appBar: AppBarPopBack(
+          title: AppText.verificationEmail.capitalizeEveryWord.get,
+        ),
         resizeToAvoidBottomInset: false,
         body: SafeArea(
           child: Padding(
@@ -103,8 +109,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                   child: Column(
                     children: [
                       Text(AppText.verificationPageCheckYourEmail.capitalizeFirstWord.get,
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.headlineMedium),
+                          textAlign: TextAlign.center, style: Theme.of(context).textTheme.headlineMedium),
                       const SizedBox(
                         height: AppSizes.spaceBtwVerticalFields,
                       ),
@@ -121,7 +126,10 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                   child: SizedBox(
                     width: 300,
                     height: 300,
-                    child: SvgPicture.asset(AppImages.openedEmail,colorFilter: ColorFilters.pinkToPrimaryColor(context),),
+                    child: SvgPicture.asset(
+                      AppImages.openedEmail,
+                      colorFilter: ColorFilters.pinkToPrimaryColor(context),
+                    ),
                   ),
                 ),
                 Flexible(
@@ -140,8 +148,8 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                                     onTap: () {
                                       if (seconds == 0) {
                                         startTimer();
-                                        BlocProvider.of<UserServiceBloc>(context)
-                                            .add(SendVerificationEmailEvent(widget.user));
+                                        BlocProvider.of<EmailVerificationBloc>(context)
+                                            .add(SendEmailVerificationEvent(widget.user));
                                       }
                                     },
                                   )
@@ -152,8 +160,8 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
                                     onTap: () {
                                       if (seconds == 0) {
                                         startTimer();
-                                        BlocProvider.of<UserServiceBloc>(context)
-                                            .add(SendVerificationEmailEvent(widget.user));
+                                        BlocProvider.of<EmailVerificationBloc>(context)
+                                            .add(SendEmailVerificationEvent(widget.user));
                                       }
                                     },
                                   ),

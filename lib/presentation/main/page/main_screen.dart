@@ -116,7 +116,7 @@ class _MainScreenState extends State<MainScreen> {
                                     user: state.userStatus.user!,
                                   )
                                 : LoginForm(
-                                    message: AppText.infoPleaseLoginToSeeYourCart.capitalizeFirstWord.get,
+                                    message: AppText.infoPleaseLoginToSeeYourProfile.capitalizeFirstWord.get,
                                     image: AppImages.profileImage),
                             // FailSkeleton(fail: Fail(userMessage: "network fail"),)
                           ],
