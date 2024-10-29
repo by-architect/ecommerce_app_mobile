@@ -14,7 +14,7 @@ extension StringExtentions on String {
     return this[0].toUpperCase() + substring(1);
   }
 
-  String get clearSpaces => replaceAll(RegExp(r'\s+'), ' ').trim();
+  String get clearSpaces => replaceAll(" ", "").trim();
 
   bool get isHexColor  {
     if (isEmpty) {
