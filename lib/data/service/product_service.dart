@@ -56,6 +56,8 @@ abstract class ProductService {
   Future<ResourceStatus<List<ProductDetailsItem>>> getProductDetails(String productId);
 
   Future<ResourceStatus> addPurchaseProcess(PurchaseProcessState purchaseProcess, String uid);
+  Future<ResourceStatus> addPurchaseStatus(PurchaseStatusState purchaseStatus, String purchaseProcessId,);
+  Future<ResourceStatus<List<PurchaseProcess>>> getPurchaseProcessList(String uid);
   Future<ResourceStatus<List<CartItem>>> getCart(String uid);
   Future<ResourceStatus> addToCart(CartItemState cartItemState, String uid);
   Future<ResourceStatus> updateCartItem(CartItem cartItem);

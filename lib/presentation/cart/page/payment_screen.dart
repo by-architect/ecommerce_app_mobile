@@ -1,28 +1,21 @@
-import 'dart:async';
 
 import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
-import 'package:ecommerce_app_mobile/data/fakerepository/fake_models.dart';
 import 'package:ecommerce_app_mobile/data/usecase/payment_validation.dart';
 import 'package:ecommerce_app_mobile/presentation/address/pages/addresses_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/address/widgets/address_card.dart';
-import 'package:ecommerce_app_mobile/presentation/authentication/widgets/TextFieldPhoneNo.dart';
 import 'package:ecommerce_app_mobile/presentation/cart/bloc/cart_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/cart/bloc/cart_event.dart';
 import 'package:ecommerce_app_mobile/presentation/cart/bloc/cart_state.dart';
 import 'package:ecommerce_app_mobile/presentation/cart/page/payment_correction.dart';
-import 'package:ecommerce_app_mobile/presentation/cart/widget/card_info.dart';
 import 'package:ecommerce_app_mobile/presentation/cart/widget/order_summary.dart';
-import 'package:ecommerce_app_mobile/presentation/cart/widget/wallet_history_card.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/ButtonPrimary.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/app_bar_pop_back.dart';
 import 'package:ecommerce_app_mobile/presentation/products/widget/text_field_default.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/string_helper.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/ui/dialog_util.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/ui/widget_clickable.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/ui/widget_clickable_outlined.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,7 +27,6 @@ import '../../../common/ui/theme/AppStyles.dart';
 import '../../../common/ui/theme/color_filters.dart';
 import '../../../data/model/user.dart';
 
-//todo: unimplemented
 
 class PaymentScreen extends StatefulWidget {
   const PaymentScreen({super.key, required this.user});
@@ -74,7 +66,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       ),
                     ],
                   ),
-                // if (state.selectedAddress != null) const SizedBox(height: AppSizes.spaceBtwVerticalFields),
                 ClickableWidgetOutlined(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(

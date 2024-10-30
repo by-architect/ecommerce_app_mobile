@@ -302,4 +302,16 @@ class ProductServiceImpl extends ProductService {
     throw UnimplementedError();
   }
 
+  @override
+  Future<ResourceStatus> addPurchaseStatus(PurchaseStatusState purchaseStatus, String purchaseProcessId) {
+    // TODO: implement addPurchaseStatus
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<ResourceStatus<List<PurchaseProcess>>> getPurchaseProcessList(String uid) {
+    // TODO: implement getPurchaseProcessList
+    throw UnimplementedError();
+  }
+
 }

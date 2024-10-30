@@ -110,7 +110,7 @@ class _ProductBuyNowScreenState extends State<ProductBuyNowScreen> {
                               final selectedSubProduct = state.selectedSubProduct;
                               if (selectedSubProduct != null &&
                                   selectedSubProduct.quantity > state.quantity &&
-                                  FakeAppDefaults.maxQuantityOfProduct > state.quantity) {
+                                  FakeAppDefaults.maxProductQuantityCustomerCanBuyInOnce > state.quantity) {
                                 BlocProvider.of<ProductDetailsBloc>(context).add(IncreaseQuantity());
                               }
                             },

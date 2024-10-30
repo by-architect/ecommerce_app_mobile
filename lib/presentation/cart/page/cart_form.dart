@@ -14,6 +14,7 @@ import 'package:ecommerce_app_mobile/presentation/common/screen/loading_screen.d
 import 'package:ecommerce_app_mobile/presentation/common/widgets/ButtonPrimary.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/fail_form.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/form_info_skeleton.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/ui/dialog_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -72,12 +73,11 @@ class _CartFormState extends State<CartForm> {
                                   numOfItem: state.items[index].quantity,
                                   onIncrement: () {
                                     CartItem cartItem = state.items[index];
-                                    if (cartItem.quantity == FakeAppDefaults.maxQuantityOfProduct ||
+                                    if (cartItem.quantity == FakeAppDefaults.maxProductQuantityCustomerCanBuyInOnce ||
                                         cartItem.quantity == cartItem.subProduct.quantity) {
-                                    } else if (cartItem.quantity > FakeAppDefaults.maxQuantityOfProduct) {
-                                      //todo: fake app defaults max quantity kısmını serverdan çek
+                                    } else if (cartItem.quantity > FakeAppDefaults.maxProductQuantityCustomerCanBuyInOnce) {
                                       BlocProvider.of<CartBloc>(context).add(ChangeCartItem(
-                                        cartItem: cartItem.copyWith(quantity: FakeAppDefaults.maxQuantityOfProduct),
+                                        cartItem: cartItem.copyWith(quantity: FakeAppDefaults.maxProductQuantityCustomerCanBuyInOnce),
                                         user: widget.user,
                                       ));
                                     } else if (cartItem.quantity > cartItem.subProduct.quantity) {
@@ -126,12 +126,11 @@ class _CartFormState extends State<CartForm> {
                                 text: AppText.commonContinue.capitalizeFirstWord.get,
                                 onTap: () {
                                   if (!widget.user.firebaseUser.emailVerified) {
+                                    DialogUtil(context).toast(AppText.errorEmailNotVerified.get);
                                     Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) => EmailVerificationScreen(user: widget.user),
                                     ));
-                                  } else if (false /*todo: check to address before buy screen*/) {
-                                    //todo: add address screen
-                                  } else {
+                                  }  else {
                                     Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) => PaymentScreen(user: widget.user,),
                                     ));

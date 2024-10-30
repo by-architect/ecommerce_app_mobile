@@ -244,6 +244,17 @@ class FakeProductService implements ProductService {
     return const ResourceStatus.success("");
   }
 
+  @override
+  Future<ResourceStatus> addPurchaseStatus(PurchaseStatusState purchaseStatus, String purchaseProcessId) async{
+
+    return const ResourceStatus.success("");
+  }
+
+  @override
+  Future<ResourceStatus<List<PurchaseProcess>>> getPurchaseProcessList(String uid) {
+    throw UnimplementedError();
+  }
+
 
 
 }
