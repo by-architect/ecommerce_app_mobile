@@ -194,3 +194,15 @@ class SubProducts {
     return 'SubProducts{_subProducts: $_subProducts}';
   }
 }
+
+class ProductWithQuantity {
+  final Product product;
+  final SubProduct subProduct;
+  final int quantity;
+
+  ProductWithQuantity increaseQuantity() => ProductWithQuantity(product: product, subProduct: subProduct, quantity: quantity + 1);
+
+  ProductWithQuantity decreaseQuantity() => ProductWithQuantity(product: product, subProduct: subProduct, quantity: quantity - 1);
+
+  ProductWithQuantity({required this.product, required this.subProduct, required this.quantity});
+}

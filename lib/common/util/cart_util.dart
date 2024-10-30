@@ -18,7 +18,7 @@ class CartUtil {
   double _calculateSubtotal() {
     double result = 0;
     for (var item in items) {
-      result += item.quantity * item.subProduct.price;
+      result += item.productWithQuantity.quantity * item.productWithQuantity.subProduct.price;
     }
     return result;
   }
@@ -30,7 +30,7 @@ class CartUtil {
   double _calculateDiscount() {
     double result = 0;
     for (var item in items) {
-      result += item.quantity * item.subProduct.discount;
+      result += item.productWithQuantity.quantity * item.productWithQuantity.subProduct.discount;
     }
     return result;
   }
@@ -38,7 +38,7 @@ class CartUtil {
   double _calculateTotal() {
     double result = 0;
     for (var item in items) {
-      result += item.quantity * item.subProduct.priceAfterDiscounting;
+      result += item.productWithQuantity.quantity * item.productWithQuantity.subProduct.priceAfterDiscounting;
     }
     result += shippingFee;
     return result;

@@ -26,7 +26,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     on<ChangeCartItem>(
       (event, emit) {
         List<CartItem> cartItems = state.items.toList();
-        if (event.cartItem.quantity != 0) {
+        if (event.cartItem.productWithQuantity.quantity != 0) {
           int index = cartItems.indexWhere(
             (element) => element.id == event.cartItem.id,
           );

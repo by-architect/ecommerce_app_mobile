@@ -28,16 +28,16 @@ class CartItemWidget extends StatelessWidget {
     return ClickableWidgetOutlined(
       minimumSize: const Size(256, 114),
       maximumSize: const Size(256, 114),
-      onPressed: cartItem.subProduct.availableInStock ? () {} : null,
+      onPressed: cartItem.productWithQuantity.subProduct.availableInStock ? () {} : null,
       child: Row(
         children: [
           AspectRatio(
             aspectRatio: 1.15,
             child: Stack(
               children: [
-                NetworkImageWithLoader(cartItem.product.firstImageOrEmpty,
+                NetworkImageWithLoader(cartItem.productWithQuantity.product.firstImageOrEmpty,
                     radius: AppSizes.defaultBorderRadius),
-                if (cartItem.product.images.firstOrNull != null)
+                if (cartItem.productWithQuantity.product.images.firstOrNull != null)
                   Positioned(
                     right: AppSizes.defaultPadding / 2,
                     top: AppSizes.defaultPadding / 2,
@@ -51,7 +51,7 @@ class CartItemWidget extends StatelessWidget {
                             Radius.circular(AppSizes.defaultBorderRadius)),
                       ),
                       child: Text(
-                        "${cartItem.subProduct.discountPercent}% off",
+                        "${cartItem.productWithQuantity.subProduct.discountPercent}% off",
                         style: const TextStyle(
                             color: Colors.white,
                             fontSize: 10,
@@ -72,7 +72,7 @@ class CartItemWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        cartItem.product.brandNameOrEmpty.toUpperCase(),
+                        cartItem.productWithQuantity.product.brandNameOrEmpty.toUpperCase(),
                         style: Theme.of(context)
                             .textTheme
                             .bodyMedium!
@@ -80,7 +80,7 @@ class CartItemWidget extends StatelessWidget {
                       ),
                       const SizedBox(height: AppSizes.defaultPadding / 2),
                       Text(
-                        cartItem.product.name,
+                        cartItem.productWithQuantity.product.name,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context)
@@ -89,11 +89,11 @@ class CartItemWidget extends StatelessWidget {
                             .copyWith(fontSize: 12),
                       ),
                       const Spacer(),
-                      cartItem.subProduct.priceAfterDiscounting != 0
+                      cartItem.productWithQuantity.subProduct.priceAfterDiscounting != 0
                           ? Row(
                               children: [
                                 Text(
-                                  "\$${cartItem.subProduct.priceAfterDiscounting}",
+                                  "\$${cartItem.productWithQuantity.subProduct.priceAfterDiscounting}",
                                   style: const TextStyle(
                                     color: Color(0xFF31B0D8),
                                     fontWeight: FontWeight.w500,
@@ -103,7 +103,7 @@ class CartItemWidget extends StatelessWidget {
                                 const SizedBox(
                                     width: AppSizes.defaultPadding / 4),
                                 Text(
-                                  "\$${cartItem.subProduct.price}",
+                                  "\$${cartItem.productWithQuantity.subProduct.price}",
                                   style: TextStyle(
                                     color: Theme.of(context)
                                         .textTheme
@@ -116,7 +116,7 @@ class CartItemWidget extends StatelessWidget {
                               ],
                             )
                           : Text(
-                              "\$${cartItem.subProduct.price}",
+                              "\$${cartItem.productWithQuantity.subProduct.price}",
                               style: const TextStyle(
                                 color: Color(0xFF31B0D8),
                                 fontWeight: FontWeight.w500,
@@ -129,7 +129,7 @@ class CartItemWidget extends StatelessWidget {
                       child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      cartItem.subProduct.availableInStock
+                      cartItem.productWithQuantity.subProduct.availableInStock
                           ? ProductQuantity(
                               numOfItem: numOfItem,
                               onIncrement: onIncrement,

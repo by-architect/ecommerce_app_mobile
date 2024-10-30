@@ -70,20 +70,20 @@ class _CartFormState extends State<CartForm> {
                             (context, index) => Padding(
                               padding: const EdgeInsets.symmetric(vertical: AppSizes.spaceBtwVerticalFieldsSmall / 2),
                               child: CartItemWidget(
-                                  numOfItem: state.items[index].quantity,
+                                  numOfItem: state.items[index].productWithQuantity.quantity,
                                   onIncrement: () {
                                     CartItem cartItem = state.items[index];
-                                    if (cartItem.quantity == FakeAppDefaults.maxProductQuantityCustomerCanBuyInOnce ||
-                                        cartItem.quantity == cartItem.subProduct.quantity) {
-                                    } else if (cartItem.quantity > FakeAppDefaults.maxProductQuantityCustomerCanBuyInOnce) {
+                                    if (cartItem.productWithQuantity.quantity == FakeAppDefaults.maxProductQuantityCustomerCanBuyInOnce ||
+                                        cartItem.productWithQuantity.quantity == cartItem.productWithQuantity.subProduct.quantity) {
+                                    } else if (cartItem.productWithQuantity.quantity > FakeAppDefaults.maxProductQuantityCustomerCanBuyInOnce) {
                                       BlocProvider.of<CartBloc>(context).add(ChangeCartItem(
                                         cartItem: cartItem.copyWith(quantity: FakeAppDefaults.maxProductQuantityCustomerCanBuyInOnce),
                                         user: widget.user,
                                       ));
-                                    } else if (cartItem.quantity > cartItem.subProduct.quantity) {
+                                    } else if (cartItem.productWithQuantity.quantity > cartItem.productWithQuantity.subProduct.quantity) {
                                       BlocProvider.of<CartBloc>(context).add(ChangeCartItem(
                                           cartItem: cartItem.copyWith(
-                                            quantity: cartItem.subProduct.quantity,
+                                            quantity: cartItem.productWithQuantity.subProduct.quantity,
                                           ),
                                           user: widget.user));
                                     } else {
@@ -93,7 +93,7 @@ class _CartFormState extends State<CartForm> {
                                   },
                                   onDecrement: () {
                                     CartItem cartItem = state.items[index];
-                                    if (cartItem.quantity > 0) {
+                                    if (cartItem.productWithQuantity.quantity > 0) {
                                       BlocProvider.of<CartBloc>(context).add(
                                         ChangeCartItem(cartItem: cartItem.decreaseQuantity(), user: widget.user),
                                       );

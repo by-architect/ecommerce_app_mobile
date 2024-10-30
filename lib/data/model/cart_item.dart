@@ -3,34 +3,22 @@ import 'package:ecommerce_app_mobile/data/model/product.dart';
 
 class CartItem {
   final String id;
-  final Product product;
-  final SubProduct subProduct;
-  final int quantity;
+  final ProductWithQuantity productWithQuantity;
 
-  CartItem(
-      {required this.product,
-      required this.subProduct,
-      required this.quantity,
-      required this.id});
+  CartItem({required this.productWithQuantity, required this.id});
 
   CartItem copyWith({
-    Product? product,
-    SubProduct? subProduct,
+    ProductWithQuantity? productWithQuantity,
     int? quantity,
   }) {
-    return CartItem(
-        product: product ?? this.product,
-        subProduct: subProduct ?? this.subProduct,
-        quantity: quantity ?? this.quantity,
-        id: id);
+    return CartItem(productWithQuantity: productWithQuantity ?? this.productWithQuantity, id: id);
   }
 
   CartItem increaseQuantity() {
-    return copyWith(quantity: quantity + 1);
+    return copyWith(productWithQuantity: productWithQuantity.increaseQuantity());
   }
 
   CartItem decreaseQuantity() {
-    return copyWith(quantity: quantity -1);
+    return copyWith(productWithQuantity: productWithQuantity.decreaseQuantity());
   }
-
 }

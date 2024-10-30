@@ -83,10 +83,10 @@ class FakeProductModels {
     category4
   ];
 
-  static CartItem cartItem1 = CartItem(id: "0", product: product1, subProduct: subProduct1, quantity: 2);
-  static CartItem cartItem2 = CartItem(id: "1", product: product2, subProduct: subProduct2, quantity: 3);
-  static CartItem cartItem3 = CartItem(id: "2", product: product3, subProduct: subProduct3, quantity: 4);
-  static CartItem cartItem4 = CartItem(id: "3", product: product4, subProduct: subProduct4, quantity: 2);
+  static CartItem cartItem1 = CartItem(id: "0", productWithQuantity: ProductWithQuantity(product: product1,subProduct: subProduct1, quantity: 2));
+  static CartItem cartItem2 = CartItem(id: "1", productWithQuantity: ProductWithQuantity(product: product2,subProduct: subProduct2, quantity: 1));
+  static CartItem cartItem3 = CartItem(id: "2", productWithQuantity: ProductWithQuantity(product: product3,subProduct: subProduct2, quantity: 3));
+  static CartItem cartItem4 = CartItem(id: "3", productWithQuantity: ProductWithQuantity(product: product4,subProduct: subProduct2, quantity: 4));
 
   static List<CartItem> cartItems = [
     cartItem1,
