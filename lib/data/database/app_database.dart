@@ -22,7 +22,7 @@ class AppDatabase {
     box.put(_hideWelcomeScreenKey, true);
   }
 
-  bool get isHideWelcomeScreen => box.get(_hideWelcomeScreenKey, defaultValue: false);
+  bool get isHideWelcomeScreen => box.get(_hideWelcomeScreenKey, defaultValue: true);
 
   void addLastLocation(LatLng? location) {
     if (location != null) {

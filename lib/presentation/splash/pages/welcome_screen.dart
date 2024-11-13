@@ -3,6 +3,7 @@ import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
+import 'package:ecommerce_app_mobile/data/database/app_database.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/ButtonPrimary.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/button_secondary.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/color_filters.dart';
@@ -34,10 +35,18 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   void initState() {
     FlutterNativeSplash.remove();
+    hideWelcomeScreen();
     BlocProvider.of<MainBlocs>(context).add(GetInitItemsEvent());
     BlocProvider.of<HomeBloc>(context).add(GetProductsHomeEvent());
     BlocProvider.of<SearchBloc>(context).add(GetRecentSearchesEvent());
     super.initState();
+  }
+
+  Future<void> hideWelcomeScreen() async {
+    AppDatabase appDatabase = AppDatabase();
+    await appDatabase.open();
+    appDatabase.hideWelcomeScreen();
+    appDatabase.dispose();
   }
 
   @override
@@ -79,15 +88,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               buttonTwoText: AppText.signUp.capitalizeEveryWord.get,
               onButtonOneTap: () {
                 Navigator.of(context).pushNamed(
-                    Screens.signInScreen, );
+                  Screens.signInScreen,
+                );
               },
               onButtonTwoTap: () {
-                Navigator.of(context).pushNamed(
-                    Screens.signUpScreen );
+                Navigator.of(context).pushNamed(Screens.signUpScreen);
               },
               onSkipButton: () {
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                    Screens.mainScreen, (route) => false);
+                Navigator.of(context).pushNamedAndRemoveUntil(Screens.mainScreen, (route) => false);
               },
             ),
           ],
@@ -128,24 +136,18 @@ class _Page extends StatelessWidget {
           SizedBox(
             width: 300,
             height: 300,
-            child: SvgPicture.asset(image,
-                colorFilter: ColorFilters.pinkToPrimaryColor(context)),
+            child: SvgPicture.asset(image, colorFilter: ColorFilters.pinkToPrimaryColor(context)),
           ),
           Column(
             children: [
-              Text(title,
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.headlineMedium),
+              Text(title, textAlign: TextAlign.center, style: Theme.of(context).textTheme.headlineMedium),
               const SizedBox(
                 height: 12,
               ),
               Text(
                 content,
                 textAlign: TextAlign.center,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyLarge
-                    ?.copyWith(color: AppColors.greyColor),
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.greyColor),
               ),
             ],
           ),
@@ -171,8 +173,7 @@ class _Page extends StatelessWidget {
                         width: 400,
                         height: 50,
                         child: TextButtonDefault(
-                            onPressed: onSkipButton!,
-                            text: AppText.commonSkip.capitalizeFirstWord.get),
+                            onPressed: onSkipButton!, text: AppText.commonSkip.capitalizeFirstWord.get),
                       )
                   ],
                 )

@@ -1,5 +1,6 @@
 import 'package:ecommerce_app_mobile/common/constant/Screens.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppTheme.dart';
+import 'package:ecommerce_app_mobile/data/database/app_database.dart';
 import 'package:ecommerce_app_mobile/firebase_options.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/add_address_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/addresses_bloc.dart';
@@ -27,20 +28,27 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 Future<void> main() async {
-  WidgetsBinding widgetsBinding =
-      WidgetsFlutterBinding.ensureInitialized(); // for use firebase before loading
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized(); // for use firebase before loading
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  Hive.initFlutter();
-  
- //todo: it is for test
- //  FlutterNativeSplash.remove();
+ await Hive.initFlutter();
+  final AppDatabase appDatabase = AppDatabase();
+  await appDatabase.open();
+  final bool isHideWelcomeScreen = appDatabase.isHideWelcomeScreen;
+  appDatabase.dispose();
 
-  runApp(const MyApp());
+  //todo: it is for test
+  //  FlutterNativeSplash.remove();
+
+  runApp(MyApp(
+    isHideWelcomeScreen: isHideWelcomeScreen,
+  ));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final bool isHideWelcomeScreen;
+
+  const MyApp({super.key, required this.isHideWelcomeScreen});
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +68,6 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (BuildContext context) => SignInBloc()),
           BlocProvider(create: (BuildContext context) => SignUpBloc()),
           BlocProvider(create: (BuildContext context) => EmailVerificationBloc()),
-
         ],
         child: MaterialApp(
             debugShowCheckedModeBanner: false,
@@ -71,6 +78,6 @@ class MyApp extends StatelessWidget {
               Screens.signUpScreen: (context) => const SignUpScreen(),
               Screens.mainScreen: (context) => const MainScreen(),
             },
-            home:const MainScreen()));
+            home: isHideWelcomeScreen ? const MainScreen() : const WelcomeScreen()));
   }
 }
