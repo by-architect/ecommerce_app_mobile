@@ -23,15 +23,18 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 Future<void> main() async {
   WidgetsBinding widgetsBinding =
       WidgetsFlutterBinding.ensureInitialized(); // for use firebase before loading
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-
+  Hive.initFlutter();
+  
  //todo: it is for test
-  FlutterNativeSplash.remove();
+ //  FlutterNativeSplash.remove();
 
   runApp(const MyApp());
 }
