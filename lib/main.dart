@@ -37,7 +37,7 @@ Future<void> main() async {
   final bool isHideWelcomeScreen = appDatabase.isHideWelcomeScreen;
   appDatabase.dispose();
 
-  //todo: it is for test
+  //todo: comment it when test is done
   //  FlutterNativeSplash.remove();
 
   runApp(MyApp(

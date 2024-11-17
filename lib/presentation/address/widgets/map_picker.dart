@@ -47,13 +47,13 @@ class _MapPickerState extends State<MapPicker> {
   void initState() {
     super.initState();
 
+    dialog = DialogUtil(context);
     BlocProvider.of<AddAddressBloc>(context).add(SetInitialLocation(initialCenter));
     BlocProvider.of<AddAddressBloc>(context).stream.listen((state) {
       if (state is MapAddressFailState) {
         dialog.info(AppText.errorTitle.capitalizeEveryWord.get, state.fail.userMessage);
       }
     });
-    dialog = DialogUtil(context);
     _getCurrentLocation();
   }
 
