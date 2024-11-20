@@ -10,9 +10,11 @@ import 'package:ecommerce_app_mobile/presentation/authentication/bloc/sign_up_bl
 import 'package:ecommerce_app_mobile/presentation/authentication/pages/sign_in_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/pages/sign_up_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/cart/bloc/cart_bloc.dart';
+import 'package:ecommerce_app_mobile/presentation/common/return/page/return_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/home/bloc/home_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/main/bloc/main_blocs.dart';
 import 'package:ecommerce_app_mobile/presentation/main/page/main_screen.dart';
+import 'package:ecommerce_app_mobile/presentation/order/page/order_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/prodcut_list_screen_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/profile/bloc/change_password_bloc.dart';
@@ -77,6 +79,8 @@ class MyApp extends StatelessWidget {
               Screens.signInScreen: (context) => const SignInScreen(),
               Screens.signUpScreen: (context) => const SignUpScreen(),
               Screens.mainScreen: (context) => const MainScreen(),
+              Screens.returnScreen: (context) => const ReturnScreen(),
+              Screens.orderScreen: (context) => const OrderScreen(),
             },
             home: isHideWelcomeScreen ? const MainScreen() : const WelcomeScreen()));
   }

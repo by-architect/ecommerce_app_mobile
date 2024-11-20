@@ -3,6 +3,8 @@ class Screens{
   static const signUpScreen = "signUpScreen";
   static const passwordRecoveryScreen = "passwordRecoveryScreen";
   static const mainScreen = "homeScreen";
+ static const returnScreen = "returnScreen";
+ static const orderScreen = "orderScreen";
 
   // static const searchScreen = "searchScreen";
  // static const productScreen = "productScreen";
@@ -12,6 +14,7 @@ class Screens{
   static const notificationScreen = "notificationScreen";
   static const onSaleScreen = "onSaleScreen";
   static const entryPointScreenRoute = "entryPointScreen";
+
 
 
 }

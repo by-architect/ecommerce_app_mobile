@@ -6,12 +6,12 @@ import 'package:ecommerce_app_mobile/data/model/categories.dart';
 import 'package:ecommerce_app_mobile/data/model/product.dart';
 import 'package:ecommerce_app_mobile/data/model/product_details_item.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
+import 'package:ecommerce_app_mobile/data/model/purchase_process.dart';
 import 'package:ecommerce_app_mobile/data/model/recent_search.dart';
 import 'package:ecommerce_app_mobile/data/model/review.dart';
 import 'package:ecommerce_app_mobile/data/model/user.dart';
 import 'package:ecommerce_app_mobile/presentation/home/constant/banner_style.dart';
 import 'package:flutter/material.dart';
-import 'package:latlong2/latlong.dart';
 
 import '../../common/constant/gender.dart';
 import '../model/Reviews.dart';
@@ -59,8 +59,7 @@ class FakeUserModels {
 */
 }
 
-class FakeMapModels {
-}
+class FakeMapModels {}
 
 class FakeProductModels {
   static Category category1 = Category(id: "0", name: "Elbiseler", superId: "", layer: 0);
@@ -83,10 +82,14 @@ class FakeProductModels {
     category4
   ];
 
-  static CartItem cartItem1 = CartItem(id: "0", productWithQuantity: ProductWithQuantity(product: product1,subProduct: subProduct1, quantity: 2));
-  static CartItem cartItem2 = CartItem(id: "1", productWithQuantity: ProductWithQuantity(product: product2,subProduct: subProduct2, quantity: 1));
-  static CartItem cartItem3 = CartItem(id: "2", productWithQuantity: ProductWithQuantity(product: product3,subProduct: subProduct2, quantity: 3));
-  static CartItem cartItem4 = CartItem(id: "3", productWithQuantity: ProductWithQuantity(product: product4,subProduct: subProduct2, quantity: 4));
+  static CartItem cartItem1 = CartItem(
+      id: "0", productWithQuantity: ProductWithQuantity(product: product1, subProduct: subProduct1, quantity: 2));
+  static CartItem cartItem2 = CartItem(
+      id: "1", productWithQuantity: ProductWithQuantity(product: product2, subProduct: subProduct2, quantity: 1));
+  static CartItem cartItem3 = CartItem(
+      id: "2", productWithQuantity: ProductWithQuantity(product: product3, subProduct: subProduct2, quantity: 3));
+  static CartItem cartItem4 = CartItem(
+      id: "3", productWithQuantity: ProductWithQuantity(product: product4, subProduct: subProduct2, quantity: 4));
 
   static List<CartItem> cartItems = [
     cartItem1,
@@ -97,66 +100,66 @@ class FakeProductModels {
 
   static final addresses = [address1, address2, address3];
   static final address1 = Address(
-    addressName: "Home",
-    id: "1",
-    uid: "3248543",
-    phoneNo: 2334323452,
-    street: "123 Main St",
-    area: "Downtown",
-    streetNo: "A-203",
-    floor: 2,
-    doorNo: "5B",
-    city: "Los Angeles",
-    country: "USA",
-    postCode: "90210",
-    latitude: 34.052235,
-    longitude: -118.243683,
-    openAddress: "123 Main St, A-203, 2nd Floor, Los Angeles, CA",
-    userNote: "Leave the package at the front desk if no one answers.", state: 'state',
-    isSelected: false
-  );
+      addressName: "Home",
+      id: "1",
+      uid: "3248543",
+      phoneNo: 2334323452,
+      street: "123 Main St",
+      area: "Downtown",
+      streetNo: "A-203",
+      floor: 2,
+      doorNo: "5B",
+      city: "Los Angeles",
+      country: "USA",
+      postCode: "90210",
+      latitude: 34.052235,
+      longitude: -118.243683,
+      openAddress: "123 Main St, A-203, 2nd Floor, Los Angeles, CA",
+      userNote: "Leave the package at the front desk if no one answers.",
+      state: 'state',
+      isSelected: false);
 
 // Example Address 2
   static final address2 = Address(
-    addressName: "Work",
-    id: "2",
-    uid: "3248543",
-    phoneNo: 9876543210,
-    street: "456 Corporate Ave",
-    area: "Business District",
-    streetNo: "Suite 1500",
-    floor: 15,
-    doorNo: "15A",
-    city: "New York",
-    country: "USA",
-    postCode: "10001",
-    latitude: 40.712776,
-    longitude: -74.005974,
-    openAddress: "456 Corporate Ave, Suite 1500, 15th Floor, New York, NY",
-    userNote: "Deliver to the reception desk.", state: 'state',
-    isSelected: true
-  );
+      addressName: "Work",
+      id: "2",
+      uid: "3248543",
+      phoneNo: 9876543210,
+      street: "456 Corporate Ave",
+      area: "Business District",
+      streetNo: "Suite 1500",
+      floor: 15,
+      doorNo: "15A",
+      city: "New York",
+      country: "USA",
+      postCode: "10001",
+      latitude: 40.712776,
+      longitude: -74.005974,
+      openAddress: "456 Corporate Ave, Suite 1500, 15th Floor, New York, NY",
+      userNote: "Deliver to the reception desk.",
+      state: 'state',
+      isSelected: true);
 
 // Example Address 3
   static final address3 = Address(
-    addressName: "Vacation Home",
-    id: "3",
-    uid: "3248543",
-    phoneNo: 1122334455,
-    street: "789 Ocean Drive",
-    area: "Beachside",
-    streetNo: "",
-    floor: 0,
-    doorNo: "2",
-    city: "Miami",
-    country: "USA",
-    postCode: "33101",
-    latitude: 25.761681,
-    longitude: -80.191788,
-    openAddress: "789 Ocean Drive, Beachside, Miami, FL",
-    userNote: "Call upon arrival to open the gate.", state: 'state',
-    isSelected: false
-  );
+      addressName: "Vacation Home",
+      id: "3",
+      uid: "3248543",
+      phoneNo: 1122334455,
+      street: "789 Ocean Drive",
+      area: "Beachside",
+      streetNo: "",
+      floor: 0,
+      doorNo: "2",
+      city: "Miami",
+      country: "USA",
+      postCode: "33101",
+      latitude: 25.761681,
+      longitude: -80.191788,
+      openAddress: "789 Ocean Drive, Beachside, Miami, FL",
+      userNote: "Call upon arrival to open the gate.",
+      state: 'state',
+      isSelected: false);
 
   static Categories categories = Categories(categoriesUnSorted);
 
@@ -326,13 +329,151 @@ class FakeProductModels {
   ];
 */
 
+  static PurchaseStatus purchaseStatusStarted = PurchaseStatus(
+    purchaseStatusType: PurchaseStatusType.purchaseProcessStarted,
+    dateTime: DateTime.now(),
+  );
+  static PurchaseStatus purchaseStatusPayingSuccess = PurchaseStatus(
+    purchaseStatusType: PurchaseStatusType.payingSuccess,
+    dateTime: DateTime.now(),
+  );
+  static PurchaseStatus purchaseStatusPayingFailed = PurchaseStatus(
+    purchaseStatusType: PurchaseStatusType.payingFailed,
+    dateTime: DateTime.now(),
+    message: "Payment failed. Please try again later.",
+  );
+  static PurchaseStatus purchaseStatusCancelledByCustomer = PurchaseStatus(
+    purchaseStatusType: PurchaseStatusType.canceledByCustomer,
+    dateTime: DateTime.now(),
+  );
+  static PurchaseStatus purchaseStatusCancelledByStore = PurchaseStatus(
+    purchaseStatusType: PurchaseStatusType.canceledByStore,
+    dateTime: DateTime.now(),
+    message: "The order has been canceled by the store.",
+  );
+  static PurchaseStatus purchaseStatusOrderTaken = PurchaseStatus(
+    purchaseStatusType: PurchaseStatusType.orderTaken,
+    dateTime: DateTime.now(),
+  );
+  static PurchaseStatus purchaseStatusShipped = PurchaseStatus(
+    purchaseStatusType: PurchaseStatusType.shipped,
+    dateTime: DateTime.now(),
+  );
+  static PurchaseStatus purchaseStatusDeliverFailed = PurchaseStatus(
+    purchaseStatusType: PurchaseStatusType.deliverFailed,
+    dateTime: DateTime.now(),
+    message: "Delivery failed. Please try again later.",
+  );
+  static PurchaseStatus purchaseStatusMoneyReturned = PurchaseStatus(
+    purchaseStatusType: PurchaseStatusType.moneyReturned,
+    dateTime: DateTime.now(),
+  );
+  static PurchaseStatus purchaseStatusDelivered = PurchaseStatus(
+    purchaseStatusType: PurchaseStatusType.delivered,
+    dateTime: DateTime.now(),
+  );
+  static PurchaseStatus purchaseStatusFinished = PurchaseStatus(
+    purchaseStatusType: PurchaseStatusType.purchaseProcessFinished,
+    dateTime: DateTime.now(),
+  );
+
+  static PurchaseProcess purchaseProcessSuccess =
+      PurchaseProcess(id: "0", cargoNo: "123456789", uid: "0", processStatusList: [
+    purchaseStatusStarted,
+    purchaseStatusPayingSuccess,
+    purchaseStatusOrderTaken,
+    purchaseStatusShipped,
+    purchaseStatusDelivered,
+    purchaseStatusFinished
+  ], selectedProducts: [
+    ProductWithQuantity(product: product1, quantity: 3, subProduct: subProduct1),
+    ProductWithQuantity(product: product2, quantity: 2, subProduct: subProduct2),
+    ProductWithQuantity(product: product3, quantity: 1, subProduct: subProduct3),
+  ]);
+
+  static PurchaseProcess purchaseProcessOrderTaken =
+  PurchaseProcess(id: "0", cargoNo: "123456789", uid: "0", processStatusList: [
+    purchaseStatusStarted,
+    purchaseStatusPayingSuccess,
+    purchaseStatusOrderTaken,
+  ], selectedProducts: [
+    ProductWithQuantity(product: product1, quantity: 3, subProduct: subProduct1),
+    ProductWithQuantity(product: product2, quantity: 2, subProduct: subProduct2),
+    ProductWithQuantity(product: product3, quantity: 1, subProduct: subProduct3),
+  ]);
+  static PurchaseProcess purchaseProcessShipped =
+  PurchaseProcess(id: "0", cargoNo: "123456789", uid: "0", processStatusList: [
+    purchaseStatusStarted,
+    purchaseStatusPayingSuccess,
+    purchaseStatusOrderTaken,
+    purchaseStatusShipped,
+  ], selectedProducts: [
+    ProductWithQuantity(product: product1, quantity: 3, subProduct: subProduct1),
+    ProductWithQuantity(product: product2, quantity: 2, subProduct: subProduct2),
+    ProductWithQuantity(product: product3, quantity: 1, subProduct: subProduct3),
+  ]);
+  static PurchaseProcess purchaseProcessPayingSuccess =
+  PurchaseProcess(id: "0", cargoNo: "123456789", uid: "0", processStatusList: [
+    purchaseStatusStarted,
+    purchaseStatusPayingSuccess,
+  ], selectedProducts: [
+    ProductWithQuantity(product: product1, quantity: 3, subProduct: subProduct1),
+    ProductWithQuantity(product: product2, quantity: 2, subProduct: subProduct2),
+    ProductWithQuantity(product: product3, quantity: 1, subProduct: subProduct3),
+  ]);
+  static PurchaseProcess purchaseProcessPayingFailed =
+      PurchaseProcess(id: "0", cargoNo: "123456789", uid: "0", processStatusList: [
+    purchaseStatusStarted,
+    purchaseStatusPayingFailed,
+    purchaseStatusFinished,
+  ], selectedProducts: [
+    ProductWithQuantity(product: product1, quantity: 3, subProduct: subProduct1),
+    ProductWithQuantity(product: product2, quantity: 2, subProduct: subProduct2),
+    ProductWithQuantity(product: product3, quantity: 1, subProduct: subProduct3),
+  ]);
+
+  static PurchaseProcess purchaseProcessCancelledByCustomer =
+      PurchaseProcess(id: "0", cargoNo: "123456789", uid: "0", processStatusList: [
+    purchaseStatusStarted,
+    purchaseStatusPayingSuccess,
+    purchaseStatusCancelledByCustomer,
+  ], selectedProducts: [
+    ProductWithQuantity(product: product1, quantity: 3, subProduct: subProduct1),
+    ProductWithQuantity(product: product2, quantity: 2, subProduct: subProduct2),
+    ProductWithQuantity(product: product3, quantity: 1, subProduct: subProduct3),
+  ]);
+
+  static PurchaseProcess purchaseProcessCancelledByStore =
+      PurchaseProcess(id: "0", cargoNo: "123456789", uid: "0", processStatusList: [
+    purchaseStatusStarted,
+    purchaseStatusPayingSuccess,
+    purchaseStatusCancelledByStore,
+  ], selectedProducts: [
+    ProductWithQuantity(product: product1, quantity: 3, subProduct: subProduct1),
+    ProductWithQuantity(product: product2, quantity: 2, subProduct: subProduct2),
+    ProductWithQuantity(product: product3, quantity: 1, subProduct: subProduct3),
+  ]);
+
+  static PurchaseProcess purchaseProcessDeliverFailed =
+      PurchaseProcess(id: "0", cargoNo: "123456789", uid: "0", processStatusList: [
+    purchaseStatusStarted,
+    purchaseStatusPayingSuccess,
+    purchaseStatusOrderTaken,
+    purchaseStatusShipped,
+    purchaseStatusDeliverFailed,
+  ], selectedProducts: [
+    ProductWithQuantity(product: product1, quantity: 3, subProduct: subProduct1),
+    ProductWithQuantity(product: product2, quantity: 2, subProduct: subProduct2),
+    ProductWithQuantity(product: product3, quantity: 1, subProduct: subProduct3),
+  ]);
+
   static const productDemoImg1 = "https://i.imgur.com/CGCyp1d.png";
   static const productDemoImg2 = "https://i.imgur.com/AkzWQuJ.png";
   static const productDemoImg3 = "https://i.imgur.com/J7mGZ12.png";
   static const productDemoImg4 = "https://i.imgur.com/q9oF9Yq.png";
   static const productDemoImg5 = "https://i.imgur.com/MsppAcx.png";
   static const productDemoImg6 = "https://i.imgur.com/JfyZlnO.png";
-  static const loginDemoImage= AppImages.loginImage;
+  static const loginDemoImage = AppImages.loginImage;
 
   static SubProduct subProduct1 = SubProduct(
       id: "100",

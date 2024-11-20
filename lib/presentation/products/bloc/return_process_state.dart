@@ -1,17 +1,24 @@
 import 'package:ecommerce_app_mobile/common/constant/api_constants.dart';
-import 'package:ecommerce_app_mobile/data/model/purchase_process.dart';
+
+import '../../../data/model/product.dart';
+import '../../../data/model/return_process.dart';
 
 class ReturnProcessState {
-  final List<SelectedProduct> selectedProducts;
+  final List<ReturnStatus> processStatusList;
+  final List<ProductWithQuantity> selectedProducts;
+  final String cargoNo;
+  final String purchaseProcessId;
 
-  const ReturnProcessState({
+  ReturnProcessState({
+    required this.processStatusList,
     required this.selectedProducts,
+    required this.cargoNo,
+    required this.purchaseProcessId,
   });
-
 
   Map<String, dynamic> toMap() {
     return {
-      ApiDeliveryProcesses.selectedProducts: selectedProducts.map((e) => e.toMap()).toList(),
+      //todo: unimplemented
     };
   }
 }
@@ -28,7 +35,6 @@ class ReturnStatusState {
     required this.returnStatusType,
     required this.dateTime,
   });
-
 
   Map<String, dynamic> toMap() {
     return {

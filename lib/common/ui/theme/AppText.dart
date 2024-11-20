@@ -5,14 +5,16 @@ class AppText {
 
   const AppText(this._text); //common
 
- AppText get capitalizeFirstWord => AppText(StringHelper.capitalizeFirstWord(_text));
+  AppText get capitalizeFirstWord => AppText(StringHelper.capitalizeFirstWord(_text));
 
   AppText get capitalizeEveryWord => AppText(StringHelper.capitalizeEveryWord(_text));
 
   AppText get addStar => AppText("$_text*");
 
   AppText get addSlash => AppText("$_text/");
+
   AppText get addSpace => AppText("$_text ");
+
   AppText combine(AppText nextText) => AppText("$_text${nextText.get}");
 
   AppText get allLower => AppText(_text.toLowerCase());
@@ -41,7 +43,7 @@ class AppText {
   static const done = AppText("Done");
   static const save = AppText("Save");
   static const color = AppText("Color");
- static const apply = AppText("Apply");
+  static const apply = AppText("Apply");
 
 // User
   static const name = AppText("Name");
@@ -99,8 +101,6 @@ class AppText {
   static const swedishKrona = AppText("Swedish Krona");
   static const turkishLira = AppText("Turkish Lira");
 
-
-
 // Errors
   static const errorTitle = AppText("Error"); //todo: make it more soft
   static const errorEmptyPhone = AppText("Please fill phone no");
@@ -132,15 +132,15 @@ class AppText {
       AppText("Location permission denied, please allow permission from settings if location needed");
   static const errorGettingLocation = AppText("Couldn't get location");
   static const errorOpeningLocationService = AppText("Please open the location service to proceed");
- static const errorAddingAddress = AppText("Address Couldn't be added");
- static const errorRemovingAddress = AppText("Address Couldn't be removed");
- static const errorAddressMustBeSelected = AppText("Address must be selected");
- static const errorInvalidCardDetails = AppText("Invalid card details");
-static const errorInvalidNameSurname = AppText("Invalid name and surname");
- static const errorInvalidCardNumber = AppText("invalid card number");
- static const errorInvalidOrExpiredCardDate = AppText("invalid or expired card date");
- static const errorInvalidCVVCode = AppText("invalid CVV code");
- static const errorCouldNotValidate = AppText("Could not validate");
+  static const errorAddingAddress = AppText("Address Couldn't be added");
+  static const errorRemovingAddress = AppText("Address Couldn't be removed");
+  static const errorAddressMustBeSelected = AppText("Address must be selected");
+  static const errorInvalidCardDetails = AppText("Invalid card details");
+  static const errorInvalidNameSurname = AppText("Invalid name and surname");
+  static const errorInvalidCardNumber = AppText("invalid card number");
+  static const errorInvalidOrExpiredCardDate = AppText("invalid or expired card date");
+  static const errorInvalidCVVCode = AppText("invalid CVV code");
+  static const errorCouldNotValidate = AppText("Could not validate");
 
   //info
   static const infoPleaseLoginToSeeYourCart = AppText("Please login to see your cart");
@@ -148,7 +148,7 @@ static const errorInvalidNameSurname = AppText("Invalid name and surname");
   static const infoPasswordChangedSuccessfully = AppText("Password changed successfully");
   static const infoProfileSettingsChangedSuccessfully = AppText("Profile settings changed successfully");
   static const infoEmptyCart = AppText("Upps! Your bucket is empty, let's start to shop");
- static const infoAddressRemoved = AppText("Address removed successfully");
+  static const infoAddressRemoved = AppText("Address removed successfully");
 
 // Navigation
   static const navigationHome = AppText("Home");
@@ -276,35 +276,53 @@ static const errorInvalidNameSurname = AppText("Invalid name and surname");
   static const addressesPageStreetNO = AppText("Street No");
   static const addressesPageFloor = AppText("Floor");
   static const addressesPageDoorNo = AppText("Door No");
- static const addressesPageState = AppText("State");
+  static const addressesPageState = AppText("State");
   static const addressesPageCity = AppText("City");
   static const addressesPageCountry = AppText("Country");
   static const addressesUserNote = AppText("Directions");
 
   //payment screen
   static const paymentPagePaymentMethod = AppText("Payment Method");
- static const paymentPageCompletePayment = AppText("Complete Payment");
+  static const paymentPageCompletePayment = AppText("Complete Payment");
   static const paymentPageCashOnDelivery = AppText("Cash on delivery");
   static const paymentPageCreditCard = AppText("Credit card");
   static const paymentPagePayWithCard = AppText("Pay with card");
   static const paymentPagePayWithCash = AppText("Pay with cash");
   static const paymentPagePay = AppText("Pay");
- static const paymentPageCardNumber = AppText("Card number");
- static const paymentPageExpiryDate = AppText("Expiry date");
- static const paymentPageCvcCvv = AppText("CVC / CVV");
- static const paymentPageSelectAddress = AppText("Select an address");
- static const paymentPageChangeAddress = AppText("Change address");
+  static const paymentPageCardNumber = AppText("Card number");
+  static const paymentPageExpiryDate = AppText("Expiry date");
+  static const paymentPageCvcCvv = AppText("CVC / CVV");
+  static const paymentPageSelectAddress = AppText("Select an address");
+  static const paymentPageChangeAddress = AppText("Change address");
+
+  //return screen
+  static const returnPageReturn = AppText("Return");
+
+  //order screen
+  static const orderPageOrders = AppText("Orders");
+  static const orderPageOrder = AppText("Order");
+  static const orderPageOrderDetails = AppText("Order details");
+  static const orderPagePlacedOn = AppText("Placed on");
+  static const orderPagePurchaseProcessStarted = AppText("Purchase Process Started");
+  static const orderPagePayingSuccess = AppText("Paid");
+  static const orderPagePayingFailed = AppText("Paying Failed");
+  static const orderPageOrderTaken = AppText("Order Taken");
+  static const orderPageCanceledByStore = AppText("Canceled by Store");
+  static const orderPageCanceledByCustomer = AppText("Canceled by Client");
+  static const orderPageMoneyReturned = AppText("Money Returned");
+  static const orderPageShipped = AppText("Shipped");
+  static const orderPageDelivered = AppText("Delivered");
+  static const orderPageDeliverFailed = AppText("Deliver Failed");
+  static const orderPagePurchaseProcessFinished = AppText("Purchase Process Finished");
 
 
 
-// Pages Common
+
+  // Pages Common
   static const commonPageFilter = AppText("Filter");
   static const commonPageClearAll = AppText("Clear all");
   static const commonPageCategory = AppText("Category");
   static const commonPageOff = AppText("Off"); // indirim
   static const commonPageCategories = AppText("Categories");
   static const commonPagePhoneNoHintText = AppText("(555) 555 55 55");
-
-
-
 }

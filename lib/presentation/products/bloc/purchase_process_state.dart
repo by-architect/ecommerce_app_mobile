@@ -1,18 +1,17 @@
 import '../../../common/constant/api_constants.dart';
+import '../../../data/model/product.dart';
 import '../../../data/model/purchase_process.dart';
 
 class PurchaseProcessState {
-  final String productId;
-  final String subProductId;
-  final int quantity;
+  final List<PurchaseStatus> processStatusList;
+  final List<ProductWithQuantity> selectedProducts;
+  final String cargoNo;
 
-  PurchaseProcessState({required this.productId, required this.subProductId, required this.quantity});
+  PurchaseProcessState({required this.processStatusList, required this.selectedProducts, required this.cargoNo});
 
   Map<String, dynamic> toMap() {
     return {
-      ApiDeliveryProcesses.productId: productId,
-      ApiDeliveryProcesses.subProductId: subProductId,
-      ApiDeliveryProcesses.quantity: quantity
+      //todo: unimplemented
     };
   }
 }

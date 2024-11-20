@@ -3,6 +3,7 @@ import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/constant/exceptions/exceptions.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/resource.dart';
 
+import '../../common/constant/api_constants.dart';
 import 'category_node.dart';
 
 class Product {
@@ -132,6 +133,21 @@ class SubProduct {
 
   double get priceAfterDiscounting => !hasDiscount ? price : (price - discount);
 
+
+  //todo: unimplemented
+  factory SubProduct.fromMap(Map<String, dynamic> map) {
+    return SubProduct(
+        id: map['id'],
+        productId: map['productId'],
+        barcode: map['barcode'],
+        addedDate: map['addedDate'],
+        modifiedDate: map['modifiedDate'],
+        quantity: map['quantity'],
+        price: map['price'],
+        discount: map['discount'],
+        productFeatureOptionIds: map['productFeatureOptionIds']);
+  }
+
   @override
   String toString() {
     return 'SubProduct{id: $id,\n'
@@ -195,6 +211,7 @@ class SubProducts {
   }
 }
 
+/*
 class ProductWithQuantity {
   final Product product;
   final SubProduct subProduct;
@@ -205,4 +222,26 @@ class ProductWithQuantity {
   ProductWithQuantity decreaseQuantity() => ProductWithQuantity(product: product, subProduct: subProduct, quantity: quantity - 1);
 
   ProductWithQuantity({required this.product, required this.subProduct, required this.quantity});
+}
+*/
+class ProductWithQuantity {
+  final Product product;
+  final SubProduct subProduct;
+  final int quantity;
+
+  ProductWithQuantity({required this.product, required this.subProduct, required this.quantity});
+
+  ProductWithQuantity increaseQuantity() =>
+      ProductWithQuantity(product: product, subProduct: subProduct, quantity: quantity + 1);
+
+  ProductWithQuantity decreaseQuantity() =>
+      ProductWithQuantity(product: product, subProduct: subProduct, quantity: quantity - 1);
+
+  factory ProductWithQuantity.fromMap(Map<String, dynamic> map) {
+    return ProductWithQuantity(
+      product: Product.fromMap(map[ApiDeliveryProcesses.productId]),
+      subProduct: SubProduct.fromMap(map[ApiDeliveryProcesses.subProductId]),
+      quantity: map[ApiDeliveryProcesses.quantity],
+    );
+  }
 }

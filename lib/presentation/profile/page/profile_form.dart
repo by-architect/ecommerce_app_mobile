@@ -51,7 +51,6 @@ class ProfileForm extends StatelessWidget {
               },
             ),
 
-
           const SizedBox(height: AppSizes.defaultPadding),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding),
@@ -65,13 +64,15 @@ class ProfileForm extends StatelessWidget {
             text: AppText.profilePageOrders.capitalizeFirstWord.get,
             svgSrc: AppImages.orderIcon,
             press: () {
-              // Navigator.pushNamed(context, ordersScreenRoute);
+              Navigator.of(context).pushNamed(Screens.orderScreen);
             },
           ),
           ProfileMenuListTile(
             text: AppText.productDetailsPageReturns.capitalizeFirstWord.get,
             svgSrc: AppImages.returnIcon,
-            press: () {},
+            press: () {
+              Navigator.of(context).pushNamed(Screens.returnScreen);
+            },
           ),
           ProfileMenuListTile(
             text: AppText.profilePageAddresses.capitalizeFirstWord.get,

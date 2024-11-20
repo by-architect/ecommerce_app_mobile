@@ -64,7 +64,6 @@ class FakeProductService implements ProductService {
         : ResourceStatus.fail(Fail(userMessage: "Fake product service fail situation"));
   }
 
-
   @override
   Future<ResourceStatus<List<Product>>> getProductsByCategory(String categoryId) async {
     await Future.delayed(const Duration(seconds: 2));
@@ -125,7 +124,8 @@ class FakeProductService implements ProductService {
   @override
   Future<ResourceStatus<List<Product>>> getProductByDiscount(int count) async {
     // await Future.delayed(const Duration(seconds: 2));
-    final List<Product> products = FakeProductModels.products.where((product) => product.subProducts.getIdealSubProduct.hasDiscount).toList();
+    final List<Product> products =
+        FakeProductModels.products.where((product) => product.subProducts.getIdealSubProduct.hasDiscount).toList();
     return ResourceStatus.success(products);
   }
 
@@ -174,9 +174,8 @@ class FakeProductService implements ProductService {
     return const ResourceStatus.success("");
   }
 
-
   @override
-  Future<ResourceStatus> addPurchaseProcess(PurchaseProcessState purchaseProcess,String uid) async {
+  Future<ResourceStatus> addPurchaseProcess(PurchaseProcessState purchaseProcess, String uid) async {
     await Future.delayed(const Duration(seconds: 1));
     return const ResourceStatus.success("");
   }
@@ -184,50 +183,53 @@ class FakeProductService implements ProductService {
   @override
   Future<ResourceStatus<List<CartItem>>> getCart(String uid) async {
     await Future.delayed(const Duration(seconds: 1));
-    final cartItems = FakeProductModels.cartItems.where((element) => element.productWithQuantity.subProduct.availableInStock,).toList();
+    final cartItems = FakeProductModels.cartItems
+        .where((element) => element.productWithQuantity.subProduct.availableInStock)
+        .toList();
     return ResourceStatus.success(cartItems);
   }
+
   @override
-  Future<ResourceStatus> updateCartItem(CartItem cartItem) async{
+  Future<ResourceStatus> updateCartItem(CartItem cartItem) async {
     return const ResourceStatus.success("");
   }
+
   @override
-  Future<ResourceStatus> deleteCartItem(String cartItemId) async{
+  Future<ResourceStatus> deleteCartItem(String cartItemId) async {
     return const ResourceStatus.success("");
   }
 
   @override
   Future<ResourceStatus> addAddress(AddressState addressState) async {
     await Future.delayed(const Duration(seconds: 1));
-   return const ResourceStatus.success("");
+    return const ResourceStatus.success("");
   }
-
 
   @override
   Future<ResourceStatus<List<Address>>> getAddresses(String uid) async {
     await Future.delayed(const Duration(seconds: 1));
-   return ResourceStatus.success(FakeProductModels.addresses);
+    return ResourceStatus.success(FakeProductModels.addresses);
   }
 
   @override
   Future<ResourceStatus> removeAddress(AddressState addressState) async {
     await Future.delayed(const Duration(seconds: 1));
-    return ResourceStatus.fail(Fail(userMessage: "Fake product service fail situation"),);
+    return ResourceStatus.fail(
+      Fail(userMessage: "Fake product service fail situation"),
+    );
     return const ResourceStatus.success("");
   }
 
-
   @override
-  Future<ResourceStatus<List<Address>>> selectAddress(AddressState selectedAddress, String uid) async{
+  Future<ResourceStatus<List<Address>>> selectAddress(AddressState selectedAddress, String uid) async {
     await Future.delayed(const Duration(seconds: 1));
     final List<Address> newAddressList = [];
     for (var address in FakeProductModels.addresses) {
-     if(selectedAddress.id == address.id) {
-      newAddressList.add(address.copyWith(isSelected: true)) ;
-     }
-     else {
-      newAddressList.add(address.copyWith(isSelected: false)) ;
-     }
+      if (selectedAddress.id == address.id) {
+        newAddressList.add(address.copyWith(isSelected: true));
+      } else {
+        newAddressList.add(address.copyWith(isSelected: false));
+      }
     }
     return ResourceStatus.success(newAddressList);
   }
@@ -239,22 +241,24 @@ class FakeProductService implements ProductService {
   }
 
   @override
-  Future<ResourceStatus> addToCart(CartItemState cartItemState,String uid) async{
+  Future<ResourceStatus> addToCart(CartItemState cartItemState, String uid) async {
     await Future.delayed(const Duration(seconds: 1));
     return const ResourceStatus.success("");
   }
 
   @override
-  Future<ResourceStatus> addPurchaseStatus(PurchaseStatusState purchaseStatus, String purchaseProcessId) async{
-
+  Future<ResourceStatus> addPurchaseStatus(PurchaseStatusState purchaseStatus, String purchaseProcessId) async {
     return const ResourceStatus.success("");
   }
 
   @override
-  Future<ResourceStatus<List<PurchaseProcess>>> getPurchaseProcessList(String uid) {
-    throw UnimplementedError();
+  Future<ResourceStatus<List<PurchaseProcess>>> getPurchaseProcessList(String uid) async {
+    return ResourceStatus.success([
+      FakeProductModels.purchaseProcessSuccess,
+      FakeProductModels.purchaseProcessCancelledByCustomer,
+      FakeProductModels.purchaseProcessCancelledByStore,
+      FakeProductModels.purchaseProcessPayingFailed,
+      FakeProductModels.purchaseProcessDeliverFailed
+    ]);
   }
-
-
-
 }

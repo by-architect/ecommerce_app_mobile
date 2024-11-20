@@ -1,11 +1,12 @@
 import 'package:ecommerce_app_mobile/common/constant/api_constants.dart';
+import 'package:ecommerce_app_mobile/data/model/product.dart';
 import 'package:ecommerce_app_mobile/data/model/purchase_process.dart';
 
 class ReturnProcess {
   final String id;
   final String uid;
   final List<ReturnStatus> processStatusList;
-  final List<SelectedProduct> selectedProducts;
+  final List<ProductWithQuantity> selectedProducts;
   final String cargoNo;
   final String purchaseProcessId;
 
@@ -25,7 +26,7 @@ class ReturnProcess {
       uid: map[ApiDeliveryProcesses.uid],
       processStatusList: processStatusList,
       selectedProducts:
-          (map[ApiDeliveryProcesses.selectedProducts] as List).map((e) => SelectedProduct.fromMap(e)).toList(),
+          (map[ApiDeliveryProcesses.selectedProducts] as List).map((e) => ProductWithQuantity.fromMap(e)).toList(),
       cargoNo: map[ApiDeliveryProcesses.cargoNo],
     );
   }

@@ -1,5 +1,6 @@
-import 'package:ecommerce_app_mobile/data/fakerepository/fake_app_defaults.dart';
+
 import 'package:ecommerce_app_mobile/data/model/product.dart';
+import 'package:ecommerce_app_mobile/data/model/purchase_process.dart';
 
 class CartItem {
   final String id;
