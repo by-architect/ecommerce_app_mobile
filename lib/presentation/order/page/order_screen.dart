@@ -20,18 +20,17 @@ class OrderScreen extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-/*
-              OrderStatusWidget(purchaseProcess: FakeProductModels.purchaseProcessSuccess,),
-              const SizedBox(height: AppSizes.spaceBtwVerticalFields,),
-              OrderStatusWidget(purchaseProcess: FakeProductModels.purchaseProcessPayingSuccess,),
-              const SizedBox(height: AppSizes.spaceBtwVerticalFields,),
-              OrderStatusWidget(purchaseProcess: FakeProductModels.purchaseProcessShipped,),
-              const SizedBox(height: AppSizes.spaceBtwVerticalFields,),
-              OrderStatusWidget(purchaseProcess: FakeProductModels.purchaseProcessDeliverFailed,),
-              const SizedBox(height: AppSizes.spaceBtwVerticalFields,),
-*/
-              OrderStatusWidget(purchaseProcess: FakeProductModels.purchaseProcessCancelledByStore,),
-              const SizedBox(height: AppSizes.spaceBtwVerticalFields,),
+              OrderStatusWidget(
+                purchaseProcess: FakeProductModels.purchaseProcessCancelledByStore,
+                onCancel: () {},
+              ),
+              const SizedBox(
+                height: AppSizes.spaceBtwVerticalFields,
+              ),
+              OrderStatusWidget(purchaseProcess: FakeProductModels.purchaseProcessPayingSuccess, onCancel: () {}),
+              const SizedBox(
+                height: AppSizes.spaceBtwVerticalFields,
+              ),
             ],
           ),
         ),

@@ -73,14 +73,19 @@ class _CartFormState extends State<CartForm> {
                                   numOfItem: state.items[index].productWithQuantity.quantity,
                                   onIncrement: () {
                                     CartItem cartItem = state.items[index];
-                                    if (cartItem.productWithQuantity.quantity == FakeAppDefaults.maxProductQuantityCustomerCanBuyInOnce ||
-                                        cartItem.productWithQuantity.quantity == cartItem.productWithQuantity.subProduct.quantity) {
-                                    } else if (cartItem.productWithQuantity.quantity > FakeAppDefaults.maxProductQuantityCustomerCanBuyInOnce) {
+                                    if (cartItem.productWithQuantity.quantity ==
+                                            FakeAppDefaults.maxProductQuantityCustomerCanBuyInOnce ||
+                                        cartItem.productWithQuantity.quantity ==
+                                            cartItem.productWithQuantity.subProduct.quantity) {
+                                    } else if (cartItem.productWithQuantity.quantity >
+                                        FakeAppDefaults.maxProductQuantityCustomerCanBuyInOnce) {
                                       BlocProvider.of<CartBloc>(context).add(ChangeCartItem(
-                                        cartItem: cartItem.copyWith(quantity: FakeAppDefaults.maxProductQuantityCustomerCanBuyInOnce),
+                                        cartItem: cartItem.copyWith(
+                                            quantity: FakeAppDefaults.maxProductQuantityCustomerCanBuyInOnce),
                                         user: widget.user,
                                       ));
-                                    } else if (cartItem.productWithQuantity.quantity > cartItem.productWithQuantity.subProduct.quantity) {
+                                    } else if (cartItem.productWithQuantity.quantity >
+                                        cartItem.productWithQuantity.subProduct.quantity) {
                                       BlocProvider.of<CartBloc>(context).add(ChangeCartItem(
                                           cartItem: cartItem.copyWith(
                                             quantity: cartItem.productWithQuantity.subProduct.quantity,
@@ -130,9 +135,11 @@ class _CartFormState extends State<CartForm> {
                                     Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) => EmailVerificationScreen(user: widget.user),
                                     ));
-                                  }  else {
+                                  } else {
                                     Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => PaymentScreen(user: widget.user,),
+                                      builder: (context) => PaymentScreen(
+                                        user: widget.user,
+                                      ),
                                     ));
                                   }
                                 }),
@@ -157,4 +164,3 @@ class _CartFormState extends State<CartForm> {
     );
   }
 }
-

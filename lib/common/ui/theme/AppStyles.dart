@@ -245,7 +245,7 @@ class AppStyles {
   static BoxDecoration defaultBoxDecoration = BoxDecoration(
       borderRadius: BorderRadius.circular(AppSizes.defaultBorderRadius),
       border: Border.all(
-        color: AppColors.greyColor,
+        color: AppColors.blackColor60,
         width: AppSizes.defaultBoxWidth,
       ));
 

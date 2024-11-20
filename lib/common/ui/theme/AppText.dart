@@ -44,6 +44,7 @@ class AppText {
   static const save = AppText("Save");
   static const color = AppText("Color");
   static const apply = AppText("Apply");
+  static const cancel = AppText("Cancel");
 
 // User
   static const name = AppText("Name");

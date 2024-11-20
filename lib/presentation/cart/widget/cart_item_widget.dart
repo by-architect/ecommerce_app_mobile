@@ -51,7 +51,7 @@ class CartItemWidget extends StatelessWidget {
                             Radius.circular(AppSizes.defaultBorderRadius)),
                       ),
                       child: Text(
-                        "${cartItem.productWithQuantity.subProduct.discountPercent}% off",
+                        "${cartItem.productWithQuantity.subProduct.discountPercent}%",
                         style: const TextStyle(
                             color: Colors.white,
                             fontSize: 10,

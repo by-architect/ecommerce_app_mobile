@@ -6,7 +6,9 @@ class TextButtonDefault extends StatelessWidget {
   final String text;
   final Function() onPressed;
   final TextStyle? textStyle;
-  const TextButtonDefault({super.key, required this.onPressed, required this.text, this.textStyle});
+  final Color? color;
+
+  const TextButtonDefault({super.key, required this.onPressed, required this.text, this.textStyle, this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -14,13 +16,11 @@ class TextButtonDefault extends StatelessWidget {
       onPressed: onPressed,
       child: Text(
         text,
-        style:textStyle ?? Theme
-            .of(context)
-            .textTheme
-            .titleMedium
-            ?.copyWith(color: Theme
-            .of(context)
-            .primaryColor, fontWeight: FontWeight.bold),
+        style: textStyle ??
+            Theme.of(context)
+                .textTheme
+                .titleMedium
+                ?.copyWith(color: color ?? Theme.of(context).primaryColor, fontWeight: FontWeight.bold),
       ),
     );
   }
