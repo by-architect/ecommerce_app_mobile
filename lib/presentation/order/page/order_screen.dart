@@ -1,38 +1,98 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/data/fakerepository/fake_models.dart';
+import 'package:ecommerce_app_mobile/data/model/user.dart';
+import 'package:ecommerce_app_mobile/presentation/common/skeleton/product_card_skeleton.dart';
+import 'package:ecommerce_app_mobile/presentation/common/widgets/fail_form.dart';
+import 'package:ecommerce_app_mobile/presentation/discover/widget/discover_skelton.dart';
+import 'package:ecommerce_app_mobile/presentation/home/widget/offers_skeleton.dart';
+import 'package:ecommerce_app_mobile/presentation/order/bloc/order_bloc.dart';
+import 'package:ecommerce_app_mobile/presentation/order/bloc/order_event.dart';
+import 'package:ecommerce_app_mobile/presentation/order/bloc/order_state.dart';
 import 'package:ecommerce_app_mobile/presentation/order/widget/order_status_widget.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/ui/dialog_util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../common/ui/theme/AppText.dart';
 import '../widget/order_process_widget.dart';
 import '../../common/widgets/app_bar_pop_back.dart';
 
-class OrderScreen extends StatelessWidget {
-  const OrderScreen({super.key});
+class OrderScreen extends StatefulWidget {
+  const OrderScreen({super.key, required this.user});
+
+  final User user;
+
+  @override
+  State<OrderScreen> createState() => _OrderScreenState();
+}
+
+class _OrderScreenState extends State<OrderScreen> {
+  @override
+  void initState() {
+    final DialogUtil dialogUtil = DialogUtil(context);
+    BlocProvider.of<OrdersBloc>(context).add(GetOrdersEvent(widget.user.uid));
+    BlocProvider.of<OrdersBloc>(context).stream.listen((state) {
+      if (state is OrderCancelFailState) {
+       dialogUtil.info(AppText.errorTitle.capitalizeEveryWord.get, state.fail.userMessage);
+      }
+      if (state is OrderCancelSuccessState) {
+        dialogUtil.closeLoadingDialog();
+        dialogUtil.toast(AppText.orderPageOrderCanceled.capitalizeFirstWord.get);
+        BlocProvider.of<OrdersBloc>(context).add(GetOrdersEvent(widget.user.uid));
+      }
+      if (state is OrderCancelLoadingState) {
+       dialogUtil.loading();
+      }
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBarPopBack(title: AppText.orderPageOrders.capitalizeEveryWord.get),
-      body: Padding(
-        padding: const EdgeInsets.all(AppSizes.defaultPadding),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              OrderStatusWidget(
-                purchaseProcess: FakeProductModels.purchaseProcessCancelledByStore,
-                onCancel: () {},
+    return BlocBuilder<OrdersBloc, OrderState>(
+      builder: (BuildContext context, OrderState state) => Scaffold(
+        appBar: AppBarPopBack(
+            title: AppText.orderPageOrders.capitalizeEveryWord.get),
+        body: Padding(
+          padding: const EdgeInsets.all(AppSizes.defaultPadding),
+          child: switch (state) {
+            OrdersLoadingState _ => const Expanded(
+                child: Column(
+                  children: [
+                    Expanded(child: OffersSkeleton()),
+                    SizedBox(height: AppSizes.spaceBtwVerticalFields),
+                    Expanded(child: OffersSkeleton()),
+                    SizedBox(height: AppSizes.spaceBtwVerticalFields),
+                    Expanded(child: OffersSkeleton()),
+                  ],
+                ),
               ),
-              const SizedBox(
-                height: AppSizes.spaceBtwVerticalFields,
+            OrdersFailState failState => Expanded(
+                child: FailForm(
+                  fail: failState.fail,
+                  onRefreshTap: () {
+                    BlocProvider.of<OrdersBloc>(context)
+                        .add(GetOrdersEvent(widget.user.uid));
+                  },
+                ),
               ),
-              OrderStatusWidget(purchaseProcess: FakeProductModels.purchaseProcessPayingSuccess, onCancel: () {}),
-              const SizedBox(
-                height: AppSizes.spaceBtwVerticalFields,
-              ),
-            ],
-          ),
+            OrdersSuccessState _ || OrderState() => Expanded(
+                child: ListView.builder(
+                    itemCount: state.orders.length,
+                    itemBuilder: (context, index) => Padding(
+                          padding: const EdgeInsets.only(
+                              bottom: AppSizes.spaceBtwVerticalFields),
+                          child: OrderStatusWidget(
+                            purchaseProcess: state.orders[index],
+                            onCancel: () {
+                              BlocProvider.of<OrdersBloc>(context).add(
+                                  CancelOrderEvent(state.orders[index].id));
+                            },
+                          ),
+                        )),
+              )
+          },
         ),
       ),
     );

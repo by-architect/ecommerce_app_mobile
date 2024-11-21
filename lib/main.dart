@@ -14,6 +14,7 @@ import 'package:ecommerce_app_mobile/presentation/common/return/page/return_scre
 import 'package:ecommerce_app_mobile/presentation/home/bloc/home_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/main/bloc/main_blocs.dart';
 import 'package:ecommerce_app_mobile/presentation/main/page/main_screen.dart';
+import 'package:ecommerce_app_mobile/presentation/order/bloc/order_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/order/page/order_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/prodcut_list_screen_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_bloc.dart';
@@ -70,6 +71,8 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (BuildContext context) => SignInBloc()),
           BlocProvider(create: (BuildContext context) => SignUpBloc()),
           BlocProvider(create: (BuildContext context) => EmailVerificationBloc()),
+          BlocProvider(create: (BuildContext context) => OrdersBloc()),
+
         ],
         child: MaterialApp(
             debugShowCheckedModeBanner: false,
@@ -80,7 +83,6 @@ class MyApp extends StatelessWidget {
               Screens.signUpScreen: (context) => const SignUpScreen(),
               Screens.mainScreen: (context) => const MainScreen(),
               Screens.returnScreen: (context) => const ReturnScreen(),
-              Screens.orderScreen: (context) => const OrderScreen(),
             },
             home: isHideWelcomeScreen ? const MainScreen() : const WelcomeScreen()));
   }

@@ -1,0 +1,29 @@
+import 'package:ecommerce_app_mobile/data/provider/product_service_provider.dart';
+import 'package:ecommerce_app_mobile/presentation/order/bloc/order_event.dart';
+import 'package:ecommerce_app_mobile/presentation/order/bloc/order_state.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+class OrdersBloc extends Bloc<OrderEvent, OrderState> {
+  OrdersBloc() : super(OrderInitialState()) {
+    final service = ProductServiceProvider();
+    on<GetOrdersEvent>((event, emit) async {
+      emit(OrdersLoadingState(orders: state.orders));
+      final resource = await service.getPurchaseProcessList(event.uid);
+      if (resource.isSuccess) {
+        emit(OrdersSuccessState(orders: resource.data!));
+      } else {
+        emit(OrdersFailState(fail: resource.error!, orders: state.orders));
+      }
+    });
+
+    on<CancelOrderEvent>((event, emit) async {
+      emit(OrderCancelLoadingState(orders: state.orders));
+      final resource = await service.cancelPurchase(event.orderId);
+      if (resource.isSuccess) {
+        emit(OrderCancelSuccessState(orders: state.orders));
+      } else {
+        emit(OrderCancelFailState(fail: resource.error!, orders: state.orders));
+      }
+    });
+  }
+}

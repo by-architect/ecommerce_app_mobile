@@ -315,6 +315,7 @@ class AppText {
   static const orderPageDelivered = AppText("Delivered");
   static const orderPageDeliverFailed = AppText("Deliver Failed");
   static const orderPagePurchaseProcessFinished = AppText("Purchase Process Finished");
+  static const orderPageOrderCanceled = AppText("Order Canceled");
 
 
 

@@ -425,7 +425,6 @@ class FakeProductModels {
       PurchaseProcess(id: "0", cargoNo: "123456789", uid: "0", processStatusList: [
     purchaseStatusStarted,
     purchaseStatusPayingFailed,
-    purchaseStatusFinished,
   ], selectedProducts: [
     ProductWithQuantity(product: product1, quantity: 3, subProduct: subProduct1),
     ProductWithQuantity(product: product2, quantity: 2, subProduct: subProduct2),

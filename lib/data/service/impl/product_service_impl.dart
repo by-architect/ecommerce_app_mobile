@@ -314,4 +314,10 @@ class ProductServiceImpl extends ProductService {
     throw UnimplementedError();
   }
 
+  @override
+  Future<ResourceStatus> cancelPurchase(String purchaseId) {
+    // TODO: implement cancelPurchase
+    throw UnimplementedError();
+  }
+
 }

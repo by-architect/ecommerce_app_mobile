@@ -17,6 +17,7 @@ import 'package:flutter_svg/svg.dart';
 import '../../../common/constant/Screens.dart';
 import '../../../data/model/user.dart';
 import '../../address/pages/addresses_screen.dart';
+import '../../order/page/order_screen.dart';
 import '../widget/profile_card.dart';
 import '../widget/profile_menu_item_list.dart';
 
@@ -53,7 +54,8 @@ class ProfileForm extends StatelessWidget {
 
           const SizedBox(height: AppSizes.defaultPadding),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding),
+            padding:
+                const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding),
             child: Text(
               AppText.profilePageMarketing.capitalizeFirstWord.get,
               style: Theme.of(context).textTheme.titleSmall,
@@ -64,7 +66,9 @@ class ProfileForm extends StatelessWidget {
             text: AppText.profilePageOrders.capitalizeFirstWord.get,
             svgSrc: AppImages.orderIcon,
             press: () {
-              Navigator.of(context).pushNamed(Screens.orderScreen);
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => OrderScreen(user: user),
+              ));
             },
           ),
           ProfileMenuListTile(
@@ -85,8 +89,9 @@ class ProfileForm extends StatelessWidget {
           ),
           const SizedBox(height: AppSizes.defaultPadding),
           Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding, vertical: AppSizes.defaultPadding / 2),
+            padding: const EdgeInsets.symmetric(
+                horizontal: AppSizes.defaultPadding,
+                vertical: AppSizes.defaultPadding / 2),
             child: Text(
               AppText.account.capitalizeFirstWord.get,
               style: Theme.of(context).textTheme.titleSmall,
@@ -117,8 +122,9 @@ class ProfileForm extends StatelessWidget {
           const SizedBox(height: AppSizes.defaultPadding),
 
           Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding, vertical: AppSizes.defaultPadding / 2),
+            padding: const EdgeInsets.symmetric(
+                horizontal: AppSizes.defaultPadding,
+                vertical: AppSizes.defaultPadding / 2),
             child: Text(
               AppText.profilePageHelpAndSupport.capitalizeEveryWord.get,
               style: Theme.of(context).textTheme.titleSmall,
@@ -152,7 +158,8 @@ class ProfileForm extends StatelessWidget {
             ),
             title: Text(
               AppText.logOut.capitalizeEveryWord.get,
-              style: const TextStyle(color: AppColors.errorColor, fontSize: 14, height: 1),
+              style: const TextStyle(
+                  color: AppColors.errorColor, fontSize: 14, height: 1),
             ),
           )
         ],

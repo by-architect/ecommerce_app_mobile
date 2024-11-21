@@ -253,12 +253,20 @@ class FakeProductService implements ProductService {
 
   @override
   Future<ResourceStatus<List<PurchaseProcess>>> getPurchaseProcessList(String uid) async {
+    await Future.delayed(const Duration(seconds: 2));
     return ResourceStatus.success([
       FakeProductModels.purchaseProcessSuccess,
       FakeProductModels.purchaseProcessCancelledByCustomer,
       FakeProductModels.purchaseProcessCancelledByStore,
-      FakeProductModels.purchaseProcessPayingFailed,
-      FakeProductModels.purchaseProcessDeliverFailed
+      FakeProductModels.purchaseProcessOrderTaken,
+      FakeProductModels.purchaseProcessPayingSuccess,
+
     ]);
+  }
+
+  @override
+  Future<ResourceStatus> cancelPurchase(String purchaseId) async{
+    await Future.delayed(const Duration(seconds: 1));
+    return const ResourceStatus.success("");
   }
 }

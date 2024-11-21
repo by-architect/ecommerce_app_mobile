@@ -19,6 +19,7 @@ import '../../presentation/products/bloc/review_state.dart';
 import '../../sddklibrary/util/resource.dart';
 import '../model/product.dart';
 import '../model/product_feature.dart';
+import '../model/purchase_process.dart';
 import '../model/tag.dart';
 
 class ProductServiceProvider {
@@ -178,6 +179,12 @@ class ProductServiceProvider {
   Future<ResourceStatus> addPurchaseProcess(PurchaseProcessState purchaseProcessState, String uid) {
     return _productService.addPurchaseProcess(purchaseProcessState, uid);
   }
+  Future<ResourceStatus<List<PurchaseProcess>>> getPurchaseProcessList(String uid) {
+    return _productService.getPurchaseProcessList(uid);
+  }
+  Future<ResourceStatus> cancelPurchase(String purchaseId) {
+    return _productService.cancelPurchase(purchaseId);
+  }
 
   Future<ResourceStatus<List<CartItem>>> getCart(User user) {
     return _productService.getCart(user.uid);
@@ -235,4 +242,6 @@ class ProductServiceProvider {
         break;
     }
   }
+
+
 }
