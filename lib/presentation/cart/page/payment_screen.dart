@@ -164,11 +164,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 ),
                 const SizedBox(height: AppSizes.spaceBtwVerticalFields),
                 OrderSummaryCard(
-                  discount: state.discount,
-                  shippingFee: state.shippingFee,
-                  subtotal: state.subTotal,
-                  total: state.total,
-                  isReturn: false,
+                  purchaseSummary: state.purchaseSummary,
+                 isReturn: false,
                   showOrderSummaryLabel: false,
                 ),
                 const SizedBox(height: AppSizes.spaceBtwVerticalFieldsLarge),

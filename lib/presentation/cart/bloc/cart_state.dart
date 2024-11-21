@@ -6,10 +6,7 @@ import '../../../sddklibrary/util/fail.dart';
 
 class CartState {
   final List<CartItem> items;
-  late final double subTotal;
-  late final double shippingFee;
-  late final double discount;
-  late final double total;
+  late final PurchaseSummary purchaseSummary;
   final Address? selectedAddress;
   final String creditCardNameSurname;
   final String creditCardNumber;
@@ -23,11 +20,7 @@ class CartState {
       required this.creditCardCvv,
       required this.items,
       required this.selectedAddress}) {
-    CartUtil cartUtil = CartUtil(items);
-    subTotal = cartUtil.subtotal;
-    shippingFee = cartUtil.shippingFee;
-    discount = cartUtil.discount;
-    total = cartUtil.total;
+    purchaseSummary = PurchaseSummary.fromCartItems(items);
   }
 
   CartState copyWith(
@@ -40,13 +33,15 @@ class CartState {
     return CartState(
         items: items ?? this.items,
         selectedAddress: selectedAddress ?? this.selectedAddress,
-        creditCardNameSurname: creditCardNameSurname ?? this.creditCardNameSurname,
+        creditCardNameSurname:
+            creditCardNameSurname ?? this.creditCardNameSurname,
         creditCardNumber: creditCardNumber ?? this.creditCardNumber,
         creditCardExpiryDate: creditCardExpiryDate ?? this.creditCardExpiryDate,
         creditCardCvv: creditCardCvv ?? this.creditCardCvv);
   }
 
-  CartState calculateAndCopyWith({required List<CartItem> items, Address? selectedAddress}) {
+  CartState calculateAndCopyWith(
+      {required List<CartItem> items, Address? selectedAddress}) {
     return CartState(
         items: items,
         selectedAddress: selectedAddress ?? this.selectedAddress,
@@ -58,7 +53,7 @@ class CartState {
 
   @override
   String toString() {
-    return 'CartState{items: $items, subTotal: $subTotal, shippingFee: $shippingFee, discount: $discount, total: $total, selectedAddress: $selectedAddress, creditCardNameSurname: $creditCardNameSurname, creditCardNumber: $creditCardNumber, creditCardExpiryDate: $creditCardExpiryDate, creditCardCvv: $creditCardCvv}';
+    return 'CartState{items: $items, purchaseSummary: $purchaseSummary, selectedAddress: $selectedAddress, creditCardNameSurname: $creditCardNameSurname, creditCardNumber: $creditCardNumber, creditCardExpiryDate: $creditCardExpiryDate, creditCardCvv: $creditCardCvv}';
   }
 }
 

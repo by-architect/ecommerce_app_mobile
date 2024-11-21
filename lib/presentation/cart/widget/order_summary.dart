@@ -1,5 +1,6 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppStyles.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
+import 'package:ecommerce_app_mobile/common/util/cart_util.dart';
 import 'package:ecommerce_app_mobile/data/fakerepository/fake_app_defaults.dart';
 import 'package:ecommerce_app_mobile/data/model/product.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,17 +13,11 @@ class OrderSummaryCard extends StatelessWidget {
   const OrderSummaryCard(
       {super.key,
       this.isReturn = false,
-      required this.subtotal,
-      required this.shippingFee,
-      required this.discount,
-      required this.total,
+     required this.purchaseSummary,
       this.showOrderSummaryLabel = true});
 
   final bool isReturn;
-  final double subtotal;
-  final double shippingFee;
-  final double discount;
-  final double total;
+  final PurchaseSummary purchaseSummary;
   final bool showOrderSummaryLabel;
 
   @override
@@ -43,21 +38,27 @@ class OrderSummaryCard extends StatelessWidget {
                   ),
                 ],
               ),
-            if(showOrderSummaryLabel)
-            const SizedBox(height: AppSizes.spaceBtwVerticalFields),
-            _Row(title: AppText.cartPageSubtotal.capitalizeFirstWord.get, amount: subtotal),
+            if (showOrderSummaryLabel)
+              const SizedBox(height: AppSizes.spaceBtwVerticalFields),
+            _Row(
+                title: AppText.cartPageSubtotal.capitalizeFirstWord.get,
+                amount: purchaseSummary.subtotal),
             const SizedBox(height: AppSizes.spaceBtwVerticalFieldsSmall),
             _Row(
               title: AppText.cartPageShippingFee.capitalizeEveryWord.get,
-              amount: shippingFee,
+              amount: purchaseSummary.shippingFee,
               freeEnabled: true,
             ),
             const SizedBox(height: AppSizes.spaceBtwVerticalFieldsSmall),
-            _Row(title: AppText.cartPageDiscount.capitalizeFirstWord.get, amount: discount),
+            _Row(
+                title: AppText.cartPageDiscount.capitalizeFirstWord.get,
+                amount: purchaseSummary.discount),
             const SizedBox(height: AppSizes.spaceBtwVerticalFieldsSmall),
             const Divider(),
             const SizedBox(height: AppSizes.spaceBtwVerticalFieldsSmall),
-            _Row(title: AppText.cartPageTotal.capitalizeFirstWord.get, amount: total),
+            _Row(
+                title: AppText.cartPageTotal.capitalizeFirstWord.get,
+                amount: purchaseSummary.total),
           ],
         ),
       ),
@@ -73,7 +74,8 @@ class _Row extends StatelessWidget {
   const _Row({
     super.key,
     required this.title,
-    required this.amount, this.freeEnabled = false,
+    required this.amount,
+    this.freeEnabled = false,
   });
 
   @override
@@ -88,7 +90,10 @@ class _Row extends StatelessWidget {
         amount == 0.0 && freeEnabled
             ? Text(
                 AppText.cartPageFree.capitalizeFirstWord.get,
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(color: AppColors.successColor),
+                style: Theme.of(context)
+                    .textTheme
+                    .titleMedium
+                    ?.copyWith(color: AppColors.successColor),
               )
             : Text(
                 "${FakeAppDefaults.defaultCurrency.sign}$amount",

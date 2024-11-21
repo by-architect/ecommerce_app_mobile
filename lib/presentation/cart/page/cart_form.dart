@@ -114,10 +114,7 @@ class _CartFormState extends State<CartForm> {
                           ),
                           SliverToBoxAdapter(
                             child: OrderSummaryCard(
-                              discount: state.discount,
-                              shippingFee: state.shippingFee,
-                              subtotal: state.subTotal,
-                              total: state.total,
+                              purchaseSummary: state.purchaseSummary,
                               isReturn: false,
                             ),
                           ),
