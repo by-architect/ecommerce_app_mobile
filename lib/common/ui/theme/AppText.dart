@@ -316,6 +316,18 @@ class AppText {
   static const orderPageDeliverFailed = AppText("Deliver Failed");
   static const orderPagePurchaseProcessFinished = AppText("Purchase Process Finished");
   static const orderPageOrderCanceled = AppText("Order Canceled");
+  static const orderPageReturnProcessStarted = AppText("Return Process Started");
+  static const orderPageReturnRequested = AppText("Return Requested");
+  static const orderPageReturnAccepted = AppText("Return Accepted");
+  static const orderPageReturnRejected = AppText("Return Rejected");
+  static const orderPageReturnCanceledByCustomer = AppText("Return Canceled by Client");
+  static const orderPageReturnCanceledByStore = AppText("Return Canceled by Store");
+  static const orderPageReturnShipped = AppText("Return Shipped");
+  static const orderPageReturnDelivered = AppText("Return Delivered");
+  static const orderPageReturnDeliverFailed = AppText("Return Deliver Failed");
+  static const orderPageReturnMoneyReturned = AppText("Return Money Returned");
+  static const orderPageReturnProcessFinished = AppText("Return Process Finished");
+  static const orderPageReturnCanceled = AppText("Return Canceled");
 
 
 

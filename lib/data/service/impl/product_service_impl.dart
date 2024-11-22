@@ -5,11 +5,13 @@ import 'package:ecommerce_app_mobile/data/model/cart_item.dart';
 import 'package:ecommerce_app_mobile/data/model/product_details_item.dart';
 import 'package:ecommerce_app_mobile/data/model/purchase_process.dart';
 import 'package:ecommerce_app_mobile/data/model/recent_search.dart';
+import 'package:ecommerce_app_mobile/data/model/return_process.dart';
 import 'package:ecommerce_app_mobile/data/model/review.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/add_address_state.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/addresses_state.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_state.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/purchase_process_state.dart';
+import 'package:ecommerce_app_mobile/presentation/products/bloc/return_process_state.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/review_state.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/constant/exceptions/exception_handler.dart';
 import 'package:ecommerce_app_mobile/common/constant/firestore_collections.dart';
@@ -317,6 +319,30 @@ class ProductServiceImpl extends ProductService {
   @override
   Future<ResourceStatus> cancelPurchase(String purchaseId) {
     // TODO: implement cancelPurchase
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<ResourceStatus> addReturnProcess(ReturnProcessState returnProcess, String uid) {
+    // TODO: implement addReturnProcess
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<ResourceStatus> addReturnStatus(ReturnStatusState returnStatus, String returnProcessId) {
+    // TODO: implement addReturnStatus
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<ResourceStatus> cancelReturn(String returnId) {
+    // TODO: implement cancelReturn
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<ResourceStatus<List<ReturnProcess>>> getReturnProcessList(String uid) {
+    // TODO: implement getReturnProcessList
     throw UnimplementedError();
   }
 

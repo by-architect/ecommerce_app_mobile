@@ -10,7 +10,6 @@ import 'package:ecommerce_app_mobile/presentation/authentication/bloc/sign_up_bl
 import 'package:ecommerce_app_mobile/presentation/authentication/pages/sign_in_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/pages/sign_up_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/cart/bloc/cart_bloc.dart';
-import 'package:ecommerce_app_mobile/presentation/common/return/page/return_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/home/bloc/home_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/main/bloc/main_blocs.dart';
 import 'package:ecommerce_app_mobile/presentation/main/page/main_screen.dart';
@@ -20,6 +19,7 @@ import 'package:ecommerce_app_mobile/presentation/products/bloc/prodcut_list_scr
 import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/profile/bloc/change_password_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/profile/bloc/edit_profile_bloc.dart';
+import 'package:ecommerce_app_mobile/presentation/return/bloc/return_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/search/bloc/search_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/splash/bloc/welcome_blocs.dart';
 import 'package:ecommerce_app_mobile/presentation/splash/pages/welcome_screen.dart';
@@ -72,6 +72,8 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (BuildContext context) => SignUpBloc()),
           BlocProvider(create: (BuildContext context) => EmailVerificationBloc()),
           BlocProvider(create: (BuildContext context) => OrdersBloc()),
+          BlocProvider(create: (BuildContext context) => ReturnBloc()),
+
 
         ],
         child: MaterialApp(
@@ -82,7 +84,6 @@ class MyApp extends StatelessWidget {
               Screens.signInScreen: (context) => const SignInScreen(),
               Screens.signUpScreen: (context) => const SignUpScreen(),
               Screens.mainScreen: (context) => const MainScreen(),
-              Screens.returnScreen: (context) => const ReturnScreen(),
             },
             home: isHideWelcomeScreen ? const MainScreen() : const WelcomeScreen()));
   }

@@ -10,10 +10,12 @@ import 'package:ecommerce_app_mobile/data/model/product_details_item.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
 import 'package:ecommerce_app_mobile/data/model/purchase_process.dart';
 import 'package:ecommerce_app_mobile/data/model/recent_search.dart';
+import 'package:ecommerce_app_mobile/data/model/return_process.dart';
 import 'package:ecommerce_app_mobile/data/service/product_service.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/add_address_state.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/addresses_state.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/purchase_process_state.dart';
+import 'package:ecommerce_app_mobile/presentation/products/bloc/return_process_state.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/fail.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/resource.dart';
 
@@ -268,5 +270,33 @@ class FakeProductService implements ProductService {
   Future<ResourceStatus> cancelPurchase(String purchaseId) async{
     await Future.delayed(const Duration(seconds: 1));
     return const ResourceStatus.success("");
+  }
+
+  @override
+  Future<ResourceStatus> addReturnProcess(ReturnProcessState returnProcess, String uid) async {
+    await Future.delayed(const Duration(seconds: 1));
+    return const ResourceStatus.success("");
+  }
+
+  @override
+  Future<ResourceStatus> addReturnStatus(ReturnStatusState returnStatus, String returnProcessId) async {
+    await Future.delayed(const Duration(seconds: 1));
+    return const ResourceStatus.success("");
+  }
+
+  @override
+  Future<ResourceStatus> cancelReturn(String returnId) async {
+    await Future.delayed(const Duration(seconds: 1));
+    return const ResourceStatus.success("");
+  }
+
+  @override
+  Future<ResourceStatus<List<ReturnProcess>>> getReturnProcessList(String uid) async {
+    await Future.delayed(const Duration(seconds: 1));
+    return ResourceStatus.success([
+      FakeProductModels.returnProcessSuccess,
+      FakeProductModels.returnProcessRejected,
+      FakeProductModels.returnProcessCanceledByCustomer,
+    ]);
   }
 }

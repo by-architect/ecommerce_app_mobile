@@ -11,38 +11,29 @@ import 'package:ecommerce_app_mobile/presentation/address/bloc/addresses_state.d
 import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_state.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/purchase_process_state.dart';
 
+import '../../presentation/products/bloc/return_process_state.dart';
 import '../../presentation/products/bloc/review_state.dart';
 import '../../sddklibrary/util/resource.dart';
 import '../model/Reviews.dart';
+import '../model/return_process.dart';
 import '../model/review.dart';
 import '../model/tag.dart';
 import '../model/user.dart';
 
 abstract class ProductService {
+
   Future<ResourceStatus<List<Category>>> getCategories();
-
   Future<ResourceStatus<AllProductFeatures>> getProductFeatures();
-
   // Future<ResourceStatus<List<Product>>> getProducts();
-
   Future<ResourceStatus<List<Product>>> getProductsByCategory(String categoryId);
-
   Future<ResourceStatus<Product>> getProductsById(String id);
-
   Future<ResourceStatus> clearRecentSearch(RecentSearch recentSearchList);
-
   Future<ResourceStatus<RecentSearch>> addRecentSearch(String recentSearch);
-
   Future<ResourceStatus> clearAllRecentSearch();
-
   Future<ResourceStatus<List<RecentSearch>>> getRecentSearches();
-
   Future<ResourceStatus<List<Product>>> getProductByDiscount(int count);
-
   Future<ResourceStatus<List<Product>>> getProductByBestSeller(int count);
-
   Future<ResourceStatus<List<Product>>> getProductByLastAdded(int count);
-
   Future<ResourceStatus<List<Product>>> getProductsBySearchEvents(
       {String? searchText,
       List<ProductFeatureOption>? selectedFeatureOptions,
@@ -59,6 +50,12 @@ abstract class ProductService {
   Future<ResourceStatus> addPurchaseStatus(PurchaseStatusState purchaseStatus, String purchaseProcessId,);
   Future<ResourceStatus<List<PurchaseProcess>>> getPurchaseProcessList(String uid);
   Future<ResourceStatus> cancelPurchase(String purchaseId);
+
+  Future<ResourceStatus> addReturnProcess(ReturnProcessState returnProcess, String uid);
+  Future<ResourceStatus> addReturnStatus(ReturnStatusState returnStatus, String returnProcessId,);
+  Future<ResourceStatus<List<ReturnProcess>>> getReturnProcessList(String uid);
+  Future<ResourceStatus> cancelReturn(String returnId);
+
   Future<ResourceStatus<List<CartItem>>> getCart(String uid);
   Future<ResourceStatus> addToCart(CartItemState cartItemState, String uid);
   Future<ResourceStatus> updateCartItem(CartItem cartItem);

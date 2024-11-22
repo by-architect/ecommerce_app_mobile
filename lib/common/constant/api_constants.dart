@@ -34,7 +34,7 @@ class ApiDeliveryProcesses {
   static const returnProcessStarted = "return_process_started";
   static const returnRequested = "return_requested";
   static const returnRejected = "return_rejected";
-  static const returnStarted = "return_started";
+  static const returnAccepted = "return_accepted";
   static const returnProcessFinished = "return_process_finished";
   static const returnProcessId = "return_process_id";
   static const returnStatusType = "return_status_type";

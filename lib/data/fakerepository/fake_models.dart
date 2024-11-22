@@ -8,6 +8,7 @@ import 'package:ecommerce_app_mobile/data/model/product_details_item.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
 import 'package:ecommerce_app_mobile/data/model/purchase_process.dart';
 import 'package:ecommerce_app_mobile/data/model/recent_search.dart';
+import 'package:ecommerce_app_mobile/data/model/return_process.dart';
 import 'package:ecommerce_app_mobile/data/model/review.dart';
 import 'package:ecommerce_app_mobile/data/model/user.dart';
 import 'package:ecommerce_app_mobile/presentation/home/constant/banner_style.dart';
@@ -62,14 +63,22 @@ class FakeUserModels {
 class FakeMapModels {}
 
 class FakeProductModels {
-  static Category category1 = Category(id: "0", name: "Elbiseler", superId: "", layer: 0);
-  static Category category2 = Category(id: "1", name: "Ayakkabılar", superId: "", layer: 0);
-  static Category category21 = Category(id: "12", name: "Sandalet", superId: "1", layer: 1);
-  static Category category22 = Category(id: "13", name: "Kundura", superId: "1", layer: 1);
-  static Category category23 = Category(id: "14", name: "Bot", superId: "1", layer: 1);
-  static Category category231 = Category(id: "15", name: "Deri Bot", superId: "14", layer: 2);
-  static Category category3 = Category(id: "2", name: "Bileklikler", superId: "", layer: 0);
-  static Category category4 = Category(id: "3", name: "Pantolonlar", superId: "", layer: 0);
+  static Category category1 =
+      Category(id: "0", name: "Elbiseler", superId: "", layer: 0);
+  static Category category2 =
+      Category(id: "1", name: "Ayakkabılar", superId: "", layer: 0);
+  static Category category21 =
+      Category(id: "12", name: "Sandalet", superId: "1", layer: 1);
+  static Category category22 =
+      Category(id: "13", name: "Kundura", superId: "1", layer: 1);
+  static Category category23 =
+      Category(id: "14", name: "Bot", superId: "1", layer: 1);
+  static Category category231 =
+      Category(id: "15", name: "Deri Bot", superId: "14", layer: 2);
+  static Category category3 =
+      Category(id: "2", name: "Bileklikler", superId: "", layer: 0);
+  static Category category4 =
+      Category(id: "3", name: "Pantolonlar", superId: "", layer: 0);
 
   static List<Category> categoriesUnSorted = [
     category1,
@@ -83,13 +92,21 @@ class FakeProductModels {
   ];
 
   static CartItem cartItem1 = CartItem(
-      id: "0", productWithQuantity: ProductWithQuantity(product: product1, subProduct: subProduct1, quantity: 2));
+      id: "0",
+      productWithQuantity: ProductWithQuantity(
+          product: product1, subProduct: subProduct1, quantity: 2));
   static CartItem cartItem2 = CartItem(
-      id: "1", productWithQuantity: ProductWithQuantity(product: product2, subProduct: subProduct2, quantity: 1));
+      id: "1",
+      productWithQuantity: ProductWithQuantity(
+          product: product2, subProduct: subProduct2, quantity: 1));
   static CartItem cartItem3 = CartItem(
-      id: "2", productWithQuantity: ProductWithQuantity(product: product3, subProduct: subProduct2, quantity: 3));
+      id: "2",
+      productWithQuantity: ProductWithQuantity(
+          product: product3, subProduct: subProduct2, quantity: 3));
   static CartItem cartItem4 = CartItem(
-      id: "3", productWithQuantity: ProductWithQuantity(product: product4, subProduct: subProduct2, quantity: 4));
+      id: "3",
+      productWithQuantity: ProductWithQuantity(
+          product: product4, subProduct: subProduct2, quantity: 4));
 
   static List<CartItem> cartItems = [
     cartItem1,
@@ -163,19 +180,26 @@ class FakeProductModels {
 
   static Categories categories = Categories(categoriesUnSorted);
 
-  static final ProductFeatureOption _option7 = ProductFeatureOption("6", "silk");
-  static final ProductFeatureOption _option8 = ProductFeatureOption("7", "polyester");
-  static final ProductFeatureOption _option9 = ProductFeatureOption("8", "cotton");
+  static final ProductFeatureOption _option7 =
+      ProductFeatureOption("6", "silk");
+  static final ProductFeatureOption _option8 =
+      ProductFeatureOption("7", "polyester");
+  static final ProductFeatureOption _option9 =
+      ProductFeatureOption("8", "cotton");
 
   static final ProductFeatureOption _option1 = ProductFeatureOption("0", "S");
   static final ProductFeatureOption _option2 = ProductFeatureOption("1", "M");
   static final ProductFeatureOption _option3 = ProductFeatureOption("2", "L");
 
-  static final ProductFeatureOption _option4 = ProductFeatureOption("3", Colors.cyan.value.toString());
-  static final ProductFeatureOption _option5 = ProductFeatureOption("4", Colors.yellow.value.toString());
-  static final ProductFeatureOption _option6 = ProductFeatureOption("5", Colors.green.value.toString());
+  static final ProductFeatureOption _option4 =
+      ProductFeatureOption("3", Colors.cyan.value.toString());
+  static final ProductFeatureOption _option5 =
+      ProductFeatureOption("4", Colors.yellow.value.toString());
+  static final ProductFeatureOption _option6 =
+      ProductFeatureOption("5", Colors.green.value.toString());
 
-  static final ProductFeatureOption _optionUnselected = ProductFeatureOption("unselected", "Unselected");
+  static final ProductFeatureOption _optionUnselected =
+      ProductFeatureOption("unselected", "Unselected");
   static final ProductFeature productFeatureMaterial = ProductFeature(
     id: "2",
     name: "Material",
@@ -190,10 +214,13 @@ class FakeProductModels {
     productFeatureType: ProductFeatureType.character,
   );
   static final ProductFeature productFeatureColor = ProductFeature(
-      id: "1", name: "Color", options: [_option4, _option5, _option6], productFeatureType: ProductFeatureType.color);
+      id: "1",
+      name: "Color",
+      options: [_option4, _option5, _option6],
+      productFeatureType: ProductFeatureType.color);
 
-  static final allProductFeatures =
-      AllProductFeatures([productFeatureSize, productFeatureColor, productFeatureMaterial]);
+  static final allProductFeatures = AllProductFeatures(
+      [productFeatureSize, productFeatureColor, productFeatureMaterial]);
 
   static Review review1 = Review(
     star: ReviewStar.one,
@@ -377,94 +404,268 @@ class FakeProductModels {
     dateTime: DateTime.now(),
   );
 
-  static PurchaseProcess purchaseProcessSuccess =
-      PurchaseProcess(id: "0", cargoNo: "123456789", uid: "0", processStatusList: [
-    purchaseStatusStarted,
-    purchaseStatusPayingSuccess,
-    purchaseStatusOrderTaken,
-    purchaseStatusShipped,
-    purchaseStatusDelivered,
-    purchaseStatusFinished
-  ], selectedProducts: [
-    ProductWithQuantity(product: product1, quantity: 3, subProduct: subProduct1),
-    ProductWithQuantity(product: product2, quantity: 2, subProduct: subProduct2),
-    ProductWithQuantity(product: product3, quantity: 1, subProduct: subProduct3),
-  ]);
+  static PurchaseProcess purchaseProcessSuccess = PurchaseProcess(
+      id: "0",
+      cargoNo: "123456789",
+      uid: "0",
+      processStatusList: [
+        purchaseStatusStarted,
+        purchaseStatusPayingSuccess,
+        purchaseStatusOrderTaken,
+        purchaseStatusShipped,
+        purchaseStatusDelivered,
+        purchaseStatusFinished
+      ],
+      selectedProducts: [
+        ProductWithQuantity(
+            product: product1, quantity: 3, subProduct: subProduct1),
+        ProductWithQuantity(
+            product: product2, quantity: 2, subProduct: subProduct2),
+        ProductWithQuantity(
+            product: product3, quantity: 1, subProduct: subProduct3),
+      ]);
 
-  static PurchaseProcess purchaseProcessOrderTaken =
-  PurchaseProcess(id: "0", cargoNo: "123456789", uid: "0", processStatusList: [
-    purchaseStatusStarted,
-    purchaseStatusPayingSuccess,
-    purchaseStatusOrderTaken,
-  ], selectedProducts: [
-    ProductWithQuantity(product: product1, quantity: 3, subProduct: subProduct1),
-    ProductWithQuantity(product: product2, quantity: 2, subProduct: subProduct2),
-    ProductWithQuantity(product: product3, quantity: 1, subProduct: subProduct3),
-  ]);
-  static PurchaseProcess purchaseProcessShipped =
-  PurchaseProcess(id: "0", cargoNo: "123456789", uid: "0", processStatusList: [
-    purchaseStatusStarted,
-    purchaseStatusPayingSuccess,
-    purchaseStatusOrderTaken,
-    purchaseStatusShipped,
-  ], selectedProducts: [
-    ProductWithQuantity(product: product1, quantity: 3, subProduct: subProduct1),
-    ProductWithQuantity(product: product2, quantity: 2, subProduct: subProduct2),
-    ProductWithQuantity(product: product3, quantity: 1, subProduct: subProduct3),
-  ]);
-  static PurchaseProcess purchaseProcessPayingSuccess =
-  PurchaseProcess(id: "0", cargoNo: "123456789", uid: "0", processStatusList: [
-    purchaseStatusStarted,
-    purchaseStatusPayingSuccess,
-  ], selectedProducts: [
-    ProductWithQuantity(product: product1, quantity: 3, subProduct: subProduct1),
-    ProductWithQuantity(product: product2, quantity: 2, subProduct: subProduct2),
-    ProductWithQuantity(product: product3, quantity: 1, subProduct: subProduct3),
-  ]);
-  static PurchaseProcess purchaseProcessPayingFailed =
-      PurchaseProcess(id: "0", cargoNo: "123456789", uid: "0", processStatusList: [
-    purchaseStatusStarted,
-    purchaseStatusPayingFailed,
-  ], selectedProducts: [
-    ProductWithQuantity(product: product1, quantity: 3, subProduct: subProduct1),
-    ProductWithQuantity(product: product2, quantity: 2, subProduct: subProduct2),
-    ProductWithQuantity(product: product3, quantity: 1, subProduct: subProduct3),
-  ]);
+  static PurchaseProcess purchaseProcessOrderTaken = PurchaseProcess(
+      id: "0",
+      cargoNo: "123456789",
+      uid: "0",
+      processStatusList: [
+        purchaseStatusStarted,
+        purchaseStatusPayingSuccess,
+        purchaseStatusOrderTaken,
+      ],
+      selectedProducts: [
+        ProductWithQuantity(
+            product: product1, quantity: 3, subProduct: subProduct1),
+        ProductWithQuantity(
+            product: product2, quantity: 2, subProduct: subProduct2),
+        ProductWithQuantity(
+            product: product3, quantity: 1, subProduct: subProduct3),
+      ]);
+  static PurchaseProcess purchaseProcessShipped = PurchaseProcess(
+      id: "0",
+      cargoNo: "123456789",
+      uid: "0",
+      processStatusList: [
+        purchaseStatusStarted,
+        purchaseStatusPayingSuccess,
+        purchaseStatusOrderTaken,
+        purchaseStatusShipped,
+      ],
+      selectedProducts: [
+        ProductWithQuantity(
+            product: product1, quantity: 3, subProduct: subProduct1),
+        ProductWithQuantity(
+            product: product2, quantity: 2, subProduct: subProduct2),
+        ProductWithQuantity(
+            product: product3, quantity: 1, subProduct: subProduct3),
+      ]);
+  static PurchaseProcess purchaseProcessPayingSuccess = PurchaseProcess(
+      id: "0",
+      cargoNo: "123456789",
+      uid: "0",
+      processStatusList: [
+        purchaseStatusStarted,
+        purchaseStatusPayingSuccess,
+      ],
+      selectedProducts: [
+        ProductWithQuantity(
+            product: product1, quantity: 3, subProduct: subProduct1),
+        ProductWithQuantity(
+            product: product2, quantity: 2, subProduct: subProduct2),
+        ProductWithQuantity(
+            product: product3, quantity: 1, subProduct: subProduct3),
+      ]);
+  static PurchaseProcess purchaseProcessPayingFailed = PurchaseProcess(
+      id: "0",
+      cargoNo: "123456789",
+      uid: "0",
+      processStatusList: [
+        purchaseStatusStarted,
+        purchaseStatusPayingFailed,
+      ],
+      selectedProducts: [
+        ProductWithQuantity(
+            product: product1, quantity: 3, subProduct: subProduct1),
+        ProductWithQuantity(
+            product: product2, quantity: 2, subProduct: subProduct2),
+        ProductWithQuantity(
+            product: product3, quantity: 1, subProduct: subProduct3),
+      ]);
 
-  static PurchaseProcess purchaseProcessCancelledByCustomer =
-      PurchaseProcess(id: "0", cargoNo: "123456789", uid: "0", processStatusList: [
-    purchaseStatusStarted,
-    purchaseStatusPayingSuccess,
-    purchaseStatusCancelledByCustomer,
-  ], selectedProducts: [
-    ProductWithQuantity(product: product1, quantity: 3, subProduct: subProduct1),
-    ProductWithQuantity(product: product2, quantity: 2, subProduct: subProduct2),
-    ProductWithQuantity(product: product3, quantity: 1, subProduct: subProduct3),
-  ]);
+  static PurchaseProcess purchaseProcessCancelledByCustomer = PurchaseProcess(
+      id: "0",
+      cargoNo: "123456789",
+      uid: "0",
+      processStatusList: [
+        purchaseStatusStarted,
+        purchaseStatusPayingSuccess,
+        purchaseStatusCancelledByCustomer,
+      ],
+      selectedProducts: [
+        ProductWithQuantity(
+            product: product1, quantity: 3, subProduct: subProduct1),
+        ProductWithQuantity(
+            product: product2, quantity: 2, subProduct: subProduct2),
+        ProductWithQuantity(
+            product: product3, quantity: 1, subProduct: subProduct3),
+      ]);
 
-  static PurchaseProcess purchaseProcessCancelledByStore =
-      PurchaseProcess(id: "0", cargoNo: "123456789", uid: "0", processStatusList: [
-    purchaseStatusStarted,
-    purchaseStatusPayingSuccess,
-    purchaseStatusCancelledByStore,
-  ], selectedProducts: [
-    ProductWithQuantity(product: product1, quantity: 3, subProduct: subProduct1),
-    ProductWithQuantity(product: product2, quantity: 2, subProduct: subProduct2),
-    ProductWithQuantity(product: product3, quantity: 1, subProduct: subProduct3),
-  ]);
+  static PurchaseProcess purchaseProcessCancelledByStore = PurchaseProcess(
+      id: "0",
+      cargoNo: "123456789",
+      uid: "0",
+      processStatusList: [
+        purchaseStatusStarted,
+        purchaseStatusPayingSuccess,
+        purchaseStatusCancelledByStore,
+      ],
+      selectedProducts: [
+        ProductWithQuantity(
+            product: product1, quantity: 3, subProduct: subProduct1),
+        ProductWithQuantity(
+            product: product2, quantity: 2, subProduct: subProduct2),
+        ProductWithQuantity(
+            product: product3, quantity: 1, subProduct: subProduct3),
+      ]);
 
-  static PurchaseProcess purchaseProcessDeliverFailed =
-      PurchaseProcess(id: "0", cargoNo: "123456789", uid: "0", processStatusList: [
-    purchaseStatusStarted,
-    purchaseStatusPayingSuccess,
-    purchaseStatusOrderTaken,
-    purchaseStatusShipped,
-    purchaseStatusDeliverFailed,
-  ], selectedProducts: [
-    ProductWithQuantity(product: product1, quantity: 3, subProduct: subProduct1),
-    ProductWithQuantity(product: product2, quantity: 2, subProduct: subProduct2),
-    ProductWithQuantity(product: product3, quantity: 1, subProduct: subProduct3),
-  ]);
+  static PurchaseProcess purchaseProcessDeliverFailed = PurchaseProcess(
+      id: "0",
+      cargoNo: "123456789",
+      uid: "0",
+      processStatusList: [
+        purchaseStatusStarted,
+        purchaseStatusPayingSuccess,
+        purchaseStatusOrderTaken,
+        purchaseStatusShipped,
+        purchaseStatusDeliverFailed,
+      ],
+      selectedProducts: [
+        ProductWithQuantity(
+            product: product1, quantity: 3, subProduct: subProduct1),
+        ProductWithQuantity(
+            product: product2, quantity: 2, subProduct: subProduct2),
+        ProductWithQuantity(
+            product: product3, quantity: 1, subProduct: subProduct3),
+      ]);
+
+  static ReturnStatus returnStatusStarted = ReturnStatus(
+    status: ReturnProcessStatusType.returnProcessStarted,
+    dateTime: DateTime.now(),
+  );
+
+  static ReturnStatus returnRequested = ReturnStatus(
+    status: ReturnProcessStatusType.returnRequested,
+    dateTime: DateTime.now(),
+  );
+
+  static ReturnStatus returnAccepted = ReturnStatus(
+    status: ReturnProcessStatusType.returnAccepted,
+    dateTime: DateTime.now(),
+  );
+
+  static ReturnStatus returnRejected = ReturnStatus(
+    status: ReturnProcessStatusType.returnRejected,
+    dateTime: DateTime.now(),
+  );
+
+  static ReturnStatus returnMoneyReturned = ReturnStatus(
+    status: ReturnProcessStatusType.moneyReturned,
+    dateTime: DateTime.now(),
+  );
+  static ReturnStatus returnCanceledByCustomer = ReturnStatus(
+    status: ReturnProcessStatusType.canceledByCustomer,
+    dateTime: DateTime.now(),
+  );
+
+  static ReturnStatus returnCanceledByStore = ReturnStatus(
+    status: ReturnProcessStatusType.canceledByStore,
+    dateTime: DateTime.now(),
+  );
+
+  static ReturnStatus returnShipped = ReturnStatus(
+    status: ReturnProcessStatusType.shipped,
+    dateTime: DateTime.now(),
+  );
+
+  static ReturnStatus returnDelivered = ReturnStatus(
+    status: ReturnProcessStatusType.delivered,
+    dateTime: DateTime.now(),
+  );
+
+  static ReturnStatus returnDeliverFailed = ReturnStatus(
+    status: ReturnProcessStatusType.deliverFailed,
+    dateTime: DateTime.now(),
+  );
+
+  static ReturnStatus returnProcessFinished = ReturnStatus(
+    status: ReturnProcessStatusType.returnProcessFinished,
+    dateTime: DateTime.now(),
+  );
+
+  static ReturnProcess returnProcessSuccess = ReturnProcess(
+    purchaseProcessId: '23',
+    id: "0",
+    cargoNo: "123456789",
+    uid: "0",
+    processStatusList: [
+      returnStatusStarted,
+      returnRequested,
+      returnAccepted,
+      returnShipped,
+      returnDelivered,
+      returnMoneyReturned,
+      returnProcessFinished
+    ],
+    selectedProducts: [
+      ProductWithQuantity(
+          product: product1, quantity: 3, subProduct: subProduct1),
+      ProductWithQuantity(
+          product: product2, quantity: 2, subProduct: subProduct2),
+      ProductWithQuantity(
+          product: product3, quantity: 1, subProduct: subProduct3),
+    ],
+  );
+
+  static ReturnProcess returnProcessRejected = ReturnProcess(
+    purchaseProcessId: '23',
+    id: "0",
+    cargoNo: "123456789",
+    uid: "0",
+    processStatusList: [
+      returnStatusStarted,
+      returnRequested,
+      returnRejected,
+    ],
+    selectedProducts: [
+      ProductWithQuantity(
+          product: product1, quantity: 3, subProduct: subProduct1),
+      ProductWithQuantity(
+          product: product2, quantity: 2, subProduct: subProduct2),
+      ProductWithQuantity(
+          product: product3, quantity: 1, subProduct: subProduct3),
+    ],
+  );
+
+  static ReturnProcess returnProcessCanceledByCustomer = ReturnProcess(
+    purchaseProcessId: '23',
+    id: "0",
+    cargoNo: "123456789",
+    uid: "0",
+    processStatusList: [
+      returnStatusStarted,
+      returnRequested,
+      returnCanceledByCustomer,
+    ],
+    selectedProducts: [
+      ProductWithQuantity(
+          product: product1, quantity: 3, subProduct: subProduct1),
+      ProductWithQuantity(
+          product: product2, quantity: 2, subProduct: subProduct2),
+      ProductWithQuantity(
+          product: product3, quantity: 1, subProduct: subProduct3),
+    ],
+  );
 
   static const productDemoImg1 = "https://i.imgur.com/CGCyp1d.png";
   static const productDemoImg2 = "https://i.imgur.com/AkzWQuJ.png";
@@ -561,15 +762,19 @@ class FakeProductModels {
     for (int i = 0; i < count; i++) {
       final index = i * (productId + 1);
       String id = index.toString();
-      String barcode = "420385483${index % 10}"; // Simple barcode generation for uniqueness
+      String barcode =
+          "420385483${index % 10}"; // Simple barcode generation for uniqueness
       DateTime now = DateTime.now();
       double price = 100 + (index * 10);
       double discount = index % 6 == 3 ? price / (index + 1) : 0;
 
       // Randomly selecting feature options (sizes, colors, materials)
-      String materialOptionId = productFeatureMaterial.options[(index % productFeatureMaterial.options.length)].id;
-      String colorOptionId = productFeatureColor.options[(index % productFeatureColor.options.length)].id;
-      String sizeOptionId = productFeatureSize.options[index % productFeatureMaterial.options.length].id;
+      String materialOptionId = productFeatureMaterial
+          .options[(index % productFeatureMaterial.options.length)].id;
+      String colorOptionId = productFeatureColor
+          .options[(index % productFeatureColor.options.length)].id;
+      String sizeOptionId = productFeatureSize
+          .options[index % productFeatureMaterial.options.length].id;
 
       subProductList.add(SubProduct(
         id: id,
@@ -583,7 +788,11 @@ class FakeProductModels {
         // Incremental price for variety
         discount: discount,
         // Assuming no discount
-        productFeatureOptionIds: [sizeOptionId, colorOptionId, materialOptionId],
+        productFeatureOptionIds: [
+          sizeOptionId,
+          colorOptionId,
+          materialOptionId
+        ],
       ));
     }
     return subProductList;
