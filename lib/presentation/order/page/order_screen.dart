@@ -58,15 +58,7 @@ class _OrderScreenState extends State<OrderScreen> {
           padding: const EdgeInsets.all(AppSizes.defaultPadding),
           child: switch (state) {
             OrdersLoadingState _ => const Expanded(
-                child: Column(
-                  children: [
-                    Expanded(child: OffersSkeleton()),
-                    SizedBox(height: AppSizes.spaceBtwVerticalFields),
-                    Expanded(child: OffersSkeleton()),
-                    SizedBox(height: AppSizes.spaceBtwVerticalFields),
-                    Expanded(child: OffersSkeleton()),
-                  ],
-                ),
+                child: OffersSkeletonScreen(),
               ),
             OrdersFailState failState => Expanded(
                 child: FailForm(

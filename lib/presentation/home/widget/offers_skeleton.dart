@@ -3,6 +3,22 @@ import 'package:flutter/material.dart';
 
 import '../../common/skeleton/skelton.dart';
 
+class OffersSkeletonScreen extends StatelessWidget {
+  const OffersSkeletonScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Column(
+      children: [
+        Expanded(child: OffersSkeleton()),
+        SizedBox(height: AppSizes.spaceBtwVerticalFields),
+        Expanded(child: OffersSkeleton()),
+        SizedBox(height: AppSizes.spaceBtwVerticalFields),
+        Expanded(child: OffersSkeleton()),
+      ],
+    );
+  }
+}
 
 class OffersSkeleton extends StatelessWidget {
   const OffersSkeleton({
@@ -40,7 +56,7 @@ class OffersSkeleton extends StatelessWidget {
             child: Row(
               children: List.generate(
                 4,
-                    (index) => const Padding(
+                (index) => const Padding(
                   padding: EdgeInsets.only(left: AppSizes.defaultPadding / 4),
                   child: CircleSkeleton(size: 8),
                 ),
