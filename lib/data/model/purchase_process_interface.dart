@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
+import 'package:ecommerce_app_mobile/data/model/address.dart';
 import 'package:ecommerce_app_mobile/data/model/product.dart';
 import 'package:ecommerce_app_mobile/data/model/order.dart';
 
@@ -11,6 +12,8 @@ abstract class Purchase {
   String get id;
 
   String get uid;
+
+  Address get address;
 
   PurchaseProcessHandler get purchaseProcessesHandler;
 

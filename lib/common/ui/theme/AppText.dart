@@ -270,6 +270,7 @@ class AppText {
 
   //address page
   static const addressesPageAddresses = AppText("Addresses");
+  static const addressesPageAddress = AppText("Address");
   static const addressesPageAddAddress = AppText("Add New Address");
   static const addressesPageAddressTitle = AppText("Address Title");
   static const addressesPagePhoneNo = AppText("Phone No");
@@ -330,6 +331,7 @@ class AppText {
   static const orderPageReturnMoneyReturned = AppText("Return Money Returned");
   static const orderPageReturnProcessFinished = AppText("Return Process Finished");
   static const orderPageReturnCanceled = AppText("Return Canceled");
+  static const orderPageProducts = AppText("Products");
 
 
 

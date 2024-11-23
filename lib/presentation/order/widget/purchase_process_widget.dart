@@ -3,101 +3,92 @@ import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppStyles.dart';
 import 'package:ecommerce_app_mobile/common/util/cart_util.dart';
 import 'package:ecommerce_app_mobile/data/model/order.dart';
-import 'package:ecommerce_app_mobile/data/model/purchase_process_interface.dart';
-import 'package:ecommerce_app_mobile/presentation/cart/widget/order_summary.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/product_card_large.dart';
-import 'package:ecommerce_app_mobile/presentation/common/widgets/text_button_default.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/date_helper.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/ui/widget_clickable_outlined.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../common/ui/theme/AppText.dart';
+import '../page/order_details_screen.dart';
 import 'purchase_status_widget.dart';
 
-class PurchaseProcessWidget extends StatelessWidget {
-  const PurchaseProcessWidget(
-      {super.key, required this.purchase, required this.onCancel});
+class OrderCard extends StatelessWidget {
+  const OrderCard(
+      {super.key, required this.orderModel, required this.onCancel});
 
-  final Purchase purchase;
+  final OrderModel orderModel;
   final Function() onCancel;
 
   @override
   Widget build(BuildContext context) {
-    PurchaseSummary purchaseSummary = PurchaseSummary(purchase.products);
-    return Container(
-      decoration: AppStyles.defaultBoxDecoration,
-      child: Padding(
-        padding: const EdgeInsets.all(AppSizes.defaultPadding),
-        child: Column(children: [
-          Row(
+    return ClickableWidgetOutlined(
+      style: AppStyles.clickableWidgetOutlinedStyleNoPadding(context),
+      onPressed: () {
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => OrderDetailsScreen(
+                  orderModel: orderModel,
+                  onCancel: onCancel,
+                )));
+      },
+      child: Column(children: [
+        Padding(
+          padding: const EdgeInsets.all(AppSizes.defaultPadding),
+          child: Column(
             children: [
-              Text(
-                "${AppText.orderPageOrder.capitalizeEveryWord.get}    #${purchase.id}",
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall
-                    ?.copyWith(color: AppColors.whiteColor60),
+              Row(
+                children: [
+                  Text(
+                    "${AppText.orderPageOrder.capitalizeEveryWord.get}    #${orderModel.id}",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall
+                        ?.copyWith(color: AppColors.whiteColor60),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: AppSizes.spaceBtwVerticalFieldsSmall,
+              ),
+              Row(children: [
+                Text(
+                    "${AppText.orderPagePlacedOn.capitalizeEveryWord.get}    ${orderModel.purchaseProcessesHandler.one.dateTime.formatedDate}",
+                    style: Theme.of(context).textTheme.titleMedium),
+              ]),
+            ],
+          ),
+        ),
+        const Divider(),
+        Padding(
+          padding: const EdgeInsets.all(AppSizes.defaultPadding/2),
+          child: Column(
+            children: [
+              PurchaseStatusWidget(
+                purchase: orderModel,
+              ),
+              const SizedBox(
+                height: AppSizes.spaceBtwVerticalFields,
+              ),
+              Column(
+                children: List.generate(orderModel.products.length, (index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(
+                        AppSizes.spaceBtwHorizontalFieldsSmall),
+                    child: Row(
+                      children: [
+                        Expanded(
+                            child: ProductCardLarge(
+                                product: orderModel.products[index].product,
+                                onPressed: () {})),
+                      ],
+                    ),
+                  );
+                }),
               ),
             ],
           ),
-          const SizedBox(
-            height: AppSizes.spaceBtwVerticalFieldsSmall,
-          ),
-          Row(children: [
-            Text(
-                "${AppText.orderPagePlacedOn.capitalizeEveryWord.get}    ${purchase.purchaseProcessesHandler.one.dateTime.formatedDate}",
-                style: Theme.of(context).textTheme.titleMedium),
-          ]),
-          const SizedBox(
-            height: AppSizes.spaceBtwVerticalFieldsSmall,
-          ),
-          const Divider(),
-          const SizedBox(
-            height: AppSizes.spaceBtwVerticalFields,
-          ),
-          PurchaseStatusWidget(purchase: purchase,),
-          const SizedBox(
-            height: AppSizes.spaceBtwVerticalFields,
-          ),
-          Column(
-            children: List.generate(purchase.products.length, (index) {
-              return Padding(
-                padding: const EdgeInsets.all(
-                    AppSizes.spaceBtwHorizontalFieldsSmall),
-                child: Row(
-                  children: [
-                    Expanded(
-                        child: ProductCardLarge(
-                            product: purchase.products[index].product,
-                            onPressed: () {})),
-                  ],
-                ),
-              );
-            }),
-          ),
-          const SizedBox(
-            height: AppSizes.spaceBtwVerticalFieldsSmall,
-          ),
-          OrderSummaryCard(
-            purchaseSummary: purchaseSummary,
-          ),
-          const SizedBox(
-            height: AppSizes.spaceBtwVerticalFieldsSmall,
-          ),
-          if (purchase.purchaseProcessesHandler.getProcessing != null &&
-              purchase.purchaseProcessesHandler.getProcessing!
-                  .cancelableWhileProcessing)
-            Row(
-              children: [
-                TextButtonDefault(
-                  onPressed: onCancel,
-                  text: AppText.cancel.capitalizeFirstWord.get,
-                  color: AppColors.errorColor,
-                ),
-              ],
-            )
-        ]),
-      ),
+        ),
+      ]),
     );
   }
 }

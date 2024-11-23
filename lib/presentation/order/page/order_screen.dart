@@ -74,8 +74,8 @@ class _OrderScreenState extends State<OrderScreen> {
                 itemBuilder: (context, index) => Padding(
                       padding: const EdgeInsets.only(
                           bottom: AppSizes.spaceBtwVerticalFields),
-                      child: PurchaseProcessWidget(
-                        purchase: state.orders[index],
+                      child: OrderCard(
+                        orderModel: state.orders[index],
                         onCancel: () {
                           dialogUtil.inputDialog(
                               AppText

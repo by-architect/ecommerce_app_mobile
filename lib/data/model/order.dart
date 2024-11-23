@@ -1,5 +1,6 @@
 import 'package:ecommerce_app_mobile/common/constant/api_constants.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
+import 'package:ecommerce_app_mobile/data/model/address.dart';
 import 'package:ecommerce_app_mobile/data/model/product.dart';
 import 'package:ecommerce_app_mobile/data/model/purchase_process_interface.dart';
 
@@ -10,6 +11,8 @@ class OrderModel implements Purchase {
   final String uid;
   @override
   final List<ProductWithQuantity> products;
+  @override
+  final Address address;
 
   final OrderPaid statusPaid;
   final OrderTaken statusOrderTaken;
@@ -19,6 +22,7 @@ class OrderModel implements Purchase {
   OrderModel(
       {required this.id,
       required this.products,
+      required this.address,
       required this.uid,
       required this.statusPaid,
       required this.statusOrderTaken,
@@ -48,6 +52,7 @@ class OrderModel implements Purchase {
       return OrderModel(
           id: id,
           products: products,
+          address: address,
           uid: uid,
           statusPaid: statusPaid,
           statusOrderTaken: processing.cancelByCustomer(message),
@@ -59,6 +64,7 @@ class OrderModel implements Purchase {
           id: id,
           products: products,
           uid: uid,
+          address: address,
           statusPaid: statusPaid,
           statusOrderTaken: statusOrderTaken,
           statusShipped: processing.canceledByCustomer(message),

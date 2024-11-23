@@ -17,6 +17,9 @@ class ClickableWidgetOutlined extends StatelessWidget {
   final Size? maximumSize;
 
 
+  ///for no padding
+  /// style: AppStyles.clickableWidgetOutlinedStyleNoPadding(context),
+
   @override
   Widget build(BuildContext context) {
     return style == null

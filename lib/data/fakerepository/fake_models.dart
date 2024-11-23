@@ -359,6 +359,7 @@ class FakeProductModels {
 
   static OrderModel orderPaidSuccess = OrderModel(
     id: "1",
+    address: address1,
     products: [
       ProductWithQuantity(
           product: product1, subProduct: subProduct1, quantity: 1),
@@ -383,6 +384,7 @@ class FakeProductModels {
 
   static OrderModel orderPaidCanceled = OrderModel(
     id: "1",
+    address: address2,
     products: [
       ProductWithQuantity(
           product: product1, subProduct: subProduct1, quantity: 1),
@@ -407,6 +409,7 @@ class FakeProductModels {
 
   static final orderTakenSuccess = OrderModel(
     id: "2",
+    address:  address3,
     products: [
       ProductWithQuantity(
           product: product1, subProduct: subProduct1, quantity: 1),
@@ -431,6 +434,7 @@ class FakeProductModels {
 
   static final orderShippedSuccess = OrderModel(
     id: "3",
+    address:  address1,
     products: [
       ProductWithQuantity(
           product: product1, subProduct: subProduct1, quantity: 1),
@@ -455,6 +459,7 @@ class FakeProductModels {
 
   static final orderDeliveredSuccess = OrderModel(
     id: "4",
+    address: address2,
     products: [
       ProductWithQuantity(
           product: product1, subProduct: subProduct1, quantity: 1),
