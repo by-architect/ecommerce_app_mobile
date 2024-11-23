@@ -57,33 +57,27 @@ class _OrderScreenState extends State<OrderScreen> {
         body: Padding(
           padding: const EdgeInsets.all(AppSizes.defaultPadding),
           child: switch (state) {
-            OrdersLoadingState _ => const Expanded(
-                child: OffersSkeletonScreen(),
-              ),
-            OrdersFailState failState => Expanded(
-                child: FailForm(
-                  fail: failState.fail,
-                  onRefreshTap: () {
-                    BlocProvider.of<OrdersBloc>(context)
-                        .add(GetOrdersEvent(widget.user.uid));
-                  },
-                ),
-              ),
-            OrdersSuccessState _ || OrderState() => Expanded(
-                child: ListView.builder(
-                    itemCount: state.orders.length,
-                    itemBuilder: (context, index) => Padding(
-                          padding: const EdgeInsets.only(
-                              bottom: AppSizes.spaceBtwVerticalFields),
-                          child: OrderStatusWidget(
-                            purchaseProcess: state.orders[index],
-                            onCancel: () {
-                              BlocProvider.of<OrdersBloc>(context).add(
-                                  CancelOrderEvent(state.orders[index].id));
-                            },
-                          ),
-                        )),
-              )
+            OrdersLoadingState _ => const OffersSkeletonScreen(),
+            OrdersFailState failState => FailForm(
+              fail: failState.fail,
+              onRefreshTap: () {
+                BlocProvider.of<OrdersBloc>(context)
+                    .add(GetOrdersEvent(widget.user.uid));
+              },
+            ),
+            OrdersSuccessState _ || OrderState() => ListView.builder(
+                itemCount: state.orders.length,
+                itemBuilder: (context, index) => Padding(
+                      padding: const EdgeInsets.only(
+                          bottom: AppSizes.spaceBtwVerticalFields),
+                      child: OrderStatusWidget(
+                        purchaseProcess: state.orders[index],
+                        onCancel: () {
+                          BlocProvider.of<OrdersBloc>(context).add(
+                              CancelOrderEvent(state.orders[index].id));
+                        },
+                      ),
+                    ))
           },
         ),
       ),

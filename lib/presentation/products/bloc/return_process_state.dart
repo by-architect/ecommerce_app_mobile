@@ -3,13 +3,13 @@ import 'package:ecommerce_app_mobile/common/constant/api_constants.dart';
 import '../../../data/model/product.dart';
 import '../../../data/model/return_process.dart';
 
-class ReturnProcessState {
+class Return {
   final List<ReturnStatus> processStatusList;
   final List<ProductWithQuantity> selectedProducts;
   final String cargoNo;
   final String purchaseProcessId;
 
-  ReturnProcessState({
+  Return({
     required this.processStatusList,
     required this.selectedProducts,
     required this.cargoNo,

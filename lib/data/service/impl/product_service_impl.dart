@@ -3,14 +3,12 @@ import 'package:ecommerce_app_mobile/data/model/Reviews.dart';
 import 'package:ecommerce_app_mobile/data/model/address.dart';
 import 'package:ecommerce_app_mobile/data/model/cart_item.dart';
 import 'package:ecommerce_app_mobile/data/model/product_details_item.dart';
-import 'package:ecommerce_app_mobile/data/model/purchase_process.dart';
+import 'package:ecommerce_app_mobile/data/model/order.dart';
 import 'package:ecommerce_app_mobile/data/model/recent_search.dart';
 import 'package:ecommerce_app_mobile/data/model/return_process.dart';
-import 'package:ecommerce_app_mobile/data/model/review.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/add_address_state.dart';
-import 'package:ecommerce_app_mobile/presentation/address/bloc/addresses_state.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_state.dart';
-import 'package:ecommerce_app_mobile/presentation/products/bloc/purchase_process_state.dart';
+import 'package:ecommerce_app_mobile/presentation/products/bloc/order_state.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/return_process_state.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/review_state.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/constant/exceptions/exception_handler.dart';
@@ -242,8 +240,8 @@ class ProductServiceImpl extends ProductService {
 
 
   @override
-  Future<ResourceStatus> addPurchaseProcess(PurchaseProcessState purchaseProcess,String uid) {
-    // TODO: implement addPurchaseProcess
+  Future<ResourceStatus> addOrder(OrderState purchaseProcess,String uid) {
+    //todo: add all purchase states, paid process will be done, next one will be loading, others will be waiting
     throw UnimplementedError();
   }
 
@@ -304,26 +302,21 @@ class ProductServiceImpl extends ProductService {
     throw UnimplementedError();
   }
 
-  @override
-  Future<ResourceStatus> addPurchaseStatus(PurchaseStatusState purchaseStatus, String purchaseProcessId) {
-    // TODO: implement addPurchaseStatus
-    throw UnimplementedError();
-  }
 
   @override
-  Future<ResourceStatus<List<PurchaseProcess>>> getPurchaseProcessList(String uid) {
+  Future<ResourceStatus<List<OrderModel>>> getPurchaseProcessList(String uid) {
     // TODO: implement getPurchaseProcessList
     throw UnimplementedError();
   }
 
   @override
-  Future<ResourceStatus> cancelPurchase(String purchaseId) {
+  Future<ResourceStatus> cancelOrder(String purchaseId) {
     // TODO: implement cancelPurchase
     throw UnimplementedError();
   }
 
   @override
-  Future<ResourceStatus> addReturnProcess(ReturnProcessState returnProcess, String uid) {
+  Future<ResourceStatus> addReturn(Return returnProcess, String uid) {
     // TODO: implement addReturnProcess
     throw UnimplementedError();
   }
@@ -343,6 +336,12 @@ class ProductServiceImpl extends ProductService {
   @override
   Future<ResourceStatus<List<ReturnProcess>>> getReturnProcessList(String uid) {
     // TODO: implement getReturnProcessList
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<ResourceStatus> updateOrder(String orderId, OrderModel order) {
+    // TODO: implement updateOrder
     throw UnimplementedError();
   }
 

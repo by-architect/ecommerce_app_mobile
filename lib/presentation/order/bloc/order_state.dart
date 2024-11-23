@@ -1,8 +1,8 @@
-import 'package:ecommerce_app_mobile/data/model/purchase_process.dart';
+import 'package:ecommerce_app_mobile/data/model/order.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/fail.dart';
 
 class OrderState {
-  final List<PurchaseProcess> orders;
+  final List<OrderModel> orders;
 
   OrderState({required this.orders});
 }

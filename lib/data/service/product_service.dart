@@ -4,12 +4,12 @@ import 'package:ecommerce_app_mobile/data/model/category.dart';
 import 'package:ecommerce_app_mobile/data/model/product.dart';
 import 'package:ecommerce_app_mobile/data/model/product_details_item.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
-import 'package:ecommerce_app_mobile/data/model/purchase_process.dart';
+import 'package:ecommerce_app_mobile/data/model/order.dart';
 import 'package:ecommerce_app_mobile/data/model/recent_search.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/add_address_state.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/addresses_state.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_state.dart';
-import 'package:ecommerce_app_mobile/presentation/products/bloc/purchase_process_state.dart';
+import 'package:ecommerce_app_mobile/presentation/products/bloc/order_state.dart';
 
 import '../../presentation/products/bloc/return_process_state.dart';
 import '../../presentation/products/bloc/review_state.dart';
@@ -46,13 +46,12 @@ abstract class ProductService {
   Future<ResourceStatus<List<Product>>> getYouMayAlsoLike(String categoryId);
   Future<ResourceStatus<List<ProductDetailsItem>>> getProductDetails(String productId);
 
-  Future<ResourceStatus> addPurchaseProcess(PurchaseProcessState purchaseProcess, String uid);
-  Future<ResourceStatus> addPurchaseStatus(PurchaseStatusState purchaseStatus, String purchaseProcessId,);
-  Future<ResourceStatus<List<PurchaseProcess>>> getPurchaseProcessList(String uid);
-  Future<ResourceStatus> cancelPurchase(String purchaseId);
+  Future<ResourceStatus> addOrder(OrderState order, String uid);
+  Future<ResourceStatus> updateOrder(String orderId,OrderModel order);
+  Future<ResourceStatus<List<OrderModel>>> getPurchaseProcessList(String uid);
+  Future<ResourceStatus> cancelOrder(String purchaseId);
 
-  Future<ResourceStatus> addReturnProcess(ReturnProcessState returnProcess, String uid);
-  Future<ResourceStatus> addReturnStatus(ReturnStatusState returnStatus, String returnProcessId,);
+  Future<ResourceStatus> addReturn(Return returnProcess, String uid);
   Future<ResourceStatus<List<ReturnProcess>>> getReturnProcessList(String uid);
   Future<ResourceStatus> cancelReturn(String returnId);
 

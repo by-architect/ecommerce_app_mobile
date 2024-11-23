@@ -1,80 +1,68 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
-import 'package:ecommerce_app_mobile/data/model/purchase_process.dart';
+import 'package:ecommerce_app_mobile/data/model/order.dart';
+import 'package:ecommerce_app_mobile/data/model/purchase_process_interface.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../common/ui/theme/AppSizes.dart';
-import '../../../sddklibrary/util/Log.dart';
 
-class OrderProgressWidget extends StatelessWidget {
-  const OrderProgressWidget({
+class PurchaseStatusWidget extends StatelessWidget {
+  const PurchaseStatusWidget({
     super.key,
-    required this.purchaseProcess,
+    required this.purchase,
   });
 
-  final PurchaseProcess purchaseProcess;
+  final Purchase purchase;
 
   @override
   Widget build(BuildContext context) {
-    return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-      ...List.generate(Log.test(message: purchaseProcess.processStatusListRoadMap.toString(),data: purchaseProcess.processStatusListRoadMap.length)!, (index) {
-        return Expanded(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Expanded(
           child: ProcessDotWithLine(
-              isShowLeftLine:
-                  purchaseProcess.processStatusListRoadMap[index] != purchaseProcess.processStatusListRoadMap.first,
-              isShowRightLine: purchaseProcess.processStatusListRoadMap[index] != PurchaseStatusType.delivered &&
-                  purchaseProcess.processStatusListRoadMap[index] != PurchaseStatusType.moneyReturned,
-              title: purchaseProcess.processStatusListRoadMap[index].userText.capitalizeEveryWord.get,
-              status: _purchaseStatusToOrderProcessStatus(
-                purchaseProcess.processStatusListRoadMap[index],
-              ),
-              nextStatus: purchaseProcess.processStatusListRoadMap.length - 1 == index
-                  ? purchaseProcess.processStatusRemainedRoadMap.isEmpty
-                      ? null
-                      : OrderProcessStatus.processing
-                  : _purchaseStatusToOrderProcessStatus(
-                      purchaseProcess.processStatusListRoadMap[index + 1],
-                      isProcessing: false,
-                    ),
-              isActive: false),
-        );
-      }),
-      if(purchaseProcess.processStatusRemainedRoadMap.isNotEmpty)
-      ...List.generate(purchaseProcess.processStatusRemainedRoadMap.length, (index) {
-        return Expanded(
+            status: purchase.purchaseProcessesHandler.one.status,
+            isShowLeftLine: false,
+            nextStatus: purchase.purchaseProcessesHandler.two.status,
+            title: purchase.purchaseProcessesHandler.one.purchaseStatusType
+                .userText.capitalizeEveryWord.get,
+            isActive: purchase.purchaseProcessesHandler.getProcessing ==
+                purchase.purchaseProcessesHandler.one,
+          ),
+        ),
+        Expanded(
           child: ProcessDotWithLine(
-              isShowLeftLine: true,
-              isShowRightLine: purchaseProcess.processStatusRemainedRoadMap.length - 1 != index ,
-              title: purchaseProcess.processStatusRemainedRoadMap[index].userText.capitalizeEveryWord.get,
-              status: purchaseProcess.processStatusRemainedRoadMap.first ==
-                      purchaseProcess.processStatusRemainedRoadMap[index]
-                  ? OrderProcessStatus.processing
-                  : OrderProcessStatus.notDoneYet,
-              nextStatus: purchaseProcess.processStatusRemainedRoadMap.length - 1 == index ? null : OrderProcessStatus.notDoneYet,
-              isActive: purchaseProcess.processStatusRemainedRoadMap.first ==
-                  purchaseProcess.processStatusRemainedRoadMap[index]),
-        );
-      })
-    ]);
-  }
-
-  OrderProcessStatus _purchaseStatusToOrderProcessStatus(PurchaseStatusType purchaseStatusType,
-      {bool isProcessing = false}) {
-    if (isProcessing) return OrderProcessStatus.processing;
-    switch (purchaseStatusType) {
-      case PurchaseStatusType.payingSuccess ||
-            PurchaseStatusType.orderTaken ||
-            PurchaseStatusType.shipped ||
-            PurchaseStatusType.delivered ||
-            PurchaseStatusType.moneyReturned:
-        return OrderProcessStatus.done;
-      case PurchaseStatusType.deliverFailed:
-        return OrderProcessStatus.error;
-      case PurchaseStatusType.canceledByStore || PurchaseStatusType.canceledByCustomer:
-        return OrderProcessStatus.canceled;
-      default:
-        return OrderProcessStatus.notDoneYet;
-    }
+            status: purchase.purchaseProcessesHandler.two.status,
+            nextStatus: purchase.purchaseProcessesHandler.three.status,
+            title: purchase.purchaseProcessesHandler.two.purchaseStatusType
+                .userText.capitalizeEveryWord.get,
+            isActive: purchase.purchaseProcessesHandler.getProcessing ==
+                purchase.purchaseProcessesHandler.two,
+          ),
+        ),
+        Expanded(
+          child: ProcessDotWithLine(
+            status: purchase.purchaseProcessesHandler.three.status,
+            nextStatus: purchase.purchaseProcessesHandler.four.status,
+            title: purchase.purchaseProcessesHandler.three.purchaseStatusType
+                .userText.capitalizeEveryWord.get,
+            isActive: purchase.purchaseProcessesHandler.getProcessing ==
+                purchase.purchaseProcessesHandler.three,
+          ),
+        ),
+        Expanded(
+          child: ProcessDotWithLine(
+            status: purchase.purchaseProcessesHandler.four.status,
+            isShowRightLine: false,
+            title: purchase.purchaseProcessesHandler.four.purchaseStatusType
+                .userText.capitalizeEveryWord.get,
+            isActive: purchase.purchaseProcessesHandler.getProcessing ==
+                purchase.purchaseProcessesHandler.four,
+          ),
+        ),
+      ],
+    );
   }
 }
 
@@ -90,8 +78,8 @@ class ProcessDotWithLine extends StatelessWidget {
   });
 
   final bool isShowLeftLine, isShowRightLine;
-  final OrderProcessStatus status;
-  final OrderProcessStatus? nextStatus;
+  final PurchaseStatus status;
+  final PurchaseStatus? nextStatus;
   final String title;
   final bool isActive;
 
@@ -123,17 +111,16 @@ class ProcessDotWithLine extends StatelessWidget {
               Expanded(
                 child: Container(
                   height: 2,
-                  color: lineColor(context, status),
+                  color: lineColor(context, status, isProcessing: isActive),
                 ),
               ),
             if (!isShowLeftLine) const Spacer(),
-            statusWidget(context, status),
+            statusWidget(context, status, isProcessing: isActive),
             if (isShowRightLine)
               Expanded(
                 child: Container(
-                  height: 2,
-                  color: nextStatus != null ? lineColor(context, nextStatus!) : AppColors.successColor,
-                ),
+                    height: 2,
+                    color: lineColor(context, nextStatus!, isProcessing: isActive)),
               ),
             if (!isShowRightLine) const Spacer(),
           ],
@@ -143,23 +130,23 @@ class ProcessDotWithLine extends StatelessWidget {
   }
 }
 
-enum OrderProcessStatus { done, processing, notDoneYet, error, canceled }
-
-Widget statusWidget(BuildContext context, OrderProcessStatus status) {
-  switch (status) {
-    case OrderProcessStatus.processing:
-      return CircleAvatar(
-        radius: 12,
-        backgroundColor: AppColors.successColor,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: CircularProgressIndicator(
-            color: Theme.of(context).scaffoldBackgroundColor,
-            strokeWidth: 2,
-          ),
+Widget statusWidget(BuildContext context, PurchaseStatus status,
+    {required bool isProcessing}) {
+  if (isProcessing) {
+    return CircleAvatar(
+      radius: 12,
+      backgroundColor: Theme.of(context).dividerColor,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: CircularProgressIndicator(
+          color: Theme.of(context).scaffoldBackgroundColor,
+          strokeWidth: 2,
         ),
-      );
-    case OrderProcessStatus.notDoneYet:
+      ),
+    );
+  }
+  switch (status) {
+    case PurchaseStatus.waiting:
       return CircleAvatar(
         radius: 12,
         backgroundColor: Theme.of(context).dividerColor,
@@ -170,7 +157,7 @@ Widget statusWidget(BuildContext context, OrderProcessStatus status) {
           ),
         ),
       );
-    case OrderProcessStatus.error:
+    case PurchaseStatus.failed:
       return CircleAvatar(
         radius: 12,
         backgroundColor: AppColors.errorColor,
@@ -181,7 +168,7 @@ Widget statusWidget(BuildContext context, OrderProcessStatus status) {
           ),
         ),
       );
-    case OrderProcessStatus.canceled:
+    case PurchaseStatus.canceled:
       return CircleAvatar(
         radius: 12,
         backgroundColor: AppColors.errorColor,
@@ -191,7 +178,7 @@ Widget statusWidget(BuildContext context, OrderProcessStatus status) {
           color: Theme.of(context).scaffoldBackgroundColor,
         ),
       );
-    case OrderProcessStatus.done:
+    case PurchaseStatus.success:
       return CircleAvatar(
         radius: 12,
         backgroundColor: AppColors.successColor,
@@ -204,18 +191,22 @@ Widget statusWidget(BuildContext context, OrderProcessStatus status) {
   }
 }
 
-Color lineColor(BuildContext context, OrderProcessStatus status) {
+Color lineColor(BuildContext context, PurchaseStatus status,
+    {required bool isProcessing}) {
+  if (isProcessing) {
+    return AppColors.successColor;
+  }
   switch (status) {
-    case OrderProcessStatus.notDoneYet:
+    case PurchaseStatus.waiting:
       return Theme.of(context).dividerColor;
 
-    case OrderProcessStatus.error:
+    case PurchaseStatus.failed:
       return AppColors.errorColor;
 
-    case OrderProcessStatus.canceled:
+    case PurchaseStatus.canceled:
       return AppColors.errorColor;
 
-    case OrderProcessStatus.done || OrderProcessStatus.processing:
+    case PurchaseStatus.success:
       return AppColors.successColor;
   }
 }

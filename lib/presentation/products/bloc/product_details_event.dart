@@ -3,7 +3,7 @@ import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
 import 'package:ecommerce_app_mobile/data/model/tag.dart';
 import 'package:ecommerce_app_mobile/presentation/cart/bloc/cart_event.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_state.dart';
-import 'package:ecommerce_app_mobile/presentation/products/bloc/purchase_process_state.dart';
+import 'package:ecommerce_app_mobile/presentation/products/bloc/order_state.dart';
 
 import '../../../data/model/product.dart';
 import '../../../data/model/product_feature_handler.dart';

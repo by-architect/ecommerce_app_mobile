@@ -2,7 +2,8 @@ import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppStyles.dart';
 import 'package:ecommerce_app_mobile/common/util/cart_util.dart';
-import 'package:ecommerce_app_mobile/data/model/purchase_process.dart';
+import 'package:ecommerce_app_mobile/data/model/order.dart';
+import 'package:ecommerce_app_mobile/data/model/purchase_process_interface.dart';
 import 'package:ecommerce_app_mobile/presentation/cart/widget/order_summary.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/product_card_large.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/text_button_default.dart';
@@ -17,13 +18,12 @@ class OrderStatusWidget extends StatelessWidget {
   const OrderStatusWidget(
       {super.key, required this.purchaseProcess, required this.onCancel});
 
-  final PurchaseProcess purchaseProcess;
+  final OrderModel purchaseProcess;
   final Function() onCancel;
 
   @override
   Widget build(BuildContext context) {
-    PurchaseSummary purchaseSummary =
-        PurchaseSummary(purchaseProcess.selectedProducts);
+    PurchaseSummary purchaseSummary = PurchaseSummary(purchaseProcess.products);
     return Container(
       decoration: AppStyles.defaultBoxDecoration,
       child: Padding(
@@ -45,7 +45,7 @@ class OrderStatusWidget extends StatelessWidget {
           ),
           Row(children: [
             Text(
-                "${AppText.orderPagePlacedOn.capitalizeEveryWord.get}    ${purchaseProcess.processStatusList.firstWhere((element) => element.purchaseStatusType == PurchaseStatusType.payingSuccess).dateTime.formatedDate}",
+                "${AppText.orderPagePlacedOn.capitalizeEveryWord.get}    ${purchaseProcess.purchaseProcessesHandler.one.dateTime.formatedDate}",
                 style: Theme.of(context).textTheme.titleMedium),
           ]),
           const SizedBox(
@@ -55,13 +55,12 @@ class OrderStatusWidget extends StatelessWidget {
           const SizedBox(
             height: AppSizes.spaceBtwVerticalFields,
           ),
-          OrderProgressWidget(purchaseProcess: purchaseProcess),
+          PurchaseStatusWidget(purchase: purchaseProcess),
           const SizedBox(
             height: AppSizes.spaceBtwVerticalFields,
           ),
           Column(
-            children:
-                List.generate(purchaseProcess.selectedProducts.length, (index) {
+            children: List.generate(purchaseProcess.products.length, (index) {
               return Padding(
                 padding: const EdgeInsets.all(
                     AppSizes.spaceBtwHorizontalFieldsSmall),
@@ -69,8 +68,7 @@ class OrderStatusWidget extends StatelessWidget {
                   children: [
                     Expanded(
                         child: ProductCardLarge(
-                            product:
-                                purchaseProcess.selectedProducts[index].product,
+                            product: purchaseProcess.products[index].product,
                             onPressed: () {})),
                   ],
                 ),
@@ -86,10 +84,9 @@ class OrderStatusWidget extends StatelessWidget {
           const SizedBox(
             height: AppSizes.spaceBtwVerticalFieldsSmall,
           ),
-          if (purchaseProcess.processStatusList.last.purchaseStatusType ==
-                  PurchaseStatusType.payingSuccess ||
-              purchaseProcess.processStatusList.last.purchaseStatusType ==
-                  PurchaseStatusType.orderTaken)
+          if (purchaseProcess.purchaseProcessesHandler.getProcessing != null &&
+              purchaseProcess.purchaseProcessesHandler.getProcessing!
+                  .cancelableWhileProcessing)
             Row(
               children: [
                 TextButtonDefault(

@@ -8,13 +8,13 @@ import 'package:ecommerce_app_mobile/data/model/category.dart';
 import 'package:ecommerce_app_mobile/data/model/product.dart';
 import 'package:ecommerce_app_mobile/data/model/product_details_item.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
-import 'package:ecommerce_app_mobile/data/model/purchase_process.dart';
+import 'package:ecommerce_app_mobile/data/model/order.dart';
 import 'package:ecommerce_app_mobile/data/model/recent_search.dart';
 import 'package:ecommerce_app_mobile/data/model/return_process.dart';
 import 'package:ecommerce_app_mobile/data/service/product_service.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/add_address_state.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/addresses_state.dart';
-import 'package:ecommerce_app_mobile/presentation/products/bloc/purchase_process_state.dart';
+import 'package:ecommerce_app_mobile/presentation/products/bloc/order_state.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/return_process_state.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/fail.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/resource.dart';
@@ -46,7 +46,8 @@ class FakeProductService implements ProductService {
 
     return random.nextBool()
         ? ResourceStatus.success(categories)
-        : ResourceStatus.fail(Fail(userMessage: "Fake product service fail situation"));
+        : ResourceStatus.fail(
+            Fail(userMessage: "Fake product service fail situation"));
   }
 
   @override
@@ -54,7 +55,8 @@ class FakeProductService implements ProductService {
     await Future.delayed(const Duration(seconds: 2));
     return random.nextBool()
         ? ResourceStatus.success(FakeProductModels.product1)
-        : ResourceStatus.fail(Fail(userMessage: "Fake product service fail situation"));
+        : ResourceStatus.fail(
+            Fail(userMessage: "Fake product service fail situation"));
   }
 
   @override
@@ -63,20 +65,26 @@ class FakeProductService implements ProductService {
     return ResourceStatus.success(FakeProductModels.allProductFeatures);
     return random.nextBool()
         ? ResourceStatus.success(FakeProductModels.allProductFeatures)
-        : ResourceStatus.fail(Fail(userMessage: "Fake product service fail situation"));
+        : ResourceStatus.fail(
+            Fail(userMessage: "Fake product service fail situation"));
   }
 
   @override
-  Future<ResourceStatus<List<Product>>> getProductsByCategory(String categoryId) async {
+  Future<ResourceStatus<List<Product>>> getProductsByCategory(
+      String categoryId) async {
     await Future.delayed(const Duration(seconds: 2));
-    final List<Product> productList = [FakeProductModels.product1, FakeProductModels.product2];
+    final List<Product> productList = [
+      FakeProductModels.product1,
+      FakeProductModels.product2
+    ];
     return random.nextBool()
         ? ResourceStatus.success(productList
             .where(
               (product) => product.categoryId == categoryId,
             )
             .toList())
-        : ResourceStatus.fail(Fail(userMessage: "Fake product service fail situation"));
+        : ResourceStatus.fail(
+            Fail(userMessage: "Fake product service fail situation"));
   }
 
   @override
@@ -92,27 +100,33 @@ class FakeProductService implements ProductService {
 
     return random.nextBool()
         ? ResourceStatus.success(FakeProductModels.products)
-        : ResourceStatus.fail(Fail(userMessage: "Fake product service fail situation"));
+        : ResourceStatus.fail(
+            Fail(userMessage: "Fake product service fail situation"));
   }
 
   @override
-  Future<ResourceStatus<RecentSearch>> addRecentSearch(String recentSearch) async {
+  Future<ResourceStatus<RecentSearch>> addRecentSearch(
+      String recentSearch) async {
     await Future.delayed(const Duration(seconds: 1));
-    return ResourceStatus.success(RecentSearch(random.nextDouble().toString(), "", recentSearch));
+    return ResourceStatus.success(
+        RecentSearch(random.nextDouble().toString(), "", recentSearch));
   }
 
   @override
   Future<ResourceStatus> clearAllRecentSearch() async {
     return random.nextBool()
         ? const ResourceStatus.success("")
-        : ResourceStatus.fail(Fail(userMessage: "Fake product service fail situation"));
+        : ResourceStatus.fail(
+            Fail(userMessage: "Fake product service fail situation"));
   }
 
   @override
-  Future<ResourceStatus> clearRecentSearch(RecentSearch recentSearchList) async {
+  Future<ResourceStatus> clearRecentSearch(
+      RecentSearch recentSearchList) async {
     return random.nextBool()
         ? const ResourceStatus.success("")
-        : ResourceStatus.fail(Fail(userMessage: "Fake product service fail situation"));
+        : ResourceStatus.fail(
+            Fail(userMessage: "Fake product service fail situation"));
   }
 
   @override
@@ -120,19 +134,22 @@ class FakeProductService implements ProductService {
     return ResourceStatus.success(FakeProductModels.recentSearches);
     return random.nextBool()
         ? ResourceStatus.success(FakeProductModels.recentSearches)
-        : ResourceStatus.fail(Fail(userMessage: "Fake product service fail situation"));
+        : ResourceStatus.fail(
+            Fail(userMessage: "Fake product service fail situation"));
   }
 
   @override
   Future<ResourceStatus<List<Product>>> getProductByDiscount(int count) async {
     // await Future.delayed(const Duration(seconds: 2));
-    final List<Product> products =
-        FakeProductModels.products.where((product) => product.subProducts.getIdealSubProduct.hasDiscount).toList();
+    final List<Product> products = FakeProductModels.products
+        .where((product) => product.subProducts.getIdealSubProduct.hasDiscount)
+        .toList();
     return ResourceStatus.success(products);
   }
 
   @override
-  Future<ResourceStatus<List<Product>>> getProductByBestSeller(int count) async {
+  Future<ResourceStatus<List<Product>>> getProductByBestSeller(
+      int count) async {
     // await Future.delayed(const Duration(seconds: 2));
     return ResourceStatus.success(FakeProductModels.products);
   }
@@ -154,7 +171,8 @@ class FakeProductService implements ProductService {
   }
 
   @override
-  Future<ResourceStatus<List<Product>>> getYouMayAlsoLike(String categoryId) async {
+  Future<ResourceStatus<List<Product>>> getYouMayAlsoLike(
+      String categoryId) async {
     await Future.delayed(const Duration(seconds: 1));
     return ResourceStatus.success(switch (random.nextInt(2)) {
       0 => FakeProductModels.products,
@@ -165,7 +183,8 @@ class FakeProductService implements ProductService {
   }
 
   @override
-  Future<ResourceStatus<List<ProductDetailsItem>>> getProductDetails(String productId) async {
+  Future<ResourceStatus<List<ProductDetailsItem>>> getProductDetails(
+      String productId) async {
     await Future.delayed(const Duration(seconds: 1));
     return ResourceStatus.success(FakeProductModels.productDetails);
   }
@@ -177,7 +196,8 @@ class FakeProductService implements ProductService {
   }
 
   @override
-  Future<ResourceStatus> addPurchaseProcess(PurchaseProcessState purchaseProcess, String uid) async {
+  Future<ResourceStatus> addOrder(
+      OrderState purchaseProcess, String uid) async {
     await Future.delayed(const Duration(seconds: 1));
     return const ResourceStatus.success("");
   }
@@ -186,7 +206,8 @@ class FakeProductService implements ProductService {
   Future<ResourceStatus<List<CartItem>>> getCart(String uid) async {
     await Future.delayed(const Duration(seconds: 1));
     final cartItems = FakeProductModels.cartItems
-        .where((element) => element.productWithQuantity.subProduct.availableInStock)
+        .where((element) =>
+            element.productWithQuantity.subProduct.availableInStock)
         .toList();
     return ResourceStatus.success(cartItems);
   }
@@ -223,7 +244,8 @@ class FakeProductService implements ProductService {
   }
 
   @override
-  Future<ResourceStatus<List<Address>>> selectAddress(AddressState selectedAddress, String uid) async {
+  Future<ResourceStatus<List<Address>>> selectAddress(
+      AddressState selectedAddress, String uid) async {
     await Future.delayed(const Duration(seconds: 1));
     final List<Address> newAddressList = [];
     for (var address in FakeProductModels.addresses) {
@@ -243,43 +265,34 @@ class FakeProductService implements ProductService {
   }
 
   @override
-  Future<ResourceStatus> addToCart(CartItemState cartItemState, String uid) async {
+  Future<ResourceStatus> addToCart(
+      CartItemState cartItemState, String uid) async {
     await Future.delayed(const Duration(seconds: 1));
     return const ResourceStatus.success("");
   }
 
-  @override
-  Future<ResourceStatus> addPurchaseStatus(PurchaseStatusState purchaseStatus, String purchaseProcessId) async {
-    return const ResourceStatus.success("");
-  }
 
   @override
-  Future<ResourceStatus<List<PurchaseProcess>>> getPurchaseProcessList(String uid) async {
+  Future<ResourceStatus<List<OrderModel>>> getPurchaseProcessList(
+      String uid) async {
     await Future.delayed(const Duration(seconds: 2));
     return ResourceStatus.success([
-      FakeProductModels.purchaseProcessSuccess,
-      FakeProductModels.purchaseProcessCancelledByCustomer,
-      FakeProductModels.purchaseProcessCancelledByStore,
-      FakeProductModels.purchaseProcessOrderTaken,
-      FakeProductModels.purchaseProcessPayingSuccess,
-
+      FakeProductModels.orderPaidSuccess,
+      FakeProductModels.orderDeliveredSuccess,
+      FakeProductModels.orderPaidCanceled,
+      FakeProductModels.orderShippedSuccess,
+      FakeProductModels.orderTakenSuccess,
     ]);
   }
 
   @override
-  Future<ResourceStatus> cancelPurchase(String purchaseId) async{
+  Future<ResourceStatus> cancelOrder(String purchaseId) async {
     await Future.delayed(const Duration(seconds: 1));
     return const ResourceStatus.success("");
   }
 
   @override
-  Future<ResourceStatus> addReturnProcess(ReturnProcessState returnProcess, String uid) async {
-    await Future.delayed(const Duration(seconds: 1));
-    return const ResourceStatus.success("");
-  }
-
-  @override
-  Future<ResourceStatus> addReturnStatus(ReturnStatusState returnStatus, String returnProcessId) async {
+  Future<ResourceStatus> addReturn(Return returnProcess, String uid) async {
     await Future.delayed(const Duration(seconds: 1));
     return const ResourceStatus.success("");
   }
@@ -291,12 +304,19 @@ class FakeProductService implements ProductService {
   }
 
   @override
-  Future<ResourceStatus<List<ReturnProcess>>> getReturnProcessList(String uid) async {
+  Future<ResourceStatus<List<ReturnProcess>>> getReturnProcessList(
+      String uid) async {
     await Future.delayed(const Duration(seconds: 1));
     return ResourceStatus.success([
       FakeProductModels.returnProcessSuccess,
       FakeProductModels.returnProcessRejected,
       FakeProductModels.returnProcessCanceledByCustomer,
     ]);
+  }
+
+  @override
+  Future<ResourceStatus> updateOrder(String orderId, OrderModel order) async {
+    await Future.delayed(const Duration(seconds: 1));
+    return const ResourceStatus.success("");
   }
 }

@@ -5,6 +5,7 @@ class ApiConst {
 }
 
 class ApiDeliveryProcesses {
+  static const id = "id";
   static const uid= "uid";
   static const subProductId = "sub_product_id";
   static const quantity = "quantity";
@@ -18,6 +19,7 @@ class ApiDeliveryProcesses {
   static const dateTime = "date_time";
   static const productId = "product_id";
   static const processStatusList ="process_status_list";
+  static var purchaseStatus  = "purchase_status";
 
   static const purchaseProcessStarted = "purchase_process_started";
   static const payingFailed = "paying_failed";
@@ -38,6 +40,7 @@ class ApiDeliveryProcesses {
   static const returnProcessFinished = "return_process_finished";
   static const returnProcessId = "return_process_id";
   static const returnStatusType = "return_status_type";
+
 
 
 

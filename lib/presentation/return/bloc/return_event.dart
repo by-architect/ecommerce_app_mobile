@@ -3,7 +3,7 @@ import 'package:ecommerce_app_mobile/presentation/products/bloc/return_process_s
 class ReturnEvent {}
 
 class RequestReturn extends ReturnEvent {
-  final ReturnProcessState returnState;
+  final Return returnState;
   final String uid;
 
   RequestReturn(this.returnState, this.uid);

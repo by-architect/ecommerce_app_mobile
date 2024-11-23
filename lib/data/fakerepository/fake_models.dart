@@ -6,7 +6,8 @@ import 'package:ecommerce_app_mobile/data/model/categories.dart';
 import 'package:ecommerce_app_mobile/data/model/product.dart';
 import 'package:ecommerce_app_mobile/data/model/product_details_item.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
-import 'package:ecommerce_app_mobile/data/model/purchase_process.dart';
+import 'package:ecommerce_app_mobile/data/model/order.dart';
+import 'package:ecommerce_app_mobile/data/model/purchase_process_interface.dart';
 import 'package:ecommerce_app_mobile/data/model/recent_search.dart';
 import 'package:ecommerce_app_mobile/data/model/return_process.dart';
 import 'package:ecommerce_app_mobile/data/model/review.dart';
@@ -356,198 +357,125 @@ class FakeProductModels {
   ];
 */
 
-  static PurchaseStatus purchaseStatusStarted = PurchaseStatus(
-    purchaseStatusType: PurchaseStatusType.purchaseProcessStarted,
-    dateTime: DateTime.now(),
-  );
-  static PurchaseStatus purchaseStatusPayingSuccess = PurchaseStatus(
-    purchaseStatusType: PurchaseStatusType.payingSuccess,
-    dateTime: DateTime.now(),
-  );
-  static PurchaseStatus purchaseStatusPayingFailed = PurchaseStatus(
-    purchaseStatusType: PurchaseStatusType.payingFailed,
-    dateTime: DateTime.now(),
-    message: "Payment failed. Please try again later.",
-  );
-  static PurchaseStatus purchaseStatusCancelledByCustomer = PurchaseStatus(
-    purchaseStatusType: PurchaseStatusType.canceledByCustomer,
-    dateTime: DateTime.now(),
-  );
-  static PurchaseStatus purchaseStatusCancelledByStore = PurchaseStatus(
-    purchaseStatusType: PurchaseStatusType.canceledByStore,
-    dateTime: DateTime.now(),
-    message: "The order has been canceled by the store.",
-  );
-  static PurchaseStatus purchaseStatusOrderTaken = PurchaseStatus(
-    purchaseStatusType: PurchaseStatusType.orderTaken,
-    dateTime: DateTime.now(),
-  );
-  static PurchaseStatus purchaseStatusShipped = PurchaseStatus(
-    purchaseStatusType: PurchaseStatusType.shipped,
-    dateTime: DateTime.now(),
-  );
-  static PurchaseStatus purchaseStatusDeliverFailed = PurchaseStatus(
-    purchaseStatusType: PurchaseStatusType.deliverFailed,
-    dateTime: DateTime.now(),
-    message: "Delivery failed. Please try again later.",
-  );
-  static PurchaseStatus purchaseStatusMoneyReturned = PurchaseStatus(
-    purchaseStatusType: PurchaseStatusType.moneyReturned,
-    dateTime: DateTime.now(),
-  );
-  static PurchaseStatus purchaseStatusDelivered = PurchaseStatus(
-    purchaseStatusType: PurchaseStatusType.delivered,
-    dateTime: DateTime.now(),
-  );
-  static PurchaseStatus purchaseStatusFinished = PurchaseStatus(
-    purchaseStatusType: PurchaseStatusType.purchaseProcessFinished,
-    dateTime: DateTime.now(),
+  static OrderModel orderPaidSuccess = OrderModel(
+    id: "1",
+    products: [
+      ProductWithQuantity(
+          product: product1, subProduct: subProduct1, quantity: 1),
+      ProductWithQuantity(
+          product: product2, subProduct: subProduct2, quantity: 2),
+      ProductWithQuantity(
+          product: product3, subProduct: subProduct3, quantity: 3),
+    ],
+    uid: "1",
+    statusPaid: OrderPaid(
+      dateTime: DateTime.now(),
+    ),
+    statusOrderTaken: OrderTaken(
+      status: PurchaseStatus.waiting,
+      dateTime: DateTime.now(),
+    ),
+    statusShipped:
+        OrderShipped(dateTime: DateTime.now(), status: PurchaseStatus.waiting),
+    statusDelivered: OrderDelivered(
+        dateTime: DateTime.now(), status: PurchaseStatus.waiting),
   );
 
-  static PurchaseProcess purchaseProcessSuccess = PurchaseProcess(
-      id: "0",
-      cargoNo: "123456789",
-      uid: "0",
-      processStatusList: [
-        purchaseStatusStarted,
-        purchaseStatusPayingSuccess,
-        purchaseStatusOrderTaken,
-        purchaseStatusShipped,
-        purchaseStatusDelivered,
-        purchaseStatusFinished
-      ],
-      selectedProducts: [
-        ProductWithQuantity(
-            product: product1, quantity: 3, subProduct: subProduct1),
-        ProductWithQuantity(
-            product: product2, quantity: 2, subProduct: subProduct2),
-        ProductWithQuantity(
-            product: product3, quantity: 1, subProduct: subProduct3),
-      ]);
+  static OrderModel orderPaidCanceled = OrderModel(
+    id: "1",
+    products: [
+      ProductWithQuantity(
+          product: product1, subProduct: subProduct1, quantity: 1),
+      ProductWithQuantity(
+          product: product2, subProduct: subProduct2, quantity: 2),
+      ProductWithQuantity(
+          product: product3, subProduct: subProduct3, quantity: 3),
+    ],
+    uid: "1",
+    statusPaid: OrderPaid(
+      dateTime: DateTime.now(),
+    ),
+    statusOrderTaken: OrderTaken(
+      status: PurchaseStatus.canceled,
+      dateTime: DateTime.now(),
+    ),
+    statusShipped:
+        OrderShipped(dateTime: DateTime.now(), status: PurchaseStatus.waiting),
+    statusDelivered: OrderDelivered(
+        dateTime: DateTime.now(), status: PurchaseStatus.waiting),
+  );
 
-  static PurchaseProcess purchaseProcessOrderTaken = PurchaseProcess(
-      id: "0",
-      cargoNo: "123456789",
-      uid: "0",
-      processStatusList: [
-        purchaseStatusStarted,
-        purchaseStatusPayingSuccess,
-        purchaseStatusOrderTaken,
-      ],
-      selectedProducts: [
-        ProductWithQuantity(
-            product: product1, quantity: 3, subProduct: subProduct1),
-        ProductWithQuantity(
-            product: product2, quantity: 2, subProduct: subProduct2),
-        ProductWithQuantity(
-            product: product3, quantity: 1, subProduct: subProduct3),
-      ]);
-  static PurchaseProcess purchaseProcessShipped = PurchaseProcess(
-      id: "0",
-      cargoNo: "123456789",
-      uid: "0",
-      processStatusList: [
-        purchaseStatusStarted,
-        purchaseStatusPayingSuccess,
-        purchaseStatusOrderTaken,
-        purchaseStatusShipped,
-      ],
-      selectedProducts: [
-        ProductWithQuantity(
-            product: product1, quantity: 3, subProduct: subProduct1),
-        ProductWithQuantity(
-            product: product2, quantity: 2, subProduct: subProduct2),
-        ProductWithQuantity(
-            product: product3, quantity: 1, subProduct: subProduct3),
-      ]);
-  static PurchaseProcess purchaseProcessPayingSuccess = PurchaseProcess(
-      id: "0",
-      cargoNo: "123456789",
-      uid: "0",
-      processStatusList: [
-        purchaseStatusStarted,
-        purchaseStatusPayingSuccess,
-      ],
-      selectedProducts: [
-        ProductWithQuantity(
-            product: product1, quantity: 3, subProduct: subProduct1),
-        ProductWithQuantity(
-            product: product2, quantity: 2, subProduct: subProduct2),
-        ProductWithQuantity(
-            product: product3, quantity: 1, subProduct: subProduct3),
-      ]);
-  static PurchaseProcess purchaseProcessPayingFailed = PurchaseProcess(
-      id: "0",
-      cargoNo: "123456789",
-      uid: "0",
-      processStatusList: [
-        purchaseStatusStarted,
-        purchaseStatusPayingFailed,
-      ],
-      selectedProducts: [
-        ProductWithQuantity(
-            product: product1, quantity: 3, subProduct: subProduct1),
-        ProductWithQuantity(
-            product: product2, quantity: 2, subProduct: subProduct2),
-        ProductWithQuantity(
-            product: product3, quantity: 1, subProduct: subProduct3),
-      ]);
+  static final orderTakenSuccess = OrderModel(
+    id: "2",
+    products: [
+      ProductWithQuantity(
+          product: product1, subProduct: subProduct1, quantity: 1),
+      ProductWithQuantity(
+          product: product2, subProduct: subProduct2, quantity: 2),
+      ProductWithQuantity(
+          product: product3, subProduct: subProduct3, quantity: 3),
+    ],
+    uid: "1",
+    statusPaid: OrderPaid(
+      dateTime: DateTime.now(),
+    ),
+    statusOrderTaken: OrderTaken(
+      status: PurchaseStatus.success,
+      dateTime: DateTime.now(),
+    ),
+    statusShipped:
+        OrderShipped(dateTime: DateTime.now(), status: PurchaseStatus.waiting),
+    statusDelivered: OrderDelivered(
+        dateTime: DateTime.now(), status: PurchaseStatus.waiting),
+  );
 
-  static PurchaseProcess purchaseProcessCancelledByCustomer = PurchaseProcess(
-      id: "0",
-      cargoNo: "123456789",
-      uid: "0",
-      processStatusList: [
-        purchaseStatusStarted,
-        purchaseStatusPayingSuccess,
-        purchaseStatusCancelledByCustomer,
-      ],
-      selectedProducts: [
-        ProductWithQuantity(
-            product: product1, quantity: 3, subProduct: subProduct1),
-        ProductWithQuantity(
-            product: product2, quantity: 2, subProduct: subProduct2),
-        ProductWithQuantity(
-            product: product3, quantity: 1, subProduct: subProduct3),
-      ]);
+  static final orderShippedSuccess = OrderModel(
+    id: "3",
+    products: [
+      ProductWithQuantity(
+          product: product1, subProduct: subProduct1, quantity: 1),
+      ProductWithQuantity(
+          product: product2, subProduct: subProduct2, quantity: 2),
+      ProductWithQuantity(
+          product: product3, subProduct: subProduct3, quantity: 3),
+    ],
+    uid: "1",
+    statusPaid: OrderPaid(
+      dateTime: DateTime.now(),
+    ),
+    statusOrderTaken: OrderTaken(
+      status: PurchaseStatus.success,
+      dateTime: DateTime.now(),
+    ),
+    statusShipped:
+        OrderShipped(dateTime: DateTime.now(), status: PurchaseStatus.success),
+    statusDelivered: OrderDelivered(
+        dateTime: DateTime.now(), status: PurchaseStatus.waiting),
+  );
 
-  static PurchaseProcess purchaseProcessCancelledByStore = PurchaseProcess(
-      id: "0",
-      cargoNo: "123456789",
-      uid: "0",
-      processStatusList: [
-        purchaseStatusStarted,
-        purchaseStatusPayingSuccess,
-        purchaseStatusCancelledByStore,
-      ],
-      selectedProducts: [
-        ProductWithQuantity(
-            product: product1, quantity: 3, subProduct: subProduct1),
-        ProductWithQuantity(
-            product: product2, quantity: 2, subProduct: subProduct2),
-        ProductWithQuantity(
-            product: product3, quantity: 1, subProduct: subProduct3),
-      ]);
-
-  static PurchaseProcess purchaseProcessDeliverFailed = PurchaseProcess(
-      id: "0",
-      cargoNo: "123456789",
-      uid: "0",
-      processStatusList: [
-        purchaseStatusStarted,
-        purchaseStatusPayingSuccess,
-        purchaseStatusOrderTaken,
-        purchaseStatusShipped,
-        purchaseStatusDeliverFailed,
-      ],
-      selectedProducts: [
-        ProductWithQuantity(
-            product: product1, quantity: 3, subProduct: subProduct1),
-        ProductWithQuantity(
-            product: product2, quantity: 2, subProduct: subProduct2),
-        ProductWithQuantity(
-            product: product3, quantity: 1, subProduct: subProduct3),
-      ]);
+  static final orderDeliveredSuccess = OrderModel(
+    id: "4",
+    products: [
+      ProductWithQuantity(
+          product: product1, subProduct: subProduct1, quantity: 1),
+      ProductWithQuantity(
+          product: product2, subProduct: subProduct2, quantity: 2),
+      ProductWithQuantity(
+          product: product3, subProduct: subProduct3, quantity: 3),
+    ],
+    uid: "1",
+    statusPaid: OrderPaid(
+      dateTime: DateTime.now(),
+    ),
+    statusOrderTaken: OrderTaken(
+      status: PurchaseStatus.success,
+      dateTime: DateTime.now(),
+    ),
+    statusShipped:
+        OrderShipped(dateTime: DateTime.now(), status: PurchaseStatus.success),
+    statusDelivered: OrderDelivered(
+        dateTime: DateTime.now(), status: PurchaseStatus.success),
+  );
 
   static ReturnStatus returnStatusStarted = ReturnStatus(
     status: ReturnProcessStatusType.returnProcessStarted,

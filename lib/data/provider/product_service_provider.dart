@@ -13,7 +13,7 @@ import 'package:ecommerce_app_mobile/data/service/product_service.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/add_address_state.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/addresses_state.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_state.dart';
-import 'package:ecommerce_app_mobile/presentation/products/bloc/purchase_process_state.dart';
+import 'package:ecommerce_app_mobile/presentation/products/bloc/order_state.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/fail.dart';
 
 import '../../presentation/products/bloc/return_process_state.dart';
@@ -21,7 +21,7 @@ import '../../presentation/products/bloc/review_state.dart';
 import '../../sddklibrary/util/resource.dart';
 import '../model/product.dart';
 import '../model/product_feature.dart';
-import '../model/purchase_process.dart';
+import '../model/order.dart';
 import '../model/tag.dart';
 
 class ProductServiceProvider {
@@ -178,28 +178,22 @@ class ProductServiceProvider {
     }
   }
 
-  Future<ResourceStatus> addPurchaseProcess(PurchaseProcessState purchaseProcessState, String uid) {
-    return _productService.addPurchaseProcess(purchaseProcessState, uid);
+  Future<ResourceStatus> addPurchaseProcess(OrderState purchaseProcessState, String uid) {
+    return _productService.addOrder(purchaseProcessState, uid);
   }
 
-  Future<ResourceStatus> addPurchaseStatus(PurchaseStatusState purchaseStatus, String purchaseProcessId,) {
-    return _productService.addPurchaseStatus(purchaseStatus, purchaseProcessId);
-  }
 
-  Future<ResourceStatus<List<PurchaseProcess>>> getPurchaseProcessList(String uid) {
+  Future<ResourceStatus<List<OrderModel>>> getPurchaseProcessList(String uid) {
     return _productService.getPurchaseProcessList(uid);
   }
   Future<ResourceStatus> cancelPurchase(String purchaseId) {
-    return _productService.cancelPurchase(purchaseId);
+    return _productService.cancelOrder(purchaseId);
   }
 
-  Future<ResourceStatus> addReturnProcess(ReturnProcessState returnProcess, String uid) {
-    return _productService.addReturnProcess(returnProcess, uid);
+  Future<ResourceStatus> addReturnProcess(Return returnProcess, String uid) {
+    return _productService.addReturn(returnProcess, uid);
   }
 
-  Future<ResourceStatus> addReturnStatus(ReturnStatusState returnStatus, String returnProcessId,) {
-    return _productService.addReturnStatus(returnStatus, returnProcessId);
-  }
 
   Future<ResourceStatus<List<ReturnProcess>>> getReturnProcessList(String uid) {
     return _productService.getReturnProcessList(uid);
