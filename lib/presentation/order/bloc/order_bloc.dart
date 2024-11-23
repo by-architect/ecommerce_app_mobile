@@ -1,6 +1,7 @@
 import 'package:ecommerce_app_mobile/data/provider/product_service_provider.dart';
 import 'package:ecommerce_app_mobile/presentation/order/bloc/order_event.dart';
 import 'package:ecommerce_app_mobile/presentation/order/bloc/order_state.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OrdersBloc extends Bloc<OrderEvent, OrderState> {
@@ -8,7 +9,7 @@ class OrdersBloc extends Bloc<OrderEvent, OrderState> {
     final service = ProductServiceProvider();
     on<GetOrdersEvent>((event, emit) async {
       emit(OrdersLoadingState(orders: state.orders));
-      final resource = await service.getPurchaseProcessList(event.uid);
+      final resource = await service.getOrderList(event.uid);
       if (resource.isSuccess) {
         emit(OrdersSuccessState(orders: resource.data!));
       } else {
@@ -17,8 +18,11 @@ class OrdersBloc extends Bloc<OrderEvent, OrderState> {
     });
 
     on<CancelOrderEvent>((event, emit) async {
+      final canceledOrder = event.canceledOrder.cancelOrder(event.message);
+      Log.test(title: "canceledOrder", data: canceledOrder);
+      if (canceledOrder == null) return;
       emit(OrderCancelLoadingState(orders: state.orders));
-      final resource = await service.cancelPurchase(event.orderId);
+      final resource = await service.cancelOrder(canceledOrder);
       if (resource.isSuccess) {
         emit(OrderCancelSuccessState(orders: state.orders));
       } else {

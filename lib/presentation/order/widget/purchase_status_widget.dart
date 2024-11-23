@@ -1,7 +1,5 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
-import 'package:ecommerce_app_mobile/data/model/order.dart';
 import 'package:ecommerce_app_mobile/data/model/purchase_process_interface.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

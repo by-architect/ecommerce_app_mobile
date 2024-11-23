@@ -1,5 +1,6 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/fail_form.dart';
+import 'package:ecommerce_app_mobile/presentation/products/widget/text_field_default.dart';
 import 'package:flutter/material.dart';
 
 import '../util/Log.dart';
@@ -20,7 +21,8 @@ class DialogUtil {
     ScaffoldMessenger.of(_context).showSnackBar(snackBar);
   }
 
-  void toastWithButton(String message, String buttonText, Function() onPressed) {
+  void toastWithButton(
+      String message, String buttonText, Function() onPressed) {
     final snackBar = SnackBar(
       content: Text(message),
       action: SnackBarAction(
@@ -32,19 +34,24 @@ class DialogUtil {
     ScaffoldMessenger.of(_context).showSnackBar(snackBar);
   }
 
-  void showFullScreen(BuildContext context, {String? message,Fail? fail, Function()? onTapRefresh}) {
+  void showFullScreen(BuildContext context,
+      {String? message, Fail? fail, Function()? onTapRefresh}) {
     if (!_showingADialog) {
       _showingADialog = true;
       showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (_) => FullscreenLoadingDialog(message: message,fail: fail,onTapRefresh:onTapRefresh,),
+        builder: (_) => FullscreenLoadingDialog(
+          message: message,
+          fail: fail,
+          onTapRefresh: onTapRefresh,
+        ),
       );
     }
   }
 
-  void alert(String title, String content, String positiveButtonText, String negativeButtonText,
-      Function() onClick) {
+  void alert(String title, String content, String positiveButtonText,
+      String negativeButtonText, Function() onClick) {
     if (!_showingADialog) {
       _showingADialog = true;
       showDialog(
@@ -73,6 +80,38 @@ class DialogUtil {
         },
       );
     }
+  }
+
+  void inputDialog(String title, String content, Function(String) onAccept,
+      Function() onCancel) {
+    TextEditingController textController = TextEditingController();
+    showDialog(
+      context: _context,
+      builder: (context) => AlertDialog(
+        title: Text(title),
+        content: TextFieldDefault(
+          onChanged: (data) {},
+          labelOrHint: content,
+          controller: textController,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              onCancel();
+              Navigator.of(context).pop();
+            },
+            child: Text(AppText.cancel.capitalizeFirstWord.get),
+          ),
+          TextButton(
+            onPressed: () {
+              onAccept(textController.text);
+              Navigator.of(context).pop(textController.text);
+            },
+            child: Text(AppText.done.capitalizeFirstWord.get),
+          ),
+        ],
+      ),
+    );
   }
 
   void info(String title, String content) {
@@ -125,7 +164,8 @@ class FullscreenLoadingDialog extends StatelessWidget {
   final Fail? fail;
   final Function()? onTapRefresh;
 
-  const FullscreenLoadingDialog({super.key, this.message, this.fail, this.onTapRefresh});
+  const FullscreenLoadingDialog(
+      {super.key, this.message, this.fail, this.onTapRefresh});
 
   static void hide(BuildContext context) {
     Navigator.of(context).pop();

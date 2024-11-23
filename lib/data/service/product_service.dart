@@ -47,9 +47,8 @@ abstract class ProductService {
   Future<ResourceStatus<List<ProductDetailsItem>>> getProductDetails(String productId);
 
   Future<ResourceStatus> addOrder(OrderState order, String uid);
-  Future<ResourceStatus> updateOrder(String orderId,OrderModel order);
-  Future<ResourceStatus<List<OrderModel>>> getPurchaseProcessList(String uid);
-  Future<ResourceStatus> cancelOrder(String purchaseId);
+  Future<ResourceStatus<List<OrderModel>>> getOrderList(String uid);
+  Future<ResourceStatus> cancelOrder(OrderModel order);
 
   Future<ResourceStatus> addReturn(Return returnProcess, String uid);
   Future<ResourceStatus<List<ReturnProcess>>> getReturnProcessList(String uid);

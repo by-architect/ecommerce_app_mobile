@@ -150,6 +150,7 @@ class AppText {
   static const infoProfileSettingsChangedSuccessfully = AppText("Profile settings changed successfully");
   static const infoEmptyCart = AppText("Upps! Your bucket is empty, let's start to shop");
   static const infoAddressRemoved = AppText("Address removed successfully");
+  static const infoTellUsWhatYouDidNotLike = AppText("Tell us what you didn't like");
 
 // Navigation
   static const navigationHome = AppText("Home");
@@ -316,6 +317,7 @@ class AppText {
   static const orderPageDeliverFailed = AppText("Deliver Failed");
   static const orderPagePurchaseProcessFinished = AppText("Purchase Process Finished");
   static const orderPageOrderCanceled = AppText("Order Canceled");
+  static const orderPageCancelOrder = AppText("Cancel Order");
   static const orderPageReturnProcessStarted = AppText("Return Process Started");
   static const orderPageReturnRequested = AppText("Return Requested");
   static const orderPageReturnAccepted = AppText("Return Accepted");

@@ -304,16 +304,11 @@ class ProductServiceImpl extends ProductService {
 
 
   @override
-  Future<ResourceStatus<List<OrderModel>>> getPurchaseProcessList(String uid) {
+  Future<ResourceStatus<List<OrderModel>>> getOrderList(String uid) {
     // TODO: implement getPurchaseProcessList
     throw UnimplementedError();
   }
 
-  @override
-  Future<ResourceStatus> cancelOrder(String purchaseId) {
-    // TODO: implement cancelPurchase
-    throw UnimplementedError();
-  }
 
   @override
   Future<ResourceStatus> addReturn(Return returnProcess, String uid) {
@@ -342,6 +337,12 @@ class ProductServiceImpl extends ProductService {
   @override
   Future<ResourceStatus> updateOrder(String orderId, OrderModel order) {
     // TODO: implement updateOrder
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<ResourceStatus> cancelOrder(OrderModel order) {
+    // TODO: implement cancelOrder
     throw UnimplementedError();
   }
 

@@ -1,3 +1,5 @@
+import 'package:ecommerce_app_mobile/data/model/order.dart';
+
 class OrderEvent {
 
 }
@@ -8,7 +10,8 @@ class GetOrdersEvent extends OrderEvent{
 }
 
 class CancelOrderEvent extends OrderEvent{
-  final String orderId;
+  final OrderModel canceledOrder;
+  final String message;
 
-  CancelOrderEvent(this.orderId);
+  CancelOrderEvent({required this.canceledOrder, required this.message});
 }

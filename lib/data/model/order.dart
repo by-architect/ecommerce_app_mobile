@@ -41,28 +41,30 @@ class OrderModel implements Purchase {
               : statusShipped
           : statusOrderTaken;
 
-  OrderModel cancelPurchaseOnOrderTaken(
-      OrderTaken purchaseProcess, String message) {
-    return OrderModel(
-        id: id,
-        products: products,
-        uid: uid,
-        statusPaid: statusPaid,
-        statusOrderTaken: purchaseProcess.cancelByCustomer(message),
-        statusShipped: statusShipped,
-        statusDelivered: statusDelivered);
-  }
-
-  OrderModel cancelPurchaseOnShipped(
-      OrderShipped purchaseProcess, String message) {
-    return OrderModel(
-        id: id,
-        products: products,
-        uid: uid,
-        statusPaid: statusPaid,
-        statusOrderTaken: statusOrderTaken,
-        statusShipped: purchaseProcess.canceledByCustomer(message),
-        statusDelivered: statusDelivered);
+  OrderModel? cancelOrder(String message) {
+    final processing = getProcessing;
+    if (processing == null) return null;
+    if (processing is OrderTaken) {
+      return OrderModel(
+          id: id,
+          products: products,
+          uid: uid,
+          statusPaid: statusPaid,
+          statusOrderTaken: processing.cancelByCustomer(message),
+          statusShipped: statusShipped,
+          statusDelivered: statusDelivered);
+    }
+    if (processing is OrderShipped) {
+      return OrderModel(
+          id: id,
+          products: products,
+          uid: uid,
+          statusPaid: statusPaid,
+          statusOrderTaken: statusOrderTaken,
+          statusShipped: processing.canceledByCustomer(message),
+          statusDelivered: statusDelivered);
+    }
+    return null;
   }
 
   @override
@@ -88,12 +90,11 @@ class OrderTaken extends PurchaseProcess {
   OrderTaken(
       {required super.status,
       required super.dateTime,
-       super.message,
-       super.receipt})
+      super.message,
+      super.receipt})
       : super(
             purchaseStatusType: OrderStatusType.orderTaken,
             cancelableWhileProcessing: true);
-
 
   OrderTaken cancelByCustomer(String message) {
     return OrderTaken(
@@ -108,8 +109,7 @@ class OrderTaken extends PurchaseProcess {
 }
 
 class OrderShipped extends PurchaseProcess {
-  OrderShipped(
-      {required super.dateTime, super.message, required super.status})
+  OrderShipped({required super.dateTime, super.message, required super.status})
       : super(
             purchaseStatusType: OrderStatusType.shipped,
             cancelableWhileProcessing: true);

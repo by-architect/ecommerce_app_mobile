@@ -273,7 +273,7 @@ class FakeProductService implements ProductService {
 
 
   @override
-  Future<ResourceStatus<List<OrderModel>>> getPurchaseProcessList(
+  Future<ResourceStatus<List<OrderModel>>> getOrderList(
       String uid) async {
     await Future.delayed(const Duration(seconds: 2));
     return ResourceStatus.success([
@@ -286,7 +286,7 @@ class FakeProductService implements ProductService {
   }
 
   @override
-  Future<ResourceStatus> cancelOrder(String purchaseId) async {
+  Future<ResourceStatus> cancelOrder(OrderModel order) async {
     await Future.delayed(const Duration(seconds: 1));
     return const ResourceStatus.success("");
   }
@@ -314,9 +314,4 @@ class FakeProductService implements ProductService {
     ]);
   }
 
-  @override
-  Future<ResourceStatus> updateOrder(String orderId, OrderModel order) async {
-    await Future.delayed(const Duration(seconds: 1));
-    return const ResourceStatus.success("");
-  }
 }

@@ -178,16 +178,16 @@ class ProductServiceProvider {
     }
   }
 
-  Future<ResourceStatus> addPurchaseProcess(OrderState purchaseProcessState, String uid) {
+  Future<ResourceStatus> addOrder(OrderState purchaseProcessState, String uid) {
     return _productService.addOrder(purchaseProcessState, uid);
   }
 
 
-  Future<ResourceStatus<List<OrderModel>>> getPurchaseProcessList(String uid) {
-    return _productService.getPurchaseProcessList(uid);
+  Future<ResourceStatus<List<OrderModel>>> getOrderList(String uid) {
+    return _productService.getOrderList(uid);
   }
-  Future<ResourceStatus> cancelPurchase(String purchaseId) {
-    return _productService.cancelOrder(purchaseId);
+  Future<ResourceStatus> cancelOrder(OrderModel order) {
+    return _productService.cancelOrder(order);
   }
 
   Future<ResourceStatus> addReturnProcess(Return returnProcess, String uid) {
