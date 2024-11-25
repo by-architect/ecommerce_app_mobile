@@ -80,5 +80,10 @@ class AppImages{
   static const editIcon = "${_iconPath}Edit-Bold$_formatSvg";
   static const deleteIcon = "${_iconPath}Delete$_formatSvg";
 
+  static const facebookIcon = "${_iconPath}facebook-brands-solid$_formatSvg";
+  static const instagramIcon = "${_iconPath}instagram-brands-solid$_formatSvg";
+  static const phoneIcon = "${_iconPath}Call$_formatSvg";
+  static const whatsappIcon = "${_iconPath}whatsapp-brands-solid$_formatSvg";
+  static const mailIcon = "${_iconPath}envelope-regular$_formatSvg";
 
 }

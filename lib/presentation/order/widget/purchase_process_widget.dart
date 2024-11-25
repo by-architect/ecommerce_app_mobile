@@ -15,10 +15,11 @@ import 'purchase_status_widget.dart';
 
 class OrderCard extends StatelessWidget {
   const OrderCard(
-      {super.key, required this.orderModel, required this.onCancel});
+      {super.key, required this.orderModel, required this.onCancel, required this.onReturn});
 
   final OrderModel orderModel;
   final Function() onCancel;
+  final Function() onReturn;
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +30,7 @@ class OrderCard extends StatelessWidget {
             builder: (context) => OrderDetailsScreen(
                   orderModel: orderModel,
                   onCancel: onCancel,
+              onReturn: onReturn,
                 )));
       },
       child: Column(children: [

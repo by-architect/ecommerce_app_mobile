@@ -15,6 +15,8 @@ class AppText {
 
   AppText get addSpace => AppText("$_text ");
 
+  AppText get addColon => AppText("$_text:");
+
   AppText combine(AppText nextText) => AppText("$_text${nextText.get}");
 
   AppText get allLower => AppText(_text.toLowerCase());
@@ -45,6 +47,11 @@ class AppText {
   static const color = AppText("Color");
   static const apply = AppText("Apply");
   static const cancel = AppText("Cancel");
+ static const others = AppText("Others");
+
+  //contact
+  static const whatsapp = AppText("WhatsApp");
+  static const facebook = AppText("Facebook");
 
 // User
   static const name = AppText("Name");
@@ -151,6 +158,7 @@ class AppText {
   static const infoEmptyCart = AppText("Upps! Your bucket is empty, let's start to shop");
   static const infoAddressRemoved = AppText("Address removed successfully");
   static const infoTellUsWhatYouDidNotLike = AppText("Tell us what you didn't like");
+  static const infoNeedHelpWithAnything = AppText("Need help with anything?");
 
 // Navigation
   static const navigationHome = AppText("Home");
@@ -332,6 +340,7 @@ class AppText {
   static const orderPageReturnProcessFinished = AppText("Return Process Finished");
   static const orderPageReturnCanceled = AppText("Return Canceled");
   static const orderPageProducts = AppText("Products");
+ static const orderPageReturnOrder = AppText("Return Order");
 
 
 
