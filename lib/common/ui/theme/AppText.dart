@@ -5,9 +5,11 @@ class AppText {
 
   const AppText(this._text); //common
 
-  AppText get capitalizeFirstWord => AppText(StringHelper.capitalizeFirstWord(_text));
+  AppText get capitalizeFirstWord =>
+      AppText(StringHelper.capitalizeFirstWord(_text));
 
-  AppText get capitalizeEveryWord => AppText(StringHelper.capitalizeEveryWord(_text));
+  AppText get capitalizeEveryWord =>
+      AppText(StringHelper.capitalizeEveryWord(_text));
 
   AppText get addStar => AppText("$_text*");
 
@@ -47,7 +49,7 @@ class AppText {
   static const color = AppText("Color");
   static const apply = AppText("Apply");
   static const cancel = AppText("Cancel");
- static const others = AppText("Others");
+  static const others = AppText("Others");
 
   //contact
   static const whatsapp = AppText("WhatsApp");
@@ -113,52 +115,73 @@ class AppText {
   static const errorTitle = AppText("Error"); //todo: make it more soft
   static const errorEmptyPhone = AppText("Please fill phone no");
   static const errorEmailHasTaken = AppText("This email has taken");
-  static const errorFetchingData = AppText("Error occurred while fetching data from server");
-  static const errorTimeout = AppText("Connection timed out"); // bağlantı zaman aşımına uğradı
-  static const errorNetworkRequestFailed = AppText("Network request failed, please check your connection");
+  static const errorFetchingData =
+      AppText("Error occurred while fetching data from server");
+  static const errorTimeout =
+      AppText("Connection timed out"); // bağlantı zaman aşımına uğradı
+  static const errorNetworkRequestFailed =
+      AppText("Network request failed, please check your connection");
   static const errorEmptyField = AppText("Please fill the blank fields");
   static const errorEmailIsNotValid = AppText("Email is not valid");
-  static const errorPasswordLength = AppText("Password length must be between 8 - 16");
+  static const errorPasswordLength =
+      AppText("Password length must be between 8 - 16");
   static const errorPhoneNoIsNotValid = AppText("Phone no is not valid");
-  static const errorNetworkDeviceIsDown = AppText("Network device is down, please open your wifi or mobile hotspot");
-  static const errorVerificationCodeIsWrong = AppText("Verification code is wrong, please check it again");
+  static const errorNetworkDeviceIsDown = AppText(
+      "Network device is down, please open your wifi or mobile hotspot");
+  static const errorVerificationCodeIsWrong =
+      AppText("Verification code is wrong, please check it again");
   static const errorSomethingWentWrong = AppText("Something went wrong");
   static const errorAuthenticate = AppText("Please authenticate again");
-  static const errorCouldNotChangedThePassword = AppText("Couldn't changed the password");
+  static const errorCouldNotChangedThePassword =
+      AppText("Couldn't changed the password");
   static const errorEmailNotVerified = AppText("Email not verified");
-  static const errorPasswordsAreNotMatching = AppText("Passwords are not matching");
-  static const errorBirthYearIsNotValid = AppText("Please enter valid date of birth");
+  static const errorPasswordsAreNotMatching =
+      AppText("Passwords are not matching");
+  static const errorBirthYearIsNotValid =
+      AppText("Please enter valid date of birth");
   static const errorProductDoesNotExist = AppText("Product doesn't exist");
   static const errorLoadingCategories = AppText("Error loading categories");
   static const errorStarMustBeSelected = AppText("You must give rating");
   static const errorTitleCanNotBeEmpty = AppText("Title can not be empty");
   static const errorContentCanNotBeEmpty = AppText("Content can not be empty");
-  static const errorCategoriesNotFound = AppText("Categories not found, please try again later");
+  static const errorCategoriesNotFound =
+      AppText("Categories not found, please try again later");
   static const errorPasswordIsIncorrect = AppText("Password is incorrect");
   static const errorPleaseSelectProductFeature = AppText("Please select");
-  static const errorGettingLocationPermission =
-      AppText("Location permission denied, please allow permission from settings if location needed");
+  static const errorGettingLocationPermission = AppText(
+      "Location permission denied, please allow permission from settings if location needed");
   static const errorGettingLocation = AppText("Couldn't get location");
-  static const errorOpeningLocationService = AppText("Please open the location service to proceed");
+  static const errorOpeningLocationService =
+      AppText("Please open the location service to proceed");
   static const errorAddingAddress = AppText("Address Couldn't be added");
   static const errorRemovingAddress = AppText("Address Couldn't be removed");
   static const errorAddressMustBeSelected = AppText("Address must be selected");
   static const errorInvalidCardDetails = AppText("Invalid card details");
   static const errorInvalidNameSurname = AppText("Invalid name and surname");
   static const errorInvalidCardNumber = AppText("invalid card number");
-  static const errorInvalidOrExpiredCardDate = AppText("invalid or expired card date");
+  static const errorInvalidOrExpiredCardDate =
+      AppText("invalid or expired card date");
   static const errorInvalidCVVCode = AppText("invalid CVV code");
   static const errorCouldNotValidate = AppText("Could not validate");
 
   //info
-  static const infoPleaseLoginToSeeYourCart = AppText("Please login to see your cart");
-  static const infoPleaseLoginToSeeYourProfile = AppText("Please login to see your profile");
-  static const infoPasswordChangedSuccessfully = AppText("Password changed successfully");
-  static const infoProfileSettingsChangedSuccessfully = AppText("Profile settings changed successfully");
-  static const infoEmptyCart = AppText("Upps! Your bucket is empty, let's start to shop");
+  static const infoPleaseLoginToSeeYourCart =
+      AppText("Please login to see your cart");
+  static const infoPleaseLoginToSeeYourProfile =
+      AppText("Please login to see your profile");
+  static const infoPasswordChangedSuccessfully =
+      AppText("Password changed successfully");
+  static const infoProfileSettingsChangedSuccessfully =
+      AppText("Profile settings changed successfully");
+  static const infoEmptyCart =
+      AppText("Upps! Your bucket is empty, let's start to shop");
   static const infoAddressRemoved = AppText("Address removed successfully");
-  static const infoTellUsWhatYouDidNotLike = AppText("Tell us what you didn't like");
+  static const infoTellUsWhatYouDidNotLike =
+      AppText("Tell us what you didn't like");
   static const infoNeedHelpWithAnything = AppText("Need help with anything?");
+
+  static AppText infoRightOfWithdrawal(int day) => AppText(
+      "Since the $day day right of withdrawal has expired, a refund request cannot be accepted.");
 
 // Navigation
   static const navigationHome = AppText("Home");
@@ -178,20 +201,25 @@ class AppText {
       "Sign up or log in now to start your shopping journey. Enjoy exclusive member benefits, track your orders, and more!");
 
 // Sign Up Screen
-  static const signUpScreenAlreadyHaveAnAccount = AppText("Already have an account?");
+  static const signUpScreenAlreadyHaveAnAccount =
+      AppText("Already have an account?");
 
 // Sign In Screen
   static const signInPageDoNotHaveAnAccount = AppText("Don't have an account?");
 
 // Verification Page
   static const verificationEmail = AppText("Email verification");
-  static const verificationPageEmailTitle = AppText("Please enter the verification code");
-  static const verificationPageEmailBody = AppText("We sent a link to your email");
-  static const verificationPageCheckYourEmail = AppText("Check your emails, we are waiting for you");
+  static const verificationPageEmailTitle =
+      AppText("Please enter the verification code");
+  static const verificationPageEmailBody =
+      AppText("We sent a link to your email");
+  static const verificationPageCheckYourEmail =
+      AppText("Check your emails, we are waiting for you");
   static const verificationPageSendEmailAgain = AppText("Send email again");
 
   // static const verificationPageAccountCreatedSuccessfully = AppText("Account created successfully");
-  static const verificationPageEmailVerifiedSuccessfully = AppText("Email verified successfully");
+  static const verificationPageEmailVerifiedSuccessfully =
+      AppText("Email verified successfully");
 
 // Discover Page
   static const discoverPageFindSomething = AppText("Find something...");
@@ -203,7 +231,8 @@ class AppText {
   static const filterPageAvailableInStock = AppText("Available in stock");
 
 // Home Screen
-  static const homePageNewProducts = AppText("New products"); // if it is food, new Foods
+  static const homePageNewProducts =
+      AppText("New products"); // if it is food, new Foods
   static const homePageShopNow = AppText("Shop now");
   static const homePageAllCategories = AppText("All categories");
   static const homePageDiscountProducts = AppText("Flash sale");
@@ -213,12 +242,14 @@ class AppText {
 // Product Page
   static const productPageBuyNow = AppText("Buy now");
   static const productPageUnitPrice = AppText("Unit price");
-  static const productPageNotifyMe = AppText("Notify when product back to stock.");
+  static const productPageNotifyMe =
+      AppText("Notify when product back to stock.");
   static const productPageAvailableInStock = AppText("Available in stock");
   static const productPageAvailableInStockSmall = AppText("Available");
   static const productPageUnAvailableInStock = AppText("Currently unavailable");
   static const productPageUnAvailableInStockSmall = AppText("Unavailable");
-  static const productPageStorePickupAvailability = AppText("Store pickup availability");
+  static const productPageStorePickupAvailability =
+      AppText("Store pickup availability");
 
 // Product Details Page
   static const productDetailsPageDetails = AppText("Product details");
@@ -234,19 +265,25 @@ class AppText {
   static const productDetailsPageBasedOn = AppText("Based on");
   static const productDetailsPageStar = AppText("Star");
   static const productDetailsPageAddReview = AppText("Add review");
-  static const productDetailsPageOverallRating = AppText("Your overall rating of this product");
-  static const productDetailsPageSetATitle = AppText("Set a title for your review");
+  static const productDetailsPageOverallRating =
+      AppText("Your overall rating of this product");
+  static const productDetailsPageSetATitle =
+      AppText("Set a title for your review");
   static const productDetailsPageSummarizeReview = AppText("Summarize review");
-  static const productDetailsPageWhatShouldShoppersKnow = AppText("What should shoppers know before?");
+  static const productDetailsPageWhatShouldShoppersKnow =
+      AppText("What should shoppers know before?");
   static const productDetailsPageCharacterMax = AppText("Character max");
-  static const productDetailsPageWhatDidYouLike = AppText("What did you like or dislike?");
+  static const productDetailsPageWhatDidYouLike =
+      AppText("What did you like or dislike?");
   static const productDetailsPageSubmitReview = AppText("Submit review");
-  static const productDetailsPageReviewSubmitted = AppText("Review submitted successfully");
+  static const productDetailsPageReviewSubmitted =
+      AppText("Review submitted successfully");
   static const productDetailsPageSelectedColor = AppText("Selected color");
   static const productDetailsPageAddedToCart = AppText("Added to cart");
   static const productDetailsPageCompletePurchase =
       AppText("Click the checkout button to complete the purchase process.");
-  static const productDetailsPageContinueShopping = AppText("Continue shopping");
+  static const productDetailsPageContinueShopping =
+      AppText("Continue shopping");
   static const productDetailsPageCheckout = AppText("Checkout");
 
   //Cart Page
@@ -267,7 +304,8 @@ class AppText {
   static const profilePageFAQ = AppText("FAQ");
   static const profilePageGetHelp = AppText("Get Help");
   static const profilePageHelpAndSupport = AppText("Help & Support");
-  static const profilePageVerifyEmailText = AppText("Your email is not verified yet");
+  static const profilePageVerifyEmailText =
+      AppText("Your email is not verified yet");
   static const profilePageVerifyNow = AppText("Verify now");
 
   //change password
@@ -314,7 +352,8 @@ class AppText {
   static const orderPageOrder = AppText("Order");
   static const orderPageOrderDetails = AppText("Order details");
   static const orderPagePlacedOn = AppText("Placed on");
-  static const orderPagePurchaseProcessStarted = AppText("Purchase Process Started");
+  static const orderPagePurchaseProcessStarted =
+      AppText("Purchase Process Started");
   static const orderPagePayingSuccess = AppText("Paid");
   static const orderPagePayingFailed = AppText("Paying Failed");
   static const orderPageOrderTaken = AppText("Order Taken");
@@ -324,26 +363,52 @@ class AppText {
   static const orderPageShipped = AppText("Shipped");
   static const orderPageDelivered = AppText("Delivered");
   static const orderPageDeliverFailed = AppText("Deliver Failed");
-  static const orderPagePurchaseProcessFinished = AppText("Purchase Process Finished");
+  static const orderPagePurchaseProcessFinished =
+      AppText("Purchase Process Finished");
   static const orderPageOrderCanceled = AppText("Order Canceled");
   static const orderPageCancelOrder = AppText("Cancel Order");
-  static const orderPageReturnProcessStarted = AppText("Return Process Started");
+  static const orderPageReturnProcessStarted =
+      AppText("Return Process Started");
   static const orderPageReturnRequested = AppText("Return Requested");
   static const orderPageReturnAccepted = AppText("Return Accepted");
   static const orderPageReturnRejected = AppText("Return Rejected");
-  static const orderPageReturnCanceledByCustomer = AppText("Return Canceled by Client");
-  static const orderPageReturnCanceledByStore = AppText("Return Canceled by Store");
+  static const orderPageReturnCanceledByCustomer =
+      AppText("Return Canceled by Client");
+  static const orderPageReturnCanceledByStore =
+      AppText("Return Canceled by Store");
   static const orderPageReturnShipped = AppText("Return Shipped");
   static const orderPageReturnDelivered = AppText("Return Delivered");
   static const orderPageReturnDeliverFailed = AppText("Return Deliver Failed");
   static const orderPageReturnMoneyReturned = AppText("Return Money Returned");
-  static const orderPageReturnProcessFinished = AppText("Return Process Finished");
+  static const orderPageReturnProcessFinished =
+      AppText("Return Process Finished");
   static const orderPageReturnCanceled = AppText("Return Canceled");
   static const orderPageProducts = AppText("Products");
- static const orderPageReturnOrder = AppText("Return Order");
+  static const orderPageReturnOrder = AppText("Return Order");
 
+  //Request return screen
+  static const requestReturnPageRequestReturn = AppText("Request Return");
+  static const requestReturnPageDamagedProduct = AppText("Damaged Product");
+  static const requestReturnPageWrongProduct = AppText("Wrong Product");
+  static const requestReturnPageMissingProduct = AppText("Missing Product");
+  static const requestReturnPageOtherReason = AppText("Other Reason");
+  static const requestReturnPageSelectReason = AppText("Select Reason");
+  static const requestReturnPageExtraProduct = AppText("Extra Product");
+  static const requestReturnPageCanceledOrder = AppText("Canceled Order");
 
-
+  //Returns Screen
+ static const returnsPageReturnRequested = AppText("Return Requested");
+  static const returnsPageReturnAccepted = AppText("Return Accepted");
+  static const returnsPageReturnRejected = AppText("Return Rejected");
+  static const returnsPageReturnCanceledByCustomer =
+      AppText("Return Canceled by Client");
+  static const returnsPageReturnCanceledByStore =
+      AppText("Return Canceled by Store");
+  static const returnsPageReturnShipped = AppText("Return Shipped");
+  static const returnsPageReturnDelivered = AppText("Return Delivered");
+  static const returnsPageReturnDeliverFailed = AppText("Return Deliver Failed");
+  static const returnPageRequestAccepted = AppText("Return Request Accepted");
+  static const returnPageRequestRejected = AppText("Return Request Rejected");
 
   // Pages Common
   static const commonPageFilter = AppText("Filter");

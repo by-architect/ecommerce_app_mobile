@@ -1,19 +1,21 @@
+import 'package:ecommerce_app_mobile/data/model/return_process.dart';
 import 'package:ecommerce_app_mobile/data/provider/product_service_provider.dart';
 import 'package:ecommerce_app_mobile/presentation/return/bloc/return_event.dart';
-import 'package:ecommerce_app_mobile/presentation/return/bloc/return_state.dart';
+import 'package:ecommerce_app_mobile/presentation/return/bloc/returns_state.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/util/resource.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ReturnBloc extends Bloc<ReturnEvent, ReturnState> {
+class ReturnBloc extends Bloc<ReturnEvent, ReturnsState> {
   final service = ProductServiceProvider();
 
   ReturnBloc() : super(ReturnInitial()) {
     on<GetReturns>((event, emit) async {
       emit(ReturnsLoadingState(state));
       final resource = await service.getReturnProcessList(event.uid);
-      try {
-        emit(ReturnsSuccessState(state));
-      } catch (e) {
+      if (!resource.isSuccess) {
         emit(ReturnsFailedState(state, resource.error!));
+      } else {
+        emit(ReturnsSuccessState(state.copyWith(returns: resource.data!)));
       }
     });
 
@@ -21,20 +23,22 @@ class ReturnBloc extends Bloc<ReturnEvent, ReturnState> {
       emit(RequestReturnLoadingState(state));
       final resource =
           await service.addReturnProcess(event.returnState, event.uid);
-      try {
-        emit(RequestReturnSuccessState(state));
-      } catch (e) {
+      if (!resource.isSuccess) {
         emit(RequestReturnFailedState(state, resource.error!));
+      } else {
+        emit(RequestReturnSuccessState(resource.data!));
       }
     });
 
     on<CancelReturn>((event, emit) async {
       emit(CancelReturnLoadingState(state));
-      final resource = await service.cancelReturn(event.returnId);
-      try {
-        emit(CancelReturnSuccessState(state));
-      } catch (e) {
+      final canceledReturn = event.returnModel.cancelReturn(event.message);
+      if (canceledReturn == null) return;
+      final resource = await service.updateReturn(canceledReturn);
+      if (!resource.isSuccess) {
         emit(CancelReturnFailedState(state, resource.error!));
+      } else {
+        emit(CancelReturnSuccessState(resource.data!));
       }
     });
   }

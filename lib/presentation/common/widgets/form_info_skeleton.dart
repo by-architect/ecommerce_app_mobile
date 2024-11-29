@@ -1,8 +1,10 @@
+import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/color_filters.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../common/ui/theme/AppColors.dart';
 import 'button_secondary.dart';
 
 class FormInfoSkeleton extends StatelessWidget {
@@ -25,10 +27,14 @@ class FormInfoSkeleton extends StatelessWidget {
               colorFilter: ColorFilters.pinkToPrimaryColor(context),
             )),
         Flexible(
-            flex: 1,
-            child: Text(
-              message,
-              style: Theme.of(context).textTheme.titleMedium,
+            flex: 2,
+            child: Padding(
+              padding: const EdgeInsets.all(AppSizes.defaultSpace),
+              child: Text(
+                message,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
             )),
         Flexible(
             flex: 1,

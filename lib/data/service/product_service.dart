@@ -4,14 +4,14 @@ import 'package:ecommerce_app_mobile/data/model/category.dart';
 import 'package:ecommerce_app_mobile/data/model/product.dart';
 import 'package:ecommerce_app_mobile/data/model/product_details_item.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
-import 'package:ecommerce_app_mobile/data/model/order.dart';
+import 'package:ecommerce_app_mobile/data/model/order_process.dart';
 import 'package:ecommerce_app_mobile/data/model/recent_search.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/add_address_state.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/addresses_state.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_state.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/order_state.dart';
 
-import '../../presentation/products/bloc/return_process_state.dart';
+import '../../presentation/products/bloc/return_state.dart';
 import '../../presentation/products/bloc/review_state.dart';
 import '../../sddklibrary/util/resource.dart';
 import '../model/Reviews.dart';
@@ -50,9 +50,9 @@ abstract class ProductService {
   Future<ResourceStatus<List<OrderModel>>> getOrderList(String uid);
   Future<ResourceStatus> cancelOrder(OrderModel order);
 
-  Future<ResourceStatus> addReturn(Return returnProcess, String uid);
-  Future<ResourceStatus<List<ReturnProcess>>> getReturnProcessList(String uid);
-  Future<ResourceStatus> cancelReturn(String returnId);
+  Future<ResourceStatus> addReturn(ReturnState returnProcess, String uid);
+  Future<ResourceStatus> updateReturn(Return returnProcess);
+  Future<ResourceStatus<List<Return>>> getReturnProcessList(String uid);
 
   Future<ResourceStatus<List<CartItem>>> getCart(String uid);
   Future<ResourceStatus> addToCart(CartItemState cartItemState, String uid);

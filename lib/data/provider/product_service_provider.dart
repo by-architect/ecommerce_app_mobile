@@ -16,12 +16,12 @@ import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_
 import 'package:ecommerce_app_mobile/presentation/products/bloc/order_state.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/fail.dart';
 
-import '../../presentation/products/bloc/return_process_state.dart';
+import '../../presentation/products/bloc/return_state.dart';
 import '../../presentation/products/bloc/review_state.dart';
 import '../../sddklibrary/util/resource.dart';
 import '../model/product.dart';
 import '../model/product_feature.dart';
-import '../model/order.dart';
+import '../model/order_process.dart';
 import '../model/tag.dart';
 
 class ProductServiceProvider {
@@ -190,17 +190,17 @@ class ProductServiceProvider {
     return _productService.cancelOrder(order);
   }
 
-  Future<ResourceStatus> addReturnProcess(Return returnProcess, String uid) {
+  Future<ResourceStatus> addReturnProcess(ReturnState returnProcess, String uid) {
     return _productService.addReturn(returnProcess, uid);
   }
 
 
-  Future<ResourceStatus<List<ReturnProcess>>> getReturnProcessList(String uid) {
+  Future<ResourceStatus<List<Return>>> getReturnProcessList(String uid) {
     return _productService.getReturnProcessList(uid);
   }
 
-  Future<ResourceStatus> cancelReturn(String returnId) {
-    return _productService.cancelReturn(returnId);
+  Future<ResourceStatus> updateReturn(Return returnProcess) {
+    return _productService.updateReturn(returnProcess);
   }
 
   Future<ResourceStatus<List<CartItem>>> getCart(User user) {

@@ -6,8 +6,8 @@ import 'package:ecommerce_app_mobile/data/model/categories.dart';
 import 'package:ecommerce_app_mobile/data/model/product.dart';
 import 'package:ecommerce_app_mobile/data/model/product_details_item.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
-import 'package:ecommerce_app_mobile/data/model/order.dart';
-import 'package:ecommerce_app_mobile/data/model/purchase_process_interface.dart';
+import 'package:ecommerce_app_mobile/data/model/order_process.dart';
+import 'package:ecommerce_app_mobile/data/model/purchase_process.dart';
 import 'package:ecommerce_app_mobile/data/model/recent_search.dart';
 import 'package:ecommerce_app_mobile/data/model/return_process.dart';
 import 'package:ecommerce_app_mobile/data/model/review.dart';
@@ -372,14 +372,9 @@ class FakeProductModels {
     statusPaid: OrderPaid(
       dateTime: DateTime.now(),
     ),
-    statusOrderTaken: OrderTaken(
-      status: PurchaseStatus.waiting,
-      dateTime: DateTime.now(),
-    ),
-    statusShipped:
-        OrderShipped(dateTime: DateTime.now(), status: PurchaseStatus.waiting),
-    statusDelivered: OrderDelivered(
-        dateTime: DateTime.now(), status: PurchaseStatus.waiting),
+    statusOrderTaken: OrderTaken.waiting(),
+    statusShipped: OrderShipped.waiting(),
+    statusDelivered: OrderDelivered.waiting(),
   );
 
   static OrderModel orderPaidCanceled = OrderModel(
@@ -401,15 +396,14 @@ class FakeProductModels {
       status: PurchaseStatus.canceled,
       dateTime: DateTime.now(),
     ),
-    statusShipped:
-        OrderShipped(dateTime: DateTime.now(), status: PurchaseStatus.waiting),
+    statusShipped: OrderShipped.waiting(),
     statusDelivered: OrderDelivered(
         dateTime: DateTime.now(), status: PurchaseStatus.waiting),
   );
 
   static final orderTakenSuccess = OrderModel(
     id: "2",
-    address:  address3,
+    address: address3,
     products: [
       ProductWithQuantity(
           product: product1, subProduct: subProduct1, quantity: 1),
@@ -426,15 +420,14 @@ class FakeProductModels {
       status: PurchaseStatus.success,
       dateTime: DateTime.now(),
     ),
-    statusShipped:
-        OrderShipped(dateTime: DateTime.now(), status: PurchaseStatus.waiting),
+    statusShipped: OrderShipped.waiting(),
     statusDelivered: OrderDelivered(
         dateTime: DateTime.now(), status: PurchaseStatus.waiting),
   );
 
   static final orderShippedSuccess = OrderModel(
     id: "3",
-    address:  address1,
+    address: address1,
     products: [
       ProductWithQuantity(
           product: product1, subProduct: subProduct1, quantity: 1),
@@ -451,8 +444,10 @@ class FakeProductModels {
       status: PurchaseStatus.success,
       dateTime: DateTime.now(),
     ),
-    statusShipped:
-        OrderShipped(dateTime: DateTime.now(), status: PurchaseStatus.success),
+    statusShipped: OrderShipped(
+        dateTime: DateTime.now(),
+        status: PurchaseStatus.success,
+        cargoNo: "34290892349834"),
     statusDelivered: OrderDelivered(
         dateTime: DateTime.now(), status: PurchaseStatus.waiting),
   );
@@ -476,81 +471,42 @@ class FakeProductModels {
       status: PurchaseStatus.success,
       dateTime: DateTime.now(),
     ),
-    statusShipped:
-        OrderShipped(dateTime: DateTime.now(), status: PurchaseStatus.success),
+    statusShipped: OrderShipped(
+        dateTime: DateTime.now(),
+        status: PurchaseStatus.success,
+        cargoNo: "429383493948w"),
     statusDelivered: OrderDelivered(
         dateTime: DateTime.now(), status: PurchaseStatus.success),
   );
 
-  static ReturnStatus returnStatusStarted = ReturnStatus(
-    status: ReturnProcessStatusType.returnProcessStarted,
-    dateTime: DateTime.now(),
-  );
-
-  static ReturnStatus returnRequested = ReturnStatus(
-    status: ReturnProcessStatusType.returnRequested,
-    dateTime: DateTime.now(),
-  );
-
-  static ReturnStatus returnAccepted = ReturnStatus(
-    status: ReturnProcessStatusType.returnAccepted,
-    dateTime: DateTime.now(),
-  );
-
-  static ReturnStatus returnRejected = ReturnStatus(
-    status: ReturnProcessStatusType.returnRejected,
-    dateTime: DateTime.now(),
-  );
-
-  static ReturnStatus returnMoneyReturned = ReturnStatus(
-    status: ReturnProcessStatusType.moneyReturned,
-    dateTime: DateTime.now(),
-  );
-  static ReturnStatus returnCanceledByCustomer = ReturnStatus(
-    status: ReturnProcessStatusType.canceledByCustomer,
-    dateTime: DateTime.now(),
-  );
-
-  static ReturnStatus returnCanceledByStore = ReturnStatus(
-    status: ReturnProcessStatusType.canceledByStore,
-    dateTime: DateTime.now(),
-  );
-
-  static ReturnStatus returnShipped = ReturnStatus(
-    status: ReturnProcessStatusType.shipped,
-    dateTime: DateTime.now(),
-  );
-
-  static ReturnStatus returnDelivered = ReturnStatus(
-    status: ReturnProcessStatusType.delivered,
-    dateTime: DateTime.now(),
-  );
-
-  static ReturnStatus returnDeliverFailed = ReturnStatus(
-    status: ReturnProcessStatusType.deliverFailed,
-    dateTime: DateTime.now(),
-  );
-
-  static ReturnStatus returnProcessFinished = ReturnStatus(
-    status: ReturnProcessStatusType.returnProcessFinished,
-    dateTime: DateTime.now(),
-  );
-
-  static ReturnProcess returnProcessSuccess = ReturnProcess(
+  static Return returnProcessSuccess = Return(
     purchaseProcessId: '23',
     id: "0",
-    cargoNo: "123456789",
     uid: "0",
-    processStatusList: [
-      returnStatusStarted,
-      returnRequested,
-      returnAccepted,
-      returnShipped,
-      returnDelivered,
-      returnMoneyReturned,
-      returnProcessFinished
-    ],
-    selectedProducts: [
+    address: address2,
+    statusReturnRequested: ReturnStatusReturnRequested(
+        message: "reason",
+        dateTime: DateTime.now(),
+        returnReason: "damaged",
+        returnType: ReturnType.damagedProduct),
+    statusRequestAccepted: ReturnStatusRequestAccepted(
+        dateTime: DateTime.now(),
+        message: "reason",
+        status: PurchaseStatus.success),
+    statusReturnShipped: ReturnStatusShipped(
+        dateTime: DateTime.now(),
+        message: "reason",
+        status: PurchaseStatus.success,
+        cargoNo: "123456789"),
+    statusReturnDelivered: ReturnStatusDelivered(
+        dateTime: DateTime.now(),
+        message: "reason",
+        status: PurchaseStatus.success),
+    statusReturnAccepted: ReturnStatusReturnAccepted(
+        dateTime: DateTime.now(),
+        message: "reason",
+        status: PurchaseStatus.success),
+    products: [
       ProductWithQuantity(
           product: product1, quantity: 3, subProduct: subProduct1),
       ProductWithQuantity(
@@ -560,17 +516,33 @@ class FakeProductModels {
     ],
   );
 
-  static ReturnProcess returnProcessRejected = ReturnProcess(
+  static Return returnProcessRejected = Return(
     purchaseProcessId: '23',
     id: "0",
-    cargoNo: "123456789",
     uid: "0",
-    processStatusList: [
-      returnStatusStarted,
-      returnRequested,
-      returnRejected,
-    ],
-    selectedProducts: [
+    statusReturnRequested: ReturnStatusReturnRequested(
+        message: "reason",
+        dateTime: DateTime.now(),
+        returnReason: "damaged",
+        returnType: ReturnType.damagedProduct),
+    statusRequestAccepted: ReturnStatusRequestAccepted(
+        dateTime: DateTime.now(),
+        message: "reason",
+        status: PurchaseStatus.success),
+    statusReturnShipped: ReturnStatusShipped(
+        dateTime: DateTime.now(),
+        message: "reason",
+        status: PurchaseStatus.success,
+        cargoNo: "123456789"),
+    statusReturnDelivered: ReturnStatusDelivered(
+        dateTime: DateTime.now(),
+        message: "reason",
+        status: PurchaseStatus.success),
+    statusReturnAccepted: ReturnStatusReturnAccepted(
+        dateTime: DateTime.now(),
+        message: "reason",
+        status: PurchaseStatus.success),
+    products: [
       ProductWithQuantity(
           product: product1, quantity: 3, subProduct: subProduct1),
       ProductWithQuantity(
@@ -578,27 +550,42 @@ class FakeProductModels {
       ProductWithQuantity(
           product: product3, quantity: 1, subProduct: subProduct3),
     ],
+    address: address1,
   );
 
-  static ReturnProcess returnProcessCanceledByCustomer = ReturnProcess(
-    purchaseProcessId: '23',
-    id: "0",
-    cargoNo: "123456789",
-    uid: "0",
-    processStatusList: [
-      returnStatusStarted,
-      returnRequested,
-      returnCanceledByCustomer,
-    ],
-    selectedProducts: [
-      ProductWithQuantity(
-          product: product1, quantity: 3, subProduct: subProduct1),
-      ProductWithQuantity(
-          product: product2, quantity: 2, subProduct: subProduct2),
-      ProductWithQuantity(
-          product: product3, quantity: 1, subProduct: subProduct3),
-    ],
-  );
+  static Return returnProcessCanceledByCustomer = Return(
+      purchaseProcessId: '23',
+      id: "0",
+      uid: "0",
+      address: address3,
+      statusReturnRequested: ReturnStatusReturnRequested(
+          message: "reason",
+          dateTime: DateTime.now(),
+          returnReason: "damaged",
+          returnType: ReturnType.damagedProduct),
+      statusRequestAccepted: ReturnStatusRequestAccepted(
+          dateTime: DateTime.now(),
+          message: "reason",
+          status: PurchaseStatus.success),
+      statusReturnShipped: ReturnStatusShipped(
+          dateTime: DateTime.now(),
+          message: "reason",
+          status: PurchaseStatus.success,
+          cargoNo: "123456789"),
+      statusReturnDelivered: ReturnStatusDelivered(
+          dateTime: DateTime.now(),
+          message: "reason",
+          status: PurchaseStatus.success),
+      statusReturnAccepted: ReturnStatusReturnAccepted(
+          dateTime: DateTime.now(),
+          message: "reason",
+          status: PurchaseStatus.success),
+      products: [
+        ProductWithQuantity(
+            product: product1, quantity: 3, subProduct: subProduct1),
+        ProductWithQuantity(
+            product: product2, quantity: 2, subProduct: subProduct2),
+      ]);
 
   static const productDemoImg1 = "https://i.imgur.com/CGCyp1d.png";
   static const productDemoImg2 = "https://i.imgur.com/AkzWQuJ.png";

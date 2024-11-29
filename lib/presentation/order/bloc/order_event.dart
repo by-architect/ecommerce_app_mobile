@@ -1,4 +1,4 @@
-import 'package:ecommerce_app_mobile/data/model/order.dart';
+import 'package:ecommerce_app_mobile/data/model/order_process.dart';
 
 class OrderEvent {
 

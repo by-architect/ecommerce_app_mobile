@@ -1,8 +1,9 @@
 import 'package:ecommerce_app_mobile/common/constant/api_constants.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
+import 'package:ecommerce_app_mobile/data/fakerepository/fake_app_defaults.dart';
 import 'package:ecommerce_app_mobile/data/model/address.dart';
 import 'package:ecommerce_app_mobile/data/model/product.dart';
-import 'package:ecommerce_app_mobile/data/model/purchase_process_interface.dart';
+import 'package:ecommerce_app_mobile/data/model/purchase_process.dart';
 
 class OrderModel implements Purchase {
   @override
@@ -102,6 +103,13 @@ class OrderTaken extends PurchaseProcess {
             purchaseStatusType: OrderStatusType.orderTaken,
             cancelableWhileProcessing: true);
 
+  OrderTaken.waiting()
+      : this(
+          dateTime: DateTime.now(),
+          status: PurchaseStatus.waiting,
+          receipt: null,
+        );
+
   OrderTaken cancelByCustomer(String message) {
     return OrderTaken(
         status: PurchaseStatus.canceled,
@@ -115,16 +123,28 @@ class OrderTaken extends PurchaseProcess {
 }
 
 class OrderShipped extends PurchaseProcess {
-  OrderShipped({required super.dateTime, super.message, required super.status})
+  OrderShipped(
+      {required super.dateTime,
+      super.message,
+      required super.status,
+      required super.cargoNo})
       : super(
             purchaseStatusType: OrderStatusType.shipped,
             cancelableWhileProcessing: true);
+
+  OrderShipped.waiting()
+      : this(
+          dateTime: DateTime.now(),
+          status: PurchaseStatus.waiting,
+          cargoNo: null,
+        );
 
   OrderShipped canceledByCustomer(String message) {
     return OrderShipped(
       status: PurchaseStatus.canceled,
       dateTime: DateTime.now(),
       message: "${AppText.orderPageCanceledByCustomer}: $message",
+      cargoNo: cargoNo,
     );
   }
 
@@ -139,6 +159,16 @@ class OrderDelivered extends PurchaseProcess {
       : super(
             purchaseStatusType: OrderStatusType.delivered,
             cancelableWhileProcessing: false);
+
+  OrderDelivered.waiting()
+      : this(
+          dateTime: DateTime.now(),
+          status: PurchaseStatus.waiting,
+        );
+
+  bool get hasTheRightOfWithdrawalExpired =>
+      dateTime.difference(DateTime.now()).inDays <=
+      FakeAppDefaults.defaultReturnDay;
 }
 
 enum OrderStatusType implements PurchaseStatusType {

@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:math';
 
 import 'package:ecommerce_app_mobile/data/fakerepository/fake_models.dart';
@@ -8,14 +7,14 @@ import 'package:ecommerce_app_mobile/data/model/category.dart';
 import 'package:ecommerce_app_mobile/data/model/product.dart';
 import 'package:ecommerce_app_mobile/data/model/product_details_item.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
-import 'package:ecommerce_app_mobile/data/model/order.dart';
+import 'package:ecommerce_app_mobile/data/model/order_process.dart';
 import 'package:ecommerce_app_mobile/data/model/recent_search.dart';
 import 'package:ecommerce_app_mobile/data/model/return_process.dart';
 import 'package:ecommerce_app_mobile/data/service/product_service.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/add_address_state.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/addresses_state.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/order_state.dart';
-import 'package:ecommerce_app_mobile/presentation/products/bloc/return_process_state.dart';
+import 'package:ecommerce_app_mobile/presentation/products/bloc/return_state.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/fail.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/resource.dart';
 
@@ -271,11 +270,9 @@ class FakeProductService implements ProductService {
     return const ResourceStatus.success("");
   }
 
-
   @override
-  Future<ResourceStatus<List<OrderModel>>> getOrderList(
-      String uid) async {
-    await Future.delayed(const Duration(seconds: 2));
+  Future<ResourceStatus<List<OrderModel>>> getOrderList(String uid) async {
+    await Future.delayed(const Duration(milliseconds: 300));
     return ResourceStatus.success([
       FakeProductModels.orderPaidSuccess,
       FakeProductModels.orderDeliveredSuccess,
@@ -292,20 +289,20 @@ class FakeProductService implements ProductService {
   }
 
   @override
-  Future<ResourceStatus> addReturn(Return returnProcess, String uid) async {
+  Future<ResourceStatus> addReturn(
+      ReturnState returnProcess, String uid) async {
     await Future.delayed(const Duration(seconds: 1));
     return const ResourceStatus.success("");
   }
 
   @override
-  Future<ResourceStatus> cancelReturn(String returnId) async {
+  Future<ResourceStatus> updateReturn(Return returnProcess) async {
     await Future.delayed(const Duration(seconds: 1));
     return const ResourceStatus.success("");
   }
 
   @override
-  Future<ResourceStatus<List<ReturnProcess>>> getReturnProcessList(
-      String uid) async {
+  Future<ResourceStatus<List<Return>>> getReturnProcessList(String uid) async {
     await Future.delayed(const Duration(seconds: 1));
     return ResourceStatus.success([
       FakeProductModels.returnProcessSuccess,
@@ -313,5 +310,4 @@ class FakeProductService implements ProductService {
       FakeProductModels.returnProcessCanceledByCustomer,
     ]);
   }
-
 }

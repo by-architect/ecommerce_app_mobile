@@ -1,7 +1,7 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppStyles.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/color_filters.dart';
 import 'package:ecommerce_app_mobile/data/fakerepository/fake_app_defaults.dart';
-import 'package:ecommerce_app_mobile/data/model/order.dart';
+import 'package:ecommerce_app_mobile/data/model/order_process.dart';
 import 'package:ecommerce_app_mobile/presentation/address/widgets/address_card.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/app_bar_pop_back.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/button_secondary.dart';
@@ -15,7 +15,7 @@ import '../../../common/ui/theme/AppColors.dart';
 import '../../../common/ui/theme/AppSizes.dart';
 import '../../../common/ui/theme/AppText.dart';
 import '../../../common/util/cart_util.dart';
-import '../../../data/model/purchase_process_interface.dart';
+import '../../../data/model/purchase_process.dart';
 import '../../cart/widget/order_summary.dart';
 import '../../common/widgets/product_card_large.dart';
 import '../../common/widgets/text_button_default.dart';
@@ -23,7 +23,10 @@ import '../widget/purchase_status_widget.dart';
 
 class OrderDetailsScreen extends StatelessWidget {
   const OrderDetailsScreen(
-      {super.key, required this.orderModel, required this.onCancel, required this.onReturn});
+      {super.key,
+      required this.orderModel,
+      required this.onCancel,
+      required this.onReturn});
 
   final OrderModel orderModel;
   final Function() onCancel;

@@ -1,5 +1,5 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
-import 'package:ecommerce_app_mobile/data/model/purchase_process_interface.dart';
+import 'package:ecommerce_app_mobile/data/model/purchase_process.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -42,21 +42,32 @@ class PurchaseStatusWidget extends StatelessWidget {
         Expanded(
           child: ProcessDotWithLine(
             status: purchase.purchaseProcessesHandler.three.status,
-            nextStatus: purchase.purchaseProcessesHandler.four.status,
+            nextStatus: purchase.purchaseProcessesHandler.getLast.status,
             title: purchase.purchaseProcessesHandler.three.purchaseStatusType
                 .userText.capitalizeEveryWord.get,
             isActive: purchase.purchaseProcessesHandler.getProcessing ==
                 purchase.purchaseProcessesHandler.three,
           ),
         ),
+        if(purchase.purchaseProcessesHandler.five != null)
         Expanded(
           child: ProcessDotWithLine(
             status: purchase.purchaseProcessesHandler.four.status,
-            isShowRightLine: false,
+            nextStatus: purchase.purchaseProcessesHandler.getLast.status,
             title: purchase.purchaseProcessesHandler.four.purchaseStatusType
                 .userText.capitalizeEveryWord.get,
             isActive: purchase.purchaseProcessesHandler.getProcessing ==
                 purchase.purchaseProcessesHandler.four,
+          ),
+        ),
+        Expanded(
+          child: ProcessDotWithLine(
+            status: purchase.purchaseProcessesHandler.getLast.status,
+            isShowRightLine: false,
+            title: purchase.purchaseProcessesHandler.getLast.purchaseStatusType
+                .userText.capitalizeEveryWord.get,
+            isActive: purchase.purchaseProcessesHandler.getProcessing ==
+                purchase.purchaseProcessesHandler.getLast,
           ),
         ),
       ],

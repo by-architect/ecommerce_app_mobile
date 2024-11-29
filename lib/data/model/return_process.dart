@@ -1,140 +1,228 @@
 import 'package:ecommerce_app_mobile/common/constant/api_constants.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
+import 'package:ecommerce_app_mobile/data/model/address.dart';
 import 'package:ecommerce_app_mobile/data/model/product.dart';
-import 'package:ecommerce_app_mobile/data/model/order.dart';
+import 'package:ecommerce_app_mobile/data/model/order_process.dart';
+import 'package:ecommerce_app_mobile/data/model/purchase_process.dart';
 
-class ReturnProcess {
+class Return implements Purchase {
+  @override
   final String id;
+  @override
   final String uid;
-  final List<ReturnStatus> processStatusList;
-  final List<ProductWithQuantity> selectedProducts;
-  final String cargoNo;
   final String purchaseProcessId;
+  @override
+  final List<ProductWithQuantity> products;
+  @override
+  final Address address;
 
-  List<ReturnProcessStatusType> get returnStatusListRoadMap => processStatusList
-      .map((e) => e.status)
-      .where((element) =>
-          element != ReturnProcessStatusType.returnProcessStarted &&
-          element != ReturnProcessStatusType.returnProcessFinished)
-      .toList();
+  final ReturnStatusReturnRequested statusReturnRequested;
+  final ReturnStatusRequestAccepted statusRequestAccepted;
+  final ReturnStatusShipped statusReturnShipped;
+  final ReturnStatusDelivered statusReturnDelivered;
+  final ReturnStatusReturnAccepted statusReturnAccepted;
 
-  List<ReturnProcessStatusType> get returnStatusRemainedRoadMap {
-    switch (processStatusList.last.status) {
-      case ReturnProcessStatusType.returnRequested:
-        return [
-          ReturnProcessStatusType.returnAccepted,
-          ReturnProcessStatusType.returnProcessStarted,
-          ReturnProcessStatusType.shipped,
-          ReturnProcessStatusType.delivered,
-          ReturnProcessStatusType.moneyReturned
-        ];
-      case ReturnProcessStatusType.returnAccepted:
-        return [
-          ReturnProcessStatusType.returnProcessStarted,
-          ReturnProcessStatusType.shipped,
-          ReturnProcessStatusType.delivered,
-          ReturnProcessStatusType.moneyReturned
-        ];
-      case ReturnProcessStatusType.returnRejected:
-        return [];
-      case ReturnProcessStatusType.returnProcessStarted:
-        return [
-          ReturnProcessStatusType.shipped,
-          ReturnProcessStatusType.delivered,
-          ReturnProcessStatusType.moneyReturned
-        ];
-      case ReturnProcessStatusType.shipped:
-        return [
-          ReturnProcessStatusType.delivered,
-          ReturnProcessStatusType.moneyReturned
-        ];
-      case ReturnProcessStatusType.delivered:
-        return [ReturnProcessStatusType.moneyReturned];
-      case ReturnProcessStatusType.moneyReturned:
-        return [];
-      case ReturnProcessStatusType.deliverFailed:
-        return [
-          ReturnProcessStatusType.shipped,
-          ReturnProcessStatusType.delivered,
-          ReturnProcessStatusType.moneyReturned
-        ];
-      case ReturnProcessStatusType.canceledByCustomer ||
-            ReturnProcessStatusType.canceledByStore:
-        return [];
-      default:
-        return [];
+  Return({
+    required this.id,
+    required this.purchaseProcessId,
+    required this.address,
+    required this.statusReturnRequested,
+    required this.statusRequestAccepted,
+    required this.statusReturnShipped,
+    required this.statusReturnDelivered,
+    required this.statusReturnAccepted,
+    required this.products,
+    required this.uid,
+  });
+
+  @override
+  PurchaseProcessHandler get purchaseProcessesHandler => PurchaseProcessHandler(
+      one: statusReturnRequested,
+      two: statusRequestAccepted,
+      three: statusReturnShipped,
+      four: statusReturnDelivered,
+      five: statusReturnAccepted);
+
+  PurchaseProcess? get getProcessing =>
+      statusRequestAccepted.status == PurchaseStatus.success
+          ? statusReturnShipped.status == PurchaseStatus.success
+              ? statusReturnDelivered.status == PurchaseStatus.success
+                  ? statusReturnAccepted.status == PurchaseStatus.success
+                      ? null
+                      : statusReturnAccepted
+                  : statusReturnDelivered
+              : statusReturnShipped
+          : statusRequestAccepted;
+
+  Return? cancelReturn(String message) {
+    final processing = getProcessing;
+    if (processing == null) return null;
+    if (processing is ReturnStatusRequestAccepted) {
+      return Return(
+          id: id,
+          purchaseProcessId: purchaseProcessId,
+          address: address,
+          statusReturnRequested: statusReturnRequested,
+          statusRequestAccepted: processing.canceledByCustomer(message),
+          statusReturnShipped: statusReturnShipped,
+          statusReturnDelivered: statusReturnDelivered,
+          statusReturnAccepted: statusReturnAccepted,
+          products: products,
+          uid: uid);
     }
+    if (processing is ReturnStatusShipped) {
+      return Return(
+          id: id,
+          purchaseProcessId: purchaseProcessId,
+          address: address,
+          statusReturnRequested: statusReturnRequested,
+          statusRequestAccepted: statusRequestAccepted,
+          statusReturnShipped: processing.canceledByCustomer(message),
+          statusReturnDelivered: statusReturnDelivered,
+          statusReturnAccepted: statusReturnAccepted,
+          products: products,
+          uid: uid);
+    }
+    return null;
   }
+}
 
-  ReturnProcess(
-      {required this.id,
-      required this.purchaseProcessId,
-      required this.selectedProducts,
-      required this.uid,
-      required this.processStatusList,
-      required this.cargoNo});
+class ReturnStatusReturnRequested extends PurchaseProcess {
+  final ReturnType returnType;
+  final String returnReason;
 
-  factory ReturnProcess.fromMap(
-      {required Map<String, dynamic> map,
-      required String id,
-      required List<ReturnStatus> processStatusList}) {
-    return ReturnProcess(
-      id: id,
-      purchaseProcessId: map[ApiDeliveryProcesses.purchaseProcessId],
-      uid: map[ApiDeliveryProcesses.uid],
-      processStatusList: processStatusList,
-      selectedProducts: (map[ApiDeliveryProcesses.selectedProducts] as List)
-          .map((e) => ProductWithQuantity.fromMap(e))
-          .toList(),
-      cargoNo: map[ApiDeliveryProcesses.cargoNo],
+  ReturnStatusReturnRequested({
+    required super.message,
+    required this.returnReason,
+    required this.returnType,
+    required super.dateTime,
+  }) : super(
+          cancelableWhileProcessing: false,
+          status: PurchaseStatus.success,
+          purchaseStatusType: ReturnStatusType.returnRequested,
+        );
+}
+
+class ReturnStatusRequestAccepted extends PurchaseProcess {
+  ReturnStatusRequestAccepted(
+      {required super.message, required super.dateTime, required super.status})
+      : super(
+          cancelableWhileProcessing: true,
+          purchaseStatusType: ReturnStatusType.returnRequestAccepted,
+        );
+
+  ReturnStatusRequestAccepted.waiting()
+      : this(
+            status: PurchaseStatus.waiting,
+            dateTime: DateTime.now(),
+            message: null);
+
+  ReturnStatusRequestAccepted canceledByCustomer(String message) {
+    return ReturnStatusRequestAccepted(
+      status: PurchaseStatus.canceled,
+      dateTime: DateTime.now(),
+      message: "${AppText.orderPageCanceledByCustomer}: $message",
     );
   }
 }
 
-class ReturnStatus {
-  final Object? receipt;
-  final ReturnProcessStatusType status;
-  final DateTime dateTime;
-  final String? message;
+class ReturnStatusShipped extends PurchaseProcess {
+  ReturnStatusShipped(
+      {required super.dateTime,
+      required super.status,
+      required super.cargoNo,
+      super.message})
+      : super(
+          cancelableWhileProcessing: true,
+          purchaseStatusType: ReturnStatusType.shipped,
+        );
 
-  ReturnStatus(
-      {this.receipt,
-      required this.status,
-      required this.dateTime,
-      this.message});
+  ReturnStatusShipped.waiting()
+      : this(
+            status: PurchaseStatus.waiting,
+            dateTime: DateTime.now(),
+            cargoNo: null,
+            message: null);
 
-  factory ReturnStatus.fromMap({required Map<String, dynamic> map}) {
-    return ReturnStatus(
-      receipt: map[ApiDeliveryProcesses.receipt],
-      status: ReturnProcessStatusType.fromServerMessage(
-          map[ApiDeliveryProcesses.returnStatusType]),
-      dateTime: DateTime.parse(map[ApiDeliveryProcesses.dateTime]),
-      message: map[ApiDeliveryProcesses.message],
-    );
+  ReturnStatusShipped canceledByCustomer(String message) {
+    return ReturnStatusShipped(
+        dateTime: DateTime.now(),
+        status: PurchaseStatus.canceled,
+        message: "${AppText.orderPageCanceledByCustomer}: $message",
+        cargoNo: cargoNo);
   }
 }
 
-enum ReturnProcessStatusType {
-  returnProcessStarted(ApiDeliveryProcesses.returnProcessStarted, AppText.orderPageReturnProcessStarted),
-  returnRequested(ApiDeliveryProcesses.returnRequested, AppText.orderPageReturnRequested),
-  returnAccepted(ApiDeliveryProcesses.returnAccepted, AppText.orderPageReturnAccepted),
-  returnRejected(ApiDeliveryProcesses.returnRejected, AppText.orderPageReturnRejected),
-  shipped(ApiDeliveryProcesses.shipped, AppText.orderPageShipped),
-  delivered(ApiDeliveryProcesses.delivered, AppText.orderPageDelivered),
-  moneyReturned(ApiDeliveryProcesses.moneyReturned, AppText.orderPageMoneyReturned),
-  canceledByCustomer(ApiDeliveryProcesses.canceledByCustomer, AppText.orderPageCanceledByCustomer),
-  canceledByStore(ApiDeliveryProcesses.canceledByStore, AppText.orderPageCanceledByStore),
-  deliverFailed(ApiDeliveryProcesses.deliverFailed, AppText.orderPageDeliverFailed),
-  returnProcessFinished(ApiDeliveryProcesses.returnProcessFinished, AppText.orderPageReturnProcessFinished),
+class ReturnStatusDelivered extends PurchaseProcess {
+  ReturnStatusDelivered({
+    required super.message,
+    required super.dateTime,
+    required super.status,
+  }) : super(
+          cancelableWhileProcessing: false,
+          purchaseStatusType: ReturnStatusType.delivered,
+        );
+
+  ReturnStatusDelivered.waiting()
+      : this(
+            status: PurchaseStatus.waiting,
+            dateTime: DateTime.now(),
+            message: null);
+}
+
+class ReturnStatusReturnAccepted extends PurchaseProcess {
+  ReturnStatusReturnAccepted({
+    required super.message,
+    required super.dateTime,
+    required super.status,
+  }) : super(
+          cancelableWhileProcessing: false,
+          purchaseStatusType: ReturnStatusType.returnAccepted,
+        );
+
+  ReturnStatusReturnAccepted.waiting()
+      : this(
+            message: null,
+            dateTime: DateTime.now(),
+            status: PurchaseStatus.waiting);
+}
+
+enum ReturnStatusType implements PurchaseStatusType {
+  returnRequested('return_requested', AppText.returnsPageReturnRequested),
+  returnRequestAccepted('return_accepted', AppText.returnsPageReturnAccepted),
+  shipped('shipped', AppText.returnsPageReturnShipped),
+  delivered('delivered', AppText.returnsPageReturnDelivered),
+  returnAccepted('return_accepted', AppText.returnsPageReturnAccepted),
   ;
 
+  ReturnStatusType fromServerMessages(String message) {
+    return ReturnStatusType.values
+        .firstWhere((element) => element.apiData == message);
+  }
+
+  @override
   final String apiData;
+  @override
   final AppText userText;
 
-  const ReturnProcessStatusType(this.apiData,this.userText);
+  const ReturnStatusType(this.apiData, this.userText);
+}
 
-  factory ReturnProcessStatusType.fromServerMessage(String message) {
-    return ReturnProcessStatusType.values
+enum ReturnType {
+  damagedProduct(AppText.requestReturnPageDamagedProduct, 'damaged_product'),
+  wrongProduct(AppText.requestReturnPageWrongProduct, 'wrong_product'),
+  extraProduct(AppText.requestReturnPageExtraProduct, 'extra_product'),
+  orderCancelled(AppText.requestReturnPageCanceledOrder, 'canceled_order'),
+  other(AppText.requestReturnPageOtherReason, 'other'),
+  ;
+
+  final AppText userText;
+  final String apiData;
+
+  const ReturnType(this.userText, this.apiData);
+
+  factory ReturnType.fromServerMessage(String message) {
+    return ReturnType.values
         .firstWhere((element) => element.apiData == message);
   }
 }

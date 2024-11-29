@@ -32,6 +32,8 @@ class AppImages{
   static const signalSearching = '${_imagePath}signal_searching$_formatSvg';
   static const bugFixing = '${_imagePath}bug_fixing$_formatSvg';
   static const successfulPurchase = '${_imagePath}successful_purchase$_formatSvg';
+  static const timeManagement = '${_imagePath}time_management$_formatSvg';
+
 
 
   ///icons

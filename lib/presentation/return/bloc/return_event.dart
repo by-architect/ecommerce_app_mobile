@@ -1,9 +1,11 @@
-import 'package:ecommerce_app_mobile/presentation/products/bloc/return_process_state.dart';
+import 'package:ecommerce_app_mobile/presentation/products/bloc/return_state.dart';
+
+import '../../../data/model/return_process.dart';
 
 class ReturnEvent {}
 
 class RequestReturn extends ReturnEvent {
-  final Return returnState;
+  final ReturnState returnState;
   final String uid;
 
   RequestReturn(this.returnState, this.uid);
@@ -16,7 +18,8 @@ class GetReturns extends ReturnEvent {
 }
 
 class CancelReturn extends ReturnEvent {
-  final String returnId;
+  final Return returnModel;
+  final String message;
 
-  CancelReturn(this.returnId);
+  CancelReturn(this.returnModel, this.message);
 }

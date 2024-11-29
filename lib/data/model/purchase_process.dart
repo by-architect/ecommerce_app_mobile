@@ -1,10 +1,9 @@
-import 'dart:ffi';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/model/address.dart';
 import 'package:ecommerce_app_mobile/data/model/product.dart';
-import 'package:ecommerce_app_mobile/data/model/order.dart';
+import 'package:ecommerce_app_mobile/data/model/order_process.dart';
 
 import '../../common/constant/api_constants.dart';
 
@@ -34,10 +33,12 @@ class PurchaseProcess {
   final DateTime dateTime;
   final PurchaseStatus status;
   final bool cancelableWhileProcessing;
+  final String? cargoNo;
 
   PurchaseProcess({
     required this.cancelableWhileProcessing,
     this.message,
+    this.cargoNo,
     this.receipt,
     required this.status,
     required this.purchaseStatusType,
@@ -82,15 +83,21 @@ class PurchaseProcessHandler {
   final PurchaseProcess two;
   final PurchaseProcess three;
   final PurchaseProcess four;
+  final PurchaseProcess? five;
 
   PurchaseProcessHandler({
     required this.one,
     required this.two,
     required this.three,
     required this.four,
+    this.five
   });
 
   List<PurchaseProcess> get all => [one, two, three, four];
+
+ PurchaseProcess get getFirst => one;
+
+ PurchaseProcess get getLast => five ?? four;
 
   PurchaseProcess? get getProcessing => two.status == PurchaseStatus.success
       ? three.status == PurchaseStatus.success

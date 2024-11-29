@@ -1,4 +1,4 @@
-import 'package:ecommerce_app_mobile/data/model/order.dart';
+import 'package:ecommerce_app_mobile/data/model/order_process.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/fail.dart';
 
 class OrderState {

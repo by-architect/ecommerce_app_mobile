@@ -1,27 +1,28 @@
-import 'package:ecommerce_app_mobile/data/model/purchase_process_interface.dart';
+import 'package:ecommerce_app_mobile/data/model/address.dart';
+import 'package:ecommerce_app_mobile/data/model/purchase_process.dart';
 
 import '../../../common/constant/api_constants.dart';
 import '../../../data/model/product.dart';
-import '../../../data/model/order.dart';
+import '../../../data/model/order_process.dart';
 
 class OrderState {
   final PurchaseProcess statusPaid;
   final PurchaseProcess statusOrderTaken;
   final PurchaseProcess statusShipped;
   final PurchaseProcess statusDelivered;
+  final List<ProductWithQuantity> products;
+  final Address address;
+  final String userId;
 
-  OrderState()
+  OrderState(
+      {required this.address, required this.products, required this.userId})
       : statusPaid = OrderPaid(dateTime: DateTime.now()),
-        statusOrderTaken = OrderTaken(
-            dateTime: DateTime.now(), status: PurchaseStatus.waiting),
-        statusShipped = OrderShipped(
-            dateTime: DateTime.now(), status: PurchaseStatus.waiting),
-        statusDelivered = OrderDelivered(
-            dateTime: DateTime.now(), status: PurchaseStatus.waiting);
+        statusOrderTaken = OrderTaken.waiting(),
+        statusShipped = OrderShipped.waiting(),
+        statusDelivered = OrderDelivered.waiting();
 
   Map<String, dynamic> toMap() {
-    return {
-      //todo: implement
-    };
+    //todo: implement
+    throw UnimplementedError();
   }
 }

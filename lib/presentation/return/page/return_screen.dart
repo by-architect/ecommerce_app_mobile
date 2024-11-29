@@ -9,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../data/model/user.dart';
 import '../bloc/return_bloc.dart';
-import '../bloc/return_state.dart';
+import '../bloc/returns_state.dart';
 
 class ReturnScreen extends StatelessWidget {
   const ReturnScreen({super.key, required this.user});
@@ -18,8 +18,8 @@ class ReturnScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ReturnBloc, ReturnState>(
-      builder: (BuildContext context, ReturnState state) => Scaffold(
+    return BlocBuilder<ReturnBloc, ReturnsState>(
+      builder: (BuildContext context, ReturnsState state) => Scaffold(
           appBar: AppBarPopBack(
               title: AppText.returnPageReturn.capitalizeEveryWord.get),
           body: switch (state) {
@@ -29,7 +29,7 @@ class ReturnScreen extends StatelessWidget {
                 onRefreshTap: () => BlocProvider.of<ReturnBloc>(context)
                     .add(GetReturns(user.uid)),
               ),
-            ReturnsSuccessState _ || ReturnState _ => ListView.builder(
+            ReturnsSuccessState _ || ReturnsState _ => ListView.builder(
                 itemCount: state.returns.length,
                 itemBuilder: (context, index) {
                   return Placeholder();

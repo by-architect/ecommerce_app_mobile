@@ -8,6 +8,7 @@ import 'package:ecommerce_app_mobile/presentation/home/widget/offers_skeleton.da
 import 'package:ecommerce_app_mobile/presentation/order/bloc/order_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/order/bloc/order_event.dart';
 import 'package:ecommerce_app_mobile/presentation/order/bloc/order_state.dart';
+import 'package:ecommerce_app_mobile/presentation/order/page/request_return_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/order/widget/purchase_process_widget.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/ui/dialog_util.dart';
 import 'package:flutter/cupertino.dart';
@@ -80,17 +81,14 @@ class _OrderScreenState extends State<OrderScreen> {
                           dialogUtil.inputDialog(
                               AppText
                                   .orderPageCancelOrder.capitalizeEveryWord.get,
-                              AppText.infoTellUsWhatYouDidNotLike.capitalizeEveryWord
-                                  .get, (text) {
+                              AppText.infoTellUsWhatYouDidNotLike
+                                  .capitalizeEveryWord.get, (text) {
                             BlocProvider.of<OrdersBloc>(context).add(
                                 CancelOrderEvent(
                                     canceledOrder: state.orders[index],
                                     message: text));
                           }, () {});
-                        }, onReturn: () {
-                          //todo: unimplemented
-                          throw UnimplementedError();
-                      },
+                        }, user: widget.user,
                       ),
                     ))
           },

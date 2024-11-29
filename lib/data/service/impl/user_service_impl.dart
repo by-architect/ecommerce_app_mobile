@@ -42,7 +42,7 @@ class UserServiceImpl extends UserService {
           .collection(FireStoreCollections.users)
           .doc(responseUser.uid)
           .set(signUpState.toMap(responseUser.uid))
-          .timeout(AppDurations.postTimeoutLarge);
+          .timeout(AppDurations.postTimeout);
       final User userFinal = User.fromUserState(signUpState, responseUser, authResponse);
       return ResourceStatus.success(userFinal);
 

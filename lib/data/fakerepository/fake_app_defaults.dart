@@ -8,7 +8,7 @@ class FakeAppDefaults {
   static double shippingFee = 50;
   static LatLng defaultStartLocation = const LatLng(36.811260, 34.618270);
   static Currency defaultCurrency = Currency.usd;
-  static int defaultReturnDays = 15;
+  static int defaultReturnDay = 14;
   static List<ContactModel> contactInfos = [
     const ContactModel(
       type: ContactType.email,
