@@ -9,7 +9,7 @@ import 'package:ecommerce_app_mobile/data/model/return_process.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/add_address_state.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_state.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/order_state.dart';
-import 'package:ecommerce_app_mobile/presentation/products/bloc/return_state.dart';
+import 'package:ecommerce_app_mobile/presentation/return/bloc/return_state.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/review_state.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/constant/exceptions/exception_handler.dart';
 import 'package:ecommerce_app_mobile/common/constant/firestore_collections.dart';
@@ -332,7 +332,7 @@ class ProductServiceImpl extends ProductService {
   }
 
   @override
-  Future<ResourceStatus> updateReturn(Return returnProcess) {
+  Future<ResourceStatus> updateReturnProcess(Return returnProcess) {
     // TODO: implement updateReturn
     throw UnimplementedError();
   }

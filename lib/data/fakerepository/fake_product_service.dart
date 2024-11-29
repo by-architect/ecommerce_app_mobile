@@ -14,7 +14,7 @@ import 'package:ecommerce_app_mobile/data/service/product_service.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/add_address_state.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/addresses_state.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/order_state.dart';
-import 'package:ecommerce_app_mobile/presentation/products/bloc/return_state.dart';
+import 'package:ecommerce_app_mobile/presentation/return/bloc/return_state.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/fail.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/resource.dart';
 
@@ -296,7 +296,7 @@ class FakeProductService implements ProductService {
   }
 
   @override
-  Future<ResourceStatus> updateReturn(Return returnProcess) async {
+  Future<ResourceStatus> updateReturnProcess(Return returnProcess) async {
     await Future.delayed(const Duration(seconds: 1));
     return const ResourceStatus.success("");
   }

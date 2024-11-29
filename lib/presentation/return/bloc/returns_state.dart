@@ -12,8 +12,8 @@ class ReturnsState {
   }
 }
 
-class ReturnInitial extends ReturnsState {
-  ReturnInitial() : super(returns: []);
+class ReturnsInitialState extends ReturnsState {
+  ReturnsInitialState() : super(returns: []);
 }
 
 class ReturnsLoadingState extends ReturnsState {

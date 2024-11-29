@@ -12,7 +12,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class AddressCard extends StatelessWidget {
   const AddressCard(
-      {super.key, required this.address, required this.isSelected, required this.onSelected, this.onEdit});
+      {super.key,
+      required this.address,
+      required this.isSelected,
+      required this.onSelected,
+      this.onEdit});
 
   final Address address;
   final bool isSelected;
@@ -23,16 +27,14 @@ class AddressCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final selectedColor = Theme.of(context).primaryColor;
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: AppSizes.spaceBtwVerticalFieldsSmall),
+      padding: const EdgeInsets.symmetric(
+          vertical: AppSizes.spaceBtwVerticalFieldsSmall),
       child: ClickableWidgetOutlined(
+          isSelected: isSelected,
+          selectedColor: selectedColor,
           style: AppStyles.clickableWidgetOutlinedStyle(context).copyWith(
             minimumSize: const WidgetStatePropertyAll(Size(200, 185)),
             maximumSize: const WidgetStatePropertyAll(Size(200, 200)),
-            side: WidgetStatePropertyAll(
-              BorderSide(
-                  color: isSelected ? selectedColor : Theme.of(context).dividerColor,
-                  width: 1), // Change the color and width as needed
-            ),
           ),
           onPressed: onSelected,
           child: Padding(
@@ -51,7 +53,9 @@ class AddressCard extends StatelessWidget {
                             AppImages.locationIcon,
                             width: 20,
                             height: 20,
-                            colorFilter: isSelected ? ColorFilters.oneColorForIcon(selectedColor) : null,
+                            colorFilter: isSelected
+                                ? ColorFilters.oneColorForIcon(selectedColor)
+                                : null,
                           ),
                         ),
                         const SizedBox(
@@ -62,7 +66,8 @@ class AddressCard extends StatelessWidget {
                           style: Theme.of(context)
                               .textTheme
                               .titleMedium
-                              ?.copyWith(color: isSelected ? selectedColor : null),
+                              ?.copyWith(
+                                  color: isSelected ? selectedColor : null),
                         ),
                       ],
                     ),
@@ -75,7 +80,9 @@ class AddressCard extends StatelessWidget {
                           onPressed: onEdit!,
                           child: SvgPicture.asset(
                             AppImages.editIcon,
-                            colorFilter: isSelected ? ColorFilters.oneColorForIcon(selectedColor) : null,
+                            colorFilter: isSelected
+                                ? ColorFilters.oneColorForIcon(selectedColor)
+                                : null,
                           ),
                         ),
                       )
@@ -98,7 +105,10 @@ class AddressCard extends StatelessWidget {
                   children: [
                     Text(
                       "${address.phoneNo}",
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w500),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.copyWith(fontWeight: FontWeight.w500),
                     ),
                   ],
                 )

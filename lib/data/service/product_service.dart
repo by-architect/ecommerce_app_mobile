@@ -11,7 +11,7 @@ import 'package:ecommerce_app_mobile/presentation/address/bloc/addresses_state.d
 import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_state.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/order_state.dart';
 
-import '../../presentation/products/bloc/return_state.dart';
+import '../../presentation/return/bloc/return_state.dart';
 import '../../presentation/products/bloc/review_state.dart';
 import '../../sddklibrary/util/resource.dart';
 import '../model/Reviews.dart';
@@ -48,10 +48,10 @@ abstract class ProductService {
 
   Future<ResourceStatus> addOrder(OrderState order, String uid);
   Future<ResourceStatus<List<OrderModel>>> getOrderList(String uid);
-  Future<ResourceStatus> cancelOrder(OrderModel order);
+Future<ResourceStatus> cancelOrder(OrderModel order);
 
   Future<ResourceStatus> addReturn(ReturnState returnProcess, String uid);
-  Future<ResourceStatus> updateReturn(Return returnProcess);
+  Future<ResourceStatus> updateReturnProcess(Return returnProcess);
   Future<ResourceStatus<List<Return>>> getReturnProcessList(String uid);
 
   Future<ResourceStatus<List<CartItem>>> getCart(String uid);

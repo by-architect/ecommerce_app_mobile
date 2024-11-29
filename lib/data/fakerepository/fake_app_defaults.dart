@@ -9,7 +9,7 @@ class FakeAppDefaults {
   static LatLng defaultStartLocation = const LatLng(36.811260, 34.618270);
   static Currency defaultCurrency = Currency.usd;
   static int defaultReturnDay = 14;
-  static List<ContactModel> contactInfos = [
+  static List<ContactModel> supportContacts = [
     const ContactModel(
       type: ContactType.email,
       content: "qG7oN@example.com",

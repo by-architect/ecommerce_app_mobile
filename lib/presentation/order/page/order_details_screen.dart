@@ -161,7 +161,7 @@ class OrderDetailsScreen extends StatelessWidget {
                       height: AppSizes.spaceBtwVerticalFieldsSmall,
                     ),
                     ...List.generate(
-                        FakeAppDefaults.contactInfos.length,
+                        FakeAppDefaults.supportContacts.length,
                         (index) => Padding(
                               padding: const EdgeInsets.only(
                                   top: AppSizes.spaceBtwVerticalFieldsSmall / 2,
@@ -176,7 +176,7 @@ class OrderDetailsScreen extends StatelessWidget {
                                     children: [
                                       Text(
                                         FakeAppDefaults
-                                            .contactInfos[index]
+                                            .supportContacts[index]
                                             .type
                                             .userText
                                             .addColon
@@ -192,7 +192,7 @@ class OrderDetailsScreen extends StatelessWidget {
                                       ),
                                       Text(
                                         FakeAppDefaults
-                                            .contactInfos[index].content,
+                                            .supportContacts[index].content,
                                         style: Theme.of(context)
                                             .textTheme
                                             .labelLarge,

@@ -7,7 +7,16 @@ import 'package:flutter/material.dart';
 import '../../common/ui/theme/AppColors.dart';
 
 class ClickableWidgetOutlined extends StatelessWidget {
-  const ClickableWidgetOutlined({super.key, this.onPressed, required this.child, this.shape, this.style, this.minimumSize, this.maximumSize});
+  const ClickableWidgetOutlined(
+      {super.key,
+      this.onPressed,
+      required this.child,
+      this.shape,
+      this.style,
+      this.minimumSize,
+      this.maximumSize,
+      this.isSelected = false,
+      this.selectedColor});
 
   final Function()? onPressed;
   final Widget child;
@@ -15,7 +24,8 @@ class ClickableWidgetOutlined extends StatelessWidget {
   final ButtonStyle? style;
   final Size? minimumSize;
   final Size? maximumSize;
-
+  final bool isSelected;
+  final Color? selectedColor;
 
   ///for no padding
   /// style: AppStyles.clickableWidgetOutlinedStyleNoPadding(context),
@@ -26,8 +36,17 @@ class ClickableWidgetOutlined extends StatelessWidget {
         ? OutlinedButton(
             onPressed: onPressed,
             style: AppStyles.clickableWidgetOutlinedStyle(context,
-                minimumSize:minimumSize, maximumSize: maximumSize),
-        // minimumSize: Size(256, 114), maximumSize: Size(256, 114)),
+                    minimumSize: minimumSize, maximumSize: maximumSize)
+                .copyWith(
+              side: WidgetStatePropertyAll(
+                BorderSide(
+                    color: isSelected
+                        ? selectedColor ?? Theme.of(context).primaryColor
+                        : Theme.of(context).dividerColor,
+                    width: 1), // Change the color and width as needed
+              ),
+            ),
+            // minimumSize: Size(256, 114), maximumSize: Size(256, 114)),
             child: child,
           )
         : OutlinedButton(

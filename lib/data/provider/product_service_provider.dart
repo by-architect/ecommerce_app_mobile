@@ -16,7 +16,7 @@ import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_
 import 'package:ecommerce_app_mobile/presentation/products/bloc/order_state.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/fail.dart';
 
-import '../../presentation/products/bloc/return_state.dart';
+import '../../presentation/return/bloc/return_state.dart';
 import '../../presentation/products/bloc/review_state.dart';
 import '../../sddklibrary/util/resource.dart';
 import '../model/product.dart';
@@ -199,8 +199,8 @@ class ProductServiceProvider {
     return _productService.getReturnProcessList(uid);
   }
 
-  Future<ResourceStatus> updateReturn(Return returnProcess) {
-    return _productService.updateReturn(returnProcess);
+  Future<ResourceStatus> updateReturnProcess(Return returnProcess) {
+    return _productService.updateReturnProcess(returnProcess);
   }
 
   Future<ResourceStatus<List<CartItem>>> getCart(User user) {

@@ -2,7 +2,7 @@ import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/app_bar_pop_back.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/fail_form.dart';
 import 'package:ecommerce_app_mobile/presentation/home/widget/offers_skeleton.dart';
-import 'package:ecommerce_app_mobile/presentation/return/bloc/return_event.dart';
+import 'package:ecommerce_app_mobile/presentation/return/bloc/returns_event.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,7 +18,7 @@ class ReturnScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ReturnBloc, ReturnsState>(
+    return BlocBuilder<ReturnsBloc, ReturnsState>(
       builder: (BuildContext context, ReturnsState state) => Scaffold(
           appBar: AppBarPopBack(
               title: AppText.returnPageReturn.capitalizeEveryWord.get),
@@ -26,7 +26,7 @@ class ReturnScreen extends StatelessWidget {
             ReturnsLoadingState _ => const OffersSkeletonScreen(),
             ReturnsFailedState failedState => FailForm(
                 fail: failedState.fail,
-                onRefreshTap: () => BlocProvider.of<ReturnBloc>(context)
+                onRefreshTap: () => BlocProvider.of<ReturnsBloc>(context)
                     .add(GetReturns(user.uid)),
               ),
             ReturnsSuccessState _ || ReturnsState _ => ListView.builder(

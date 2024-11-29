@@ -179,9 +179,11 @@ class AppText {
   static const infoTellUsWhatYouDidNotLike =
       AppText("Tell us what you didn't like");
   static const infoNeedHelpWithAnything = AppText("Need help with anything?");
+  static const infoExplainWhyYouReturn = AppText("Explain why you return");
 
   static AppText infoRightOfWithdrawal(int day) => AppText(
       "Since the $day day right of withdrawal has expired, a refund request cannot be accepted.");
+
 
 // Navigation
   static const navigationHome = AppText("Home");
@@ -397,7 +399,7 @@ class AppText {
   static const requestReturnPageCanceledOrder = AppText("Canceled Order");
 
   //Returns Screen
- static const returnsPageReturnRequested = AppText("Return Requested");
+  static const returnsPageReturnRequested = AppText("Return Requested");
   static const returnsPageReturnAccepted = AppText("Return Accepted");
   static const returnsPageReturnRejected = AppText("Return Rejected");
   static const returnsPageReturnCanceledByCustomer =
@@ -406,7 +408,8 @@ class AppText {
       AppText("Return Canceled by Store");
   static const returnsPageReturnShipped = AppText("Return Shipped");
   static const returnsPageReturnDelivered = AppText("Return Delivered");
-  static const returnsPageReturnDeliverFailed = AppText("Return Deliver Failed");
+  static const returnsPageReturnDeliverFailed =
+      AppText("Return Deliver Failed");
   static const returnPageRequestAccepted = AppText("Return Request Accepted");
   static const returnPageRequestRejected = AppText("Return Request Rejected");
 

@@ -113,6 +113,9 @@ class AppStyles {
     style: TextButton.styleFrom(foregroundColor: AppColors.primaryColorDark),
   );
 
+  static InputDecorationTheme inputDecorationDefault(BuildContext context) =>
+      context.isDarkMode ? inputDecorationThemeDark : inputDecorationThemeLight;
+
   static const InputDecorationTheme inputDecorationThemeLight =
       InputDecorationTheme(
     fillColor: AppColors.lightGreyColor,

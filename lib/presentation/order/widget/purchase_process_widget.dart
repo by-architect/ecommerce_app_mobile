@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 import '../../../common/ui/theme/AppText.dart';
 import '../../../data/model/user.dart';
 import '../page/order_details_screen.dart';
-import '../page/request_return_screen.dart';
+import '../../return/page/request_return_screen.dart';
 import 'purchase_status_widget.dart';
 
 class OrderCard extends StatelessWidget {

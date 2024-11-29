@@ -13,9 +13,11 @@ class TextFieldDefault extends StatelessWidget {
     this.maxLines,
     this.maxLength,
     this.hintStyle,
+    this.expands = false,
     this.enabled = true,
     this.isNumber = false,
     this.enableLabel = false,
+
     this.controller, this.inputFormatters});
 
   final Function(String text) onChanged;
@@ -24,6 +26,7 @@ class TextFieldDefault extends StatelessWidget {
   final TextStyle? hintStyle;
   final int? maxLines;
   final int? maxLength;
+  final bool expands;
   final bool enabled;
   final bool isNumber;
   final List<TextInputFormatter>? inputFormatters;
@@ -32,9 +35,11 @@ class TextFieldDefault extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      textAlignVertical: TextAlignVertical.top,
       maxLines: maxLines,
       onChanged: onChanged,
       enabled: enabled,
+      expands: expands,
       inputFormatters: inputFormatters,
       maxLength: maxLength,
       controller: controller,

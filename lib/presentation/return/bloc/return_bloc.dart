@@ -1,14 +1,12 @@
-import 'package:ecommerce_app_mobile/data/model/return_process.dart';
 import 'package:ecommerce_app_mobile/data/provider/product_service_provider.dart';
-import 'package:ecommerce_app_mobile/presentation/return/bloc/return_event.dart';
+import 'package:ecommerce_app_mobile/presentation/return/bloc/returns_event.dart';
 import 'package:ecommerce_app_mobile/presentation/return/bloc/returns_state.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/util/resource.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ReturnBloc extends Bloc<ReturnEvent, ReturnsState> {
+class ReturnsBloc extends Bloc<ReturnEvent, ReturnsState> {
   final service = ProductServiceProvider();
 
-  ReturnBloc() : super(ReturnInitial()) {
+  ReturnsBloc() : super(ReturnsInitialState()) {
     on<GetReturns>((event, emit) async {
       emit(ReturnsLoadingState(state));
       final resource = await service.getReturnProcessList(event.uid);
@@ -34,7 +32,7 @@ class ReturnBloc extends Bloc<ReturnEvent, ReturnsState> {
       emit(CancelReturnLoadingState(state));
       final canceledReturn = event.returnModel.cancelReturn(event.message);
       if (canceledReturn == null) return;
-      final resource = await service.updateReturn(canceledReturn);
+      final resource = await service.updateReturnProcess(canceledReturn);
       if (!resource.isSuccess) {
         emit(CancelReturnFailedState(state, resource.error!));
       } else {
