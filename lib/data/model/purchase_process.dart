@@ -7,7 +7,7 @@ import 'package:ecommerce_app_mobile/data/model/order_process.dart';
 
 import '../../common/constant/api_constants.dart';
 
-abstract class Purchase {
+abstract class PurchaseModel {
   String get id;
 
   String get uid;

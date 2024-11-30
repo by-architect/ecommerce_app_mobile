@@ -4,8 +4,11 @@ import 'package:ecommerce_app_mobile/data/fakerepository/fake_app_defaults.dart'
 import 'package:ecommerce_app_mobile/data/model/address.dart';
 import 'package:ecommerce_app_mobile/data/model/product.dart';
 import 'package:ecommerce_app_mobile/data/model/purchase_process.dart';
+import 'package:ecommerce_app_mobile/data/model/return_process.dart';
 
-class OrderModel implements Purchase {
+import '../../sddklibrary/annotation/test_annotation.dart';
+
+class OrderModel implements PurchaseModel {
   @override
   final String id;
   @override
@@ -20,6 +23,20 @@ class OrderModel implements Purchase {
   final OrderShipped statusShipped;
   final OrderDelivered statusDelivered;
 
+  final ReturnModel? activeReturn;
+
+  OrderModel._(
+      {required this.id,
+      required this.products,
+      required this.address,
+      required this.uid,
+      required this.statusPaid,
+      required this.statusOrderTaken,
+      required this.statusShipped,
+      required this.activeReturn,
+      required this.statusDelivered});
+
+  @TestOnly()
   OrderModel(
       {required this.id,
       required this.products,
@@ -28,6 +45,7 @@ class OrderModel implements Purchase {
       required this.statusPaid,
       required this.statusOrderTaken,
       required this.statusShipped,
+      required this.activeReturn,
       required this.statusDelivered});
 
   static OrderModel fromMap(
@@ -50,10 +68,11 @@ class OrderModel implements Purchase {
     final processing = getProcessing;
     if (processing == null) return null;
     if (processing is OrderTaken) {
-      return OrderModel(
+      return OrderModel._(
           id: id,
           products: products,
           address: address,
+          activeReturn: activeReturn,
           uid: uid,
           statusPaid: statusPaid,
           statusOrderTaken: processing.cancelByCustomer(message),
@@ -61,11 +80,12 @@ class OrderModel implements Purchase {
           statusDelivered: statusDelivered);
     }
     if (processing is OrderShipped) {
-      return OrderModel(
+      return OrderModel._(
           id: id,
           products: products,
           uid: uid,
           address: address,
+          activeReturn: activeReturn,
           statusPaid: statusPaid,
           statusOrderTaken: statusOrderTaken,
           statusShipped: processing.canceledByCustomer(message),

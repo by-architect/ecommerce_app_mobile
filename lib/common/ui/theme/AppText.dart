@@ -416,6 +416,7 @@ class AppText {
       AppText("Return Deliver Failed");
   static const returnPageRequestAccepted = AppText("Return Request Accepted");
   static const returnPageRequestRejected = AppText("Return Request Rejected");
+  static const returnPageReturnDetails= AppText("Return Details");
 
   // Pages Common
   static const commonPageFilter = AppText("Filter");

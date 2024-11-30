@@ -50,9 +50,10 @@ abstract class ProductService {
   Future<ResourceStatus<List<OrderModel>>> getOrderList(String uid);
 Future<ResourceStatus> cancelOrder(OrderModel order);
 
+Future<ResourceStatus> getActiveReturnOfOrder(String orderId);
   Future<ResourceStatus> addReturn(ReturnState returnProcess, String uid);
-  Future<ResourceStatus> updateReturnProcess(Return returnProcess);
-  Future<ResourceStatus<List<Return>>> getReturnProcessList(String uid);
+  Future<ResourceStatus> updateReturnProcess(ReturnModel returnProcess);
+  Future<ResourceStatus<List<ReturnModel>>> getReturnProcessList(String uid);
 
   Future<ResourceStatus<List<CartItem>>> getCart(String uid);
   Future<ResourceStatus> addToCart(CartItemState cartItemState, String uid);

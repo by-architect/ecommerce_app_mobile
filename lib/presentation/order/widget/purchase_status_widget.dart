@@ -11,7 +11,7 @@ class PurchaseStatusWidget extends StatelessWidget {
     required this.purchase,
   });
 
-  final Purchase purchase;
+  final PurchaseModel purchase;
 
   @override
   Widget build(BuildContext context) {

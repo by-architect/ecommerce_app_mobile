@@ -4,13 +4,14 @@ import 'package:ecommerce_app_mobile/data/model/address.dart';
 import 'package:ecommerce_app_mobile/data/model/product.dart';
 import 'package:ecommerce_app_mobile/data/model/order_process.dart';
 import 'package:ecommerce_app_mobile/data/model/purchase_process.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/annotation/test_annotation.dart';
 
-class Return implements Purchase {
+class ReturnModel implements PurchaseModel {
   @override
   final String id;
   @override
   final String uid;
-  final String purchaseProcessId;
+  final String orderId;
   @override
   final List<ProductWithQuantity> products;
   @override
@@ -22,9 +23,23 @@ class Return implements Purchase {
   final ReturnStatusDelivered statusReturnDelivered;
   final ReturnStatusReturnAccepted statusReturnAccepted;
 
-  Return({
+  @TestOnly()
+  ReturnModel({
     required this.id,
-    required this.purchaseProcessId,
+    required this.orderId,
+    required this.address,
+    required this.statusReturnRequested,
+    required this.statusRequestAccepted,
+    required this.statusReturnShipped,
+    required this.statusReturnDelivered,
+    required this.statusReturnAccepted,
+    required this.products,
+    required this.uid,
+  });
+
+  ReturnModel._({
+    required this.id,
+    required this.orderId,
     required this.address,
     required this.statusReturnRequested,
     required this.statusRequestAccepted,
@@ -54,13 +69,13 @@ class Return implements Purchase {
               : statusReturnShipped
           : statusRequestAccepted;
 
-  Return? cancelReturn(String message) {
+  ReturnModel? cancelReturn(String message) {
     final processing = getProcessing;
     if (processing == null) return null;
     if (processing is ReturnStatusRequestAccepted) {
-      return Return(
+      return ReturnModel._(
           id: id,
-          purchaseProcessId: purchaseProcessId,
+          orderId: orderId,
           address: address,
           statusReturnRequested: statusReturnRequested,
           statusRequestAccepted: processing.canceledByCustomer(message),
@@ -71,9 +86,9 @@ class Return implements Purchase {
           uid: uid);
     }
     if (processing is ReturnStatusShipped) {
-      return Return(
+      return ReturnModel._(
           id: id,
-          purchaseProcessId: purchaseProcessId,
+          orderId: orderId,
           address: address,
           statusReturnRequested: statusReturnRequested,
           statusRequestAccepted: statusRequestAccepted,

@@ -18,7 +18,7 @@ class GetReturns extends ReturnEvent {
 }
 
 class CancelReturn extends ReturnEvent {
-  final Return returnModel;
+  final ReturnModel returnModel;
   final String message;
 
   CancelReturn(this.returnModel, this.message);

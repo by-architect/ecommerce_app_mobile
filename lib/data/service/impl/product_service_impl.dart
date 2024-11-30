@@ -314,7 +314,7 @@ class ProductServiceImpl extends ProductService {
 
 
   @override
-  Future<ResourceStatus<List<Return>>> getReturnProcessList(String uid) {
+  Future<ResourceStatus<List<ReturnModel>>> getReturnProcessList(String uid) {
     // TODO: implement getReturnProcessList
     throw UnimplementedError();
   }
@@ -332,7 +332,7 @@ class ProductServiceImpl extends ProductService {
   }
 
   @override
-  Future<ResourceStatus> updateReturnProcess(Return returnProcess) {
+  Future<ResourceStatus> updateReturnProcess(ReturnModel returnProcess) {
     // TODO: implement updateReturn
     throw UnimplementedError();
   }
@@ -340,6 +340,12 @@ class ProductServiceImpl extends ProductService {
   @override
   Future<ResourceStatus> addReturn(ReturnState returnProcess, String uid) {
     // TODO: implement addReturn
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<ResourceStatus> getActiveReturnOfOrder(String orderId) {
+    /// where return.orderId == orderId
     throw UnimplementedError();
   }
 

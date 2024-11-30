@@ -374,11 +374,11 @@ class FakeProductModels {
     ),
     statusOrderTaken: OrderTaken.waiting(),
     statusShipped: OrderShipped.waiting(),
-    statusDelivered: OrderDelivered.waiting(),
+    statusDelivered: OrderDelivered.waiting(), activeReturn: null,
   );
 
   static OrderModel orderPaidCanceled = OrderModel(
-    id: "1",
+    id: "2",
     address: address2,
     products: [
       ProductWithQuantity(
@@ -398,11 +398,11 @@ class FakeProductModels {
     ),
     statusShipped: OrderShipped.waiting(),
     statusDelivered: OrderDelivered(
-        dateTime: DateTime.now(), status: PurchaseStatus.waiting),
+        dateTime: DateTime.now(), status: PurchaseStatus.waiting), activeReturn: null,
   );
 
   static final orderTakenSuccess = OrderModel(
-    id: "2",
+    id: "3",
     address: address3,
     products: [
       ProductWithQuantity(
@@ -422,11 +422,11 @@ class FakeProductModels {
     ),
     statusShipped: OrderShipped.waiting(),
     statusDelivered: OrderDelivered(
-        dateTime: DateTime.now(), status: PurchaseStatus.waiting),
+        dateTime: DateTime.now(), status: PurchaseStatus.waiting), activeReturn: null,
   );
 
   static final orderShippedSuccess = OrderModel(
-    id: "3",
+    id: "4",
     address: address1,
     products: [
       ProductWithQuantity(
@@ -449,11 +449,11 @@ class FakeProductModels {
         status: PurchaseStatus.success,
         cargoNo: "34290892349834"),
     statusDelivered: OrderDelivered(
-        dateTime: DateTime.now(), status: PurchaseStatus.waiting),
+        dateTime: DateTime.now(), status: PurchaseStatus.waiting), activeReturn: null,
   );
 
   static final orderDeliveredSuccess = OrderModel(
-    id: "4",
+    id: "5",
     address: address2,
     products: [
       ProductWithQuantity(
@@ -476,11 +476,11 @@ class FakeProductModels {
         status: PurchaseStatus.success,
         cargoNo: "429383493948w"),
     statusDelivered: OrderDelivered(
-        dateTime: DateTime.now(), status: PurchaseStatus.success),
+        dateTime: DateTime.now(), status: PurchaseStatus.success), activeReturn: returnProcessSuccess,
   );
 
-  static Return returnProcessSuccess = Return(
-    purchaseProcessId: '23',
+  static ReturnModel returnProcessSuccess = ReturnModel(
+    orderId: '5',
     id: "0",
     uid: "0",
     address: address2,
@@ -516,8 +516,8 @@ class FakeProductModels {
     ],
   );
 
-  static Return returnProcessRejected = Return(
-    purchaseProcessId: '23',
+  static ReturnModel returnProcessRejected = ReturnModel(
+    orderId: '23',
     id: "0",
     uid: "0",
     statusReturnRequested: ReturnStatusReturnRequested(
@@ -553,8 +553,8 @@ class FakeProductModels {
     address: address1,
   );
 
-  static Return returnProcessCanceledByCustomer = Return(
-      purchaseProcessId: '23',
+  static ReturnModel returnProcessCanceledByCustomer = ReturnModel(
+      orderId: '23',
       id: "0",
       uid: "0",
       address: address3,

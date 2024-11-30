@@ -3,11 +3,11 @@ import 'package:ecommerce_app_mobile/data/model/return_process.dart';
 import '../../../../sddklibrary/util/fail.dart';
 
 class ReturnsState {
-  final List<Return> returns;
+  final List<ReturnModel> returns;
 
   ReturnsState({required this.returns});
 
-  ReturnsState copyWith({List<Return>? returns}) {
+  ReturnsState copyWith({List<ReturnModel>? returns}) {
     return ReturnsState(returns: returns ?? this.returns);
   }
 }

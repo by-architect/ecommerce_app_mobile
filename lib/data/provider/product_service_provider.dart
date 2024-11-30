@@ -195,11 +195,11 @@ class ProductServiceProvider {
   }
 
 
-  Future<ResourceStatus<List<Return>>> getReturnProcessList(String uid) {
+  Future<ResourceStatus<List<ReturnModel>>> getReturnProcessList(String uid) {
     return _productService.getReturnProcessList(uid);
   }
 
-  Future<ResourceStatus> updateReturnProcess(Return returnProcess) {
+  Future<ResourceStatus> updateReturnProcess(ReturnModel returnProcess) {
     return _productService.updateReturnProcess(returnProcess);
   }
 

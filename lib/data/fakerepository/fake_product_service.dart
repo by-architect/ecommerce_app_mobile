@@ -296,18 +296,27 @@ class FakeProductService implements ProductService {
   }
 
   @override
-  Future<ResourceStatus> updateReturnProcess(Return returnProcess) async {
+  Future<ResourceStatus> updateReturnProcess(ReturnModel returnProcess) async {
     await Future.delayed(const Duration(seconds: 1));
     return const ResourceStatus.success("");
   }
 
   @override
-  Future<ResourceStatus<List<Return>>> getReturnProcessList(String uid) async {
+  Future<ResourceStatus<List<ReturnModel>>> getReturnProcessList(String uid) async {
     await Future.delayed(const Duration(seconds: 1));
     return ResourceStatus.success([
       FakeProductModels.returnProcessSuccess,
       FakeProductModels.returnProcessRejected,
       FakeProductModels.returnProcessCanceledByCustomer,
     ]);
+  }
+
+  @override
+  Future<ResourceStatus> getActiveReturnOfOrder(String orderId) async {
+    await Future.delayed(const Duration(seconds: 1));
+    return ResourceStatus.success(
+        FakeProductModels.returnProcessSuccess.orderId == orderId
+            ? FakeProductModels.returnProcessSuccess
+            : null);
   }
 }

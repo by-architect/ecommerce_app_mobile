@@ -227,11 +227,19 @@ class OrderDetailsScreen extends StatelessWidget {
                 onTap: onCancel,
                 text: AppText.orderPageCancelOrder.capitalizeFirstWord.get,
               ),
-            if (orderModel.statusDelivered.status == PurchaseStatus.success)
+            if (orderModel.statusDelivered.status == PurchaseStatus.success && orderModel.activeReturn == null)
               ButtonSecondary(
                 onTap: onReturn,
                 text: AppText.orderPageReturnOrder.capitalizeFirstWord.get,
               ),
+            if(orderModel.activeReturn != null)
+              ButtonSecondary(
+                onTap: (){
+                  //todo: return details screen
+                },
+                text: AppText.returnPageReturnDetails.capitalizeFirstWord.get,
+              ),
+
             const SizedBox(
               height: AppSizes.spaceBtwVerticalFields,
             ),

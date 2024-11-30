@@ -1,0 +1,3 @@
+class TestOnly {
+  const TestOnly();
+}
