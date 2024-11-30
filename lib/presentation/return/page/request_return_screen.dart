@@ -1,8 +1,6 @@
 import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
-import 'package:ecommerce_app_mobile/common/ui/theme/AppStyles.dart';
 import 'package:ecommerce_app_mobile/data/fakerepository/fake_app_defaults.dart';
-import 'package:ecommerce_app_mobile/data/model/cart_item.dart';
 import 'package:ecommerce_app_mobile/data/model/order_process.dart';
 import 'package:ecommerce_app_mobile/data/model/return_process.dart';
 import 'package:ecommerce_app_mobile/data/model/user.dart';
@@ -10,12 +8,9 @@ import 'package:ecommerce_app_mobile/presentation/cart/widget/cart_item_widget.d
 import 'package:ecommerce_app_mobile/presentation/common/widgets/ButtonPrimary.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/app_bar_pop_back.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/form_info_skeleton.dart';
-import 'package:ecommerce_app_mobile/presentation/common/widgets/product_card_large.dart';
-import 'package:ecommerce_app_mobile/presentation/products/widget/text_field_default.dart';
 import 'package:ecommerce_app_mobile/presentation/return/bloc/return_details_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/return/bloc/return_details_event.dart';
 import 'package:ecommerce_app_mobile/presentation/return/bloc/return_details_state.dart';
-import 'package:ecommerce_app_mobile/presentation/return/bloc/returns_state.dart';
 import 'package:ecommerce_app_mobile/presentation/return/widget/text_field_explanation.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/ui/dialog_util.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/ui/widget_clickable_outlined.dart';

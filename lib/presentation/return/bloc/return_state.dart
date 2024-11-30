@@ -9,7 +9,6 @@ class ReturnState {
   final String userId;
   final String returnReason;
   final ReturnType returnType;
-  final Address? address;
   final ReturnStatusReturnRequested returnRequested;
   final ReturnStatusReturnAccepted returnAccepted;
   final ReturnStatusRequestAccepted requestAccepted;
@@ -23,7 +22,6 @@ class ReturnState {
     required this.requestAccepted,
     required this.shipped,
     required this.delivered,
-    required this.address,
     required this.returnType,
     required this.returnReason,
     required this.userId,
