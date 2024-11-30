@@ -9,7 +9,7 @@ import 'package:ecommerce_app_mobile/presentation/order/bloc/order_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/order/bloc/order_event.dart';
 import 'package:ecommerce_app_mobile/presentation/order/bloc/order_state.dart';
 import 'package:ecommerce_app_mobile/presentation/return/page/request_return_screen.dart';
-import 'package:ecommerce_app_mobile/presentation/order/widget/purchase_process_widget.dart';
+import 'package:ecommerce_app_mobile/presentation/order/widget/purchase_process_card.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/ui/dialog_util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +35,7 @@ class _OrderScreenState extends State<OrderScreen> {
     BlocProvider.of<OrdersBloc>(context).add(GetOrdersEvent(widget.user.uid));
     BlocProvider.of<OrdersBloc>(context).stream.listen((state) {
       if (state is OrderCancelFailState) {
+        dialogUtil.closeLoadingDialog();
         dialogUtil.info(
             AppText.errorTitle.capitalizeEveryWord.get, state.fail.userMessage);
       }
@@ -75,8 +76,8 @@ class _OrderScreenState extends State<OrderScreen> {
                 itemBuilder: (context, index) => Padding(
                       padding: const EdgeInsets.only(
                           bottom: AppSizes.spaceBtwVerticalFields),
-                      child: OrderCard(
-                        orderModel: state.orders[index],
+                      child: PurchaseCard(
+                        purchaseModel: state.orders[index],
                         onCancel: () {
                           dialogUtil.inputDialog(
                               AppText

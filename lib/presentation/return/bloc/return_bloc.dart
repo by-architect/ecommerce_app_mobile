@@ -7,7 +7,7 @@ class ReturnsBloc extends Bloc<ReturnEvent, ReturnsState> {
   final service = ProductServiceProvider();
 
   ReturnsBloc() : super(ReturnsInitialState()) {
-    on<GetReturns>((event, emit) async {
+    on<GetReturnsEvent>((event, emit) async {
       emit(ReturnsLoadingState(state));
       final resource = await service.getReturnProcessList(event.uid);
       if (!resource.isSuccess) {
@@ -30,7 +30,7 @@ class ReturnsBloc extends Bloc<ReturnEvent, ReturnsState> {
     });
 */
 
-    on<CancelReturn>((event, emit) async {
+    on<CancelReturnEvent>((event, emit) async {
       emit(CancelReturnLoadingState(state));
       final canceledReturn = event.returnModel.cancelReturn(event.message);
       if (canceledReturn == null) return;

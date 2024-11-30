@@ -16,21 +16,23 @@ import '../../../common/ui/theme/AppSizes.dart';
 import '../../../common/ui/theme/AppText.dart';
 import '../../../common/util/cart_util.dart';
 import '../../../data/model/purchase_process.dart';
+import '../../../data/model/user.dart';
 import '../../cart/widget/order_summary.dart';
 import '../../common/widgets/product_card_large.dart';
 import '../../common/widgets/text_button_default.dart';
+import '../../return/page/request_return_screen.dart';
 import '../widget/purchase_status_widget.dart';
 
 class OrderDetailsScreen extends StatelessWidget {
   const OrderDetailsScreen(
       {super.key,
       required this.orderModel,
-      required this.onCancel,
-      required this.onReturn});
+      required this.onCancel, required this.user,
+      });
 
   final OrderModel orderModel;
+  final User user;
   final Function() onCancel;
-  final Function() onReturn;
 
   @override
   Widget build(BuildContext context) {
@@ -199,17 +201,6 @@ class OrderDetailsScreen extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-/*
-                                  SizedBox(
-                                    height: 30,
-                                    width: 30,
-                                    child: SvgPicture.asset(
-                                      FakeAppDefaults
-                                          .contactInfos[index].type.icon,
-                                      colorFilter: ColorFilters.iconThemeColor(context),
-                                    ),
-                                  )
-*/
                                 ],
                               ),
                             )),
@@ -229,7 +220,13 @@ class OrderDetailsScreen extends StatelessWidget {
               ),
             if (orderModel.statusDelivered.status == PurchaseStatus.success && orderModel.activeReturn == null)
               ButtonSecondary(
-                onTap: onReturn,
+                onTap: (){
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => RequestReturnScreen(
+                        orderModel: orderModel,
+                        user: user,
+                      )));
+                },
                 text: AppText.orderPageReturnOrder.capitalizeFirstWord.get,
               ),
             if(orderModel.activeReturn != null)

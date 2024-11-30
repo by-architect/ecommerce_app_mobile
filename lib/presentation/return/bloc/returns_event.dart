@@ -11,15 +11,15 @@ class RequestReturn extends ReturnEvent {
   RequestReturn(this.returnState, this.uid);
 }
 
-class GetReturns extends ReturnEvent {
+class GetReturnsEvent extends ReturnEvent {
   final String uid;
 
-  GetReturns(this.uid);
+  GetReturnsEvent(this.uid);
 }
 
-class CancelReturn extends ReturnEvent {
+class CancelReturnEvent extends ReturnEvent {
   final ReturnModel returnModel;
   final String message;
 
-  CancelReturn(this.returnModel, this.message);
+  CancelReturnEvent({required this.returnModel, required this.message});
 }

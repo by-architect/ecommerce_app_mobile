@@ -204,7 +204,7 @@ class ReturnStatusReturnAccepted extends PurchaseProcess {
 
 enum ReturnStatusType implements PurchaseStatusType {
   returnRequested('return_requested', AppText.returnsPageReturnRequested),
-  returnRequestAccepted('return_accepted', AppText.returnsPageReturnAccepted),
+  returnRequestAccepted('return_accepted', AppText.returnPageRequestAccepted),
   shipped('shipped', AppText.returnsPageReturnShipped),
   delivered('delivered', AppText.returnsPageReturnDelivered),
   returnAccepted('return_accepted', AppText.returnsPageReturnAccepted),

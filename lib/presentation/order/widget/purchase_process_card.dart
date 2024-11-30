@@ -3,7 +3,10 @@ import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppStyles.dart';
 import 'package:ecommerce_app_mobile/common/util/cart_util.dart';
 import 'package:ecommerce_app_mobile/data/model/order_process.dart';
+import 'package:ecommerce_app_mobile/data/model/purchase_process.dart';
+import 'package:ecommerce_app_mobile/data/model/return_process.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/product_card_large.dart';
+import 'package:ecommerce_app_mobile/presentation/return/page/return_details_screen.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/date_helper.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/ui/widget_clickable_outlined.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,15 +18,15 @@ import '../page/order_details_screen.dart';
 import '../../return/page/request_return_screen.dart';
 import 'purchase_status_widget.dart';
 
-class OrderCard extends StatelessWidget {
-  const OrderCard({
+class PurchaseCard extends StatelessWidget {
+  const PurchaseCard({
     super.key,
-    required this.orderModel,
+    required this.purchaseModel,
     required this.onCancel,
     required this.user,
   });
 
-  final OrderModel orderModel;
+  final PurchaseModel purchaseModel;
   final Function() onCancel;
   final User user;
 
@@ -32,18 +35,21 @@ class OrderCard extends StatelessWidget {
     return ClickableWidgetOutlined(
       style: AppStyles.clickableWidgetOutlinedStyleNoPadding(context),
       onPressed: () {
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => OrderDetailsScreen(
-                  orderModel: orderModel,
-                  onCancel: onCancel,
-                  onReturn: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => RequestReturnScreen(
-                              orderModel: orderModel,
-                              user: user,
-                            )));
-                  },
-                )));
+        if (purchaseModel is OrderModel) {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => OrderDetailsScreen(
+                    orderModel: purchaseModel as OrderModel,
+                    onCancel: onCancel,
+                    user: user,
+                  )));
+        }
+        if (purchaseModel is ReturnModel) {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => ReturnDetailsScreen(
+                    returnModel: purchaseModel as ReturnModel,
+                    onCancel: onCancel,
+                  )));
+        }
       },
       child: Column(children: [
         Padding(
@@ -53,7 +59,7 @@ class OrderCard extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    "${AppText.orderPageOrder.capitalizeEveryWord.get}    #${orderModel.id}",
+                    "${AppText.orderPageOrder.capitalizeEveryWord.get}    #${purchaseModel.id}",
                     style: Theme.of(context)
                         .textTheme
                         .bodySmall
@@ -66,7 +72,7 @@ class OrderCard extends StatelessWidget {
               ),
               Row(children: [
                 Text(
-                    "${AppText.orderPagePlacedOn.capitalizeEveryWord.get}    ${orderModel.purchaseProcessesHandler.one.dateTime.formatedDate}",
+                    "${AppText.orderPagePlacedOn.capitalizeEveryWord.get}    ${purchaseModel.purchaseProcessesHandler.one.dateTime.formatedDate}",
                     style: Theme.of(context).textTheme.titleMedium),
               ]),
             ],
@@ -78,13 +84,13 @@ class OrderCard extends StatelessWidget {
           child: Column(
             children: [
               PurchaseStatusWidget(
-                purchase: orderModel,
+                purchase: purchaseModel,
               ),
               const SizedBox(
                 height: AppSizes.spaceBtwVerticalFields,
               ),
               Column(
-                children: List.generate(orderModel.products.length, (index) {
+                children: List.generate(purchaseModel.products.length, (index) {
                   return Padding(
                     padding: const EdgeInsets.all(
                         AppSizes.spaceBtwHorizontalFieldsSmall),
@@ -92,7 +98,7 @@ class OrderCard extends StatelessWidget {
                       children: [
                         Expanded(
                             child: ProductCardLarge(
-                                product: orderModel.products[index].product,
+                                product: purchaseModel.products[index].product,
                                 onPressed: () {})),
                       ],
                     ),

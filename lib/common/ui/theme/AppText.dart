@@ -403,18 +403,18 @@ class AppText {
   static const requestReturnPageCanceledOrder = AppText("Canceled Order");
 
   //Returns Screen
-  static const returnsPageReturnRequested = AppText("Return Requested");
-  static const returnsPageReturnAccepted = AppText("Return Accepted");
+  static const returnsPageReturnRequested = AppText("Requested");
+  static const returnsPageReturnAccepted = AppText("Approved");
   static const returnsPageReturnRejected = AppText("Return Rejected");
   static const returnsPageReturnCanceledByCustomer =
       AppText("Return Canceled by Client");
   static const returnsPageReturnCanceledByStore =
       AppText("Return Canceled by Store");
-  static const returnsPageReturnShipped = AppText("Return Shipped");
-  static const returnsPageReturnDelivered = AppText("Return Delivered");
+  static const returnsPageReturnShipped = AppText("Shipped");
+  static const returnsPageReturnDelivered = AppText("Delivered");
   static const returnsPageReturnDeliverFailed =
       AppText("Return Deliver Failed");
-  static const returnPageRequestAccepted = AppText("Return Request Accepted");
+  static const returnPageRequestAccepted = AppText("Accepted");
   static const returnPageRequestRejected = AppText("Return Request Rejected");
   static const returnPageReturnDetails= AppText("Return Details");
 

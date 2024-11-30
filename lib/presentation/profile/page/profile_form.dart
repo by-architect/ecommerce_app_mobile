@@ -18,7 +18,7 @@ import '../../../common/constant/Screens.dart';
 import '../../../data/model/user.dart';
 import '../../address/pages/addresses_screen.dart';
 import '../../order/page/order_screen.dart';
-import '../../return/page/return_screen.dart';
+import '../../return/page/returns_screen.dart';
 import '../widget/profile_card.dart';
 import '../widget/profile_menu_item_list.dart';
 
@@ -77,7 +77,7 @@ class ProfileForm extends StatelessWidget {
             svgSrc: AppImages.returnIcon,
             press: () {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => ReturnScreen(user: user)));
+                  builder: (context) => ReturnsScreen(user: user)));
             },
           ),
           ProfileMenuListTile(
