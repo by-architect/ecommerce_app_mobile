@@ -32,6 +32,9 @@ class ReturnDetailsBloc extends Bloc<ReturnDetailsEvent, ReturnDetailsState> {
     on<InitialProductsEvent>((event, emit) {
       emit(state.copyWith(products: event.products));
     });
+    on<ClearReturnStateEvent>((event, emit) {
+      emit(InitialReturnState());
+    });
 
   }
 }

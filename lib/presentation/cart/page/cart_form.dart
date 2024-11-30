@@ -47,7 +47,8 @@ class _CartFormState extends State<CartForm> {
                 CartFailState failState => FailForm(
                     fail: failState.fail,
                     onRefreshTap: () {
-                      BlocProvider.of<CartBloc>(context).add(GetCart(widget.user));
+                      BlocProvider.of<CartBloc>(context)
+                          .add(GetCart(widget.user));
                     },
                   ),
                 CartSuccessState _ || CartState _ => state.items.isNotEmpty
@@ -55,7 +56,8 @@ class _CartFormState extends State<CartForm> {
                         slivers: [
                           SliverToBoxAdapter(
                             child: Text(
-                              AppText.cartPageReviewYourOrder.capitalizeEveryWord.get,
+                              AppText.cartPageReviewYourOrder
+                                  .capitalizeEveryWord.get,
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
                           ),
@@ -68,43 +70,63 @@ class _CartFormState extends State<CartForm> {
                               delegate: SliverChildBuilderDelegate(
                             childCount: state.items.length,
                             (context, index) => Padding(
-                              padding: const EdgeInsets.symmetric(vertical: AppSizes.spaceBtwVerticalFieldsSmall / 2),
-                              child: CartItemWidget(
-                                  numOfItem: state.items[index].productWithQuantity.quantity,
-                                  onIncrement: () {
-                                    CartItem cartItem = state.items[index];
-                                    if (cartItem.productWithQuantity.quantity ==
-                                            FakeAppDefaults.maxProductQuantityCustomerCanBuyInOnce ||
-                                        cartItem.productWithQuantity.quantity ==
-                                            cartItem.productWithQuantity.subProduct.quantity) {
-                                    } else if (cartItem.productWithQuantity.quantity >
-                                        FakeAppDefaults.maxProductQuantityCustomerCanBuyInOnce) {
-                                      BlocProvider.of<CartBloc>(context).add(ChangeCartItem(
-                                        cartItem: cartItem.copyWith(
-                                            quantity: FakeAppDefaults.maxProductQuantityCustomerCanBuyInOnce),
-                                        user: widget.user,
-                                      ));
-                                    } else if (cartItem.productWithQuantity.quantity >
-                                        cartItem.productWithQuantity.subProduct.quantity) {
-                                      BlocProvider.of<CartBloc>(context).add(ChangeCartItem(
-                                          cartItem: cartItem.copyWith(
-                                            quantity: cartItem.productWithQuantity.subProduct.quantity,
-                                          ),
-                                          user: widget.user));
-                                    } else {
-                                      BlocProvider.of<CartBloc>(context).add(
-                                          ChangeCartItem(cartItem: cartItem.increaseQuantity(), user: widget.user));
-                                    }
-                                  },
-                                  onDecrement: () {
-                                    CartItem cartItem = state.items[index];
-                                    if (cartItem.productWithQuantity.quantity > 0) {
-                                      BlocProvider.of<CartBloc>(context).add(
-                                        ChangeCartItem(cartItem: cartItem.decreaseQuantity(), user: widget.user),
-                                      );
-                                    }
-                                  },
-                                  cartItem: state.items[index]),
+                              padding: const EdgeInsets.symmetric(
+                                  vertical:
+                                      AppSizes.spaceBtwVerticalFieldsSmall / 2),
+                              child: CartItemWidget.fromCartItem(
+                                cartItem: state.items[index],
+                                onIncrement: () {
+                                  CartItem cartItem = state.items[index];
+                                  if (cartItem.productWithQuantity.quantity ==
+                                          FakeAppDefaults
+                                              .maxProductQuantityCustomerCanBuyInOnce ||
+                                      cartItem.productWithQuantity.quantity ==
+                                          cartItem.productWithQuantity
+                                              .subProduct.quantity) {
+                                  } else if (cartItem
+                                          .productWithQuantity.quantity >
+                                      FakeAppDefaults
+                                          .maxProductQuantityCustomerCanBuyInOnce) {
+                                    BlocProvider.of<CartBloc>(context)
+                                        .add(ChangeCartItem(
+                                      cartItem: cartItem.copyWith(
+                                          quantity: FakeAppDefaults
+                                              .maxProductQuantityCustomerCanBuyInOnce),
+                                      user: widget.user,
+                                    ));
+                                  } else if (cartItem
+                                          .productWithQuantity.quantity >
+                                      cartItem.productWithQuantity.subProduct
+                                          .quantity) {
+                                    BlocProvider.of<CartBloc>(context)
+                                        .add(ChangeCartItem(
+                                            cartItem: cartItem.copyWith(
+                                              quantity: cartItem
+                                                  .productWithQuantity
+                                                  .subProduct
+                                                  .quantity,
+                                            ),
+                                            user: widget.user));
+                                  } else {
+                                    BlocProvider.of<CartBloc>(context).add(
+                                        ChangeCartItem(
+                                            cartItem:
+                                                cartItem.increaseQuantity(),
+                                            user: widget.user));
+                                  }
+                                },
+                                onDecrement: () {
+                                  CartItem cartItem = state.items[index];
+                                  if (cartItem.productWithQuantity.quantity >
+                                      0) {
+                                    BlocProvider.of<CartBloc>(context).add(
+                                      ChangeCartItem(
+                                          cartItem: cartItem.decreaseQuantity(),
+                                          user: widget.user),
+                                    );
+                                  }
+                                },
+                              ),
                             ),
                           )),
                           const SliverToBoxAdapter(
@@ -125,15 +147,21 @@ class _CartFormState extends State<CartForm> {
                           ),
                           SliverToBoxAdapter(
                             child: ButtonPrimary(
-                                text: AppText.commonContinue.capitalizeFirstWord.get,
+                                text: AppText
+                                    .commonContinue.capitalizeFirstWord.get,
                                 onTap: () {
                                   if (!widget.user.firebaseUser.emailVerified) {
-                                    DialogUtil(context).toast(AppText.errorEmailNotVerified.get);
-                                    Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => EmailVerificationScreen(user: widget.user),
+                                    DialogUtil(context).toast(
+                                        AppText.errorEmailNotVerified.get);
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          EmailVerificationScreen(
+                                              user: widget.user),
                                     ));
                                   } else {
-                                    Navigator.of(context).push(MaterialPageRoute(
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
                                       builder: (context) => PaymentScreen(
                                         user: widget.user,
                                       ),
@@ -152,7 +180,8 @@ class _CartFormState extends State<CartForm> {
                         padding: const EdgeInsets.all(24),
                         child: FormInfoSkeleton(
                           image: AppImages.cartImage,
-                          message: AppText.infoEmptyCart.capitalizeEveryWord.get,
+                          message:
+                              AppText.infoEmptyCart.capitalizeEveryWord.get,
                         ),
                       ),
               }),

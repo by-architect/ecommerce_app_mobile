@@ -113,6 +113,7 @@ class AppText {
 
 // Errors
   static const errorTitle = AppText("Error"); //todo: make it more soft
+  static const errorSelectProduct = AppText("Please select a product");
   static const errorEmptyPhone = AppText("Please fill phone no");
   static const errorEmailHasTaken = AppText("This email has taken");
   static const errorFetchingData =
@@ -122,6 +123,7 @@ class AppText {
   static const errorNetworkRequestFailed =
       AppText("Network request failed, please check your connection");
   static const errorEmptyField = AppText("Please fill the blank fields");
+  static const errorSelectReason = AppText("Please select a reason");
   static const errorEmailIsNotValid = AppText("Email is not valid");
   static const errorPasswordLength =
       AppText("Password length must be between 8 - 16");
@@ -180,6 +182,8 @@ class AppText {
       AppText("Tell us what you didn't like");
   static const infoNeedHelpWithAnything = AppText("Need help with anything?");
   static const infoExplainWhyYouReturn = AppText("Explain why you return");
+  static const infoReturnRequestedSuccessfully =
+      AppText("Return request sent successfully");
 
   static AppText infoRightOfWithdrawal(int day) => AppText(
       "Since the $day day right of withdrawal has expired, a refund request cannot be accepted.");

@@ -209,6 +209,7 @@ enum ReturnStatusType implements PurchaseStatusType {
 }
 
 enum ReturnType {
+  unselected(AppText.requestReturnPageSelectReason, 'unselected'),
   damagedProduct(AppText.requestReturnPageDamagedProduct, 'damaged_product'),
   wrongProduct(AppText.requestReturnPageWrongProduct, 'wrong_product'),
   extraProduct(AppText.requestReturnPageExtraProduct, 'extra_product'),

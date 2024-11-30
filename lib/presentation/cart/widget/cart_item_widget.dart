@@ -1,6 +1,7 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/data/model/cart_item.dart';
+import 'package:ecommerce_app_mobile/data/model/product.dart';
 import 'package:ecommerce_app_mobile/presentation/products/widget/product_availability_tag.dart';
 import 'package:ecommerce_app_mobile/presentation/products/widget/product_quantity.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/ui/widget_clickable_outlined.dart';
@@ -9,35 +10,69 @@ import 'package:flutter/material.dart';
 import '../../common/widgets/network_image_with_loader.dart';
 
 class CartItemWidget extends StatelessWidget {
-  const CartItemWidget({
+  const CartItemWidget.fromProduct({
     super.key,
-    this.onPressed,
+    required this.product,
+    required this.subProduct,
     this.style,
-    required this.cartItem, required this.onIncrement, required this.onDecrement, required this.numOfItem,
-  });
+  })  : numOfItem = null,
+        maxQuantity = null,
+        onIncrement = null,
+        onDecrement = null,
+        isReturn = false,
+        deleteButtonEnabled = false;
 
-  final CartItem cartItem;
-  final int numOfItem;
-  final VoidCallback? onPressed;
-  final VoidCallback onIncrement;
-  final VoidCallback onDecrement;
+  CartItemWidget.fromCartItem({
+    super.key,
+    required CartItem cartItem,
+    required this.onIncrement,
+    required this.onDecrement,
+    this.style,
+  })  : product = cartItem.productWithQuantity.product,
+        subProduct = cartItem.productWithQuantity.subProduct,
+        numOfItem = cartItem.productWithQuantity.quantity,
+        maxQuantity = null,
+        isReturn = false,
+        deleteButtonEnabled = true;
+
+  CartItemWidget.fromReturnItem({
+    super.key,
+    required ProductWithQuantity productWithQuantity,
+    required this.onIncrement,
+    required this.onDecrement,
+    this.maxQuantity,
+    this.style,
+  })  : product = productWithQuantity.product,
+        subProduct = productWithQuantity.subProduct,
+        numOfItem = productWithQuantity.quantity,
+        isReturn = true,
+        deleteButtonEnabled = false;
+
+  final Product product;
+  final SubProduct subProduct;
+  final int? numOfItem;
+  final int? maxQuantity;
+  final VoidCallback? onIncrement;
+  final VoidCallback? onDecrement;
+  final bool deleteButtonEnabled;
   final ButtonStyle? style;
+  final bool isReturn;
 
   @override
   Widget build(BuildContext context) {
     return ClickableWidgetOutlined(
       minimumSize: const Size(256, 114),
       maximumSize: const Size(256, 114),
-      onPressed: cartItem.productWithQuantity.subProduct.availableInStock ? () {} : null,
+      onPressed: subProduct.availableInStock || isReturn ? () {} : null,
       child: Row(
         children: [
           AspectRatio(
             aspectRatio: 1.15,
             child: Stack(
               children: [
-                NetworkImageWithLoader(cartItem.productWithQuantity.product.firstImageOrEmpty,
+                NetworkImageWithLoader(product.firstImageOrEmpty,
                     radius: AppSizes.defaultBorderRadius),
-                if (cartItem.productWithQuantity.product.images.firstOrNull != null)
+                if (product.images.firstOrNull != null)
                   Positioned(
                     right: AppSizes.defaultPadding / 2,
                     top: AppSizes.defaultPadding / 2,
@@ -51,7 +86,7 @@ class CartItemWidget extends StatelessWidget {
                             Radius.circular(AppSizes.defaultBorderRadius)),
                       ),
                       child: Text(
-                        "${cartItem.productWithQuantity.subProduct.discountPercent}%",
+                        "${subProduct.discountPercent}%",
                         style: const TextStyle(
                             color: Colors.white,
                             fontSize: 10,
@@ -72,7 +107,7 @@ class CartItemWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        cartItem.productWithQuantity.product.brandNameOrEmpty.toUpperCase(),
+                        product.brandNameOrEmpty.toUpperCase(),
                         style: Theme.of(context)
                             .textTheme
                             .bodyMedium!
@@ -80,7 +115,7 @@ class CartItemWidget extends StatelessWidget {
                       ),
                       const SizedBox(height: AppSizes.defaultPadding / 2),
                       Text(
-                        cartItem.productWithQuantity.product.name,
+                        product.name,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context)
@@ -89,11 +124,11 @@ class CartItemWidget extends StatelessWidget {
                             .copyWith(fontSize: 12),
                       ),
                       const Spacer(),
-                      cartItem.productWithQuantity.subProduct.priceAfterDiscounting != 0
+                      subProduct.priceAfterDiscounting != 0
                           ? Row(
                               children: [
                                 Text(
-                                  "\$${cartItem.productWithQuantity.subProduct.priceAfterDiscounting}",
+                                  "\$${subProduct.priceAfterDiscounting}",
                                   style: const TextStyle(
                                     color: Color(0xFF31B0D8),
                                     fontWeight: FontWeight.w500,
@@ -103,7 +138,7 @@ class CartItemWidget extends StatelessWidget {
                                 const SizedBox(
                                     width: AppSizes.defaultPadding / 4),
                                 Text(
-                                  "\$${cartItem.productWithQuantity.subProduct.price}",
+                                  "\$${subProduct.price}",
                                   style: TextStyle(
                                     color: Theme.of(context)
                                         .textTheme
@@ -116,7 +151,7 @@ class CartItemWidget extends StatelessWidget {
                               ],
                             )
                           : Text(
-                              "\$${cartItem.productWithQuantity.subProduct.price}",
+                              "\$${subProduct.price}",
                               style: const TextStyle(
                                 color: Color(0xFF31B0D8),
                                 fontWeight: FontWeight.w500,
@@ -125,23 +160,29 @@ class CartItemWidget extends StatelessWidget {
                             ),
                     ],
                   ),
-                  Expanded(
-                      child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      cartItem.productWithQuantity.subProduct.availableInStock
-                          ? ProductQuantity(
-                              numOfItem: numOfItem,
-                              onIncrement: onIncrement,
-                              onDecrement: onDecrement,
-                              isSmall: true,
-                            )
-                          : const ProductAvailabilityTag(
-                            isAvailable: false,
-                            isSmall: true,
-                          )
-                    ],
-                  ))
+                  if (numOfItem != null &&
+                      onIncrement != null &&
+                      onDecrement != null)
+                    Expanded(
+                        child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        subProduct.availableInStock || isReturn
+                            ? ProductQuantity(
+                                numOfItem: numOfItem,
+                                onIncrement: onIncrement!,
+                                onDecrement: onDecrement!,
+                                maxQuantity: maxQuantity,
+                                deleteButtonActive:
+                                    deleteButtonEnabled && numOfItem == 1,
+                                isSmall: true,
+                              )
+                            : const ProductAvailabilityTag(
+                                isAvailable: false,
+                                isSmall: true,
+                              )
+                      ],
+                    ))
                 ],
               ),
             ),

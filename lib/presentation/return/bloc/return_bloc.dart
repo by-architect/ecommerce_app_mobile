@@ -17,6 +17,7 @@ class ReturnsBloc extends Bloc<ReturnEvent, ReturnsState> {
       }
     });
 
+/*
     on<RequestReturn>((event, emit) async {
       emit(RequestReturnLoadingState(state));
       final resource =
@@ -27,6 +28,7 @@ class ReturnsBloc extends Bloc<ReturnEvent, ReturnsState> {
         emit(RequestReturnSuccessState(resource.data!));
       }
     });
+*/
 
     on<CancelReturn>((event, emit) async {
       emit(CancelReturnLoadingState(state));

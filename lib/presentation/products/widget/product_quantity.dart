@@ -5,18 +5,21 @@ import 'package:ecommerce_app_mobile/common/ui/theme/color_filters.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-
 class ProductQuantity extends StatelessWidget {
   const ProductQuantity({
     super.key,
     required this.numOfItem,
     required this.onIncrement,
-    required this.onDecrement, this.isSmall = false,
+    required this.onDecrement,
+    this.isSmall = false,
+    required this.deleteButtonActive, this.maxQuantity,
   });
 
   final int? numOfItem;
+  final int? maxQuantity;
   final VoidCallback onIncrement, onDecrement;
   final bool isSmall;
+  final bool deleteButtonActive;
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +29,12 @@ class ProductQuantity extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-       if(!isSmall) Text(
-          AppText.productPageQuantity.capitalizeFirstWord.get,
-          style: Theme.of(context).textTheme.titleSmall,
-        ),
-       if(!isSmall) const SizedBox(height: AppSizes.defaultPadding),
+        if (!isSmall)
+          Text(
+            AppText.productPageQuantity.capitalizeFirstWord.get,
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
+        if (!isSmall) const SizedBox(height: AppSizes.defaultPadding),
         Row(
           children: [
             SizedBox(
@@ -40,17 +44,22 @@ class ProductQuantity extends StatelessWidget {
                 onPressed: onDecrement,
                 style: OutlinedButton.styleFrom(
                     padding: const EdgeInsets.all(AppSizes.defaultPadding / 2)),
-                child: SvgPicture.asset(
-                  AppImages.minusIcon,
-                  colorFilter: ColorFilters.iconThemeColor(context),
-                ),
+                child: deleteButtonActive
+                    ? SvgPicture.asset(
+                        AppImages.deleteIcon,
+                        colorFilter: ColorFilters.errorColorFilter,
+                      )
+                    : SvgPicture.asset(
+                        AppImages.minusIcon,
+                        colorFilter: ColorFilters.iconThemeColor(context),
+                      ),
               ),
             ),
             SizedBox(
-              width: isSmall ? smallSize : largeSize,
+              width: isSmall ? maxQuantity == null ? smallSize : smallSize *3/2 : maxQuantity == null ? largeSize : largeSize *3/2, height: isSmall ? smallSize : largeSize,
               child: Center(
                 child: Text(
-                 numOfItem == null ? "?": numOfItem.toString(),
+                  numOfItem == null ? "?" : maxQuantity == null ? numOfItem.toString() : " $numOfItem/$maxQuantity ",
                   style: Theme.of(context)
                       .textTheme
                       .titleMedium!

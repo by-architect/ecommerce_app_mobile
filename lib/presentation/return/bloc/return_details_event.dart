@@ -7,7 +7,7 @@ class ReturnDetailsEvent {}
 class RequestReturnEvent extends ReturnDetailsEvent {}
 
 class ReturnTypeEvent extends ReturnDetailsEvent {
- final ReturnType returnType;
+  final ReturnType returnType;
 
   ReturnTypeEvent(this.returnType);
 }
@@ -30,3 +30,5 @@ class InitialProductsEvent extends ReturnDetailsEvent {
 
   InitialProductsEvent({required this.products});
 }
+
+class ClearReturnStateEvent extends ReturnDetailsEvent {}

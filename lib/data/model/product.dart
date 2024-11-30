@@ -258,4 +258,9 @@ class ProductWithQuantity {
       quantity: map[ApiDeliveryProcesses.quantity],
     );
   }
+
+  @override
+  String toString() {
+    return 'ProductWithQuantity{product: $product, subProduct: $subProduct, quantity: $quantity}';
+  }
 }

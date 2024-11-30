@@ -51,21 +51,21 @@ class ReturnDetailsState extends ReturnState {
 class InitialReturnState extends ReturnDetailsState {
   InitialReturnState()
       : super(
-      products: [],
-      purchaseProcessId: "",
-      userId: "",
-      returnReason: "",
-      returnType: ReturnType.values.first,
-      address: null,
-      returnRequested: ReturnStatusReturnRequested(
-          message: "",
-          returnType: ReturnType.values.first,
-          returnReason: "",
-          dateTime: DateTime.now()),
-      returnAccepted: ReturnStatusReturnAccepted.waiting(),
-      requestAccepted: ReturnStatusRequestAccepted.waiting(),
-      shipped: ReturnStatusShipped.waiting(),
-      delivered: ReturnStatusDelivered.waiting());
+            products: [],
+            purchaseProcessId: "",
+            userId: "",
+            returnReason: "",
+            returnType: ReturnType.unselected,
+            address: null,
+            returnRequested: ReturnStatusReturnRequested(
+                message: "",
+                returnType: ReturnType.unselected,
+                returnReason: "",
+                dateTime: DateTime.now()),
+            returnAccepted: ReturnStatusReturnAccepted.waiting(),
+            requestAccepted: ReturnStatusRequestAccepted.waiting(),
+            shipped: ReturnStatusShipped.waiting(),
+            delivered: ReturnStatusDelivered.waiting());
 }
 
 class ReturnRequestLoadingState extends ReturnDetailsState {
@@ -73,17 +73,17 @@ class ReturnRequestLoadingState extends ReturnDetailsState {
 
   ReturnRequestLoadingState(this.state)
       : super(
-      products: state.products,
-      purchaseProcessId: state.purchaseProcessId,
-      userId: state.userId,
-      returnReason: state.returnReason,
-      returnType: state.returnType,
-      address: state.address,
-      returnRequested: state.returnRequested,
-      returnAccepted: state.returnAccepted,
-      requestAccepted: state.requestAccepted,
-      shipped: state.shipped,
-      delivered: state.delivered);
+            products: state.products,
+            purchaseProcessId: state.purchaseProcessId,
+            userId: state.userId,
+            returnReason: state.returnReason,
+            returnType: state.returnType,
+            address: state.address,
+            returnRequested: state.returnRequested,
+            returnAccepted: state.returnAccepted,
+            requestAccepted: state.requestAccepted,
+            shipped: state.shipped,
+            delivered: state.delivered);
 }
 
 class ReturnRequestSuccessState extends ReturnDetailsState {
@@ -91,17 +91,17 @@ class ReturnRequestSuccessState extends ReturnDetailsState {
 
   ReturnRequestSuccessState(this.state)
       : super(
-      products: state.products,
-      purchaseProcessId: state.purchaseProcessId,
-      userId: state.userId,
-      returnReason: state.returnReason,
-      returnType: state.returnType,
-      address: state.address,
-      returnRequested: state.returnRequested,
-      returnAccepted: state.returnAccepted,
-      requestAccepted: state.requestAccepted,
-      shipped: state.shipped,
-      delivered: state.delivered);
+            products: state.products,
+            purchaseProcessId: state.purchaseProcessId,
+            userId: state.userId,
+            returnReason: state.returnReason,
+            returnType: state.returnType,
+            address: state.address,
+            returnRequested: state.returnRequested,
+            returnAccepted: state.returnAccepted,
+            requestAccepted: state.requestAccepted,
+            shipped: state.shipped,
+            delivered: state.delivered);
 }
 
 class ReturnRequestFailState extends ReturnDetailsState {
@@ -110,15 +110,15 @@ class ReturnRequestFailState extends ReturnDetailsState {
 
   ReturnRequestFailState(this.state, this.fail)
       : super(
-      products: state.products,
-      purchaseProcessId: state.purchaseProcessId,
-      userId: state.userId,
-      returnReason: state.returnReason,
-      returnType: state.returnType,
-      address: state.address,
-      returnRequested: state.returnRequested,
-      returnAccepted: state.returnAccepted,
-      requestAccepted: state.requestAccepted,
-      shipped: state.shipped,
-      delivered: state.delivered);
+            products: state.products,
+            purchaseProcessId: state.purchaseProcessId,
+            userId: state.userId,
+            returnReason: state.returnReason,
+            returnType: state.returnType,
+            address: state.address,
+            returnRequested: state.returnRequested,
+            returnAccepted: state.returnAccepted,
+            requestAccepted: state.requestAccepted,
+            shipped: state.shipped,
+            delivered: state.delivered);
 }

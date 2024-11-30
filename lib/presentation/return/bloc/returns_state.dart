@@ -56,6 +56,7 @@ class CancelReturnLoadingState extends ReturnsState {
   CancelReturnLoadingState(this.state) : super(returns: state.returns);
 }
 
+/*
 class RequestReturnLoadingState extends ReturnsState {
   final ReturnsState state;
 
@@ -75,3 +76,4 @@ class RequestReturnFailedState extends ReturnsState {
   RequestReturnFailedState(this.state, this.fail)
       : super(returns: state.returns);
 }
+*/
