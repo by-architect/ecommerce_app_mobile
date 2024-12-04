@@ -71,9 +71,18 @@ class _RequestReturnScreenState extends State<RequestReturnScreen> {
         ),
         body: Padding(
           padding: const EdgeInsets.all(AppSizes.defaultPadding),
-          child: widget
-                  .orderModel.statusDelivered.hasTheRightOfWithdrawalExpired
-              ? SingleChildScrollView(
+          child: widget.orderModel.statusDelivered
+                          .hasTheRightOfWithdrawalExpired ==
+                      null ||
+                  widget.orderModel.statusDelivered
+                      .hasTheRightOfWithdrawalExpired!
+              ? FormInfoSkeleton(
+                  image: AppImages.timeManagement,
+                  message: AppText.infoRightOfWithdrawal(
+                          FakeAppDefaults.defaultReturnDay)
+                      .capitalizeFirstWord
+                      .get)
+              : SingleChildScrollView(
                   child: Column(children: [
                     _Title(
                         text: AppText.requestReturnPageSelectReason
@@ -142,11 +151,12 @@ class _RequestReturnScreenState extends State<RequestReturnScreen> {
                                     if (state.products[index].quantity <
                                         widget.orderModel.products[index]
                                             .quantity) {
-                                      BlocProvider.of<ReturnDetailsBloc>(context)
-                                        .add(SelectedProductEvent(
-                                            product: state.products[index]
-                                                .increaseQuantity(),
-                                            index: index));
+                                      BlocProvider.of<ReturnDetailsBloc>(
+                                              context)
+                                          .add(SelectedProductEvent(
+                                              product: state.products[index]
+                                                  .increaseQuantity(),
+                                              index: index));
                                     }
                                   },
                                   onDecrement: () {
@@ -171,7 +181,10 @@ class _RequestReturnScreenState extends State<RequestReturnScreen> {
                         text: AppText.requestReturnPageRequestReturn
                             .capitalizeEveryWord.get,
                         onTap: () {
-                          final finalState = state.copyWith(products: state.products.where((e) => e.quantity > 0).toList());
+                          final finalState = state.copyWith(
+                              products: state.products
+                                  .where((e) => e.quantity > 0)
+                                  .toList());
                           final validationResult =
                               ReturnRequestValidation.validate(finalState);
                           if (validationResult.success) {
@@ -183,13 +196,7 @@ class _RequestReturnScreenState extends State<RequestReturnScreen> {
                         }),
                     const SizedBox(height: AppSizes.spaceBtwVerticalFields),
                   ]),
-                )
-              : FormInfoSkeleton(
-                  image: AppImages.timeManagement,
-                  message: AppText.infoRightOfWithdrawal(
-                          FakeAppDefaults.defaultReturnDay)
-                      .capitalizeFirstWord
-                      .get),
+                ),
         ),
       ),
     );

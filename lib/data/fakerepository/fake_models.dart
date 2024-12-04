@@ -369,9 +369,7 @@ class FakeProductModels {
           product: product3, subProduct: subProduct3, quantity: 3),
     ],
     uid: "1",
-    statusPaid: OrderPaid(
-      dateTime: DateTime.now(),
-    ),
+    statusPaid: OrderPaid.create(),
     statusOrderTaken: OrderTaken.waiting(),
     statusShipped: OrderShipped.waiting(),
     statusDelivered: OrderDelivered.waiting(), activeReturn: null,
@@ -389,8 +387,7 @@ class FakeProductModels {
           product: product3, subProduct: subProduct3, quantity: 3),
     ],
     uid: "1",
-    statusPaid: OrderPaid(
-      dateTime: DateTime.now(),
+    statusPaid: OrderPaid.create(
     ),
     statusOrderTaken: OrderTaken(
       status: PurchaseStatus.canceled,
@@ -413,8 +410,7 @@ class FakeProductModels {
           product: product3, subProduct: subProduct3, quantity: 3),
     ],
     uid: "1",
-    statusPaid: OrderPaid(
-      dateTime: DateTime.now(),
+    statusPaid: OrderPaid.create(
     ),
     statusOrderTaken: OrderTaken(
       status: PurchaseStatus.success,
@@ -437,8 +433,7 @@ class FakeProductModels {
           product: product3, subProduct: subProduct3, quantity: 3),
     ],
     uid: "1",
-    statusPaid: OrderPaid(
-      dateTime: DateTime.now(),
+    statusPaid: OrderPaid.create(
     ),
     statusOrderTaken: OrderTaken(
       status: PurchaseStatus.success,
@@ -464,8 +459,7 @@ class FakeProductModels {
           product: product3, subProduct: subProduct3, quantity: 3),
     ],
     uid: "1",
-    statusPaid: OrderPaid(
-      dateTime: DateTime.now(),
+    statusPaid: OrderPaid.create(
     ),
     statusOrderTaken: OrderTaken(
       status: PurchaseStatus.success,

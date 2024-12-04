@@ -1,3 +1,4 @@
+import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/provider/product_service_provider.dart';
 import 'package:ecommerce_app_mobile/presentation/order/bloc/order_event.dart';
 import 'package:ecommerce_app_mobile/presentation/order/bloc/order_state.dart';
@@ -27,6 +28,19 @@ class OrdersBloc extends Bloc<OrderEvent, OrderState> {
         emit(OrderCancelSuccessState(orders: state.orders));
       } else {
         emit(OrderCancelFailState(fail: resource.error!, orders: state.orders));
+      }
+    });
+
+    on<CancelReturnEvent>((event, emit) async {
+      emit(ReturnCancelLoadingState(orders: state.orders));
+      final canceledReturn = event.canceledReturn.cancelReturn(event.message);
+      if (canceledReturn == null) return;
+      final resource = await service.updateReturnProcess(canceledReturn);
+      if (!resource.isSuccess) {
+        emit(
+            ReturnCancelFailState(fail: resource.error!, orders: state.orders));
+      } else {
+        emit(ReturnCancelSuccessState(orders: resource.data!));
       }
     });
   }

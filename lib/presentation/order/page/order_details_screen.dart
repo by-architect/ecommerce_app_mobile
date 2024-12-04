@@ -2,11 +2,14 @@ import 'package:ecommerce_app_mobile/common/ui/theme/AppStyles.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/color_filters.dart';
 import 'package:ecommerce_app_mobile/data/fakerepository/fake_app_defaults.dart';
 import 'package:ecommerce_app_mobile/data/model/order_process.dart';
+import 'package:ecommerce_app_mobile/data/model/return_process.dart';
 import 'package:ecommerce_app_mobile/presentation/address/widgets/address_card.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/app_bar_pop_back.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/button_secondary.dart';
+import 'package:ecommerce_app_mobile/presentation/return/page/return_details_screen.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/date_helper.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/ui/widget_clickable_outlined.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -24,15 +27,18 @@ import '../../return/page/request_return_screen.dart';
 import '../widget/purchase_status_widget.dart';
 
 class OrderDetailsScreen extends StatelessWidget {
-  const OrderDetailsScreen(
-      {super.key,
-      required this.orderModel,
-      required this.onCancel, required this.user,
-      });
+  const OrderDetailsScreen({
+    super.key,
+    required this.orderModel,
+    required this.onOrderCancel,
+    required this.user, required this.onReturnCancel,
+  });
 
   final OrderModel orderModel;
   final User user;
-  final Function() onCancel;
+  final Function() onOrderCancel;
+  final Function(ReturnModel) onReturnCancel;
+
 
   @override
   Widget build(BuildContext context) {
@@ -69,9 +75,13 @@ class OrderDetailsScreen extends StatelessWidget {
                             height: AppSizes.spaceBtwVerticalFieldsSmall,
                           ),
                           Row(children: [
-                            Text(
-                                "${AppText.orderPagePlacedOn.capitalizeEveryWord.get}    ${orderModel.purchaseProcessesHandler.one.dateTime.formatedDate}",
-                                style: Theme.of(context).textTheme.titleMedium),
+                            if (orderModel
+                                    .purchaseProcessesHandler.one.dateTime !=
+                                null)
+                              Text(
+                                  "${AppText.orderPagePlacedOn.capitalizeEveryWord.get}    ${(orderModel.purchaseProcessesHandler.one.dateTime!.formatedDate)}",
+                                  style:
+                                      Theme.of(context).textTheme.titleMedium),
                           ]),
                         ],
                       ),
@@ -90,6 +100,23 @@ class OrderDetailsScreen extends StatelessWidget {
                 )),
             const SizedBox(
               height: AppSizes.spaceBtwVerticalFieldsLarge,
+            ),
+            _Title(text: AppText.orderPageProcess.capitalizeFirstWord.get),
+            const SizedBox(
+              height: AppSizes.spaceBtwVerticalFields,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: AppSizes.defaultPadding,
+              ),
+              child: Column(
+                children: [
+                  _Process(purchaseProcess: orderModel.statusPaid),
+                  _Process(purchaseProcess: orderModel.statusOrderTaken),
+                  _Process(purchaseProcess: orderModel.statusShipped),
+                  _Process(purchaseProcess: orderModel.statusDelivered),
+                ],
+              ),
             ),
             _Title(
               text: AppText.addressesPageAddress.capitalizeFirstWord.get,
@@ -215,28 +242,36 @@ class OrderDetailsScreen extends StatelessWidget {
                 orderModel.purchaseProcessesHandler.getProcessing!
                     .cancelableWhileProcessing)
               ButtonSecondary(
-                onTap: onCancel,
+                onTap: onOrderCancel,
                 text: AppText.orderPageCancelOrder.capitalizeFirstWord.get,
               ),
-            if (orderModel.statusDelivered.status == PurchaseStatus.success && orderModel.activeReturn == null)
+            if (orderModel.statusDelivered.status == PurchaseStatus.success &&
+                orderModel.activeReturn == null)
               ButtonSecondary(
-                onTap: (){
+                onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => RequestReturnScreen(
-                        orderModel: orderModel,
-                        user: user,
-                      )));
+                            orderModel: orderModel,
+                            user: user,
+                          )));
                 },
                 text: AppText.orderPageReturnOrder.capitalizeFirstWord.get,
               ),
-            if(orderModel.activeReturn != null)
+            if (orderModel.activeReturn != null)
               ButtonSecondary(
-                onTap: (){
-                  //todo: return details screen
+                onTap: () {
+                  final activeReturn = orderModel.activeReturn;
+                  if (activeReturn != null) {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            ReturnDetailsScreen(
+                              returnModel: activeReturn,
+                              onCancel: onReturnCancel,
+                            )));
+                  }
                 },
                 text: AppText.returnPageReturnDetails.capitalizeFirstWord.get,
               ),
-
             const SizedBox(
               height: AppSizes.spaceBtwVerticalFields,
             ),
@@ -262,5 +297,72 @@ class _Title extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+class _Process extends StatelessWidget {
+  const _Process({super.key, required this.purchaseProcess});
+
+  final PurchaseProcess purchaseProcess;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: [
+      Row(children: [
+        Text(purchaseProcess.purchaseStatusType.userText.get,
+            style: Theme.of(context).textTheme.titleSmall),
+      ]),
+      const SizedBox(
+        height: AppSizes.spaceBtwVerticalFieldsSmall,
+      ),
+      Column(
+        children: [
+          if (purchaseProcess.dateTime != null)
+            Row(
+              children: [
+                Text(
+                  purchaseProcess.dateTime!.formatedDate,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+              ],
+            ),
+          const SizedBox(
+            height: AppSizes.spaceBtwVerticalFieldsSmall,
+          ),
+          Row(
+            children: [
+              Text(
+                "${AppText.status.capitalizeFirstWord.get}: ${purchaseProcess.status.userText}",
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: AppSizes.spaceBtwVerticalFieldsSmall,
+          ),
+          if (purchaseProcess.message != null)
+            Row(
+              children: [
+                Text(
+                  "${AppText.message.capitalizeFirstWord.get}: ${purchaseProcess.message!}",
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+              ],
+            ),
+          const SizedBox(
+            height: AppSizes.spaceBtwVerticalFieldsSmall,
+          ),
+          if (purchaseProcess.cargoNo != null)
+            Row(
+              children: [
+                Text(
+                  "${AppText.orderPageCargoNo.capitalizeFirstWord.get}: ${purchaseProcess.cargoNo!}",
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+              ],
+            ),
+        ],
+      )
+    ]);
   }
 }

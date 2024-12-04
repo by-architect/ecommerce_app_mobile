@@ -1,5 +1,4 @@
 
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/model/address.dart';
 import 'package:ecommerce_app_mobile/data/model/product.dart';
@@ -30,7 +29,7 @@ class PurchaseProcess {
   final String? message;
   final Object? receipt;
   final PurchaseStatusType purchaseStatusType;
-  final DateTime dateTime;
+  final DateTime? dateTime;
   final PurchaseStatus status;
   final bool cancelableWhileProcessing;
   final String? cargoNo;
@@ -62,7 +61,7 @@ class PurchaseProcess {
       ApiDeliveryProcesses.message: message,
       ApiDeliveryProcesses.receipt: receipt,
       ApiDeliveryProcesses.purchaseStatusType: purchaseStatusType.apiData,
-      ApiDeliveryProcesses.dateTime: dateTime.toIso8601String(),
+      ApiDeliveryProcesses.dateTime: dateTime?.toIso8601String(),
     };
   }
 
@@ -122,10 +121,10 @@ class PurchaseProcessHandler {
 }
 
 enum PurchaseStatus {
-  success('success'),
-  failed('failed'),
-  canceled('canceled'),
-  waiting('waiting'),
+  success(AppText.success,'success'),
+  failed(AppText.failed ,'failed'),
+  canceled(AppText.canceled,'canceled'),
+  waiting(AppText.waiting,'waiting'),
   ;
 
   static PurchaseStatus fromServerMessage(String message) {
@@ -134,6 +133,7 @@ enum PurchaseStatus {
   }
 
   final String apiData;
+  final AppText userText;
 
-  const PurchaseStatus(this.apiData);
+  const PurchaseStatus(this.userText,this.apiData);
 }

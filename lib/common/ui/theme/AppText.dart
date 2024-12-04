@@ -50,6 +50,7 @@ class AppText {
   static const apply = AppText("Apply");
   static const cancel = AppText("Cancel");
   static const others = AppText("Others");
+  static const message = AppText("Message");
 
   //contact
   static const whatsapp = AppText("WhatsApp");
@@ -180,6 +181,7 @@ class AppText {
   static const infoAddressRemoved = AppText("Address removed successfully");
   static const infoTellUsWhatYouDidNotLike =
       AppText("Tell us what you didn't like");
+  static const infoTellUsWhyYouCancelReturn = AppText("Tell us why you cancel return");
   static const infoNeedHelpWithAnything = AppText("Need help with anything?");
   static const infoExplainWhyYouReturn = AppText("Explain why you return");
   static const infoReturnRequestedSuccessfully =
@@ -352,6 +354,7 @@ class AppText {
 
   //return screen
   static const returnPageReturn = AppText("Return");
+  static const returnPageReturns = AppText("Returns");
 
   //order screen
   static const orderPageOrders = AppText("Orders");
@@ -391,6 +394,8 @@ class AppText {
   static const orderPageReturnCanceled = AppText("Return Canceled");
   static const orderPageProducts = AppText("Products");
   static const orderPageReturnOrder = AppText("Return Order");
+  static const orderPageProcess = AppText("Process");
+  static const orderPageCargoNo = AppText("Cargo No");
 
   //Request return screen
   static const requestReturnPageRequestReturn = AppText("Request Return");
@@ -417,6 +422,16 @@ class AppText {
   static const returnPageRequestAccepted = AppText("Accepted");
   static const returnPageRequestRejected = AppText("Return Request Rejected");
   static const returnPageReturnDetails= AppText("Return Details");
+  static const returnPageCancelReturn = AppText("Cancel Return");
+
+  //status
+  static const status = AppText("Status");
+  static const waiting = AppText("Waiting");
+  static const success = AppText("Success");
+  static const failed = AppText("Failed");
+  static const canceled = AppText("Canceled");
+
+
 
   // Pages Common
   static const commonPageFilter = AppText("Filter");

@@ -29,9 +29,11 @@ class OrderScreen extends StatefulWidget {
 }
 
 class _OrderScreenState extends State<OrderScreen> {
+  late final DialogUtil dialogUtil;
+
   @override
   void initState() {
-    final DialogUtil dialogUtil = DialogUtil(context);
+    dialogUtil = DialogUtil(context);
     BlocProvider.of<OrdersBloc>(context).add(GetOrdersEvent(widget.user.uid));
     BlocProvider.of<OrdersBloc>(context).stream.listen((state) {
       if (state is OrderCancelFailState) {
@@ -78,7 +80,23 @@ class _OrderScreenState extends State<OrderScreen> {
                           bottom: AppSizes.spaceBtwVerticalFields),
                       child: PurchaseCard(
                         purchaseModel: state.orders[index],
-                        onCancel: () {
+                        onReturnCancel: (returnModel) {
+                          if (state.orders[index].activeReturn == null) {
+                            return;
+                          }
+                          dialogUtil.inputDialog(
+                              AppText.returnPageCancelReturn.capitalizeEveryWord
+                                  .get,
+                              AppText.infoTellUsWhyYouCancelReturn
+                                  .capitalizeEveryWord.get, (text) {
+                            BlocProvider.of<OrdersBloc>(context)
+                                .add(CancelReturnEvent(
+                              message: text,
+                              canceledReturn: returnModel,
+                            ));
+                          }, () {});
+                        },
+                        onOrderCancel: () {
                           dialogUtil.inputDialog(
                               AppText
                                   .orderPageCancelOrder.capitalizeEveryWord.get,
@@ -89,7 +107,8 @@ class _OrderScreenState extends State<OrderScreen> {
                                     canceledOrder: state.orders[index],
                                     message: text));
                           }, () {});
-                        }, user: widget.user,
+                        },
+                        user: widget.user,
                       ),
                     ))
           },

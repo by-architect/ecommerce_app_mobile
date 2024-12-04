@@ -103,11 +103,12 @@ class OrderModel implements PurchaseModel {
 }
 
 class OrderPaid extends PurchaseProcess {
-  OrderPaid({required super.dateTime})
+  OrderPaid.create()
       : super(
             purchaseStatusType: OrderStatusType.paid,
             status: PurchaseStatus.success,
-            cancelableWhileProcessing: false);
+            cancelableWhileProcessing: false,
+            dateTime: DateTime.now());
 
   @override
   OrderTaken nextStatus(OrderModel orderModel) => orderModel.statusOrderTaken;
@@ -125,7 +126,7 @@ class OrderTaken extends PurchaseProcess {
 
   OrderTaken.waiting()
       : this(
-          dateTime: DateTime.now(),
+          dateTime: null,
           status: PurchaseStatus.waiting,
           receipt: null,
         );
@@ -154,7 +155,7 @@ class OrderShipped extends PurchaseProcess {
 
   OrderShipped.waiting()
       : this(
-          dateTime: DateTime.now(),
+          dateTime: null,
           status: PurchaseStatus.waiting,
           cargoNo: null,
         );
@@ -182,13 +183,20 @@ class OrderDelivered extends PurchaseProcess {
 
   OrderDelivered.waiting()
       : this(
-          dateTime: DateTime.now(),
+          dateTime: null,
           status: PurchaseStatus.waiting,
         );
 
-  bool get hasTheRightOfWithdrawalExpired =>
-      dateTime.difference(DateTime.now()).inDays <=
-      FakeAppDefaults.defaultReturnDay;
+  bool? get hasTheRightOfWithdrawalExpired {
+    if (dateTime == null) return null;
+
+    final difference = DateTime.now()
+        .difference(dateTime!)
+        .inDays
+        .abs();
+
+    return difference > FakeAppDefaults.defaultReturnDay;
+  }
 }
 
 enum OrderStatusType implements PurchaseStatusType {

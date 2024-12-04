@@ -32,7 +32,6 @@ class _ReturnsScreenState extends State<ReturnsScreen> {
     dialogUtil = DialogUtil(context);
     BlocProvider.of<ReturnsBloc>(context).add(GetReturnsEvent(widget.user.uid));
     BlocProvider.of<ReturnsBloc>(context).stream.listen((state) {
-      Log.test(title: "state", data: state);
       if (state is CancelReturnFailedState) {
         dialogUtil.closeLoadingDialog();
         dialogUtil.info(
@@ -57,7 +56,7 @@ class _ReturnsScreenState extends State<ReturnsScreen> {
     return BlocBuilder<ReturnsBloc, ReturnsState>(
       builder: (BuildContext context, ReturnsState state) => Scaffold(
           appBar: AppBarPopBack(
-              title: AppText.returnPageReturn.capitalizeEveryWord.get),
+              title: AppText.returnPageReturns.capitalizeEveryWord.get),
           body: Padding(
             padding: const EdgeInsets.all(AppSizes.defaultPadding),
             child: switch (state) {
@@ -74,19 +73,20 @@ class _ReturnsScreenState extends State<ReturnsScreen> {
                       padding: const EdgeInsets.only(
                           bottom: AppSizes.spaceBtwVerticalFields),
                       child: PurchaseCard(
-                        purchaseModel: state.returns[index],
-                        onCancel: () {
+                        onReturnCancel: (returnModel) {
                           dialogUtil.inputDialog(
                               AppText
-                                  .orderPageCancelOrder.capitalizeEveryWord.get,
-                              AppText.infoTellUsWhatYouDidNotLike
+                                  .returnPageCancelReturn.capitalizeEveryWord.get,
+                              AppText.infoTellUsWhyYouCancelReturn
                                   .capitalizeEveryWord.get, (text) {
                             BlocProvider.of<ReturnsBloc>(context).add(
                                 CancelReturnEvent(
-                                    returnModel: state.returns[index],
+                                    returnModel: returnModel,
                                     message: text));
                           }, () {});
                         },
+                        purchaseModel: state.returns[index],
+                        onOrderCancel: () {},
                         user: widget.user,
                       ),
                     );

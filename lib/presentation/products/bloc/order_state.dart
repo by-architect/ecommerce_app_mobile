@@ -16,7 +16,7 @@ class OrderState {
 
   OrderState(
       {required this.address, required this.products, required this.userId})
-      : statusPaid = OrderPaid(dateTime: DateTime.now()),
+      : statusPaid = OrderPaid.create(),
         statusOrderTaken = OrderTaken.waiting(),
         statusShipped = OrderShipped.waiting(),
         statusDelivered = OrderDelivered.waiting();

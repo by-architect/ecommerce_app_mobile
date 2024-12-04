@@ -38,3 +38,17 @@ class OrderCancelFailState extends OrderState {
 
   OrderCancelFailState({required this.fail, required super.orders});
 }
+
+class ReturnCancelSuccessState extends OrderState {
+  ReturnCancelSuccessState({required super.orders});
+}
+
+class ReturnCancelLoadingState extends OrderState {
+  ReturnCancelLoadingState({required super.orders});
+}
+
+class ReturnCancelFailState extends OrderState {
+  final Fail fail;
+
+  ReturnCancelFailState({required this.fail, required super.orders});
+}

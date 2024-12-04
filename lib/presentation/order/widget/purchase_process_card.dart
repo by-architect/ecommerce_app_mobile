@@ -1,7 +1,6 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppStyles.dart';
-import 'package:ecommerce_app_mobile/common/util/cart_util.dart';
 import 'package:ecommerce_app_mobile/data/model/order_process.dart';
 import 'package:ecommerce_app_mobile/data/model/purchase_process.dart';
 import 'package:ecommerce_app_mobile/data/model/return_process.dart';
@@ -15,19 +14,19 @@ import 'package:flutter/material.dart';
 import '../../../common/ui/theme/AppText.dart';
 import '../../../data/model/user.dart';
 import '../page/order_details_screen.dart';
-import '../../return/page/request_return_screen.dart';
 import 'purchase_status_widget.dart';
 
 class PurchaseCard extends StatelessWidget {
   const PurchaseCard({
     super.key,
     required this.purchaseModel,
-    required this.onCancel,
-    required this.user,
+    required this.onOrderCancel,
+    required this.user, required this.onReturnCancel,
   });
 
   final PurchaseModel purchaseModel;
-  final Function() onCancel;
+  final Function() onOrderCancel;
+  final Function(ReturnModel) onReturnCancel;
   final User user;
 
   @override
@@ -39,7 +38,8 @@ class PurchaseCard extends StatelessWidget {
           Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => OrderDetailsScreen(
                     orderModel: purchaseModel as OrderModel,
-                    onCancel: onCancel,
+                    onOrderCancel: onOrderCancel,
+                    onReturnCancel: onReturnCancel,
                     user: user,
                   )));
         }
@@ -47,7 +47,7 @@ class PurchaseCard extends StatelessWidget {
           Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => ReturnDetailsScreen(
                     returnModel: purchaseModel as ReturnModel,
-                    onCancel: onCancel,
+                    onCancel: onReturnCancel,
                   )));
         }
       },
@@ -59,7 +59,7 @@ class PurchaseCard extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    "${AppText.orderPageOrder.capitalizeEveryWord.get}    #${purchaseModel.id}",
+                   purchaseModel is OrderModel ? "${AppText.orderPageOrder.capitalizeEveryWord.get}    #${purchaseModel.id}" : "${AppText.returnPageReturn.capitalizeEveryWord.get}    #${purchaseModel.id}",
                     style: Theme.of(context)
                         .textTheme
                         .bodySmall
@@ -72,7 +72,7 @@ class PurchaseCard extends StatelessWidget {
               ),
               Row(children: [
                 Text(
-                    "${AppText.orderPagePlacedOn.capitalizeEveryWord.get}    ${purchaseModel.purchaseProcessesHandler.one.dateTime.formatedDate}",
+                    "${AppText.orderPagePlacedOn.capitalizeEveryWord.get}    ${purchaseModel.purchaseProcessesHandler.one.dateTime?.formatedDate}",
                     style: Theme.of(context).textTheme.titleMedium),
               ]),
             ],
