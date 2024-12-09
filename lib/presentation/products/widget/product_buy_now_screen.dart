@@ -108,7 +108,7 @@ class _ProductBuyNowScreenState extends State<ProductBuyNowScreen> {
                           ),
                           ProductQuantity(
                             numOfItem: state.selectedSubProduct == null ? null : state.quantity,
-                            deleteButtonActive: state.quantity == 1,
+                            deleteButtonActive: false,
                             onIncrement: () {
                               final selectedSubProduct = state.selectedSubProduct;
                               if (selectedSubProduct != null &&
