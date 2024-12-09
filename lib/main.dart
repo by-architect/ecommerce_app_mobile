@@ -20,7 +20,7 @@ import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_
 import 'package:ecommerce_app_mobile/presentation/profile/bloc/change_password_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/profile/bloc/edit_profile_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/return/bloc/return_bloc.dart';
-import 'package:ecommerce_app_mobile/presentation/return/bloc/return_details_bloc.dart';
+import 'package:ecommerce_app_mobile/presentation/return/bloc/request_return_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/search/bloc/search_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/splash/bloc/welcome_blocs.dart';
 import 'package:ecommerce_app_mobile/presentation/splash/pages/welcome_screen.dart';
@@ -74,7 +74,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (BuildContext context) => EmailVerificationBloc()),
           BlocProvider(create: (BuildContext context) => OrdersBloc()),
           BlocProvider(create: (BuildContext context) => ReturnsBloc()),
-          BlocProvider(create: (BuildContext context) => ReturnDetailsBloc()),
+          BlocProvider(create: (BuildContext context) => ReturnRequestBloc()),
 
 
         ],

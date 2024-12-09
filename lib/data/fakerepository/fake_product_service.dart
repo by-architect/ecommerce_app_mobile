@@ -304,10 +304,11 @@ class FakeProductService implements ProductService {
   @override
   Future<ResourceStatus<List<ReturnModel>>> getReturnProcessList(String uid) async {
     await Future.delayed(const Duration(seconds: 1));
+    bool random = Random().nextBool();
     return ResourceStatus.success([
-      FakeProductModels.returnProcessSuccess,
-      FakeProductModels.returnProcessRejected,
-      FakeProductModels.returnProcessCanceledByCustomer,
+     random ? FakeProductModels.returnProcessSuccess: FakeProductModels.returnProcessSuccess.cancelReturn("canceled") ?? FakeProductModels.returnProcessSuccess,
+     random ? FakeProductModels.returnProcessRejected: FakeProductModels.returnProcessRejected.cancelReturn("canceled") ?? FakeProductModels.returnProcessRejected,
+      random ? FakeProductModels.returnProcessCanceledByCustomer: FakeProductModels.returnProcessCanceledByCustomer.cancelReturn("canceled") ?? FakeProductModels.returnProcessCanceledByCustomer
     ]);
   }
 

@@ -357,7 +357,7 @@ class FakeProductModels {
   ];
 */
 
-  static OrderModel orderPaidSuccess = OrderModel(
+  static OrderModel orderPaidSuccess = OrderModel.testOnly(
     id: "1",
     address: address1,
     products: [
@@ -375,7 +375,7 @@ class FakeProductModels {
     statusDelivered: OrderDelivered.waiting(), activeReturn: null,
   );
 
-  static OrderModel orderPaidCanceled = OrderModel(
+  static OrderModel orderPaidCanceled = OrderModel.testOnly(
     id: "2",
     address: address2,
     products: [
@@ -389,16 +389,16 @@ class FakeProductModels {
     uid: "1",
     statusPaid: OrderPaid.create(
     ),
-    statusOrderTaken: OrderTaken(
+    statusOrderTaken: OrderTaken.testOnly(
       status: PurchaseStatus.canceled,
       dateTime: DateTime.now(),
     ),
     statusShipped: OrderShipped.waiting(),
-    statusDelivered: OrderDelivered(
+    statusDelivered: OrderDelivered.testOnly(
         dateTime: DateTime.now(), status: PurchaseStatus.waiting), activeReturn: null,
   );
 
-  static final orderTakenSuccess = OrderModel(
+  static final orderTakenSuccess = OrderModel.testOnly(
     id: "3",
     address: address3,
     products: [
@@ -412,16 +412,16 @@ class FakeProductModels {
     uid: "1",
     statusPaid: OrderPaid.create(
     ),
-    statusOrderTaken: OrderTaken(
+    statusOrderTaken: OrderTaken.testOnly(
       status: PurchaseStatus.success,
       dateTime: DateTime.now(),
     ),
     statusShipped: OrderShipped.waiting(),
-    statusDelivered: OrderDelivered(
+    statusDelivered: OrderDelivered.testOnly(
         dateTime: DateTime.now(), status: PurchaseStatus.waiting), activeReturn: null,
   );
 
-  static final orderShippedSuccess = OrderModel(
+  static final orderShippedSuccess = OrderModel.testOnly(
     id: "4",
     address: address1,
     products: [
@@ -435,19 +435,19 @@ class FakeProductModels {
     uid: "1",
     statusPaid: OrderPaid.create(
     ),
-    statusOrderTaken: OrderTaken(
+    statusOrderTaken: OrderTaken.testOnly(
       status: PurchaseStatus.success,
       dateTime: DateTime.now(),
     ),
-    statusShipped: OrderShipped(
+    statusShipped: OrderShipped.testOnly(
         dateTime: DateTime.now(),
         status: PurchaseStatus.success,
         cargoNo: "34290892349834"),
-    statusDelivered: OrderDelivered(
+    statusDelivered: OrderDelivered.testOnly(
         dateTime: DateTime.now(), status: PurchaseStatus.waiting), activeReturn: null,
   );
 
-  static final orderDeliveredSuccess = OrderModel(
+  static final orderDeliveredSuccess = OrderModel.testOnly(
     id: "5",
     address: address2,
     products: [
@@ -461,42 +461,43 @@ class FakeProductModels {
     uid: "1",
     statusPaid: OrderPaid.create(
     ),
-    statusOrderTaken: OrderTaken(
+    statusOrderTaken: OrderTaken.testOnly(
       status: PurchaseStatus.success,
       dateTime: DateTime.now(),
     ),
-    statusShipped: OrderShipped(
+    statusShipped: OrderShipped.testOnly(
         dateTime: DateTime.now(),
         status: PurchaseStatus.success,
         cargoNo: "429383493948w"),
-    statusDelivered: OrderDelivered(
+    statusDelivered: OrderDelivered.testOnly(
         dateTime: DateTime.now(), status: PurchaseStatus.success), activeReturn: returnProcessSuccess,
   );
 
-  static ReturnModel returnProcessSuccess = ReturnModel(
+  static ReturnModel returnProcessSuccess = ReturnModel.testOnly(
     orderId: '5',
     id: "0",
     uid: "0",
     address: address2,
-    statusReturnRequested: ReturnStatusReturnRequested(
+    statusReturnRequested: ReturnStatusReturnRequested.testOnly(
         message: "reason",
         dateTime: DateTime.now(),
         returnReason: "damaged",
         returnType: ReturnType.damagedProduct),
-    statusRequestAccepted: ReturnStatusRequestAccepted(
+    statusRequestAccepted: ReturnStatusRequestAccepted.testOnly(
+      cargoNo: "e9w854239",
         dateTime: DateTime.now(),
         message: "reason",
         status: PurchaseStatus.success),
-    statusReturnShipped: ReturnStatusShipped(
+    statusReturnShipped: ReturnStatusShipped.testOnly(
         dateTime: DateTime.now(),
         message: "reason",
         status: PurchaseStatus.success,
         cargoNo: "123456789"),
-    statusReturnDelivered: ReturnStatusDelivered(
+    statusReturnDelivered: ReturnStatusDelivered.testOnly(
         dateTime: DateTime.now(),
         message: "reason",
         status: PurchaseStatus.success),
-    statusReturnAccepted: ReturnStatusReturnAccepted(
+    statusReturnAccepted: ReturnStatusReturnAccepted.testOnly(
         dateTime: DateTime.now(),
         message: "reason",
         status: PurchaseStatus.success),
@@ -510,32 +511,23 @@ class FakeProductModels {
     ],
   );
 
-  static ReturnModel returnProcessRejected = ReturnModel(
+  static ReturnModel returnProcessRejected = ReturnModel.testOnly(
     orderId: '23',
     id: "0",
     uid: "0",
-    statusReturnRequested: ReturnStatusReturnRequested(
+    statusReturnRequested: ReturnStatusReturnRequested.testOnly(
         message: "reason",
         dateTime: DateTime.now(),
         returnReason: "damaged",
         returnType: ReturnType.damagedProduct),
-    statusRequestAccepted: ReturnStatusRequestAccepted(
+    statusRequestAccepted: ReturnStatusRequestAccepted.testOnly(
+      cargoNo: "23489023",
         dateTime: DateTime.now(),
         message: "reason",
-        status: PurchaseStatus.success),
-    statusReturnShipped: ReturnStatusShipped(
-        dateTime: DateTime.now(),
-        message: "reason",
-        status: PurchaseStatus.success,
-        cargoNo: "123456789"),
-    statusReturnDelivered: ReturnStatusDelivered(
-        dateTime: DateTime.now(),
-        message: "reason",
-        status: PurchaseStatus.success),
-    statusReturnAccepted: ReturnStatusReturnAccepted(
-        dateTime: DateTime.now(),
-        message: "reason",
-        status: PurchaseStatus.success),
+        status: PurchaseStatus.canceled),
+    statusReturnShipped: ReturnStatusShipped.waiting(),
+    statusReturnDelivered: ReturnStatusDelivered.waiting(),
+    statusReturnAccepted: ReturnStatusReturnAccepted.waiting(),
     products: [
       ProductWithQuantity(
           product: product1, quantity: 3, subProduct: subProduct1),
@@ -547,33 +539,20 @@ class FakeProductModels {
     address: address1,
   );
 
-  static ReturnModel returnProcessCanceledByCustomer = ReturnModel(
+  static ReturnModel returnProcessCanceledByCustomer = ReturnModel.testOnly(
       orderId: '23',
       id: "0",
       uid: "0",
       address: address3,
-      statusReturnRequested: ReturnStatusReturnRequested(
+      statusReturnRequested: ReturnStatusReturnRequested.testOnly(
           message: "reason",
           dateTime: DateTime.now(),
           returnReason: "damaged",
           returnType: ReturnType.damagedProduct),
-      statusRequestAccepted: ReturnStatusRequestAccepted(
-          dateTime: DateTime.now(),
-          message: "reason",
-          status: PurchaseStatus.success),
-      statusReturnShipped: ReturnStatusShipped(
-          dateTime: DateTime.now(),
-          message: "reason",
-          status: PurchaseStatus.success,
-          cargoNo: "123456789"),
-      statusReturnDelivered: ReturnStatusDelivered(
-          dateTime: DateTime.now(),
-          message: "reason",
-          status: PurchaseStatus.success),
-      statusReturnAccepted: ReturnStatusReturnAccepted(
-          dateTime: DateTime.now(),
-          message: "reason",
-          status: PurchaseStatus.success),
+      statusRequestAccepted: ReturnStatusRequestAccepted.waiting().canceledByCustomer("not necessary anymore"),
+      statusReturnShipped: ReturnStatusShipped.waiting(),
+      statusReturnDelivered: ReturnStatusDelivered.waiting(),
+      statusReturnAccepted: ReturnStatusReturnAccepted.waiting(),
       products: [
         ProductWithQuantity(
             product: product1, quantity: 3, subProduct: subProduct1),

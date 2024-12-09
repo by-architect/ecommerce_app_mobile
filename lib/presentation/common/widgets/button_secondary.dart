@@ -8,9 +8,11 @@ class ButtonSecondary extends StatelessWidget {
   final String? text;
   final Function()? onTap;
   final Widget? child;
+  final bool isLoading;
 
   const ButtonSecondary({
     this.text,
+    this.isLoading = false,
     this.onTap,
     super.key,
     this.child,
@@ -19,11 +21,21 @@ class ButtonSecondary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OutlinedButton(
-        onPressed: onTap,
-        child: child ??
-            Text(
-              text??"",
-            ));
+        onPressed: isLoading ? () {} : onTap,
+        child: isLoading
+            ? SizedBox(
+                height: 20,
+                width: 20,
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(context.isDarkMode
+                      ? AppColors.whiteColor
+                      : AppColors.blackColor),
+                ),
+              )
+            : child ??
+                Text(
+                  text ?? "",
+                ));
   }
 
 /*

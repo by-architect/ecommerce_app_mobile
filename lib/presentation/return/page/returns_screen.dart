@@ -5,7 +5,6 @@ import 'package:ecommerce_app_mobile/presentation/home/widget/offers_skeleton.da
 import 'package:ecommerce_app_mobile/presentation/order/widget/purchase_process_card.dart';
 import 'package:ecommerce_app_mobile/presentation/return/bloc/returns_event.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/ui/dialog_util.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,29 +24,10 @@ class ReturnsScreen extends StatefulWidget {
 }
 
 class _ReturnsScreenState extends State<ReturnsScreen> {
-  late final DialogUtil dialogUtil;
 
   @override
   void initState() {
-    dialogUtil = DialogUtil(context);
     BlocProvider.of<ReturnsBloc>(context).add(GetReturnsEvent(widget.user.uid));
-    BlocProvider.of<ReturnsBloc>(context).stream.listen((state) {
-      if (state is CancelReturnFailedState) {
-        dialogUtil.closeLoadingDialog();
-        dialogUtil.info(
-            AppText.errorTitle.capitalizeEveryWord.get, state.fail.userMessage);
-      }
-      if (state is CancelReturnSuccessState) {
-        dialogUtil.closeLoadingDialog();
-        dialogUtil
-            .toast(AppText.orderPageOrderCanceled.capitalizeFirstWord.get);
-        BlocProvider.of<ReturnsBloc>(context)
-            .add(GetReturnsEvent(widget.user.uid));
-      }
-      if (state is CancelReturnLoadingState) {
-        dialogUtil.loading();
-      }
-    });
     super.initState();
   }
 
@@ -73,18 +53,6 @@ class _ReturnsScreenState extends State<ReturnsScreen> {
                       padding: const EdgeInsets.only(
                           bottom: AppSizes.spaceBtwVerticalFields),
                       child: PurchaseCard(
-                        onReturnCancel: (returnModel) {
-                          dialogUtil.inputDialog(
-                              AppText
-                                  .returnPageCancelReturn.capitalizeEveryWord.get,
-                              AppText.infoTellUsWhyYouCancelReturn
-                                  .capitalizeEveryWord.get, (text) {
-                            BlocProvider.of<ReturnsBloc>(context).add(
-                                CancelReturnEvent(
-                                    returnModel: returnModel,
-                                    message: text));
-                          }, () {});
-                        },
                         purchaseModel: state.returns[index],
                         onOrderCancel: () {},
                         user: widget.user,

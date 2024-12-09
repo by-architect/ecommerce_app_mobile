@@ -1,11 +1,11 @@
-import 'package:ecommerce_app_mobile/presentation/return/bloc/return_details_state.dart';
+import 'package:ecommerce_app_mobile/presentation/return/bloc/request_return_state.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/validation_result.dart';
 
 import '../../common/ui/theme/AppText.dart';
 import '../model/return_process.dart';
 
 class ReturnRequestValidation {
-  static ValidationResult validate(ReturnDetailsState state) {
+  static ValidationResult validate(ReturnRequestState state) {
     if (state.returnType == ReturnType.unselected) {
       return ValidationResult(false,
           message: AppText.errorSelectReason.capitalizeFirstWord.get);

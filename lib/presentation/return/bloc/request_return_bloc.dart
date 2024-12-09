@@ -1,10 +1,10 @@
 import 'package:ecommerce_app_mobile/data/provider/product_service_provider.dart';
-import 'package:ecommerce_app_mobile/presentation/return/bloc/return_details_event.dart';
-import 'package:ecommerce_app_mobile/presentation/return/bloc/return_details_state.dart';
+import 'package:ecommerce_app_mobile/presentation/return/bloc/return_request_event.dart';
+import 'package:ecommerce_app_mobile/presentation/return/bloc/request_return_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ReturnDetailsBloc extends Bloc<ReturnDetailsEvent, ReturnDetailsState> {
-  ReturnDetailsBloc() : super(InitialReturnState()) {
+class ReturnRequestBloc extends Bloc<ReturnRequestsEvent, ReturnRequestState> {
+  ReturnRequestBloc() : super(InitialReturnRequestState()) {
     final service = ProductServiceProvider();
     on<RequestReturnEvent>((event, emit) async {
       emit(ReturnRequestLoadingState(state));
@@ -33,7 +33,7 @@ class ReturnDetailsBloc extends Bloc<ReturnDetailsEvent, ReturnDetailsState> {
       emit(state.copyWith(products: event.products));
     });
     on<ClearReturnStateEvent>((event, emit) {
-      emit(InitialReturnState());
+      emit(InitialReturnRequestState());
     });
 
   }

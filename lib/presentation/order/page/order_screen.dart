@@ -80,33 +80,17 @@ class _OrderScreenState extends State<OrderScreen> {
                           bottom: AppSizes.spaceBtwVerticalFields),
                       child: PurchaseCard(
                         purchaseModel: state.orders[index],
-                        onReturnCancel: (returnModel) {
-                          if (state.orders[index].activeReturn == null) {
-                            return;
-                          }
-                          dialogUtil.inputDialog(
-                              AppText.returnPageCancelReturn.capitalizeEveryWord
-                                  .get,
-                              AppText.infoTellUsWhyYouCancelReturn
-                                  .capitalizeEveryWord.get, (text) {
-                            BlocProvider.of<OrdersBloc>(context)
-                                .add(CancelReturnEvent(
-                              message: text,
-                              canceledReturn: returnModel,
-                            ));
-                          }, () {});
-                        },
                         onOrderCancel: () {
                           dialogUtil.inputDialog(
-                              AppText
+                             title:  AppText
                                   .orderPageCancelOrder.capitalizeEveryWord.get,
-                              AppText.infoTellUsWhatYouDidNotLike
-                                  .capitalizeEveryWord.get, (text) {
+                             content:  AppText.infoTellUsWhatYouDidNotLike
+                                  .capitalizeEveryWord.get,onAccept:  (text) {
                             BlocProvider.of<OrdersBloc>(context).add(
                                 CancelOrderEvent(
                                     canceledOrder: state.orders[index],
                                     message: text));
-                          }, () {});
+                          }, );
                         },
                         user: widget.user,
                       ),

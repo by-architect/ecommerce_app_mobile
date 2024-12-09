@@ -31,13 +31,12 @@ class OrderDetailsScreen extends StatelessWidget {
     super.key,
     required this.orderModel,
     required this.onOrderCancel,
-    required this.user, required this.onReturnCancel,
+    required this.user,
   });
 
   final OrderModel orderModel;
   final User user;
   final Function() onOrderCancel;
-  final Function(ReturnModel) onReturnCancel;
 
 
   @override
@@ -265,8 +264,8 @@ class OrderDetailsScreen extends StatelessWidget {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) =>
                             ReturnDetailsScreen(
+                              user: user,
                               returnModel: activeReturn,
-                              onCancel: onReturnCancel,
                             )));
                   }
                 },

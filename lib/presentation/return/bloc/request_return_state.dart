@@ -5,8 +5,8 @@ import 'package:ecommerce_app_mobile/sddklibrary/util/fail.dart';
 import '../../../data/model/address.dart';
 import '../../../data/model/return_process.dart';
 
-class ReturnDetailsState extends ReturnState {
-  ReturnDetailsState({
+class ReturnRequestState extends ReturnState {
+  ReturnRequestState({
     required super.products,
     required super.purchaseProcessId,
     required super.userId,
@@ -19,7 +19,7 @@ class ReturnDetailsState extends ReturnState {
     required super.delivered,
   });
 
-  ReturnDetailsState copyWith({
+  ReturnRequestState copyWith({
     List<ProductWithQuantity>? products,
     String? purchaseProcessId,
     String? userId,
@@ -32,7 +32,7 @@ class ReturnDetailsState extends ReturnState {
     ReturnStatusShipped? shipped,
     ReturnStatusDelivered? delivered,
   }) {
-    return ReturnDetailsState(
+    return ReturnRequestState(
         products: products ?? this.products,
         purchaseProcessId: purchaseProcessId ?? this.purchaseProcessId,
         userId: userId ?? this.userId,
@@ -46,27 +46,26 @@ class ReturnDetailsState extends ReturnState {
   }
 }
 
-class InitialReturnState extends ReturnDetailsState {
-  InitialReturnState()
+class InitialReturnRequestState extends ReturnRequestState {
+  InitialReturnRequestState()
       : super(
             products: [],
             purchaseProcessId: "",
             userId: "",
             returnReason: "",
             returnType: ReturnType.unselected,
-            returnRequested: ReturnStatusReturnRequested(
+            returnRequested: ReturnStatusReturnRequested.create(
                 message: "",
                 returnType: ReturnType.unselected,
-                returnReason: "",
-                dateTime: DateTime.now()),
+                returnReason: ""),
             returnAccepted: ReturnStatusReturnAccepted.waiting(),
             requestAccepted: ReturnStatusRequestAccepted.waiting(),
             shipped: ReturnStatusShipped.waiting(),
             delivered: ReturnStatusDelivered.waiting());
 }
 
-class ReturnRequestLoadingState extends ReturnDetailsState {
-  final ReturnDetailsState state;
+class ReturnRequestLoadingState extends ReturnRequestState {
+  final ReturnRequestState state;
 
   ReturnRequestLoadingState(this.state)
       : super(
@@ -82,8 +81,8 @@ class ReturnRequestLoadingState extends ReturnDetailsState {
             delivered: state.delivered);
 }
 
-class ReturnRequestSuccessState extends ReturnDetailsState {
-  final ReturnDetailsState state;
+class ReturnRequestSuccessState extends ReturnRequestState {
+  final ReturnRequestState state;
 
   ReturnRequestSuccessState(this.state)
       : super(
@@ -99,8 +98,8 @@ class ReturnRequestSuccessState extends ReturnDetailsState {
             delivered: state.delivered);
 }
 
-class ReturnRequestFailState extends ReturnDetailsState {
-  final ReturnDetailsState state;
+class ReturnRequestFailState extends ReturnRequestState {
+  final ReturnRequestState state;
   final Fail fail;
 
   ReturnRequestFailState(this.state, this.fail)

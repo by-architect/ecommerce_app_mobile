@@ -37,7 +37,7 @@ class OrderModel implements PurchaseModel {
       required this.statusDelivered});
 
   @TestOnly()
-  OrderModel(
+  OrderModel.testOnly(
       {required this.id,
       required this.products,
       required this.address,
@@ -115,7 +115,17 @@ class OrderPaid extends PurchaseProcess {
 }
 
 class OrderTaken extends PurchaseProcess {
-  OrderTaken(
+  @TestOnly()
+  OrderTaken.testOnly(
+      {required super.status,
+      required super.dateTime,
+      super.message,
+      super.receipt})
+      : super(
+            purchaseStatusType: OrderStatusType.orderTaken,
+            cancelableWhileProcessing: true);
+
+  OrderTaken._(
       {required super.status,
       required super.dateTime,
       super.message,
@@ -125,14 +135,14 @@ class OrderTaken extends PurchaseProcess {
             cancelableWhileProcessing: true);
 
   OrderTaken.waiting()
-      : this(
+      : this._(
           dateTime: null,
           status: PurchaseStatus.waiting,
           receipt: null,
         );
 
   OrderTaken cancelByCustomer(String message) {
-    return OrderTaken(
+    return OrderTaken._(
         status: PurchaseStatus.canceled,
         dateTime: DateTime.now(),
         message: "${AppText.orderPageCanceledByCustomer}: $message",
@@ -144,7 +154,17 @@ class OrderTaken extends PurchaseProcess {
 }
 
 class OrderShipped extends PurchaseProcess {
-  OrderShipped(
+  @TestOnly()
+  OrderShipped.testOnly(
+      {required super.dateTime,
+      super.message,
+      required super.status,
+      required super.cargoNo})
+      : super(
+            purchaseStatusType: OrderStatusType.shipped,
+            cancelableWhileProcessing: true);
+
+  OrderShipped._(
       {required super.dateTime,
       super.message,
       required super.status,
@@ -154,14 +174,14 @@ class OrderShipped extends PurchaseProcess {
             cancelableWhileProcessing: true);
 
   OrderShipped.waiting()
-      : this(
+      : this._(
           dateTime: null,
           status: PurchaseStatus.waiting,
           cargoNo: null,
         );
 
   OrderShipped canceledByCustomer(String message) {
-    return OrderShipped(
+    return OrderShipped._(
       status: PurchaseStatus.canceled,
       dateTime: DateTime.now(),
       message: "${AppText.orderPageCanceledByCustomer}: $message",
@@ -175,14 +195,21 @@ class OrderShipped extends PurchaseProcess {
 }
 
 class OrderDelivered extends PurchaseProcess {
-  OrderDelivered(
+  @TestOnly()
+  OrderDelivered.testOnly(
+      {required super.dateTime, super.message, required super.status})
+      : super(
+            purchaseStatusType: OrderStatusType.delivered,
+            cancelableWhileProcessing: false);
+
+  OrderDelivered._(
       {required super.dateTime, super.message, required super.status})
       : super(
             purchaseStatusType: OrderStatusType.delivered,
             cancelableWhileProcessing: false);
 
   OrderDelivered.waiting()
-      : this(
+      : this._(
           dateTime: null,
           status: PurchaseStatus.waiting,
         );
@@ -190,10 +217,7 @@ class OrderDelivered extends PurchaseProcess {
   bool? get hasTheRightOfWithdrawalExpired {
     if (dateTime == null) return null;
 
-    final difference = DateTime.now()
-        .difference(dateTime!)
-        .inDays
-        .abs();
+    final difference = DateTime.now().difference(dateTime!).inDays.abs();
 
     return difference > FakeAppDefaults.defaultReturnDay;
   }

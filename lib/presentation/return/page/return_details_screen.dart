@@ -1,7 +1,16 @@
 import 'package:ecommerce_app_mobile/data/model/return_process.dart';
+import 'package:ecommerce_app_mobile/data/model/user.dart';
+import 'package:ecommerce_app_mobile/presentation/order/bloc/order_bloc.dart';
+import 'package:ecommerce_app_mobile/presentation/order/bloc/order_event.dart';
+import 'package:ecommerce_app_mobile/presentation/return/bloc/request_return_state.dart';
+import 'package:ecommerce_app_mobile/presentation/return/bloc/return_bloc.dart';
+import 'package:ecommerce_app_mobile/presentation/return/bloc/returns_event.dart';
+import 'package:ecommerce_app_mobile/presentation/return/bloc/returns_state.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/date_helper.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/ui/dialog_util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../common/ui/theme/AppColors.dart';
 import '../../../common/ui/theme/AppSizes.dart';
@@ -13,11 +22,45 @@ import '../../common/widgets/button_secondary.dart';
 import '../../common/widgets/product_card_large.dart';
 import '../../order/widget/purchase_status_widget.dart';
 
-class ReturnDetailsScreen extends StatelessWidget {
-  const ReturnDetailsScreen({super.key, required this.returnModel, required this.onCancel});
+class ReturnDetailsScreen extends StatefulWidget {
+  const ReturnDetailsScreen({
+    super.key,
+    required this.returnModel, required this.user,
+  });
 
   final ReturnModel returnModel;
-  final Function(ReturnModel) onCancel;
+  final User user;
+
+  @override
+  State<ReturnDetailsScreen> createState() => _ReturnDetailsScreenState();
+}
+
+class _ReturnDetailsScreenState extends State<ReturnDetailsScreen> {
+ late final DialogUtil dialogUtil;
+  @override
+  void initState() {
+    dialogUtil = DialogUtil(context);
+    BlocProvider.of<ReturnsBloc>(context).stream.listen((state) {
+      if (state is CancelReturnSuccessState) {
+        dialogUtil
+            .toast(AppText.orderPageReturnCanceled.capitalizeFirstWord.get);
+
+        Navigator.of(context).pop();
+
+        BlocProvider.of<ReturnsBloc>(context)
+            .add(GetReturnsEvent(widget.user.uid));
+
+        BlocProvider.of<OrdersBloc>(context)
+            .add(GetOrdersEvent(widget.user.uid));
+
+      }
+      if (state is CancelReturnFailedState) {
+        dialogUtil.info(
+            AppText.errorTitle.capitalizeEveryWord.get, state.fail.userMessage);
+      }
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +84,7 @@ class ReturnDetailsScreen extends StatelessWidget {
                           Row(
                             children: [
                               Text(
-                                "${AppText.orderPageOrder.capitalizeEveryWord.get}    #${returnModel.id}",
+                                "${AppText.orderPageOrder.capitalizeEveryWord.get}    #${widget.returnModel.id}",
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodySmall
@@ -54,7 +97,7 @@ class ReturnDetailsScreen extends StatelessWidget {
                           ),
                           Row(children: [
                             Text(
-                                "${AppText.orderPagePlacedOn.capitalizeEveryWord.get}    ${returnModel.purchaseProcessesHandler.one.dateTime?.formatedDate}",
+                                "${AppText.orderPagePlacedOn.capitalizeEveryWord.get}    ${widget.returnModel.purchaseProcessesHandler.one.dateTime?.formatedDate}",
                                 style: Theme.of(context).textTheme.titleMedium),
                           ]),
                         ],
@@ -65,13 +108,14 @@ class ReturnDetailsScreen extends StatelessWidget {
                       height: AppSizes.spaceBtwVerticalFieldsSmall,
                     ),
                     PurchaseStatusWidget(
-                      purchase: returnModel,
+                      purchase: widget.returnModel,
                     ),
                     const SizedBox(
                       height: AppSizes.spaceBtwVerticalFieldsSmall,
                     ),
                   ],
                 )),
+
             const SizedBox(
               height: AppSizes.spaceBtwVerticalFieldsLarge,
             ),
@@ -82,7 +126,8 @@ class ReturnDetailsScreen extends StatelessWidget {
               height: AppSizes.spaceBtwVerticalFields,
             ),
             Column(
-              children: List.generate(returnModel.products.length, (index) {
+              children:
+                  List.generate(widget.returnModel.products.length, (index) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(
                       vertical: AppSizes.spaceBtwHorizontalFieldsSmall),
@@ -90,7 +135,8 @@ class ReturnDetailsScreen extends StatelessWidget {
                     children: [
                       Expanded(
                           child: ProductCardLarge(
-                              product: returnModel.products[index].product,
+                              product:
+                                  widget.returnModel.products[index].product,
                               onPressed: () {})),
                     ],
                   ),
@@ -163,15 +209,32 @@ class ReturnDetailsScreen extends StatelessWidget {
             const SizedBox(
               height: AppSizes.spaceBtwVerticalFieldsLarge,
             ),
-            //todo: handle now
-            if (returnModel.purchaseProcessesHandler.getProcessing != null &&
-                returnModel.purchaseProcessesHandler.getProcessing!
+            if (widget.returnModel.purchaseProcessesHandler.getProcessing !=
+                    null &&
+                widget.returnModel.purchaseProcessesHandler.getProcessing!
                     .cancelableWhileProcessing)
-              ButtonSecondary(
-                onTap: onCancel(returnModel),
-                text: AppText.orderPageCancelOrder.capitalizeFirstWord.get,
-              ),
+              BlocBuilder<ReturnsBloc, ReturnsState>(
+                builder: (BuildContext context, ReturnsState state) =>
+                    ButtonSecondary(
+                  isLoading: state is CancelReturnLoadingState,
+                  onTap: () {
 
+                    dialogUtil.inputDialog(
+                       title:  AppText
+                            .returnPageCancelReturn.capitalizeEveryWord.get,
+                       content:  AppText.infoTellUsWhyYouCancelReturn
+                            .capitalizeEveryWord.get, onAccept:  (text) {
+                      BlocProvider.of<ReturnsBloc>(context).add(
+                          CancelReturnEvent(
+                              returnModel: widget.returnModel,
+                              uid: widget.user.uid,
+                              message: text));
+
+                    }, );
+                  },
+                  text: AppText.orderPageCancelOrder.capitalizeFirstWord.get,
+                ),
+              ),
             const SizedBox(
               height: AppSizes.spaceBtwVerticalFields,
             ),
@@ -181,6 +244,7 @@ class ReturnDetailsScreen extends StatelessWidget {
     );
   }
 }
+
 class _Title extends StatelessWidget {
   const _Title({super.key, required this.text});
 

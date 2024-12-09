@@ -17,11 +17,3 @@ class CancelOrderEvent extends OrderEvent{
 
   CancelOrderEvent({required this.canceledOrder, required this.message});
 }
-
-class CancelReturnEvent extends OrderEvent{
-  final ReturnModel canceledReturn;
-  final String message;
-
-  CancelReturnEvent({required this.canceledReturn,required this.message });
-
-}

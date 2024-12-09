@@ -21,12 +21,11 @@ class PurchaseCard extends StatelessWidget {
     super.key,
     required this.purchaseModel,
     required this.onOrderCancel,
-    required this.user, required this.onReturnCancel,
+    required this.user,
   });
 
   final PurchaseModel purchaseModel;
   final Function() onOrderCancel;
-  final Function(ReturnModel) onReturnCancel;
   final User user;
 
   @override
@@ -39,15 +38,13 @@ class PurchaseCard extends StatelessWidget {
               builder: (context) => OrderDetailsScreen(
                     orderModel: purchaseModel as OrderModel,
                     onOrderCancel: onOrderCancel,
-                    onReturnCancel: onReturnCancel,
                     user: user,
                   )));
         }
         if (purchaseModel is ReturnModel) {
           Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => ReturnDetailsScreen(
-                    returnModel: purchaseModel as ReturnModel,
-                    onCancel: onReturnCancel,
+                    returnModel: purchaseModel as ReturnModel, user: user,
                   )));
         }
       },

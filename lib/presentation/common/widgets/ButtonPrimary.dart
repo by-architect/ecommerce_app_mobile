@@ -17,7 +17,7 @@ class ButtonPrimary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-        onPressed: loading ? null : onTap,
+        onPressed: loading ? (){} : onTap,
         child: loading
             ? SizedBox(
                 height: 20,

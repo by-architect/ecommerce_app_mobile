@@ -82,8 +82,11 @@ class DialogUtil {
     }
   }
 
-  void inputDialog(String title, String content, Function(String) onAccept,
-      Function() onCancel) {
+  void inputDialog(
+      {required String title,
+      required String content,
+      required Function(String) onAccept,
+      Function()? onCancel}) {
     TextEditingController textController = TextEditingController();
     showDialog(
       context: _context,
@@ -97,7 +100,7 @@ class DialogUtil {
         actions: [
           TextButton(
             onPressed: () {
-              onCancel();
+              onCancel?.call();
               Navigator.of(context).pop();
             },
             child: Text(AppText.cancel.capitalizeFirstWord.get),

@@ -20,6 +20,7 @@ class GetReturnsEvent extends ReturnEvent {
 class CancelReturnEvent extends ReturnEvent {
   final ReturnModel returnModel;
   final String message;
+  final String uid;
 
-  CancelReturnEvent({required this.returnModel, required this.message});
+  CancelReturnEvent({required this.returnModel, required this.message, required this.uid});
 }

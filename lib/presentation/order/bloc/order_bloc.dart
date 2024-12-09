@@ -31,17 +31,5 @@ class OrdersBloc extends Bloc<OrderEvent, OrderState> {
       }
     });
 
-    on<CancelReturnEvent>((event, emit) async {
-      emit(ReturnCancelLoadingState(orders: state.orders));
-      final canceledReturn = event.canceledReturn.cancelReturn(event.message);
-      if (canceledReturn == null) return;
-      final resource = await service.updateReturnProcess(canceledReturn);
-      if (!resource.isSuccess) {
-        emit(
-            ReturnCancelFailState(fail: resource.error!, orders: state.orders));
-      } else {
-        emit(ReturnCancelSuccessState(orders: resource.data!));
-      }
-    });
   }
 }

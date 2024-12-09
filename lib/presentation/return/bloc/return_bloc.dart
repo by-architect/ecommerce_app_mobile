@@ -38,7 +38,15 @@ class ReturnsBloc extends Bloc<ReturnEvent, ReturnsState> {
       if (!resource.isSuccess) {
         emit(CancelReturnFailedState(state, resource.error!));
       } else {
-        emit(CancelReturnSuccessState(resource.data!));
+        emit(CancelReturnSuccessState(state));
+        final returnsResource = await service.getReturnProcessList(event.uid);
+        if (returnsResource.isSuccess) {
+          emit(ReturnsSuccessState(
+              state.copyWith(returns: returnsResource.data!)));
+        }
+        else {
+          emit(ReturnsFailedState(state, returnsResource.error!));
+        }
       }
     });
   }

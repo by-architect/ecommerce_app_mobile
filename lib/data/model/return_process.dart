@@ -24,7 +24,7 @@ class ReturnModel implements PurchaseModel {
   final ReturnStatusReturnAccepted statusReturnAccepted;
 
   @TestOnly()
-  ReturnModel({
+  ReturnModel.testOnly({
     required this.id,
     required this.orderId,
     required this.address,
@@ -106,7 +106,8 @@ class ReturnStatusReturnRequested extends PurchaseProcess {
   final ReturnType returnType;
   final String returnReason;
 
-  ReturnStatusReturnRequested({
+  @TestOnly()
+  ReturnStatusReturnRequested.testOnly({
     required super.message,
     required this.returnReason,
     required this.returnType,
@@ -116,10 +117,31 @@ class ReturnStatusReturnRequested extends PurchaseProcess {
           status: PurchaseStatus.success,
           purchaseStatusType: ReturnStatusType.returnRequested,
         );
+
+  ReturnStatusReturnRequested.create({
+    required super.message,
+    required this.returnType,
+    required this.returnReason,
+  }) : super(
+            cancelableWhileProcessing: false,
+            status: PurchaseStatus.success,
+            purchaseStatusType: ReturnStatusType.returnRequested,
+            dateTime: DateTime.now());
 }
 
 class ReturnStatusRequestAccepted extends PurchaseProcess {
-  ReturnStatusRequestAccepted(
+  @TestOnly()
+  ReturnStatusRequestAccepted.testOnly(
+      {required super.message,
+      required super.dateTime,
+      required super.status,
+      required super.cargoNo})
+      : super(
+          cancelableWhileProcessing: true,
+          purchaseStatusType: ReturnStatusType.returnRequestAccepted,
+        );
+
+  ReturnStatusRequestAccepted._(
       {required super.message, required super.dateTime, required super.status})
       : super(
           cancelableWhileProcessing: true,
@@ -127,13 +149,13 @@ class ReturnStatusRequestAccepted extends PurchaseProcess {
         );
 
   ReturnStatusRequestAccepted.waiting()
-      : this(
+      : this._(
             status: PurchaseStatus.waiting,
             dateTime: DateTime.now(),
             message: null);
 
   ReturnStatusRequestAccepted canceledByCustomer(String message) {
-    return ReturnStatusRequestAccepted(
+    return ReturnStatusRequestAccepted._(
       status: PurchaseStatus.canceled,
       dateTime: DateTime.now(),
       message: "${AppText.orderPageCanceledByCustomer}: $message",
@@ -142,7 +164,18 @@ class ReturnStatusRequestAccepted extends PurchaseProcess {
 }
 
 class ReturnStatusShipped extends PurchaseProcess {
-  ReturnStatusShipped(
+  @TestOnly()
+  ReturnStatusShipped.testOnly(
+      {required super.dateTime,
+      required super.status,
+      required super.cargoNo,
+      super.message})
+      : super(
+          cancelableWhileProcessing: true,
+          purchaseStatusType: ReturnStatusType.shipped,
+        );
+
+  ReturnStatusShipped._(
       {required super.dateTime,
       required super.status,
       required super.cargoNo,
@@ -153,14 +186,14 @@ class ReturnStatusShipped extends PurchaseProcess {
         );
 
   ReturnStatusShipped.waiting()
-      : this(
+      : this._(
             status: PurchaseStatus.waiting,
             dateTime: DateTime.now(),
             cargoNo: null,
             message: null);
 
   ReturnStatusShipped canceledByCustomer(String message) {
-    return ReturnStatusShipped(
+    return ReturnStatusShipped._(
         dateTime: DateTime.now(),
         status: PurchaseStatus.canceled,
         message: "${AppText.orderPageCanceledByCustomer}: $message",
@@ -169,7 +202,17 @@ class ReturnStatusShipped extends PurchaseProcess {
 }
 
 class ReturnStatusDelivered extends PurchaseProcess {
-  ReturnStatusDelivered({
+  @TestOnly()
+  ReturnStatusDelivered.testOnly({
+    required super.message,
+    required super.dateTime,
+    required super.status,
+  }) : super(
+          cancelableWhileProcessing: false,
+          purchaseStatusType: ReturnStatusType.delivered,
+        );
+
+  ReturnStatusDelivered._({
     required super.message,
     required super.dateTime,
     required super.status,
@@ -179,14 +222,24 @@ class ReturnStatusDelivered extends PurchaseProcess {
         );
 
   ReturnStatusDelivered.waiting()
-      : this(
+      : this._(
             status: PurchaseStatus.waiting,
             dateTime: DateTime.now(),
             message: null);
 }
 
 class ReturnStatusReturnAccepted extends PurchaseProcess {
-  ReturnStatusReturnAccepted({
+  @TestOnly()
+  ReturnStatusReturnAccepted.testOnly({
+    required super.message,
+    required super.dateTime,
+    required super.status,
+  }) : super(
+          cancelableWhileProcessing: false,
+          purchaseStatusType: ReturnStatusType.returnAccepted,
+        );
+
+  ReturnStatusReturnAccepted._({
     required super.message,
     required super.dateTime,
     required super.status,
@@ -196,7 +249,7 @@ class ReturnStatusReturnAccepted extends PurchaseProcess {
         );
 
   ReturnStatusReturnAccepted.waiting()
-      : this(
+      : this._(
             message: null,
             dateTime: DateTime.now(),
             status: PurchaseStatus.waiting);
