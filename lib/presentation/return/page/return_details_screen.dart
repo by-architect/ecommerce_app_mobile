@@ -16,6 +16,7 @@ import '../../../common/ui/theme/AppColors.dart';
 import '../../../common/ui/theme/AppSizes.dart';
 import '../../../common/ui/theme/AppText.dart';
 import '../../../data/fakerepository/fake_app_defaults.dart';
+import '../../../data/model/purchase_process.dart';
 import '../../../sddklibrary/ui/widget_clickable_outlined.dart';
 import '../../common/widgets/app_bar_pop_back.dart';
 import '../../common/widgets/button_secondary.dart';
@@ -116,6 +117,27 @@ class _ReturnDetailsScreenState extends State<ReturnDetailsScreen> {
                   ],
                 )),
 
+            const SizedBox(
+              height: AppSizes.spaceBtwVerticalFieldsLarge,
+            ),
+            _Title(text: AppText.orderPageProcess.capitalizeFirstWord.get),
+            const SizedBox(
+              height: AppSizes.spaceBtwVerticalFields,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: AppSizes.defaultPadding,
+              ),
+              child: Column(
+                children: [
+                  _Process(purchaseProcess: widget.returnModel.statusReturnRequested),
+                  _Process(purchaseProcess: widget.returnModel.statusRequestAccepted),
+                  _Process(purchaseProcess: widget.returnModel.statusReturnShipped),
+                  _Process(purchaseProcess: widget.returnModel.statusReturnDelivered),
+                  _Process(purchaseProcess: widget.returnModel.statusReturnAccepted),
+                ],
+              ),
+            ),
             const SizedBox(
               height: AppSizes.spaceBtwVerticalFieldsLarge,
             ),
@@ -260,5 +282,71 @@ class _Title extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+class _Process extends StatelessWidget {
+  const _Process({super.key, required this.purchaseProcess});
+
+  final PurchaseProcess purchaseProcess;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: [
+      Row(children: [
+        Text(purchaseProcess.purchaseStatusType.userText.get,
+            style: Theme.of(context).textTheme.titleSmall),
+      ]),
+      const SizedBox(
+        height: AppSizes.spaceBtwVerticalFieldsSmall,
+      ),
+      Column(
+        children: [
+          if (purchaseProcess.dateTime != null)
+            Row(
+              children: [
+                Text(
+                  purchaseProcess.dateTime!.formatedDate,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+              ],
+            ),
+          const SizedBox(
+            height: AppSizes.spaceBtwVerticalFieldsSmall,
+          ),
+          Row(
+            children: [
+              Text(
+                "${AppText.status.capitalizeFirstWord.get}: ${purchaseProcess.status.userText}",
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: AppSizes.spaceBtwVerticalFieldsSmall,
+          ),
+          if (purchaseProcess.message != null)
+            Row(
+              children: [
+                Text(
+                  "${AppText.message.capitalizeFirstWord.get}: ${purchaseProcess.message!}",
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+              ],
+            ),
+          const SizedBox(
+            height: AppSizes.spaceBtwVerticalFieldsSmall,
+          ),
+          if (purchaseProcess.cargoNo != null)
+            Row(
+              children: [
+                Text(
+                  "${AppText.orderPageCargoNo.capitalizeFirstWord.get}: ${purchaseProcess.cargoNo!}",
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+              ],
+            ),
+        ],
+      )
+    ]);
   }
 }
