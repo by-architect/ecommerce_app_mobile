@@ -120,7 +120,7 @@ class _MapPickerState extends State<MapPicker> {
               onPressed: () {
                 if (widget.currentLocation != null) {
                   BlocProvider.of<AddAddressBloc>(context).add(SetSelectedLocation(widget.currentLocation!));
-                  _mapController.move(widget.currentLocation!, 13);
+                  _mapController.move(widget.currentLocation!, _mapController.camera.zoom);
                 } else {
                   _getCurrentLocation();
                 }
