@@ -1,4 +1,3 @@
-
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/model/address.dart';
 import 'package:ecommerce_app_mobile/data/model/product.dart';
@@ -84,19 +83,30 @@ class PurchaseProcessHandler {
   final PurchaseProcess four;
   final PurchaseProcess? five;
 
-  PurchaseProcessHandler({
-    required this.one,
-    required this.two,
-    required this.three,
-    required this.four,
-    this.five
-  });
+  PurchaseProcessHandler(
+      {required this.one,
+      required this.two,
+      required this.three,
+      required this.four,
+      this.five});
 
   List<PurchaseProcess> get all => [one, two, three, four];
 
- PurchaseProcess get getFirst => one;
+  PurchaseProcess get getFirst => one;
 
- PurchaseProcess get getLast => five ?? four;
+  bool get isCanceledOrFailed => _isCanceled || _isFailed;
+
+  bool get _isCanceled =>
+      one.status == PurchaseStatus.canceled ||
+      two.status == PurchaseStatus.canceled ||
+      three.status == PurchaseStatus.canceled ||
+      four.status == PurchaseStatus.canceled;
+
+  bool get _isFailed =>
+      one.status == PurchaseStatus.failed ||
+      two.status == PurchaseStatus.failed ||
+      three.status == PurchaseStatus.failed ||
+      four.status == PurchaseStatus.failed;
 
   PurchaseProcess? get getProcessing => two.status == PurchaseStatus.success
       ? three.status == PurchaseStatus.success
@@ -121,10 +131,10 @@ class PurchaseProcessHandler {
 }
 
 enum PurchaseStatus {
-  success(AppText.success,'success'),
-  failed(AppText.failed ,'failed'),
-  canceled(AppText.canceled,'canceled'),
-  waiting(AppText.waiting,'waiting'),
+  success(AppText.success, 'success'),
+  failed(AppText.failed, 'failed'),
+  canceled(AppText.canceled, 'canceled'),
+  waiting(AppText.waiting, 'waiting'),
   ;
 
   static PurchaseStatus fromServerMessage(String message) {
@@ -135,5 +145,5 @@ enum PurchaseStatus {
   final String apiData;
   final AppText userText;
 
-  const PurchaseStatus(this.userText,this.apiData);
+  const PurchaseStatus(this.userText, this.apiData);
 }

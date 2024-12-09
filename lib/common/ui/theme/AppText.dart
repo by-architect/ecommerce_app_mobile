@@ -430,6 +430,7 @@ class AppText {
   static const success = AppText("Success");
   static const failed = AppText("Failed");
   static const canceled = AppText("Canceled");
+  static const processing = AppText("Processing");
 
 
 

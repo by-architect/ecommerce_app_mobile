@@ -29,6 +29,7 @@ import '../../common/widgets/text_button_default.dart';
 import '../../return/page/request_return_screen.dart';
 import '../bloc/order_bloc.dart';
 import '../bloc/order_event.dart';
+import '../widget/purchase_process_details_widget.dart';
 import '../widget/purchase_status_widget.dart';
 
 class OrderDetailsScreen extends StatefulWidget {
@@ -139,12 +140,31 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
               ),
               child: Column(
                 children: [
-                  _Process(purchaseProcess: widget.orderModel.statusPaid),
-                  _Process(purchaseProcess: widget.orderModel.statusOrderTaken),
-                  _Process(purchaseProcess: widget.orderModel.statusShipped),
-                  _Process(purchaseProcess: widget.orderModel.statusDelivered),
+                  PurchaseProcessDetailsWidget(
+                      purchaseProcess: widget.orderModel.statusPaid,
+                      isProcessing: widget.orderModel.purchaseProcessesHandler
+                              .getProcessing ==
+                          widget.orderModel.statusPaid),
+                  PurchaseProcessDetailsWidget(
+                      purchaseProcess: widget.orderModel.statusOrderTaken,
+                      isProcessing: widget.orderModel.purchaseProcessesHandler
+                              .getProcessing ==
+                          widget.orderModel.statusOrderTaken),
+                  PurchaseProcessDetailsWidget(
+                      purchaseProcess: widget.orderModel.statusShipped,
+                      isProcessing: widget.orderModel.purchaseProcessesHandler
+                              .getProcessing ==
+                          widget.orderModel.statusShipped),
+                  PurchaseProcessDetailsWidget(
+                      purchaseProcess: widget.orderModel.statusDelivered,
+                      isProcessing: widget.orderModel.purchaseProcessesHandler
+                              .getProcessing ==
+                          widget.orderModel.statusDelivered),
                 ],
               ),
+            ),
+            const SizedBox(
+              height: AppSizes.spaceBtwVerticalFields,
             ),
             _Title(
               text: AppText.addressesPageAddress.capitalizeFirstWord.get,
@@ -345,72 +365,5 @@ class _Title extends StatelessWidget {
         ),
       ],
     );
-  }
-}
-
-class _Process extends StatelessWidget {
-  const _Process({super.key, required this.purchaseProcess});
-
-  final PurchaseProcess purchaseProcess;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(children: [
-      Row(children: [
-        Text(purchaseProcess.purchaseStatusType.userText.get,
-            style: Theme.of(context).textTheme.titleSmall),
-      ]),
-      const SizedBox(
-        height: AppSizes.spaceBtwVerticalFieldsSmall,
-      ),
-      Column(
-        children: [
-          if (purchaseProcess.dateTime != null)
-            Row(
-              children: [
-                Text(
-                  purchaseProcess.dateTime!.formatedDate,
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-              ],
-            ),
-          const SizedBox(
-            height: AppSizes.spaceBtwVerticalFieldsSmall,
-          ),
-          Row(
-            children: [
-              Text(
-                "${AppText.status.capitalizeFirstWord.get}: ${purchaseProcess.status.userText}",
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: AppSizes.spaceBtwVerticalFieldsSmall,
-          ),
-          if (purchaseProcess.message != null)
-            Row(
-              children: [
-                Text(
-                  "${AppText.message.capitalizeFirstWord.get}: ${purchaseProcess.message!}",
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-              ],
-            ),
-          const SizedBox(
-            height: AppSizes.spaceBtwVerticalFieldsSmall,
-          ),
-          if (purchaseProcess.cargoNo != null)
-            Row(
-              children: [
-                Text(
-                  "${AppText.orderPageCargoNo.capitalizeFirstWord.get}: ${purchaseProcess.cargoNo!}",
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-              ],
-            ),
-        ],
-      )
-    ]);
   }
 }

@@ -2,6 +2,7 @@ import 'package:ecommerce_app_mobile/data/model/return_process.dart';
 import 'package:ecommerce_app_mobile/data/model/user.dart';
 import 'package:ecommerce_app_mobile/presentation/order/bloc/order_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/order/bloc/order_event.dart';
+import 'package:ecommerce_app_mobile/presentation/order/widget/purchase_process_details_widget.dart';
 import 'package:ecommerce_app_mobile/presentation/return/bloc/request_return_state.dart';
 import 'package:ecommerce_app_mobile/presentation/return/bloc/return_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/return/bloc/returns_event.dart';
@@ -130,18 +131,33 @@ class _ReturnDetailsScreenState extends State<ReturnDetailsScreen> {
               ),
               child: Column(
                 children: [
-                  _Process(
-                      purchaseProcess:
-                          widget.returnModel.statusReturnRequested),
-                  _Process(
-                      purchaseProcess:
-                          widget.returnModel.statusRequestAccepted),
-                  _Process(
+                  PurchaseProcessDetailsWidget(
+                    purchaseProcess: widget.returnModel.statusReturnRequested,
+                    isProcessing: widget.returnModel.purchaseProcessesHandler
+                            .getProcessing ==
+                        widget.returnModel.statusReturnRequested,
+                  ),
+                  PurchaseProcessDetailsWidget(
+                    purchaseProcess: widget.returnModel.statusRequestAccepted,
+                    isProcessing: widget.returnModel.purchaseProcessesHandler
+                            .getProcessing ==
+                        widget.returnModel.statusRequestAccepted,
+                  ),
+                  PurchaseProcessDetailsWidget(
+                      isProcessing: widget.returnModel.purchaseProcessesHandler
+                              .getProcessing ==
+                          widget.returnModel.statusReturnShipped,
                       purchaseProcess: widget.returnModel.statusReturnShipped),
-                  _Process(
+                  PurchaseProcessDetailsWidget(
+                      isProcessing: widget.returnModel.purchaseProcessesHandler
+                              .getProcessing ==
+                          widget.returnModel.statusReturnDelivered,
                       purchaseProcess:
                           widget.returnModel.statusReturnDelivered),
-                  _Process(
+                  PurchaseProcessDetailsWidget(
+                      isProcessing: widget.returnModel.purchaseProcessesHandler
+                              .getProcessing ==
+                          widget.returnModel.statusReturnAccepted,
                       purchaseProcess: widget.returnModel.statusReturnAccepted),
                 ],
               ),
@@ -293,6 +309,7 @@ class _Title extends StatelessWidget {
   }
 }
 
+/*
 class _Process extends StatelessWidget {
   const _Process({super.key, required this.purchaseProcess});
 
@@ -363,3 +380,4 @@ class _Process extends StatelessWidget {
     ]);
   }
 }
+*/

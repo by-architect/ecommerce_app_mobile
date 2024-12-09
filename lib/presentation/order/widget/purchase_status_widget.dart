@@ -26,7 +26,7 @@ class PurchaseStatusWidget extends StatelessWidget {
             title: purchase.purchaseProcessesHandler.one.purchaseStatusType
                 .userText.capitalizeEveryWord.get,
             isActive: purchase.purchaseProcessesHandler.getProcessing ==
-                purchase.purchaseProcessesHandler.one,
+                purchase.purchaseProcessesHandler.one, isCanceledOrFailed: purchase.purchaseProcessesHandler.isCanceledOrFailed,
           ),
         ),
         Expanded(
@@ -36,40 +36,44 @@ class PurchaseStatusWidget extends StatelessWidget {
             title: purchase.purchaseProcessesHandler.two.purchaseStatusType
                 .userText.capitalizeEveryWord.get,
             isActive: purchase.purchaseProcessesHandler.getProcessing ==
-                purchase.purchaseProcessesHandler.two,
+                purchase.purchaseProcessesHandler.two, isCanceledOrFailed: purchase.purchaseProcessesHandler.isCanceledOrFailed,
           ),
         ),
         Expanded(
           child: ProcessDotWithLine(
             status: purchase.purchaseProcessesHandler.three.status,
-            nextStatus: purchase.purchaseProcessesHandler.getLast.status,
+            nextStatus: purchase.purchaseProcessesHandler.four.status,
             title: purchase.purchaseProcessesHandler.three.purchaseStatusType
                 .userText.capitalizeEveryWord.get,
             isActive: purchase.purchaseProcessesHandler.getProcessing ==
                 purchase.purchaseProcessesHandler.three,
+            isCanceledOrFailed: purchase.purchaseProcessesHandler.isCanceledOrFailed,
           ),
         ),
-        if(purchase.purchaseProcessesHandler.five != null)
         Expanded(
           child: ProcessDotWithLine(
             status: purchase.purchaseProcessesHandler.four.status,
-            nextStatus: purchase.purchaseProcessesHandler.getLast.status,
+            nextStatus: purchase.purchaseProcessesHandler.five?.status,
+            isShowRightLine: purchase.purchaseProcessesHandler.five != null,
             title: purchase.purchaseProcessesHandler.four.purchaseStatusType
                 .userText.capitalizeEveryWord.get,
             isActive: purchase.purchaseProcessesHandler.getProcessing ==
                 purchase.purchaseProcessesHandler.four,
+            isCanceledOrFailed: purchase.purchaseProcessesHandler.isCanceledOrFailed,
           ),
         ),
-        Expanded(
-          child: ProcessDotWithLine(
-            status: purchase.purchaseProcessesHandler.getLast.status,
-            isShowRightLine: false,
-            title: purchase.purchaseProcessesHandler.getLast.purchaseStatusType
-                .userText.capitalizeEveryWord.get,
-            isActive: purchase.purchaseProcessesHandler.getProcessing ==
-                purchase.purchaseProcessesHandler.getLast,
+        if (purchase.purchaseProcessesHandler.five != null)
+          Expanded(
+            child: ProcessDotWithLine(
+              status: purchase.purchaseProcessesHandler.five!.status,
+              isShowRightLine: false,
+              title: purchase.purchaseProcessesHandler.five!.purchaseStatusType
+                  .userText.capitalizeEveryWord.get,
+              isActive: purchase.purchaseProcessesHandler.getProcessing ==
+                  purchase.purchaseProcessesHandler.five!,
+              isCanceledOrFailed: purchase.purchaseProcessesHandler.isCanceledOrFailed,
+            ),
           ),
-        ),
       ],
     );
   }
@@ -83,12 +87,14 @@ class ProcessDotWithLine extends StatelessWidget {
     required this.status,
     required this.title,
     this.nextStatus,
-    this.isActive = false,
+
+    this.isActive = false, required this.isCanceledOrFailed,
   });
 
   final bool isShowLeftLine, isShowRightLine;
   final PurchaseStatus status;
   final PurchaseStatus? nextStatus;
+  final bool isCanceledOrFailed;
   final String title;
   final bool isActive;
 
@@ -120,16 +126,17 @@ class ProcessDotWithLine extends StatelessWidget {
               Expanded(
                 child: Container(
                   height: 2,
-                  color: lineColor(context, status, isProcessing: isActive),
+                  color: lineColor(context, status, isProcessing: isActive, isCanceledOrFailed: isCanceledOrFailed),
                 ),
               ),
             if (!isShowLeftLine) const Spacer(),
-            statusWidget(context, status, isProcessing: isActive),
+            statusWidget(context, status, isProcessing: isActive,isCanceledOrFailed: isCanceledOrFailed),
             if (isShowRightLine)
               Expanded(
                 child: Container(
                     height: 2,
-                    color: lineColor(context, nextStatus!, isProcessing: isActive)),
+                    color: lineColor(context, nextStatus!,
+                        isProcessing: isActive,isCanceledOrFailed: isCanceledOrFailed)),
               ),
             if (!isShowRightLine) const Spacer(),
           ],
@@ -140,7 +147,32 @@ class ProcessDotWithLine extends StatelessWidget {
 }
 
 Widget statusWidget(BuildContext context, PurchaseStatus status,
-    {required bool isProcessing}) {
+    {required bool isProcessing, required bool isCanceledOrFailed}) {
+  if (status == PurchaseStatus.failed ||
+      status == PurchaseStatus.waiting && isCanceledOrFailed) {
+    return CircleAvatar(
+      radius: 12,
+      backgroundColor: AppColors.errorColor,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: CircleAvatar(
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        ),
+      ),
+    );
+  }
+  if (status == PurchaseStatus.canceled) {
+    return CircleAvatar(
+      radius: 12,
+      backgroundColor: AppColors.errorColor,
+      child: Icon(
+        Icons.close,
+        size: 12,
+        color: Theme.of(context).scaffoldBackgroundColor,
+      ),
+    );
+  }
+
   if (isProcessing) {
     return CircleAvatar(
       radius: 12,
@@ -154,6 +186,28 @@ Widget statusWidget(BuildContext context, PurchaseStatus status,
       ),
     );
   }
+  if (status == PurchaseStatus.success) {
+    return CircleAvatar(
+      radius: 12,
+      backgroundColor: AppColors.successColor,
+      child: Icon(
+        Icons.done,
+        size: 12,
+        color: Theme.of(context).scaffoldBackgroundColor,
+      ),
+    );
+  }
+  return CircleAvatar(
+    radius: 12,
+    backgroundColor: Theme.of(context).dividerColor,
+    child: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: CircleAvatar(
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      ),
+    ),
+  );
+/*
   switch (status) {
     case PurchaseStatus.waiting:
       return CircleAvatar(
@@ -188,34 +242,20 @@ Widget statusWidget(BuildContext context, PurchaseStatus status,
         ),
       );
     case PurchaseStatus.success:
-      return CircleAvatar(
-        radius: 12,
-        backgroundColor: AppColors.successColor,
-        child: Icon(
-          Icons.done,
-          size: 12,
-          color: Theme.of(context).scaffoldBackgroundColor,
-        ),
-      );
   }
+*/
 }
 
 Color lineColor(BuildContext context, PurchaseStatus status,
-    {required bool isProcessing}) {
-  if (isProcessing) {
+    {required bool isProcessing, required bool isCanceledOrFailed}) {
+  if (status == PurchaseStatus.canceled || status == PurchaseStatus.failed) {
+    return AppColors.errorColor;
+  }
+  if (status == PurchaseStatus.waiting && isCanceledOrFailed) {
+    return AppColors.errorColor;
+  }
+  if (status == PurchaseStatus.success) {
     return AppColors.successColor;
   }
-  switch (status) {
-    case PurchaseStatus.waiting:
-      return Theme.of(context).dividerColor;
-
-    case PurchaseStatus.failed:
-      return AppColors.errorColor;
-
-    case PurchaseStatus.canceled:
-      return AppColors.errorColor;
-
-    case PurchaseStatus.success:
-      return AppColors.successColor;
-  }
+  return Theme.of(context).dividerColor;
 }
