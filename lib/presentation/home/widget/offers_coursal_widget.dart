@@ -50,10 +50,13 @@ class OffersCarouselAndCategories extends StatelessWidget {
             style: Theme.of(context).textTheme.titleSmall,
           ),
         ),
-        CategoriesWidget(
-          user: user,
-          features: features,
-          categoriesByLayer: FakeProductModels.categories,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal:  AppSizes.defaultPadding /2),
+          child: CategoriesWidget(
+            user: user,
+            features: features,
+            categoriesByLayer: FakeProductModels.categories,
+          ),
         ),
       ],
     );
