@@ -54,7 +54,6 @@ class _ReturnsScreenState extends State<ReturnsScreen> {
                           bottom: AppSizes.spaceBtwVerticalFields),
                       child: PurchaseCard(
                         purchaseModel: state.returns[index],
-                        onOrderCancel: () {},
                         user: widget.user,
                       ),
                     );

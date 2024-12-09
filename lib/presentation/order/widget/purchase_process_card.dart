@@ -20,12 +20,10 @@ class PurchaseCard extends StatelessWidget {
   const PurchaseCard({
     super.key,
     required this.purchaseModel,
-    required this.onOrderCancel,
     required this.user,
   });
 
   final PurchaseModel purchaseModel;
-  final Function() onOrderCancel;
   final User user;
 
   @override
@@ -37,7 +35,6 @@ class PurchaseCard extends StatelessWidget {
           Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => OrderDetailsScreen(
                     orderModel: purchaseModel as OrderModel,
-                    onOrderCancel: onOrderCancel,
                     user: user,
                   )));
         }

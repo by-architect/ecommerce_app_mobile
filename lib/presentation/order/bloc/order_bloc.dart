@@ -1,11 +1,11 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/provider/product_service_provider.dart';
 import 'package:ecommerce_app_mobile/presentation/order/bloc/order_event.dart';
-import 'package:ecommerce_app_mobile/presentation/order/bloc/order_state.dart';
+import 'package:ecommerce_app_mobile/presentation/order/bloc/orders_state.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class OrdersBloc extends Bloc<OrderEvent, OrderState> {
+class OrdersBloc extends Bloc<OrderEvent, OrdersState> {
   OrdersBloc() : super(OrderInitialState()) {
     final service = ProductServiceProvider();
     on<GetOrdersEvent>((event, emit) async {
