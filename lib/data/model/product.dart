@@ -5,6 +5,7 @@ import 'package:ecommerce_app_mobile/sddklibrary/util/resource.dart';
 
 import '../../common/constant/api_constants.dart';
 import 'category_node.dart';
+import 'money.dart';
 
 class Product {
   late final String id;
@@ -12,7 +13,7 @@ class Product {
   late final String categoryId;
   late final String info;
   late final String returns;
-  late final double? cargoPrice;
+  late final Money? cargoPrice;
   late final String? brandName;
   late final List<String> images;
   late final SubProducts subProducts;
@@ -112,8 +113,8 @@ class SubProduct {
   final DateTime addedDate;
   final DateTime modifiedDate;
   final int quantity;
-  final double price;
-  final double discount;
+  final Money price;
+  final Money discount;
   final List<String> productFeatureOptionIds;
 
   SubProduct(
@@ -127,14 +128,15 @@ class SubProduct {
       required this.discount,
       required this.productFeatureOptionIds});
 
-  bool get hasDiscount => discount != 0.0;
+  bool get hasDiscount => !discount.isZero;
 
   int get discountPercent =>
-      !hasDiscount ? 0 : ((discount / price) * 100).toInt();
+      !hasDiscount ? 0 : ((discount.amount / price.amount) * 100).toInt();
 
   bool get availableInStock => quantity != 0;
 
-  double get priceAfterDiscounting => !hasDiscount ? price : (price - discount);
+  Money get priceAfterDiscounting =>
+      !hasDiscount ? price : (price.subtract(discount));
 
   //todo: unimplemented
   factory SubProduct.fromMap(Map<String, dynamic> map) {
@@ -182,16 +184,18 @@ class SubProducts {
   List<SubProduct> get get => _subProducts;
 
   SubProduct get getIdealSubProduct {
-    if (_subProducts.isEmpty)
+    if (_subProducts.isEmpty) {
       throw NullDataException(
           "Sub products have an empty list, couldn't get idealSubProduct");
+    }
     SubProduct? highDiscountedProduct = _subProducts.first;
     SubProduct lowPricedProduct = _subProducts.first;
     for (var subProduct in _subProducts) {
       final discountPercent = subProduct.discountPercent;
       final highDiscountPercent = highDiscountedProduct?.discountPercent;
-      if (lowPricedProduct.price > subProduct.price)
+      if (lowPricedProduct.price.isGreaterThan(subProduct.price) ) {
         lowPricedProduct = subProduct;
+      }
       if (discountPercent == 0) continue;
       if (highDiscountedProduct == null ||
           highDiscountPercent == null ||

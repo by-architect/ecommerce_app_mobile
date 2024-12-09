@@ -78,7 +78,7 @@ class _ProductBuyNowScreenState extends State<ProductBuyNowScreen> {
             } else {
               BlocProvider.of<ProductDetailsBloc>(context).add(AddToCartEvent(uid: widget.user!.uid, product: widget.product));
             }
-          },
+          }, currency: widget.appSettings.defaultCurrency,
         ),
         body: Column(
           children: [

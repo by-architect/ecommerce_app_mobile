@@ -1,7 +1,10 @@
+import 'package:ecommerce_app_mobile/common/constant/currency.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:flutter/material.dart';
+
+import '../../../data/model/money.dart';
 
 class ButtonCartBuy extends StatelessWidget {
   const ButtonCartBuy({
@@ -10,11 +13,12 @@ class ButtonCartBuy extends StatelessWidget {
     this.title,
     this.subTitle,
     this.isLoading =false,
-    required this.press,
+    required this.press, required this.currency,
   });
 
-  final double? price;
+  final Money? price;
   final String? title;
+  final Currency currency;
 
   final String? subTitle;
   final VoidCallback press;
@@ -55,7 +59,7 @@ class ButtonCartBuy extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                price == null ? "\$..." : "\$${price?.toStringAsFixed(2)}",
+                                price == null ? "${currency.sign}..." : "${price?.displayAmount(currency)}",
                                 style: Theme.of(context).textTheme.titleSmall!.copyWith(color: Colors.white),
                               ),
                               Text(

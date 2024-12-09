@@ -52,6 +52,7 @@ class ProductsHorizontalWidget extends StatelessWidget {
               child: isLoading
                   ? const ProductCardSkeleton()
                   : ProductCard(
+                currency: appSettings.defaultCurrency,
                 appSettings: appSettings,
                       user: user,
                       product: products[index],

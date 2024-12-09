@@ -1,3 +1,4 @@
+import 'package:ecommerce_app_mobile/common/constant/currency.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
@@ -16,7 +17,7 @@ class ProductCard extends StatelessWidget {
     required this.product,
     this.previousProduct,
     this.press,
-    this.previousProductFeatureHandler,required this.user, required this.appSettings,
+    this.previousProductFeatureHandler,required this.user, required this.appSettings, required this.currency,
   });
 
   final Product product;
@@ -25,6 +26,7 @@ class ProductCard extends StatelessWidget {
   final VoidCallback? press;
   final User? user;
   final AppSettings appSettings;
+  final Currency currency;
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +102,7 @@ class ProductCard extends StatelessWidget {
                       ? Row(
                           children: [
                             Text(
-                              "\$${idealSubProduct.priceAfterDiscounting}",
+                              idealSubProduct.priceAfterDiscounting.displayAmount(currency),
                               style: const TextStyle(
                                 color: Color(0xFF31B0D8),
                                 fontWeight: FontWeight.w500,
@@ -109,7 +111,7 @@ class ProductCard extends StatelessWidget {
                             ),
                             const SizedBox(width: AppSizes.defaultPadding / 4),
                             Text(
-                              "\$${idealSubProduct.price}",
+                              idealSubProduct.price.displayAmount(currency),
                               style: TextStyle(
                                 color: Theme.of(context).textTheme.bodyMedium!.color,
                                 fontSize: 10,
@@ -121,7 +123,7 @@ class ProductCard extends StatelessWidget {
                       : Row(
                           children: [
                             Text(
-                              "\$${idealSubProduct.price}",
+                              idealSubProduct.price.displayAmount(currency),
                               style: const TextStyle(
                                 color: Color(0xFF31B0D8),
                                 fontWeight: FontWeight.w500,

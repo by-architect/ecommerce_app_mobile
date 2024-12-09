@@ -195,6 +195,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                 crossAxisSpacing: 10,
                               ),
                               itemBuilder: (context, index) => ProductCard(
+                                currency: widget.appSettings.defaultCurrency,
                                 user: widget.user,
                                 appSettings: widget.appSettings,
                                 product: state.products[index],

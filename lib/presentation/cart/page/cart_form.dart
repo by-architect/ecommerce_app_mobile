@@ -76,6 +76,7 @@ class _CartFormState extends State<CartForm> {
                                       AppSizes.spaceBtwVerticalFieldsSmall / 2),
                               child: CartItemWidget.fromCartItem(
                                 cartItem: state.items[index],
+                                currency: widget.appSettings.defaultCurrency,
                                 onIncrement: () {
                                   CartItem cartItem = state.items[index];
                                   if (cartItem.productWithQuantity.quantity ==

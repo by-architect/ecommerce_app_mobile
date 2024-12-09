@@ -1,3 +1,4 @@
+import 'package:ecommerce_app_mobile/common/constant/currency.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/data/model/cart_item.dart';
@@ -15,6 +16,7 @@ class CartItemWidget extends StatelessWidget {
     required this.product,
     required this.subProduct,
     this.style,
+    required this.currency,
   })  : numOfItem = null,
         maxQuantity = null,
         onIncrement = null,
@@ -28,6 +30,7 @@ class CartItemWidget extends StatelessWidget {
     required this.onIncrement,
     required this.onDecrement,
     this.style,
+    required this.currency,
   })  : product = cartItem.productWithQuantity.product,
         subProduct = cartItem.productWithQuantity.subProduct,
         numOfItem = cartItem.productWithQuantity.quantity,
@@ -42,6 +45,7 @@ class CartItemWidget extends StatelessWidget {
     required this.onDecrement,
     this.maxQuantity,
     this.style,
+    required this.currency,
   })  : product = productWithQuantity.product,
         subProduct = productWithQuantity.subProduct,
         numOfItem = productWithQuantity.quantity,
@@ -57,6 +61,7 @@ class CartItemWidget extends StatelessWidget {
   final bool deleteButtonEnabled;
   final ButtonStyle? style;
   final bool isReturn;
+  final Currency currency;
 
   @override
   Widget build(BuildContext context) {
@@ -124,11 +129,12 @@ class CartItemWidget extends StatelessWidget {
                             .copyWith(fontSize: 12),
                       ),
                       const Spacer(),
-                      subProduct.priceAfterDiscounting != 0
+                      !subProduct.priceAfterDiscounting.isZero
                           ? Row(
                               children: [
                                 Text(
-                                  "\$${subProduct.priceAfterDiscounting}",
+                                  subProduct.priceAfterDiscounting
+                                      .displayAmount(currency),
                                   style: const TextStyle(
                                     color: Color(0xFF31B0D8),
                                     fontWeight: FontWeight.w500,
@@ -138,7 +144,7 @@ class CartItemWidget extends StatelessWidget {
                                 const SizedBox(
                                     width: AppSizes.defaultPadding / 4),
                                 Text(
-                                  "\$${subProduct.price}",
+                                  subProduct.price.displayAmount(currency),
                                   style: TextStyle(
                                     color: Theme.of(context)
                                         .textTheme
@@ -151,7 +157,7 @@ class CartItemWidget extends StatelessWidget {
                               ],
                             )
                           : Text(
-                              "\$${subProduct.price}",
+                              subProduct.price.displayAmount(currency),
                               style: const TextStyle(
                                 color: Color(0xFF31B0D8),
                                 fontWeight: FontWeight.w500,

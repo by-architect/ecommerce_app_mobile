@@ -147,6 +147,7 @@ class _RequestReturnScreenState extends State<RequestReturnScreen> {
                             Expanded(
                               child: CartItemWidget.fromReturnItem(
                                   productWithQuantity: state.products[index],
+                                  currency: widget.appSettings.defaultCurrency,
                                   maxQuantity: widget
                                       .orderModel.products[index].quantity,
                                   onIncrement: () {

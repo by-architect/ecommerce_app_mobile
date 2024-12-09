@@ -64,7 +64,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                               itemBuilder: (context, index) => ProductCard(
                                 user: widget.user,
                                 appSettings: widget.appSettings,
-                                product: state.products[index],
+                                product: state.products[index], currency: widget.appSettings.defaultCurrency,
                               ),
                             ),
                           ),

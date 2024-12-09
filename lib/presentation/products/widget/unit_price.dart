@@ -29,13 +29,13 @@ class UnitPrice extends StatelessWidget {
             text: subProduct == null
                 ? "${currency.sign}..."
                 : subProduct!.hasDiscount
-                    ? "${currency.sign}${subProduct?.priceAfterDiscounting.toStringAsFixed(2)}  "
-                    : "${currency.sign}${subProduct?.price.toStringAsFixed(2)}  ",
+                    ? "${subProduct?.priceAfterDiscounting.displayAmount(currency)}  "
+                    : "${subProduct?.price.displayAmount(currency)}  ",
             style: Theme.of(context).textTheme.titleLarge,
             children: [
               if (subProduct != null && subProduct!.hasDiscount)
                 TextSpan(
-                  text: "${currency.sign}${subProduct?.price.toStringAsFixed(2)}",
+                  text: "${subProduct?.price.displayAmount(currency)}",
                   style: Theme.of(context).textTheme.titleSmall!.copyWith(
                       color: Theme.of(context).textTheme.bodyMedium!.color, decoration: TextDecoration.lineThrough),
                 ),

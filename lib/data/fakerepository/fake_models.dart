@@ -1,8 +1,10 @@
+import 'package:ecommerce_app_mobile/common/constant/currency.dart';
 import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/data/model/address.dart';
 import 'package:ecommerce_app_mobile/data/model/banner.dart';
 import 'package:ecommerce_app_mobile/data/model/cart_item.dart';
 import 'package:ecommerce_app_mobile/data/model/categories.dart';
+import 'package:ecommerce_app_mobile/data/model/money.dart';
 import 'package:ecommerce_app_mobile/data/model/product.dart';
 import 'package:ecommerce_app_mobile/data/model/product_details_item.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
@@ -575,8 +577,8 @@ class FakeProductModels {
       addedDate: DateTime.now(),
       modifiedDate: DateTime.now(),
       quantity: 0,
-      price: 200,
-      discount: 0,
+      price: Money(200),
+      discount: Money(0),
       productFeatureOptionIds: ["0", "3", "7"]);
   static SubProduct subProduct2 = SubProduct(
       id: "101",
@@ -585,8 +587,8 @@ class FakeProductModels {
       addedDate: DateTime.now(),
       modifiedDate: DateTime.now(),
       quantity: 8,
-      price: 300,
-      discount: 0,
+      price: Money(300),
+      discount: Money(25  ),
       productFeatureOptionIds: ["0", "3", "8"]);
   static SubProduct subProduct3 = SubProduct(
       id: "102",
@@ -595,8 +597,8 @@ class FakeProductModels {
       addedDate: DateTime.now(),
       modifiedDate: DateTime.now(),
       quantity: 6,
-      price: 400,
-      discount: 0,
+      price: Money(400),
+      discount: Money(0),
       productFeatureOptionIds: ["0", "3", "6"]);
   static SubProduct subProduct4 = SubProduct(
       id: "103",
@@ -605,8 +607,8 @@ class FakeProductModels {
       addedDate: DateTime.now(),
       modifiedDate: DateTime.now(),
       quantity: 2,
-      price: 500,
-      discount: 0,
+      price: Money(100),
+     discount: Money(0),
       productFeatureOptionIds: ["0", "5", "6"]);
 
   static SubProduct subProduct5 = SubProduct(
@@ -616,8 +618,8 @@ class FakeProductModels {
       addedDate: DateTime.now(),
       modifiedDate: DateTime.now(),
       quantity: 2,
-      price: 100,
-      discount: 0,
+      price:Money(100),
+      discount: Money(0),
       productFeatureOptionIds: ["0", "5", "7"]);
   static SubProduct subProduct6 = SubProduct(
       id: "105",
@@ -626,8 +628,8 @@ class FakeProductModels {
       addedDate: DateTime.now(),
       modifiedDate: DateTime.now(),
       quantity: 4,
-      price: 50,
-      discount: 0,
+      price : Money(100),
+      discount: Money(0),
       productFeatureOptionIds: ["0", "5", "6"]);
   static SubProduct subProduct7 = SubProduct(
       id: "106",
@@ -636,8 +638,8 @@ class FakeProductModels {
       addedDate: DateTime.now(),
       modifiedDate: DateTime.now(),
       quantity: 4,
-      price: 80,
-      discount: 0,
+      price: Money(130),
+      discount: Money(20),
       productFeatureOptionIds: ["2", "4", "8"]);
   static SubProduct subProduct8 = SubProduct(
       id: "0",
@@ -646,8 +648,8 @@ class FakeProductModels {
       addedDate: DateTime.now(),
       modifiedDate: DateTime.now(),
       quantity: 4,
-      price: 130,
-      discount: 0,
+      price: Money(214),
+      discount: Money(54),
       productFeatureOptionIds: ["0", "3", "7"]);
 
   static List<SubProduct> _subProductList(int count, int productId) {
@@ -677,9 +679,9 @@ class FakeProductModels {
         modifiedDate: now,
         quantity: 5 + (index % 5),
         // Random quantity between 5 to 9
-        price: price,
+        price: Money(price),
         // Incremental price for variety
-        discount: discount,
+        discount: Money(discount),
         // Assuming no discount
         productFeatureOptionIds: [
           sizeOptionId,
@@ -698,7 +700,7 @@ class FakeProductModels {
       name: "Nike Ayakkabı",
       categoryId: "1",
       info: "Mükemmel ayakkabı",
-      cargoPrice: 34.2,
+      cargoPrice: Money( 34.2, ),
       images: [productDemoImg1, productDemoImg2, productDemoImg3],
       brandName: "Nike",
       subProducts: SubProducts([
@@ -719,7 +721,7 @@ class FakeProductModels {
       name: "Adidas Sandalet",
       categoryId: "12",
       info: "Rahat sandalet",
-      cargoPrice: 20.0,
+      cargoPrice: Money( 34.2, ),
       images: [productDemoImg4, productDemoImg5, productDemoImg6],
       subProducts: SubProducts(_subProductList(5, 1)),
       brandName: "Adidas");
@@ -731,7 +733,7 @@ class FakeProductModels {
       name: "Clarks Kundura",
       categoryId: "13",
       info: "Şık kundura",
-      cargoPrice: 25.0,
+      cargoPrice: Money( 34.2, ),
       images: [productDemoImg1, productDemoImg2, productDemoImg3],
       subProducts: SubProducts(_subProductList(5, 2)),
       brandName: "Clarks");
@@ -743,7 +745,7 @@ class FakeProductModels {
       name: "Timberland Bot",
       categoryId: "14",
       info: "Dayanıklı bot",
-      cargoPrice: 30.0,
+      cargoPrice: Money( 34.2, ),
       images: [productDemoImg4, productDemoImg5, productDemoImg6],
       subProducts: SubProducts(_subProductList(5, 3)),
       brandName: "Timberland");
@@ -755,7 +757,7 @@ class FakeProductModels {
       name: "Deri Bot",
       categoryId: "15",
       info: "Kaliteli deri bot",
-      cargoPrice: 40.0,
+      cargoPrice: Money( 54.2, ),
       images: [productDemoImg1, productDemoImg2, productDemoImg3],
       subProducts: SubProducts(_subProductList(5, 4)),
       brandName: "Derimod");

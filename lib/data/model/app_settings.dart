@@ -3,9 +3,11 @@ import 'package:ecommerce_app_mobile/data/model/communication_model.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/annotation/test_annotation.dart';
 import 'package:latlong2/latlong.dart';
 
+import 'money.dart';
+
 class AppSettings {
   final int maxProductQuantityCustomerCanBuyInOrder;
-  final double defaultShippingFee;
+  final Money defaultShippingFee;
   final LatLng defaultMapLocation;
   final Currency defaultCurrency;
   final int defaultReturnDay;
@@ -40,9 +42,9 @@ class AppSettings {
   static  AppSettings defaultAppSettings() {
     return AppSettings._(
         maxProductQuantityCustomerCanBuyInOrder: 10,
-        defaultShippingFee: 0.0,
+        defaultShippingFee: Money(0),
         defaultMapLocation: const LatLng(39.9334, 32.8597),
-        defaultCurrency: Currency.try_,
+        defaultCurrency: Currency.tl,
         contacts: [],
         defaultReturnDay: 14);
   }

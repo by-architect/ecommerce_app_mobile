@@ -1,6 +1,7 @@
 import 'package:ecommerce_app_mobile/data/model/address.dart';
 import 'package:ecommerce_app_mobile/data/model/cart_item.dart';
 
+import '../../../data/model/money.dart';
 import '../../../data/model/user.dart';
 
 class CartEvent{}
@@ -8,14 +9,14 @@ class CartEvent{}
 class ChangeCartItem extends CartEvent{
   final CartItem cartItem;
   final User user;
-  final double defaultShippingFee;
+  final Money defaultShippingFee;
 
   ChangeCartItem( {required this.cartItem,required this.user,required this.defaultShippingFee});
 }
 
 class GetCart extends CartEvent{
   final User user;
-  final double defaultShippingFee;
+  final Money defaultShippingFee;
 
   GetCart(this.user, this.defaultShippingFee);
 }

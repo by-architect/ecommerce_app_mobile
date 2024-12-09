@@ -2,6 +2,7 @@ import 'package:ecommerce_app_mobile/common/util/cart_util.dart';
 import 'package:ecommerce_app_mobile/data/model/address.dart';
 import 'package:ecommerce_app_mobile/data/model/cart_item.dart';
 
+import '../../../data/model/money.dart';
 import '../../../sddklibrary/util/fail.dart';
 
 class CartState {
@@ -13,7 +14,7 @@ class CartState {
   final String creditCardExpiryDate;
   final String creditCardCvv;
 
-  final double defaultShippingFee;
+  final Money defaultShippingFee;
 
   CartState._(
       {required this.creditCardNameSurname,
@@ -31,7 +32,7 @@ class CartState {
       String? creditCardNumber,
       String? creditCardExpiryDate,
       String? creditCardCvv,
-      double? defaultShippingFee,
+      Money? defaultShippingFee,
       List<CartItem>? items,
       Address? selectedAddress}) {
     return CartState._(
@@ -46,7 +47,7 @@ class CartState {
   }
 
   CartState calculateAndCopyWith(
-      {required List<CartItem> items,required double defaultShippingFee, Address? selectedAddress}) {
+      {required List<CartItem> items,required Money defaultShippingFee, Address? selectedAddress}) {
     return CartState._(
         items: items,
         defaultShippingFee: defaultShippingFee,
@@ -68,7 +69,7 @@ class InitialState extends CartState {
       : super._(
             items: [],
             selectedAddress: null,
-            defaultShippingFee: 0,
+            defaultShippingFee: Money( 0),
             creditCardNameSurname: "",
             creditCardNumber: "",
             creditCardExpiryDate: "",

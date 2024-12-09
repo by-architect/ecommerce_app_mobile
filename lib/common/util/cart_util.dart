@@ -2,21 +2,23 @@ import 'package:ecommerce_app_mobile/data/fakerepository/fake_app_defaults.dart'
 import 'package:ecommerce_app_mobile/data/model/cart_item.dart';
 import 'package:ecommerce_app_mobile/data/model/product.dart';
 
+import '../../data/model/money.dart';
+
 class PurchaseSummary {
   final List<ProductWithQuantity> items;
-  late final double subtotal;
-  late final double shippingFee;
-  late final double discount;
-  late final double total;
+  late final Money subtotal;
+  late final Money shippingFee;
+  late final Money discount;
+  late final Money total;
 
-  PurchaseSummary(this.items, double defaultShippingFee) {
+  PurchaseSummary(this.items, Money defaultShippingFee) {
     subtotal = _calculateSubtotal();
     shippingFee = _calculateShippingFee(defaultShippingFee);
     discount = _calculateDiscount();
     total = _calculateTotal();
   }
 
-  PurchaseSummary.fromCartItems(List<CartItem> cartItems, double defaultShippingFee)
+  PurchaseSummary.fromCartItems(List<CartItem> cartItems, Money defaultShippingFee)
       : items = cartItems.map((e) => e.productWithQuantity).toList() {
     subtotal = _calculateSubtotal();
     shippingFee = _calculateShippingFee(defaultShippingFee);
@@ -24,32 +26,32 @@ class PurchaseSummary {
     total = _calculateTotal();
   }
 
-  double _calculateSubtotal() {
+  Money _calculateSubtotal() {
     double result = 0;
     for (var item in items) {
-      result += item.quantity * item.subProduct.price;
+      result += item.quantity * item.subProduct.price.amount;
     }
-    return result;
+    return Money( result);
   }
 
-  double _calculateShippingFee(double defaultShippingFee) {
+  Money _calculateShippingFee(Money defaultShippingFee) {
     return defaultShippingFee;
   }
 
-  double _calculateDiscount() {
+  Money _calculateDiscount() {
     double result = 0;
     for (var item in items) {
-      result += item.quantity * item.subProduct.discount;
+      result += item.quantity * item.subProduct.discount.amount;
     }
-    return result;
+    return Money( result);
   }
 
-  double _calculateTotal() {
+  Money _calculateTotal() {
     double result = 0;
     for (var item in items) {
-      result += item.quantity * item.subProduct.priceAfterDiscounting;
+      result += item.quantity * item.subProduct.priceAfterDiscounting.amount;
     }
-    result += shippingFee;
-    return result;
+    result += shippingFee.amount;
+    return Money( result);
   }
 }

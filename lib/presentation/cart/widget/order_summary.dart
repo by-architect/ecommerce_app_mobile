@@ -9,13 +9,15 @@ import 'package:flutter/material.dart';
 
 import '../../../common/ui/theme/AppColors.dart';
 import '../../../common/ui/theme/AppSizes.dart';
+import '../../../data/model/money.dart';
 
 class OrderSummaryCard extends StatelessWidget {
   const OrderSummaryCard(
       {super.key,
       this.isReturn = false,
-     required this.purchaseSummary,
-      this.showOrderSummaryLabel = true, required this.currency});
+      required this.purchaseSummary,
+      this.showOrderSummaryLabel = true,
+      required this.currency});
 
   final bool isReturn;
   final PurchaseSummary purchaseSummary;
@@ -74,7 +76,7 @@ class OrderSummaryCard extends StatelessWidget {
 
 class _Row extends StatelessWidget {
   final String title;
-  final double amount;
+  final Money amount;
   final bool freeEnabled;
   final Currency currency;
 
@@ -82,7 +84,8 @@ class _Row extends StatelessWidget {
     super.key,
     required this.title,
     required this.amount,
-    this.freeEnabled = false, required this.currency,
+    this.freeEnabled = false,
+    required this.currency,
   });
 
   @override
@@ -94,7 +97,7 @@ class _Row extends StatelessWidget {
           title,
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 16),
         ),
-        amount == 0.0 && freeEnabled
+        amount.isZero && freeEnabled
             ? Text(
                 AppText.cartPageFree.capitalizeFirstWord.get,
                 style: Theme.of(context)
@@ -103,7 +106,7 @@ class _Row extends StatelessWidget {
                     ?.copyWith(color: AppColors.successColor),
               )
             : Text(
-                "${currency.sign}$amount",
+                amount.displayAmount(currency),
                 style: Theme.of(context).textTheme.titleMedium,
               )
       ],

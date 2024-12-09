@@ -88,7 +88,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> with Widget
                         product: widget.product,
                       ),
                     );
-                  },
+                  }, currency: widget.appSettings.defaultCurrency,
                 )
               : const SizedBox.shrink(),
 
@@ -208,6 +208,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> with Widget
                         child: state is YouMayAlsoLikeLoadingState
                             ? const ProductCardSkeleton()
                             : ProductCard(
+                          currency: widget.appSettings.defaultCurrency,
                           appSettings: widget.appSettings,
                                 user: widget.user,
                                 product: state.youMayAlsoLike[index],
