@@ -42,25 +42,29 @@ class AppBarMain extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: false,
       title: const TextMarket(),
       actions: [
-        IconButton(
-          onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => SearchScreen(
-                    categories: categories,
-                    features: features,
-                    user: user,
-                    appSettings: appSettings,
-                  ),
-                ));
-          },
-          icon: SvgPicture.asset(
-            AppImages.searchIcon,
-            height: 24,
-            colorFilter: ColorFilters.iconThemeColor(context),
+        Padding(
+          padding: const EdgeInsets.only(right: AppSizes.defaultPadding /2),
+          child: IconButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SearchScreen(
+                      categories: categories,
+                      features: features,
+                      user: user,
+                      appSettings: appSettings,
+                    ),
+                  ));
+            },
+            icon: SvgPicture.asset(
+              AppImages.searchIcon,
+              height: 24,
+              colorFilter: ColorFilters.iconThemeColor(context),
+            ),
           ),
         ),
+/*
         IconButton(
           onPressed: () {
             testScope(user);
@@ -78,6 +82,7 @@ class AppBarMain extends StatelessWidget implements PreferredSizeWidget {
             colorFilter: ColorFilters.iconThemeColor(context),
           ),
         ),
+*/
       ],
       /*SvgPicture.asset(
     "assets/logo/Shoplon.svg",
