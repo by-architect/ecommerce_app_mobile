@@ -13,13 +13,14 @@ class DividerListTile extends StatelessWidget {
     required this.press,
     this.leading,
     this.minLeadingWidth,
-    this.isShowDivider = true,
+    this.isShowDivider = true, this.subTitle,
   });
   final bool isShowForwardArrow, isShowDivider;
   final Widget title;
   final Widget? leading;
   final double? minLeadingWidth;
   final VoidCallback press;
+  final Widget? subTitle;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +31,7 @@ class DividerListTile extends StatelessWidget {
           leading: leading,
           onTap: press,
           title: title,
+          subtitle: subTitle,
           trailing: isShowForwardArrow
               ? SvgPicture.asset(
             AppImages.miniRightIcon,
@@ -43,8 +45,8 @@ class DividerListTile extends StatelessWidget {
   }
 }
 
-class DividerListTileWithTrilingText extends StatelessWidget {
-  const DividerListTileWithTrilingText({
+class DividerListTileWithTrailingText extends StatelessWidget {
+  const DividerListTileWithTrailingText({
     super.key,
     required this.svgSrc,
     required this.title,

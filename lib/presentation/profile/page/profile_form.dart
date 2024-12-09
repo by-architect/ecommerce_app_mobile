@@ -3,6 +3,7 @@ import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/color_filters.dart';
+import 'package:ecommerce_app_mobile/data/fakerepository/fake_app_defaults.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/pages/email_verification_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/main/bloc/main_blocs.dart';
 import 'package:ecommerce_app_mobile/presentation/main/bloc/main_events.dart';
@@ -17,6 +18,7 @@ import 'package:flutter_svg/svg.dart';
 import '../../../common/constant/Screens.dart';
 import '../../../data/model/user.dart';
 import '../../address/pages/addresses_screen.dart';
+import '../../gethelp/page/get_help_screen.dart';
 import '../../order/page/order_screen.dart';
 import '../../return/page/returns_screen.dart';
 import '../widget/profile_card.dart';
@@ -36,6 +38,7 @@ class ProfileForm extends StatelessWidget {
             name: user.name,
             email: user.email,
             imageSrc: user.firebaseUser.photoURL,
+            isShowArrow: false,
             // proLableText: "Sliver",
             // isPro: true, if the user is pro
 
@@ -136,7 +139,7 @@ class ProfileForm extends StatelessWidget {
             text: AppText.profilePageGetHelp.capitalizeEveryWord.get,
             svgSrc: AppImages.helpIcon,
             press: () {
-              // Navigator.pushNamed(context, getHelpScreenRoute);
+              Navigator.push(context, MaterialPageRoute(builder: (context) => GetHelpScreen(contacts: FakeAppDefaults.supportContacts,)));
             },
           ),
           ProfileMenuListTile(
