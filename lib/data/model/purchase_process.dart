@@ -58,10 +58,10 @@ class PurchaseProcess {
 
   Map<String, dynamic> toMap() {
     return {
-      ApiDeliveryProcesses.message: message,
-      ApiDeliveryProcesses.receipt: receipt,
-      ApiDeliveryProcesses.purchaseStatusType: purchaseStatusType.apiData,
-      ApiDeliveryProcesses.dateTime: dateTime?.toIso8601String(),
+      'message': message,
+      'receipt': receipt,
+      'status': purchaseStatusType.apiData,
+      'dateTime': dateTime?.toIso8601String(),
     };
   }
 

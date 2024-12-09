@@ -138,6 +138,8 @@ class SubProduct {
 
   //todo: unimplemented
   factory SubProduct.fromMap(Map<String, dynamic> map) {
+    throw UnimplementedError("map unimplemented");
+/*
     return SubProduct(
         id: map['id'],
         productId: map['productId'],
@@ -148,6 +150,7 @@ class SubProduct {
         price: map['price'],
         discount: map['discount'],
         productFeatureOptionIds: map['productFeatureOptionIds']);
+*/
   }
 
   @override
@@ -253,9 +256,9 @@ class ProductWithQuantity {
 
   factory ProductWithQuantity.fromMap(Map<String, dynamic> map) {
     return ProductWithQuantity(
-      product: Product.fromMap(map[ApiDeliveryProcesses.productId]),
-      subProduct: SubProduct.fromMap(map[ApiDeliveryProcesses.subProductId]),
-      quantity: map[ApiDeliveryProcesses.quantity],
+      product: Product.fromMap(map['product']),
+      subProduct: SubProduct.fromMap(map['subProduct']),
+      quantity: map['quantity'],
     );
   }
 

@@ -4,6 +4,7 @@ class ApiConst {
   static const openCageApiKey = "ce2042349e3f499ca86793dae3ce41d5";
 }
 
+/*
 class ApiDeliveryProcesses {
   static const id = "id";
   static const uid= "uid";
@@ -45,3 +46,4 @@ class ApiDeliveryProcesses {
 
 
 }
+*/

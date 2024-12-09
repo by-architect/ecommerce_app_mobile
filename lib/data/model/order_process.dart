@@ -224,10 +224,10 @@ class OrderDelivered extends PurchaseProcess {
 }
 
 enum OrderStatusType implements PurchaseStatusType {
-  paid(ApiDeliveryProcesses.payingSuccess, AppText.orderPagePayingSuccess),
-  orderTaken(ApiDeliveryProcesses.orderTaken, AppText.orderPageOrderTaken),
-  shipped(ApiDeliveryProcesses.shipped, AppText.orderPageShipped),
-  delivered(ApiDeliveryProcesses.delivered, AppText.orderPageDelivered),
+  paid('paid', AppText.orderPagePayingSuccess),
+  orderTaken('order_taken', AppText.orderPageOrderTaken),
+  shipped('shipped', AppText.orderPageShipped),
+  delivered('delivered', AppText.orderPageDelivered),
   ;
 
   OrderStatusType fromServerMessages(String message) {
