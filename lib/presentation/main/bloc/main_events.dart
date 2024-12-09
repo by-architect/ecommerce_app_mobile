@@ -30,3 +30,8 @@ class UserIsVerifiedEvent extends MainEvents{
   UserIsVerifiedEvent(this.user);
 }
 class LogOutEvent extends MainEvents{}
+
+class ChangePageEvent extends MainEvents{
+  final int index;
+  ChangePageEvent(this.index);
+}

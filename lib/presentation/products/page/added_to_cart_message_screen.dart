@@ -5,9 +5,13 @@ import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/color_filters.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/ButtonPrimary.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/button_secondary.dart';
+import 'package:ecommerce_app_mobile/presentation/main/bloc/main_events.dart';
 import 'package:ecommerce_app_mobile/presentation/main/page/main_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import '../../main/bloc/main_blocs.dart';
 
 class AddedToCartMessageScreen extends StatelessWidget {
   const AddedToCartMessageScreen({super.key});
@@ -51,9 +55,11 @@ class AddedToCartMessageScreen extends StatelessWidget {
               const SizedBox(height: AppSizes.defaultPadding),
               ButtonPrimary(
                 onTap: () {
-                  //todo: go to cart
+                  BlocProvider.of<MainBlocs>(context).add(ChangePageEvent(2));
+                  Navigator.of(context).popUntil((S) => S.isFirst);
                 },
-                text: AppText.productDetailsPageCheckout.capitalizeFirstWord.get,
+                text:
+                    AppText.productDetailsPageCheckout.capitalizeFirstWord.get,
               ),
               const Spacer(),
             ],

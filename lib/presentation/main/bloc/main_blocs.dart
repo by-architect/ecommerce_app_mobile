@@ -18,18 +18,18 @@ class MainBlocs extends Bloc<MainEvents, MainStates> {
     final productService = ProductServiceProvider();
     final userService = UserServiceImpl();
     final appSettingsService = FakeAppSettingsService();
+
+    on<ChangePageEvent>((event, emit) {
+      emit(state.copyWith(selectedPage: event.index));
+    });
+
     on<ToggleThemeEvent>((event, emit) {
-      emit(state.copyWith(themeMode: event.themeMode));
+      emit( state.copyWith(themeMode: event.themeMode));
     });
 
     on<GetInitItemsEvent>(
       (event, emit) async {
-        emit(InitItemsLoadingState(
-            themeMode: state.themeMode,
-            features: state.features,
-            categories: state.categories,
-            appSettings: state.appSettings,
-            userStatus: state.userStatus));
+        emit(InitItemsLoadingState(state: state));
 
         ResourceStatus<AppSettings> appSettingsResource =
             await appSettingsService.getAppSettings();
@@ -40,12 +40,9 @@ class MainBlocs extends Bloc<MainEvents, MainStates> {
 
         if (!appSettingsResource.isSuccess) {
           emit(InitItemsFailState(
-              userStatus: state.userStatus,
-              themeMode: state.themeMode,
-              features: state.features,
-              appSettings: state.appSettings,
-              categories: state.categories,
-              fail: appSettingsResource.error!));
+            state: state,
+            fail: appSettingsResource.error!,
+          ));
           return;
         }
         if (state.features.isEmpty) {
@@ -59,60 +56,44 @@ class MainBlocs extends Bloc<MainEvents, MainStates> {
         }
         if (userResource.status == Status.fail) {
           if (userResource.error?.exception is! UserNotAuthenticatedException) {
-            emit(InitItemsFailState(
-                userStatus: state.userStatus,
-                themeMode: state.themeMode,
-                features: state.features,
-                appSettings: state.appSettings,
-                categories: state.categories,
-                fail: userResource.error!));
+            emit(InitItemsFailState(fail: userResource.error!, state: state));
             return;
           }
         }
         if (categoriesResource.status == Status.fail) {
           emit(InitItemsFailState(
-              userStatus: state.userStatus,
-              themeMode: state.themeMode,
-              features: state.features,
-              categories: state.categories,
-              appSettings: state.appSettings,
-              fail: categoriesResource.error!));
+              fail: categoriesResource.error!, state: state));
           return;
         }
         if (productFeaturesResource.status == Status.fail) {
           emit(InitItemsFailState(
-              userStatus: state.userStatus,
-              themeMode: state.themeMode,
-              features: state.features,
-              categories: state.categories,
-              appSettings: state.appSettings,
-              fail: productFeaturesResource.error!));
+              fail: productFeaturesResource.error!, state: state));
           return;
         }
         emit(InitItemsSuccessState(
-            userStatus: userResource.stable
-                ? state.userStatus
-                : UserStatus(userResource.data),
-            themeMode: state.themeMode,
-            appSettings: appSettingsResource.data!,
-            features: productFeaturesResource.stable
-                ? state.features
-                : productFeaturesResource.data!,
-            categories: categoriesResource.stable
-                ? state.categories
-                : categoriesResource.data!));
+            state: state.copyWith(
+                userStatus: userResource.stable
+                    ? state.userStatus
+                    : UserStatus(userResource.data),
+                themeMode: state.themeMode,
+                appSettings: appSettingsResource.data!,
+                productFeatures: productFeaturesResource.stable
+                    ? state.features
+                    : productFeaturesResource.data!,
+                categories: categoriesResource.stable
+                    ? state.categories
+                    : categoriesResource.data!,
+                selectedPage: state.selectedPage)));
       },
     );
     on<LogOutEvent>(
       (event, emit) async {
         final resource = await userService.signOut();
-        if(resource.isSuccess) {
+        if (resource.isSuccess) {
           emit(InitItemsSuccessState(
-                themeMode: state.themeMode,
-                features: state.features,
-                categories: state.categories,
-                userStatus: UserStatus(null),
-                appSettings: state.appSettings));
+              state: state.copyWith(
+            userStatus: UserStatus(null),
+          )));
         }
       },
     );
@@ -120,21 +101,17 @@ class MainBlocs extends Bloc<MainEvents, MainStates> {
     on<UserSignedInEvent>(
       (event, emit) {
         emit(InitItemsSuccessState(
-            themeMode: state.themeMode,
-            features: state.features,
-            categories: state.categories,
-            appSettings: state.appSettings,
-            userStatus: UserStatus(event.user)));
+            state: state.copyWith(
+          userStatus: UserStatus(event.user),
+        )));
       },
     );
     on<UserIsVerifiedEvent>(
       (event, emit) {
         emit(InitItemsSuccessState(
-            themeMode: state.themeMode,
-            features: state.features,
-            categories: state.categories,
-            appSettings: state.appSettings,
-            userStatus: UserStatus(event.user)));
+            state: state.copyWith(
+          userStatus: UserStatus(event.user),
+        )));
       },
     );
   }

@@ -36,7 +36,6 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   PageController pageController = PageController(initialPage: 0);
-  int selectedIndex = 0;
 
   @override
   void initState() {
@@ -45,9 +44,13 @@ class _MainScreenState extends State<MainScreen> {
     BlocProvider.of<SearchBloc>(context).add(GetRecentSearchesEvent());
     BlocProvider.of<MainBlocs>(context).stream.listen(
       (state) {
+        if(pageController.hasClients) {
+          pageController.jumpToPage(state.selectedPage);
+        }
         if (state is InitItemsSuccessState) {
           if (state.userStatus.isAuthenticated) {
-            BlocProvider.of<CartBloc>(context).add(GetCart(state.userStatus.user!,state.appSettings.defaultShippingFee));
+            BlocProvider.of<CartBloc>(context).add(GetCart(
+                state.userStatus.user!, state.appSettings.defaultShippingFee));
           }
         }
         if (state is! InitItemsLoadingState) {
@@ -77,15 +80,18 @@ class _MainScreenState extends State<MainScreen> {
                       child: FailForm(
                         fail: failState.fail,
                         onRefreshTap: () {
-                          BlocProvider.of<MainBlocs>(context).add(GetInitItemsEvent());
-                          BlocProvider.of<HomeBloc>(context).add(GetProductsHomeEvent());
-                          BlocProvider.of<SearchBloc>(context).add(GetRecentSearchesEvent());
+                          BlocProvider.of<MainBlocs>(context)
+                              .add(GetInitItemsEvent());
+                          BlocProvider.of<HomeBloc>(context)
+                              .add(GetProductsHomeEvent());
+                          BlocProvider.of<SearchBloc>(context)
+                              .add(GetRecentSearchesEvent());
                         },
                       ),
                     ),
                   ),
                 ),
-              InitItemsSuccessState _ => SafeArea(
+              InitItemsSuccessState _ || MainStates() => SafeArea(
                     child: Scaffold(
                   body: Column(
                     children: [
@@ -108,68 +114,67 @@ class _MainScreenState extends State<MainScreen> {
                             ),
                             state.userStatus.isAuthenticated
                                 ? CartForm(
-                              appSettings: state.appSettings,
+                                    appSettings: state.appSettings,
                                     user: state.userStatus.user!,
                                   )
                                 : LoginForm(
-                                    message: AppText.infoPleaseLoginToSeeYourCart.capitalizeFirstWord.get,
+                                    message: AppText
+                                        .infoPleaseLoginToSeeYourCart
+                                        .capitalizeFirstWord
+                                        .get,
                                     image: AppImages.cartImage),
                             state.userStatus.isAuthenticated
                                 ? ProfileForm(
-                              appSettings: state.appSettings,
+                                    appSettings: state.appSettings,
                                     user: state.userStatus.user!,
                                   )
                                 : LoginForm(
-                                    message: AppText.infoPleaseLoginToSeeYourProfile.capitalizeFirstWord.get,
+                                    message: AppText
+                                        .infoPleaseLoginToSeeYourProfile
+                                        .capitalizeFirstWord
+                                        .get,
                                     image: AppImages.profileImage),
                             // FailSkeleton(fail: Fail(userMessage: "network fail"),)
                           ],
                         ),
                       ),
                       Container(
-                        decoration: BoxDecoration(color: Theme.of(context).scaffoldBackgroundColor),
+                        decoration: BoxDecoration(
+                            color: Theme.of(context).scaffoldBackgroundColor),
                         height: 68,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             _NavBarItem(
                               icon: AppImages.shopIcon,
-                              isSelected: selectedIndex == 0,
+                              isSelected: state.selectedPage == 0,
                               onClicked: () {
-                                pageController.jumpToPage(0);
-                                setState(() {
-                                  selectedIndex = 0;
-                                });
+                                BlocProvider.of<MainBlocs>(context)
+                                    .add(ChangePageEvent(0));
                               },
                             ),
                             _NavBarItem(
                               icon: AppImages.categoryIcon,
-                              isSelected: selectedIndex == 1,
+                              isSelected: state.selectedPage == 1,
                               onClicked: () {
-                                pageController.jumpToPage(1);
-                                setState(() {
-                                  selectedIndex = 1;
-                                });
+                                BlocProvider.of<MainBlocs>(context)
+                                    .add(ChangePageEvent(1));
                               },
                             ),
                             _NavBarItem(
                               icon: AppImages.cartIcon,
-                              isSelected: selectedIndex == 2,
+                              isSelected: state.selectedPage == 2,
                               onClicked: () {
-                                pageController.jumpToPage(2);
-                                setState(() {
-                                  selectedIndex = 2;
-                                });
+                                BlocProvider.of<MainBlocs>(context)
+                                    .add(ChangePageEvent(2));
                               },
                             ),
                             _NavBarItem(
                               icon: AppImages.profileIcon,
-                              isSelected: selectedIndex == 3,
+                              isSelected: state.selectedPage == 3,
                               onClicked: () {
-                                pageController.jumpToPage(3);
-                                setState(() {
-                                  selectedIndex = 3;
-                                });
+                                BlocProvider.of<MainBlocs>(context)
+                                    .add(ChangePageEvent(3));
                               },
                             ),
                           ],
@@ -185,7 +190,6 @@ class _MainScreenState extends State<MainScreen> {
                     categories: state.categories,
                   ),
                 )),
-              _ => const SizedBox.shrink(),
             });
   }
 }
@@ -195,7 +199,11 @@ class _NavBarItem extends StatelessWidget {
   final Function() onClicked;
   final bool isSelected;
 
-  const _NavBarItem({super.key, required this.icon, required this.onClicked, required this.isSelected});
+  const _NavBarItem(
+      {super.key,
+      required this.icon,
+      required this.onClicked,
+      required this.isSelected});
 
   @override
   Widget build(BuildContext context) {
@@ -208,10 +216,11 @@ class _NavBarItem extends StatelessWidget {
           width: 27,
           height: 27,
           icon,
-          colorFilter: isSelected ? ColorFilters.primaryIconColorFilter(context) : ColorFilters.iconThemeColor(context),
+          colorFilter: isSelected
+              ? ColorFilters.primaryIconColorFilter(context)
+              : ColorFilters.iconThemeColor(context),
         ),
       ),
     );
   }
 }
-

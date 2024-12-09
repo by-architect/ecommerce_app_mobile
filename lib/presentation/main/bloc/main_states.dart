@@ -13,10 +13,12 @@ class MainStates {
   final AllProductFeatures features;
   final UserStatus userStatus;
   final AppSettings appSettings;
+  final int selectedPage;
 
   MainStates(
       {required this.appSettings,
       required this.userStatus,
+        required this.selectedPage,
       required this.themeMode,
       required this.features,
       required this.categories});
@@ -26,11 +28,13 @@ class MainStates {
       Categories? categories,
       AllProductFeatures? productFeatures,
         AppSettings? appSettings,
+        int? selectedPage,
       UserStatus? userStatus}) {
     return MainStates(
         themeMode: themeMode ?? this.themeMode,
         features: productFeatures ?? features,
         categories: categories ?? this.categories,
+        selectedPage: selectedPage ?? this.selectedPage,
         appSettings: appSettings ?? this.appSettings,
         userStatus: userStatus ?? this.userStatus);
   }
@@ -42,36 +46,47 @@ class InitMainStates extends MainStates {
             userStatus: UserStatus(null),
             themeMode: ThemeMode.light,
             categories: Categories.empty(),
+            selectedPage: 0,
             appSettings: AppSettings.defaultAppSettings(),
             features: AllProductFeatures.empty());
 }
 
 class InitItemsLoadingState extends MainStates {
-  InitItemsLoadingState(
-      {required super.themeMode,
-      required super.features,
-      required super.appSettings,
-      required super.categories,
-      required super.userStatus});
+  final MainStates state;
+
+  InitItemsLoadingState({required this.state})
+      : super(
+            themeMode: state.themeMode,
+            features: state.features,
+            categories: state.categories,
+            selectedPage: state.selectedPage,
+            appSettings: state.appSettings,
+            userStatus: state.userStatus);
 }
 
 class InitItemsSuccessState extends MainStates {
-  InitItemsSuccessState(
-      {required super.themeMode,
-      required super.features,
-      required super.categories,
-      required super.appSettings,
-      required super.userStatus});
+  final MainStates state;
+
+  InitItemsSuccessState({required this.state})
+      : super(
+            themeMode: state.themeMode,
+            features: state.features,
+            categories: state.categories,
+            selectedPage: state.selectedPage,
+            appSettings: state.appSettings,
+            userStatus: state.userStatus);
 }
 
 class InitItemsFailState extends MainStates {
   final Fail fail;
+  final MainStates state;
 
-  InitItemsFailState(
-      {required super.themeMode,
-      required super.features,
-      required super.categories,
-      required this.fail,
-      required super.appSettings,
-      required super.userStatus});
+  InitItemsFailState({required this.fail, required this.state})
+      : super(
+            themeMode: state.themeMode,
+            features: state.features,
+            categories: state.categories,
+            selectedPage: state.selectedPage,
+            appSettings: state.appSettings,
+            userStatus: state.userStatus);
 }
