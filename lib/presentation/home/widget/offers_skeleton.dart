@@ -8,14 +8,28 @@ class OffersSkeletonScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
-      children: [
-        Expanded(child: OffersSkeleton()),
-        SizedBox(height: AppSizes.spaceBtwVerticalFields),
-        Expanded(child: OffersSkeleton()),
-        SizedBox(height: AppSizes.spaceBtwVerticalFields),
-        Expanded(child: OffersSkeleton()),
-      ],
+    return const SingleChildScrollView(
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Expanded(child: OffersSkeleton()),
+            ],
+          ),
+          SizedBox(height: AppSizes.spaceBtwVerticalFields),
+          Row(
+            children: [
+              Expanded(child: OffersSkeleton()),
+            ],
+          ),
+          SizedBox(height: AppSizes.spaceBtwVerticalFields),
+          Row(
+            children: [
+              Expanded(child: OffersSkeleton()),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
