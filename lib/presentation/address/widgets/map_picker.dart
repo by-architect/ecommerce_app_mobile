@@ -6,6 +6,7 @@ import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/add_address_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/add_address_event.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/add_address_state.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/constant/exceptions/exceptions.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/location_handler.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/ui_helper.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/ui/dialog_util.dart';
@@ -25,7 +26,8 @@ class MapPicker extends StatefulWidget {
       required this.onNextPressed,
       required this.currentLocation,
       required this.openAddress,
-      required this.selectedLocation, required this.initialCenter});
+      required this.selectedLocation,
+      required this.initialCenter});
 
   final LatLng? currentLocation;
   final String? openAddress;
@@ -46,10 +48,13 @@ class _MapPickerState extends State<MapPicker> {
     super.initState();
 
     dialog = DialogUtil(context);
-    BlocProvider.of<AddAddressBloc>(context).add(SetInitialLocation(widget.initialCenter));
+    BlocProvider.of<AddAddressBloc>(context)
+        .add(SetInitialLocation(widget.initialCenter));
     BlocProvider.of<AddAddressBloc>(context).stream.listen((state) {
       if (state is MapAddressFailState) {
-        dialog.info(AppText.errorTitle.capitalizeEveryWord.get, state.fail.userMessage);
+        if(state.fail.exception is! InvalidLocationException) {
+          dialog.info(AppText.errorTitle.capitalizeEveryWord.get, state.fail.userMessage);
+        }
       }
     });
     _getCurrentLocation();
@@ -74,90 +79,105 @@ class _MapPickerState extends State<MapPicker> {
     );
     locationResource.onFailure(
       (fail) {
-        dialog.info(AppText.errorGettingLocation.capitalizeEveryWord.get, fail.userMessage);
+        dialog.info(AppText.errorGettingLocation.capitalizeEveryWord.get,
+            fail.userMessage);
       },
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        FlutterMap(
-          mapController: _mapController,
-          options: MapOptions(
-            initialCenter: widget.initialCenter,
-            initialZoom: 13.0,
-            onPointerUp: (event, point) {
-              BlocProvider.of<AddAddressBloc>(context).add(SetSelectedLocation(_mapController.camera.center));
-            },
-          ),
-          children: [
-            TileLayer(
-              urlTemplate: MapConstants.mapBaseImageUrl,
-              userAgentPackageName: AppConstants.packageName, // Replace with your app's package name
-            ),
-          ],
-        ),
-        const Center(
-          child: Icon(
-            Icons.location_on,
-            color: AppColors.errorColor,
-            size: 40,
-          ),
-        ),
-        Positioned(
-          top: AppSizes.defaultPadding,
-          left: AppSizes.defaultPadding,
-          child: SizedBox(
-            width: 50,
-            height: 50,
-            child: FloatingActionButton(
-              heroTag: "location",
-              foregroundColor: context.isDarkMode ? AppColors.whiteColor90 : AppColors.blackColor,
-              backgroundColor: context.isDarkMode ? AppColors.blackColor : AppColors.whiteColor,
-              child: const Icon(Icons.my_location),
-              onPressed: () {
-                if (widget.currentLocation != null) {
-                  BlocProvider.of<AddAddressBloc>(context).add(SetSelectedLocation(widget.currentLocation!));
-                  _mapController.move(widget.currentLocation!, _mapController.camera.zoom);
-                } else {
-                  _getCurrentLocation();
-                }
+    return BlocBuilder<AddAddressBloc, AddAddressState>(
+      builder: (context, state) => Stack(
+        children: [
+          FlutterMap(
+            mapController: _mapController,
+            options: MapOptions(
+              initialCenter: widget.initialCenter,
+              initialZoom: 6,
+              onPointerUp: (event, point) {
+                BlocProvider.of<AddAddressBloc>(context)
+                    .add(SetSelectedLocation(_mapController.camera.center));
               },
             ),
-          ),
-        ),
-        Positioned(
-          left: AppSizes.defaultPadding,
-          bottom: AppSizes.defaultPadding,
-          right: AppSizes.defaultPadding,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Flexible(
-                child: Container(
-                  decoration: AppStyles.defaultBoxDecoration.copyWith(
-                    color: context.isDarkMode ? AppColors.darkGreyColor : AppColors.whiteColor,
-                  ),
-                  padding: const EdgeInsets.all(8),
-                  child: Text(
-                    widget.openAddress ??
-                        "${widget.selectedLocation?.latitude ?? AppText.loading.capitalizeFirstWord.get}, ${widget.selectedLocation?.longitude ?? AppText.loading.capitalizeFirstWord.get}",
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ),
+              TileLayer(
+                urlTemplate: MapConstants.mapBaseImageUrl,
+                userAgentPackageName: AppConstants
+                    .packageName, // Replace with your app's package name
               ),
-              const SizedBox(width: AppSizes.spaceBtwVerticalFieldsLarge),
-              FloatingActionButton(
-                heroTag: "next",
-                onPressed: widget.onNextPressed,
-                child: const Icon(Icons.navigate_next_sharp),
-              )
             ],
           ),
-        ),
-      ],
+          const Center(
+            child: Icon(
+              Icons.location_on,
+              color: AppColors.errorColor,
+              size: 40,
+            ),
+          ),
+          Positioned(
+            top: AppSizes.defaultPadding,
+            left: AppSizes.defaultPadding,
+            child: SizedBox(
+              width: 50,
+              height: 50,
+              child: FloatingActionButton(
+                heroTag: "location",
+                foregroundColor: context.isDarkMode
+                    ? AppColors.whiteColor90
+                    : AppColors.blackColor,
+                backgroundColor: context.isDarkMode
+                    ? AppColors.blackColor
+                    : AppColors.whiteColor,
+                child: const Icon(Icons.my_location),
+                onPressed: () {
+                  if (widget.currentLocation != null) {
+                    BlocProvider.of<AddAddressBloc>(context)
+                        .add(SetSelectedLocation(widget.currentLocation!));
+                    _mapController.move(
+                        widget.currentLocation!, _mapController.camera.zoom);
+                  } else {
+                    _getCurrentLocation();
+                  }
+                },
+              ),
+            ),
+          ),
+          Positioned(
+            left: AppSizes.defaultPadding,
+            bottom: AppSizes.defaultPadding,
+            right: AppSizes.defaultPadding,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Flexible(
+                  child: Container(
+                    decoration: AppStyles.defaultBoxDecoration.copyWith(
+                      color: context.isDarkMode
+                          ? AppColors.darkGreyColor
+                          : AppColors.whiteColor,
+                    ),
+                    padding: const EdgeInsets.all(8),
+                    child: Text(
+                      state is MapAddressFailState && state.fail.exception is InvalidLocationException
+                          ? state.fail.userMessage
+                          : widget.openAddress ??
+                              "${widget.selectedLocation?.latitude ?? AppText.loading.capitalizeFirstWord.get}, ${widget.selectedLocation?.longitude ?? AppText.loading.capitalizeFirstWord.get}",
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: AppSizes.spaceBtwVerticalFieldsLarge),
+                FloatingActionButton(
+                  heroTag: "next",
+                  onPressed: widget.onNextPressed,
+                  child: const Icon(Icons.navigate_next_sharp),
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

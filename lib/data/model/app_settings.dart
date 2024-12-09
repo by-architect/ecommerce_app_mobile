@@ -41,7 +41,7 @@ class AppSettings {
     return AppSettings._(
         maxProductQuantityCustomerCanBuyInOrder: 10,
         defaultShippingFee: 0.0,
-        defaultMapLocation: const LatLng(41.0082, 28.9784),
+        defaultMapLocation: const LatLng(39.9334, 32.8597),
         defaultCurrency: Currency.try_,
         contacts: [],
         defaultReturnDay: 14);

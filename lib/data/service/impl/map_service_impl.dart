@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:ecommerce_app_mobile/common/constant/app_durations.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/service/map_service.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/fail.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/resource.dart';
 
@@ -25,11 +27,13 @@ class MapServiceImpl implements MapService {
       var response = await http.get(url).timeout(AppDurations.postTimeout);
 
       if (response.statusCode == 200 || response.statusCode == 201) {
+        if(jsonDecode(response.body)["results"].isEmpty){
+         throw InvalidLocationException("Location is not valid");
+        }
         final addressState = AddressState.fromMapService(response.body);
         return ResourceStatus.success(addressState);
       } else {
-        return ResourceStatus.fail(Fail(
-            userMessage: AppText.errorFetchingData.capitalizeFirstWord.get, errorCode: response.statusCode.toString()));
+        throw AddressFailedException("Failed to get address");
       }
     } catch (exception, stackTrace) {
       if (exception is TimeoutException) {
@@ -40,7 +44,15 @@ class MapServiceImpl implements MapService {
             userMessage: AppText.errorNetworkDeviceIsDown.capitalizeFirstWord.get,
             exception: exception,
             stackTrace: stackTrace));
-      } else if (exception is NullDataException) {
+      } else if (exception is InvalidLocationException) {
+        return ResourceStatus.fail(Fail(
+            userMessage: AppText.errorInvalidLocationForAddress.capitalizeFirstWord.get, exception: exception, stackTrace: stackTrace));
+      }
+      else if (exception is AddressFailedException) {
+        return ResourceStatus.fail(Fail(
+            userMessage: AppText.errorFetchingData.capitalizeFirstWord.get, exception: exception, stackTrace: stackTrace));
+      }
+      else if (exception is NullDataException) {
         return ResourceStatus.fail(Fail(
             userMessage: AppText.errorFetchingData.capitalizeFirstWord.get, exception: exception, stackTrace: stackTrace));
       } else {

@@ -119,6 +119,7 @@ class AppText {
   static const errorEmailHasTaken = AppText("This email has taken");
   static const errorFetchingData =
       AppText("Error occurred while fetching data from server");
+  static const errorInvalidLocationForAddress = AppText("Select a valid location");
   static const errorTimeout =
       AppText("Connection timed out"); // bağlantı zaman aşımına uğradı
   static const errorNetworkRequestFailed =

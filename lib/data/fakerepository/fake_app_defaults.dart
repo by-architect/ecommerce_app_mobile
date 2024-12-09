@@ -6,7 +6,7 @@ class FakeAppDefaults {
   static int maxProductQuantityCustomerCanBuyInOnce =
       5; //disable if product has not its own max quantity
   static double shippingFee = 50;
-  static LatLng defaultStartLocation = const LatLng(36.811260, 34.618270);
+  static LatLng defaultStartLocation = const LatLng(39.9334, 32.8597);
   static Currency defaultCurrency = Currency.usd;
   static int defaultReturnDay = 14;
   static List<ContactModel> supportContacts = [

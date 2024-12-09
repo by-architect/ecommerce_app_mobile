@@ -43,3 +43,25 @@ class ValidationException implements ExceptionBase{
     return 'ValidationException {message: $message}';
   }
 }
+
+class InvalidLocationException implements ExceptionBase{
+  final String message;
+
+  InvalidLocationException(this.message);
+
+  @override
+  String toString() {
+    return 'InvalidLocationException {message: $message}';
+  }
+}
+
+class AddressFailedException implements ExceptionBase{
+  final String message;
+
+  AddressFailedException(this.message);
+
+  @override
+  String toString() {
+    return 'Failed to get address {message: $message}';
+  }
+}
