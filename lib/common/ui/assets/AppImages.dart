@@ -33,6 +33,8 @@ class AppImages{
   static const bugFixing = '${_imagePath}bug_fixing$_formatSvg';
   static const successfulPurchase = '${_imagePath}successful_purchase$_formatSvg';
   static const timeManagement = '${_imagePath}time_management$_formatSvg';
+  static const getHelpDark = '${_imagePath}help_dark$_formatPng';
+  static const getHelpLight = '${_imagePath}help_light$_formatPng';
 
 
 
@@ -86,6 +88,6 @@ class AppImages{
   static const instagramIcon = "${_iconPath}instagram-brands-solid$_formatSvg";
   static const phoneIcon = "${_iconPath}Call$_formatSvg";
   static const whatsappIcon = "${_iconPath}whatsapp-brands-solid$_formatSvg";
-  static const mailIcon = "${_iconPath}envelope-regular$_formatSvg";
+  static const mailIcon = "${_iconPath}Message$_formatSvg";
 
 }

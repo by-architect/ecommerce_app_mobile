@@ -33,6 +33,7 @@ class ProfileCard extends StatelessWidget {
         imageSrc: imageSrc,
         radius: 28,
       ),
+
       title: Row(
         children: [
           Text(

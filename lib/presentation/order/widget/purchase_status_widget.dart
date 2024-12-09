@@ -162,7 +162,7 @@ Widget statusWidget(BuildContext context, PurchaseStatus status,
     );
   }
   if (status == PurchaseStatus.canceled) {
-    return CircleAvatar(
+  return CircleAvatar(
       radius: 12,
       backgroundColor: AppColors.errorColor,
       child: Icon(

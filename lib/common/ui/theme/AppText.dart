@@ -432,6 +432,9 @@ class AppText {
   static const canceled = AppText("Canceled");
   static const processing = AppText("Processing");
 
+ //Get Help Screen
+  static const getHelpPageGetHelp = AppText("Get Help");
+  static const getHelpPageWeAreHereToHelp = AppText("We are here to help so please get in touch with us");
 
 
   // Pages Common
