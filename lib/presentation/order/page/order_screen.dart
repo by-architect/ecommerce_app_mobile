@@ -7,7 +7,7 @@ import 'package:ecommerce_app_mobile/presentation/discover/widget/discover_skelt
 import 'package:ecommerce_app_mobile/presentation/home/widget/offers_skeleton.dart';
 import 'package:ecommerce_app_mobile/presentation/order/bloc/order_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/order/bloc/order_event.dart';
-import 'package:ecommerce_app_mobile/presentation/order/bloc/order_state.dart';
+import 'package:ecommerce_app_mobile/presentation/order/bloc/orders_state.dart';
 import 'package:ecommerce_app_mobile/presentation/return/page/request_return_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/order/widget/purchase_process_card.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/ui/dialog_util.dart';
@@ -29,37 +29,17 @@ class OrderScreen extends StatefulWidget {
 }
 
 class _OrderScreenState extends State<OrderScreen> {
-  late final DialogUtil dialogUtil;
 
   @override
   void initState() {
-    dialogUtil = DialogUtil(context);
     BlocProvider.of<OrdersBloc>(context).add(GetOrdersEvent(widget.user.uid));
-    BlocProvider.of<OrdersBloc>(context).stream.listen((state) {
-      if (state is OrderCancelFailState) {
-        dialogUtil.closeLoadingDialog();
-        dialogUtil.info(
-            AppText.errorTitle.capitalizeEveryWord.get, state.fail.userMessage);
-      }
-      if (state is OrderCancelSuccessState) {
-        dialogUtil.closeLoadingDialog();
-        dialogUtil
-            .toast(AppText.orderPageOrderCanceled.capitalizeFirstWord.get);
-        BlocProvider.of<OrdersBloc>(context)
-            .add(GetOrdersEvent(widget.user.uid));
-      }
-      if (state is OrderCancelLoadingState) {
-        dialogUtil.loading();
-      }
-    });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    DialogUtil dialogUtil = DialogUtil(context);
-    return BlocBuilder<OrdersBloc, OrderState>(
-      builder: (BuildContext context, OrderState state) => Scaffold(
+    return BlocBuilder<OrdersBloc, OrdersState>(
+      builder: (BuildContext context, OrdersState state) => Scaffold(
         appBar: AppBarPopBack(
             title: AppText.orderPageOrders.capitalizeEveryWord.get),
         body: Padding(
@@ -73,25 +53,13 @@ class _OrderScreenState extends State<OrderScreen> {
                       .add(GetOrdersEvent(widget.user.uid));
                 },
               ),
-            OrdersSuccessState _ || OrderState() => ListView.builder(
+            OrdersSuccessState _ || OrdersState() => ListView.builder(
                 itemCount: state.orders.length,
                 itemBuilder: (context, index) => Padding(
                       padding: const EdgeInsets.only(
                           bottom: AppSizes.spaceBtwVerticalFields),
                       child: PurchaseCard(
                         purchaseModel: state.orders[index],
-                        onOrderCancel: () {
-                          dialogUtil.inputDialog(
-                             title:  AppText
-                                  .orderPageCancelOrder.capitalizeEveryWord.get,
-                             content:  AppText.infoTellUsWhatYouDidNotLike
-                                  .capitalizeEveryWord.get,onAccept:  (text) {
-                            BlocProvider.of<OrdersBloc>(context).add(
-                                CancelOrderEvent(
-                                    canceledOrder: state.orders[index],
-                                    message: text));
-                          }, );
-                        },
                         user: widget.user,
                       ),
                     ))
