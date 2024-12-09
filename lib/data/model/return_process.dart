@@ -151,7 +151,7 @@ class ReturnStatusRequestAccepted extends PurchaseProcess {
   ReturnStatusRequestAccepted.waiting()
       : this._(
             status: PurchaseStatus.waiting,
-            dateTime: DateTime.now(),
+            dateTime: null,
             message: null);
 
   ReturnStatusRequestAccepted canceledByCustomer(String message) {
@@ -188,7 +188,7 @@ class ReturnStatusShipped extends PurchaseProcess {
   ReturnStatusShipped.waiting()
       : this._(
             status: PurchaseStatus.waiting,
-            dateTime: DateTime.now(),
+            dateTime: null,
             cargoNo: null,
             message: null);
 
@@ -224,7 +224,7 @@ class ReturnStatusDelivered extends PurchaseProcess {
   ReturnStatusDelivered.waiting()
       : this._(
             status: PurchaseStatus.waiting,
-            dateTime: DateTime.now(),
+            dateTime: null,
             message: null);
 }
 
@@ -251,7 +251,7 @@ class ReturnStatusReturnAccepted extends PurchaseProcess {
   ReturnStatusReturnAccepted.waiting()
       : this._(
             message: null,
-            dateTime: DateTime.now(),
+            dateTime: null,
             status: PurchaseStatus.waiting);
 }
 

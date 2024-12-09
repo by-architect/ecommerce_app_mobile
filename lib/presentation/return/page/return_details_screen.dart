@@ -26,7 +26,8 @@ import '../../order/widget/purchase_status_widget.dart';
 class ReturnDetailsScreen extends StatefulWidget {
   const ReturnDetailsScreen({
     super.key,
-    required this.returnModel, required this.user,
+    required this.returnModel,
+    required this.user,
   });
 
   final ReturnModel returnModel;
@@ -37,7 +38,8 @@ class ReturnDetailsScreen extends StatefulWidget {
 }
 
 class _ReturnDetailsScreenState extends State<ReturnDetailsScreen> {
- late final DialogUtil dialogUtil;
+  late final DialogUtil dialogUtil;
+
   @override
   void initState() {
     dialogUtil = DialogUtil(context);
@@ -53,7 +55,6 @@ class _ReturnDetailsScreenState extends State<ReturnDetailsScreen> {
 
         BlocProvider.of<OrdersBloc>(context)
             .add(GetOrdersEvent(widget.user.uid));
-
       }
       if (state is CancelReturnFailedState) {
         dialogUtil.info(
@@ -116,7 +117,6 @@ class _ReturnDetailsScreenState extends State<ReturnDetailsScreen> {
                     ),
                   ],
                 )),
-
             const SizedBox(
               height: AppSizes.spaceBtwVerticalFieldsLarge,
             ),
@@ -130,11 +130,19 @@ class _ReturnDetailsScreenState extends State<ReturnDetailsScreen> {
               ),
               child: Column(
                 children: [
-                  _Process(purchaseProcess: widget.returnModel.statusReturnRequested),
-                  _Process(purchaseProcess: widget.returnModel.statusRequestAccepted),
-                  _Process(purchaseProcess: widget.returnModel.statusReturnShipped),
-                  _Process(purchaseProcess: widget.returnModel.statusReturnDelivered),
-                  _Process(purchaseProcess: widget.returnModel.statusReturnAccepted),
+                  _Process(
+                      purchaseProcess:
+                          widget.returnModel.statusReturnRequested),
+                  _Process(
+                      purchaseProcess:
+                          widget.returnModel.statusRequestAccepted),
+                  _Process(
+                      purchaseProcess: widget.returnModel.statusReturnShipped),
+                  _Process(
+                      purchaseProcess:
+                          widget.returnModel.statusReturnDelivered),
+                  _Process(
+                      purchaseProcess: widget.returnModel.statusReturnAccepted),
                 ],
               ),
             ),
@@ -240,19 +248,19 @@ class _ReturnDetailsScreenState extends State<ReturnDetailsScreen> {
                     ButtonSecondary(
                   isLoading: state is CancelReturnLoadingState,
                   onTap: () {
-
                     dialogUtil.inputDialog(
-                       title:  AppText
-                            .returnPageCancelReturn.capitalizeEveryWord.get,
-                       content:  AppText.infoTellUsWhyYouCancelReturn
-                            .capitalizeEveryWord.get, onAccept:  (text) {
-                      BlocProvider.of<ReturnsBloc>(context).add(
-                          CancelReturnEvent(
-                              returnModel: widget.returnModel,
-                              uid: widget.user.uid,
-                              message: text));
-
-                    }, );
+                      title: AppText
+                          .returnPageCancelReturn.capitalizeEveryWord.get,
+                      content: AppText
+                          .infoTellUsWhyYouCancelReturn.capitalizeEveryWord.get,
+                      onAccept: (text) {
+                        BlocProvider.of<ReturnsBloc>(context).add(
+                            CancelReturnEvent(
+                                returnModel: widget.returnModel,
+                                uid: widget.user.uid,
+                                message: text));
+                      },
+                    );
                   },
                   text: AppText.orderPageCancelOrder.capitalizeFirstWord.get,
                 ),
@@ -284,6 +292,7 @@ class _Title extends StatelessWidget {
     );
   }
 }
+
 class _Process extends StatelessWidget {
   const _Process({super.key, required this.purchaseProcess});
 
@@ -345,6 +354,10 @@ class _Process extends StatelessWidget {
                 ),
               ],
             ),
+          if (purchaseProcess.cargoNo != null)
+            const SizedBox(
+              height: AppSizes.spaceBtwVerticalFieldsSmall,
+            )
         ],
       )
     ]);
