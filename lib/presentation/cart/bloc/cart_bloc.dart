@@ -13,7 +13,9 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         final items = await service.getCart(event.user);
         if (items.isSuccess) {
           emit(CartSuccessState(
-            state.copyWith(items: items.data!),
+            state.copyWith(
+                items: items.data!,
+                defaultShippingFee: event.defaultShippingFee),
           ));
         } else {
           emit(CartFailState(
@@ -39,7 +41,8 @@ class CartBloc extends Bloc<CartEvent, CartState> {
           );
           service.deleteCartItem(event.cartItem.id);
         }
-        emit(state.calculateAndCopyWith(items: cartItems));
+        emit(state.calculateAndCopyWith(
+            items: cartItems, defaultShippingFee: event.defaultShippingFee));
       },
     );
     on<GetSelectedAddress>((event, emit) async {
@@ -70,9 +73,8 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         emit(state.copyWith(creditCardExpiryDate: event.expirationDate));
       },
     );
-    on<CvvEvent>(
-      (event, emit) {
-     emit(state.copyWith(creditCardCvv: event.cvv));
+    on<CvvEvent>((event, emit) {
+      emit(state.copyWith(creditCardCvv: event.cvv));
     });
   }
 }

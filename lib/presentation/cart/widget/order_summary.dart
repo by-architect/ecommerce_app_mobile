@@ -1,3 +1,4 @@
+import 'package:ecommerce_app_mobile/common/constant/currency.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppStyles.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/common/util/cart_util.dart';
@@ -14,11 +15,12 @@ class OrderSummaryCard extends StatelessWidget {
       {super.key,
       this.isReturn = false,
      required this.purchaseSummary,
-      this.showOrderSummaryLabel = true});
+      this.showOrderSummaryLabel = true, required this.currency});
 
   final bool isReturn;
   final PurchaseSummary purchaseSummary;
   final bool showOrderSummaryLabel;
+  final Currency currency;
 
   @override
   Widget build(BuildContext context) {
@@ -42,22 +44,26 @@ class OrderSummaryCard extends StatelessWidget {
               const SizedBox(height: AppSizes.spaceBtwVerticalFields),
             _Row(
                 title: AppText.cartPageSubtotal.capitalizeFirstWord.get,
+                currency: currency,
                 amount: purchaseSummary.subtotal),
             const SizedBox(height: AppSizes.spaceBtwVerticalFieldsSmall),
             _Row(
               title: AppText.cartPageShippingFee.capitalizeEveryWord.get,
+              currency: currency,
               amount: purchaseSummary.shippingFee,
               freeEnabled: true,
             ),
             const SizedBox(height: AppSizes.spaceBtwVerticalFieldsSmall),
             _Row(
                 title: AppText.cartPageDiscount.capitalizeFirstWord.get,
+                currency: currency,
                 amount: purchaseSummary.discount),
             const SizedBox(height: AppSizes.spaceBtwVerticalFieldsSmall),
             const Divider(),
             const SizedBox(height: AppSizes.spaceBtwVerticalFieldsSmall),
             _Row(
                 title: AppText.cartPageTotal.capitalizeFirstWord.get,
+                currency: currency,
                 amount: purchaseSummary.total),
           ],
         ),
@@ -70,12 +76,13 @@ class _Row extends StatelessWidget {
   final String title;
   final double amount;
   final bool freeEnabled;
+  final Currency currency;
 
   const _Row({
     super.key,
     required this.title,
     required this.amount,
-    this.freeEnabled = false,
+    this.freeEnabled = false, required this.currency,
   });
 
   @override
@@ -96,7 +103,7 @@ class _Row extends StatelessWidget {
                     ?.copyWith(color: AppColors.successColor),
               )
             : Text(
-                "${FakeAppDefaults.defaultCurrency.sign}$amount",
+                "${currency.sign}$amount",
                 style: Theme.of(context).textTheme.titleMedium,
               )
       ],

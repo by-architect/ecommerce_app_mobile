@@ -3,8 +3,6 @@ import 'package:ecommerce_app_mobile/common/constant/map_constants.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppStyles.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
-import 'package:ecommerce_app_mobile/data/fakerepository/fake_app_defaults.dart';
-import 'package:ecommerce_app_mobile/data/fakerepository/fake_models.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/add_address_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/add_address_event.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/add_address_state.dart';
@@ -27,19 +25,19 @@ class MapPicker extends StatefulWidget {
       required this.onNextPressed,
       required this.currentLocation,
       required this.openAddress,
-      required this.selectedLocation});
+      required this.selectedLocation, required this.initialCenter});
 
   final LatLng? currentLocation;
   final String? openAddress;
   final LatLng? selectedLocation;
   final Function() onNextPressed;
+  final LatLng initialCenter;
 
   @override
   State<MapPicker> createState() => _MapPickerState();
 }
 
 class _MapPickerState extends State<MapPicker> {
-  final initialCenter = FakeAppDefaults.defaultStartLocation;
   final MapController _mapController = MapController();
   late final DialogUtil dialog;
 
@@ -48,7 +46,7 @@ class _MapPickerState extends State<MapPicker> {
     super.initState();
 
     dialog = DialogUtil(context);
-    BlocProvider.of<AddAddressBloc>(context).add(SetInitialLocation(initialCenter));
+    BlocProvider.of<AddAddressBloc>(context).add(SetInitialLocation(widget.initialCenter));
     BlocProvider.of<AddAddressBloc>(context).stream.listen((state) {
       if (state is MapAddressFailState) {
         dialog.info(AppText.errorTitle.capitalizeEveryWord.get, state.fail.userMessage);
@@ -88,7 +86,7 @@ class _MapPickerState extends State<MapPicker> {
         FlutterMap(
           mapController: _mapController,
           options: MapOptions(
-            initialCenter: initialCenter,
+            initialCenter: widget.initialCenter,
             initialZoom: 13.0,
             onPointerUp: (event, point) {
               BlocProvider.of<AddAddressBloc>(context).add(SetSelectedLocation(_mapController.camera.center));

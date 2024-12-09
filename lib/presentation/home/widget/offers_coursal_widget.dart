@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/fakerepository/fake_models.dart';
+import 'package:ecommerce_app_mobile/data/model/app_settings.dart';
 import 'package:ecommerce_app_mobile/data/model/banner.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
 import 'package:ecommerce_app_mobile/data/model/user.dart';
@@ -21,13 +22,14 @@ class OffersCarouselAndCategories extends StatelessWidget {
   final bool isLoading;
   final AllProductFeatures features;
   final User? user;
+  final AppSettings appSettings;
 
   const OffersCarouselAndCategories({
     super.key,
     required this.bannerList,
     required this.isLoading,
     required this.features,
-    required this.user,
+    required this.user, required this.appSettings,
   });
 
   @override
@@ -40,7 +42,7 @@ class OffersCarouselAndCategories extends StatelessWidget {
             : OffersCarousel(
                 user: user,
                 features: features,
-                bannerList: bannerList,
+                bannerList: bannerList, appSettings: appSettings,
               ),
         const SizedBox(height: AppSizes.spaceBtwVerticalFields),
         Padding(
@@ -53,6 +55,7 @@ class OffersCarouselAndCategories extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal:  AppSizes.defaultPadding /2),
           child: CategoriesWidget(
+            appSettings: appSettings,
             user: user,
             features: features,
             categoriesByLayer: FakeProductModels.categories,
@@ -67,12 +70,13 @@ class OffersCarousel extends StatefulWidget {
   final List<BannerModel> bannerList;
   final AllProductFeatures features;
   final User? user;
+  final AppSettings appSettings;
 
   const OffersCarousel({
     super.key,
     required this.bannerList,
     required this.features,
-    required this.user,
+    required this.user, required this.appSettings,
   });
 
   @override
@@ -132,6 +136,7 @@ class _OffersCarouselState extends State<OffersCarousel> {
                 Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => ProductListScreen(
                     user: widget.user,
+                    appSettings: widget.appSettings,
                   ),
                 ));
               },

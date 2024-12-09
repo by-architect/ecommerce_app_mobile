@@ -1,3 +1,5 @@
+import 'package:ecommerce_app_mobile/data/fakerepository/fake_app_defaults.dart';
+import 'package:ecommerce_app_mobile/data/model/app_settings.dart';
 import 'package:ecommerce_app_mobile/data/model/user_status.dart';
 import 'package:flutter/material.dart';
 
@@ -10,15 +12,26 @@ class MainStates {
   final Categories categories;
   final AllProductFeatures features;
   final UserStatus userStatus;
+  final AppSettings appSettings;
 
   MainStates(
-      {required this.userStatus, required this.themeMode, required this.features, required this.categories});
+      {required this.appSettings,
+      required this.userStatus,
+      required this.themeMode,
+      required this.features,
+      required this.categories});
 
-  MainStates copyWith({ThemeMode? themeMode, Categories? categories, AllProductFeatures? productFeatures,UserStatus? userStatus}) {
+  MainStates copyWith(
+      {ThemeMode? themeMode,
+      Categories? categories,
+      AllProductFeatures? productFeatures,
+        AppSettings? appSettings,
+      UserStatus? userStatus}) {
     return MainStates(
         themeMode: themeMode ?? this.themeMode,
         features: productFeatures ?? features,
         categories: categories ?? this.categories,
+        appSettings: appSettings ?? this.appSettings,
         userStatus: userStatus ?? this.userStatus);
   }
 }
@@ -29,15 +42,26 @@ class InitMainStates extends MainStates {
             userStatus: UserStatus(null),
             themeMode: ThemeMode.light,
             categories: Categories.empty(),
+            appSettings: AppSettings.defaultAppSettings(),
             features: AllProductFeatures.empty());
 }
 
 class InitItemsLoadingState extends MainStates {
-  InitItemsLoadingState({required super.themeMode, required super.features, required super.categories, required super.userStatus});
+  InitItemsLoadingState(
+      {required super.themeMode,
+      required super.features,
+      required super.appSettings,
+      required super.categories,
+      required super.userStatus});
 }
 
 class InitItemsSuccessState extends MainStates {
-  InitItemsSuccessState({required super.themeMode, required super.features, required super.categories, required super.userStatus});
+  InitItemsSuccessState(
+      {required super.themeMode,
+      required super.features,
+      required super.categories,
+      required super.appSettings,
+      required super.userStatus});
 }
 
 class InitItemsFailState extends MainStates {
@@ -47,5 +71,7 @@ class InitItemsFailState extends MainStates {
       {required super.themeMode,
       required super.features,
       required super.categories,
-      required this.fail, required super.userStatus});
+      required this.fail,
+      required super.appSettings,
+      required super.userStatus});
 }

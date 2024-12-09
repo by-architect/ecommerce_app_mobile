@@ -47,7 +47,7 @@ class _MainScreenState extends State<MainScreen> {
       (state) {
         if (state is InitItemsSuccessState) {
           if (state.userStatus.isAuthenticated) {
-            BlocProvider.of<CartBloc>(context).add(GetCart(state.userStatus.user!));
+            BlocProvider.of<CartBloc>(context).add(GetCart(state.userStatus.user!,state.appSettings.defaultShippingFee));
           }
         }
         if (state is! InitItemsLoadingState) {
@@ -95,17 +95,20 @@ class _MainScreenState extends State<MainScreen> {
                           controller: pageController,
                           children: [
                             HomeForm(
+                              appSettings: state.appSettings,
                               user: state.userStatus.user,
                               productFeatures: state.features,
                               categories: state.categories,
                             ),
                             DiscoverForm(
+                              appSettings: state.appSettings,
                               user: state.userStatus.user,
                               categories: state.categories,
                               features: state.features,
                             ),
                             state.userStatus.isAuthenticated
                                 ? CartForm(
+                              appSettings: state.appSettings,
                                     user: state.userStatus.user!,
                                   )
                                 : LoginForm(
@@ -113,6 +116,7 @@ class _MainScreenState extends State<MainScreen> {
                                     image: AppImages.cartImage),
                             state.userStatus.isAuthenticated
                                 ? ProfileForm(
+                              appSettings: state.appSettings,
                                     user: state.userStatus.user!,
                                   )
                                 : LoginForm(
@@ -175,6 +179,7 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                   resizeToAvoidBottomInset: false,
                   appBar: AppBarMain(
+                    appSettings: state.appSettings,
                     user: state.userStatus.user,
                     features: state.features,
                     categories: state.categories,

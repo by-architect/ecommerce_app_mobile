@@ -1,6 +1,8 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppStyles.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/color_filters.dart';
 import 'package:ecommerce_app_mobile/data/fakerepository/fake_app_defaults.dart';
+import 'package:ecommerce_app_mobile/data/model/app_settings.dart';
+import 'package:ecommerce_app_mobile/data/model/communication_model.dart';
 import 'package:ecommerce_app_mobile/data/model/order_process.dart';
 import 'package:ecommerce_app_mobile/data/model/return_process.dart';
 import 'package:ecommerce_app_mobile/presentation/address/widgets/address_card.dart';
@@ -33,14 +35,15 @@ import '../widget/purchase_process_details_widget.dart';
 import '../widget/purchase_status_widget.dart';
 
 class OrderDetailsScreen extends StatefulWidget {
-  const OrderDetailsScreen({
-    super.key,
-    required this.orderModel,
-    required this.user,
-  });
+  const OrderDetailsScreen(
+      {super.key,
+      required this.orderModel,
+      required this.user,
+      required this.appSettings});
 
   final OrderModel orderModel;
   final User user;
+  final AppSettings appSettings;
 
   @override
   State<OrderDetailsScreen> createState() => _OrderDetailsScreenState();
@@ -71,7 +74,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     PurchaseSummary purchaseSummary =
-        PurchaseSummary(widget.orderModel.products);
+        PurchaseSummary(widget.orderModel.products,widget.appSettings.defaultShippingFee);
     return Scaffold(
       appBar: AppBarPopBack(
         title: AppText.orderPageOrderDetails.capitalizeEveryWord.get,
@@ -220,6 +223,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
             ),
             OrderSummaryCard(
               purchaseSummary: purchaseSummary,
+              currency: widget.appSettings.defaultCurrency,
               showOrderSummaryLabel: false,
             ),
             const SizedBox(
@@ -240,7 +244,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                       height: AppSizes.spaceBtwVerticalFieldsSmall,
                     ),
                     ...List.generate(
-                        FakeAppDefaults.supportContacts.length,
+                        widget.appSettings.contacts.length,
                         (index) => Padding(
                               padding: const EdgeInsets.only(
                                   top: AppSizes.spaceBtwVerticalFieldsSmall / 2,
@@ -254,8 +258,8 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                   Row(
                                     children: [
                                       Text(
-                                        FakeAppDefaults
-                                            .supportContacts[index]
+                                        widget.appSettings
+                                            .contacts[index]
                                             .type
                                             .userText
                                             .addColon
@@ -270,8 +274,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                             AppSizes.spaceBtwHorizontalFields,
                                       ),
                                       Text(
-                                        FakeAppDefaults
-                                            .supportContacts[index].content,
+                                        widget.appSettings.contacts[index].content,
                                         style: Theme.of(context)
                                             .textTheme
                                             .labelLarge,
@@ -321,6 +324,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => RequestReturnScreen(
                             orderModel: widget.orderModel,
+                            appSettings: widget.appSettings,
                             user: widget.user,
                           )));
                 },
@@ -334,6 +338,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => ReturnDetailsScreen(
                               user: widget.user,
+                              appSettings: widget.appSettings,
                               returnModel: activeReturn,
                             )));
                   }

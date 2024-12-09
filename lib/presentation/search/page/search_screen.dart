@@ -3,6 +3,7 @@ import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/color_filters.dart';
+import 'package:ecommerce_app_mobile/data/model/app_settings.dart';
 import 'package:ecommerce_app_mobile/data/model/categories.dart';
 import 'package:ecommerce_app_mobile/presentation/common/skeleton/product_skeleton.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/app_bar_pop_up.dart';
@@ -28,13 +29,14 @@ class SearchScreen extends StatefulWidget {
   final AllProductFeatures features;
   final Categories categories;
   final User? user;
+  final AppSettings appSettings;
 
   // final List<SearchEvent> events;
 
   const SearchScreen({
     super.key,
     required this.features,
-    required this.categories, required this.user,
+    required this.categories, required this.user, required this.appSettings,
   });
 
 
@@ -194,6 +196,7 @@ class _SearchScreenState extends State<SearchScreen> {
                               ),
                               itemBuilder: (context, index) => ProductCard(
                                 user: widget.user,
+                                appSettings: widget.appSettings,
                                 product: state.products[index],
                               ),
                             ),

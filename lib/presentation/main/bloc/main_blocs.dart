@@ -1,3 +1,5 @@
+import 'package:ecommerce_app_mobile/data/fakerepository/fake_app_settings.dart';
+import 'package:ecommerce_app_mobile/data/model/app_settings.dart';
 import 'package:ecommerce_app_mobile/data/model/categories.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
 import 'package:ecommerce_app_mobile/data/model/user_status.dart';
@@ -15,6 +17,7 @@ class MainBlocs extends Bloc<MainEvents, MainStates> {
   MainBlocs() : super(InitMainStates()) {
     final productService = ProductServiceProvider();
     final userService = UserServiceImpl();
+    final appSettingsService = FakeAppSettingsService();
     on<ToggleThemeEvent>((event, emit) {
       emit(state.copyWith(themeMode: event.themeMode));
     });
@@ -25,21 +28,42 @@ class MainBlocs extends Bloc<MainEvents, MainStates> {
             themeMode: state.themeMode,
             features: state.features,
             categories: state.categories,
+            appSettings: state.appSettings,
             userStatus: state.userStatus));
+
+        ResourceStatus<AppSettings> appSettingsResource =
+            await appSettingsService.getAppSettings();
         Resource<User> userResource = Resource.stable();
         Resource<Categories> categoriesResource = Resource.stable();
-        Resource<AllProductFeatures> productFeaturesResource = Resource.stable();
-        if (state.features.isEmpty) productFeaturesResource = await productService.getProductFeatures();
+        Resource<AllProductFeatures> productFeaturesResource =
+            Resource.stable();
+
+        if (!appSettingsResource.isSuccess) {
+          emit(InitItemsFailState(
+              userStatus: state.userStatus,
+              themeMode: state.themeMode,
+              features: state.features,
+              appSettings: state.appSettings,
+              categories: state.categories,
+              fail: appSettingsResource.error!));
+          return;
+        }
+        if (state.features.isEmpty) {
+          productFeaturesResource = await productService.getProductFeatures();
+        }
         if (state.categories.isEmpty) {
           categoriesResource = await productService.getCategoriesByLayer();
         }
-        if (!state.userStatus.isAuthenticated) userResource = await userService.getUser();
+        if (!state.userStatus.isAuthenticated) {
+          userResource = await userService.getUser();
+        }
         if (userResource.status == Status.fail) {
           if (userResource.error?.exception is! UserNotAuthenticatedException) {
             emit(InitItemsFailState(
                 userStatus: state.userStatus,
                 themeMode: state.themeMode,
                 features: state.features,
+                appSettings: state.appSettings,
                 categories: state.categories,
                 fail: userResource.error!));
             return;
@@ -51,6 +75,7 @@ class MainBlocs extends Bloc<MainEvents, MainStates> {
               themeMode: state.themeMode,
               features: state.features,
               categories: state.categories,
+              appSettings: state.appSettings,
               fail: categoriesResource.error!));
           return;
         }
@@ -60,35 +85,34 @@ class MainBlocs extends Bloc<MainEvents, MainStates> {
               themeMode: state.themeMode,
               features: state.features,
               categories: state.categories,
+              appSettings: state.appSettings,
               fail: productFeaturesResource.error!));
           return;
         }
         emit(InitItemsSuccessState(
-            userStatus: userResource.stable ? state.userStatus : UserStatus(userResource.data),
+            userStatus: userResource.stable
+                ? state.userStatus
+                : UserStatus(userResource.data),
             themeMode: state.themeMode,
-            features: productFeaturesResource.stable ? state.features : productFeaturesResource.data!,
-            categories: categoriesResource.stable ? state.categories : categoriesResource.data!));
+            appSettings: appSettingsResource.data!,
+            features: productFeaturesResource.stable
+                ? state.features
+                : productFeaturesResource.data!,
+            categories: categoriesResource.stable
+                ? state.categories
+                : categoriesResource.data!));
       },
     );
     on<LogOutEvent>(
       (event, emit) async {
         final resource = await userService.signOut();
-        switch (resource.status) {
-          case Status.success:
-            emit(InitItemsSuccessState(
+        if(resource.isSuccess) {
+          emit(InitItemsSuccessState(
                 themeMode: state.themeMode,
                 features: state.features,
                 categories: state.categories,
-                userStatus: UserStatus(null)));
-            break;
-          case Status.fail:
-            break;
-          case Status.loading:
-            // TODO: Handle this case.
-            break;
-          case Status.stable:
-            // TODO: Handle this case.
-            break;
+                userStatus: UserStatus(null),
+                appSettings: state.appSettings));
         }
       },
     );
@@ -99,6 +123,7 @@ class MainBlocs extends Bloc<MainEvents, MainStates> {
             themeMode: state.themeMode,
             features: state.features,
             categories: state.categories,
+            appSettings: state.appSettings,
             userStatus: UserStatus(event.user)));
       },
     );
@@ -108,6 +133,7 @@ class MainBlocs extends Bloc<MainEvents, MainStates> {
             themeMode: state.themeMode,
             features: state.features,
             categories: state.categories,
+            appSettings: state.appSettings,
             userStatus: UserStatus(event.user)));
       },
     );

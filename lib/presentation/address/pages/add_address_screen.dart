@@ -8,13 +8,15 @@ import 'package:ecommerce_app_mobile/presentation/common/widgets/app_bar_pop_bac
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:latlong2/latlong.dart';
 import '../../../data/model/user.dart';
 import '../bloc/add_address_event.dart';
 
 class AddAddressScreen extends StatefulWidget {
-  const AddAddressScreen({super.key, required this.user});
+  const AddAddressScreen({super.key, required this.user, required this.defaultLocation});
 
   final User user;
+  final LatLng defaultLocation ;
 
   @override
   State<AddAddressScreen> createState() => _AddAddressScreenState();
@@ -68,7 +70,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                     openAddress: state.openAddress,
                     onNextPressed: () {
                       controller.animateToPage(1, duration: AppDurations.defaultDuration, curve: Curves.easeInOut);
-                    },
+                    }, initialCenter: widget.defaultLocation,
                   ),
                 ],
               ),

@@ -1,4 +1,5 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
+import 'package:ecommerce_app_mobile/data/model/app_settings.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/app_bar_pop_back.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/fail_form.dart';
 import 'package:ecommerce_app_mobile/presentation/home/widget/offers_skeleton.dart';
@@ -15,9 +16,10 @@ import '../bloc/return_bloc.dart';
 import '../bloc/returns_state.dart';
 
 class ReturnsScreen extends StatefulWidget {
-  const ReturnsScreen({super.key, required this.user});
+  const ReturnsScreen({super.key, required this.user, required this.appSettings});
 
   final User user;
+  final AppSettings appSettings;
 
   @override
   State<ReturnsScreen> createState() => _ReturnsScreenState();
@@ -54,6 +56,7 @@ class _ReturnsScreenState extends State<ReturnsScreen> {
                           bottom: AppSizes.spaceBtwVerticalFields),
                       child: PurchaseCard(
                         purchaseModel: state.returns[index],
+                        appSettings: widget.appSettings,
                         user: widget.user,
                       ),
                     );

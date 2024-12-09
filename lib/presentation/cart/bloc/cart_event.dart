@@ -8,14 +8,16 @@ class CartEvent{}
 class ChangeCartItem extends CartEvent{
   final CartItem cartItem;
   final User user;
+  final double defaultShippingFee;
 
-  ChangeCartItem({required this.cartItem,required this.user});
+  ChangeCartItem( {required this.cartItem,required this.user,required this.defaultShippingFee});
 }
 
 class GetCart extends CartEvent{
   final User user;
+  final double defaultShippingFee;
 
-  GetCart(this.user);
+  GetCart(this.user, this.defaultShippingFee);
 }
 
 class NameSurnameEvent extends CartEvent{

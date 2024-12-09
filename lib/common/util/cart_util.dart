@@ -9,17 +9,17 @@ class PurchaseSummary {
   late final double discount;
   late final double total;
 
-  PurchaseSummary(this.items) {
+  PurchaseSummary(this.items, double defaultShippingFee) {
     subtotal = _calculateSubtotal();
-    shippingFee = _calculateShippingFee();
+    shippingFee = _calculateShippingFee(defaultShippingFee);
     discount = _calculateDiscount();
     total = _calculateTotal();
   }
 
-  PurchaseSummary.fromCartItems(List<CartItem> cartItems)
+  PurchaseSummary.fromCartItems(List<CartItem> cartItems, double defaultShippingFee)
       : items = cartItems.map((e) => e.productWithQuantity).toList() {
     subtotal = _calculateSubtotal();
-    shippingFee = _calculateShippingFee();
+    shippingFee = _calculateShippingFee(defaultShippingFee);
     discount = _calculateDiscount();
     total = _calculateTotal();
   }
@@ -32,8 +32,8 @@ class PurchaseSummary {
     return result;
   }
 
-  double _calculateShippingFee() {
-    return FakeAppDefaults.shippingFee;
+  double _calculateShippingFee(double defaultShippingFee) {
+    return defaultShippingFee;
   }
 
   double _calculateDiscount() {

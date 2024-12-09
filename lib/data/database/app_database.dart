@@ -22,7 +22,8 @@ class AppDatabase {
     box.put(_hideWelcomeScreenKey, true);
   }
 
-  bool get isHideWelcomeScreen => box.get(_hideWelcomeScreenKey, defaultValue: true);
+  bool get isHideWelcomeScreen =>
+      box.get(_hideWelcomeScreenKey, defaultValue: true);
 
   void addLastLocation(LatLng? location) {
     if (location != null) {
@@ -31,9 +32,11 @@ class AppDatabase {
     }
   }
 
-  LatLng get lastLocation => LatLng(
-      box.get(_lastLocationLatKey, defaultValue: FakeAppDefaults.defaultStartLocation.latitude) ??
-          FakeAppDefaults.defaultStartLocation.latitude,
-      box.get(_lastLocationLngKey, defaultValue: FakeAppDefaults.defaultStartLocation.longitude) ??
-          FakeAppDefaults.defaultStartLocation.longitude);
+  LatLng lastLocation(LatLng defaultStartLocation) => LatLng(
+      box.get(_lastLocationLatKey,
+              defaultValue: defaultStartLocation.latitude) ??
+          defaultStartLocation.latitude,
+      box.get(_lastLocationLngKey,
+              defaultValue: defaultStartLocation.longitude) ??
+          defaultStartLocation.longitude);
 }

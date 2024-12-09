@@ -1,6 +1,6 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
-import 'package:ecommerce_app_mobile/data/fakerepository/fake_app_defaults.dart';
+import 'package:ecommerce_app_mobile/data/model/app_settings.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature_handler.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/pages/sign_in_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/app_bar_pop_back.dart';
@@ -24,12 +24,13 @@ class ProductBuyNowScreen extends StatefulWidget {
   final Product product;
   final ProductFeatureHandler productFeatureHandler;
   final User? user;
+  final AppSettings appSettings ;
 
   const ProductBuyNowScreen({
     super.key,
     required this.product,
     required this.productFeatureHandler,
-    required this.user,
+    required this.user, required this.appSettings,
   });
 
   @override
@@ -102,6 +103,7 @@ class _ProductBuyNowScreenState extends State<ProductBuyNowScreen> {
                           Expanded(
                             child: UnitPrice(
                               subProduct: state.selectedSubProduct,
+                              currency: widget.appSettings.defaultCurrency,
                             ),
                           ),
                           ProductQuantity(
@@ -111,7 +113,7 @@ class _ProductBuyNowScreenState extends State<ProductBuyNowScreen> {
                               final selectedSubProduct = state.selectedSubProduct;
                               if (selectedSubProduct != null &&
                                   selectedSubProduct.quantity > state.quantity &&
-                                  FakeAppDefaults.maxProductQuantityCustomerCanBuyInOnce > state.quantity) {
+                                  widget.appSettings.maxProductQuantityCustomerCanBuyInOrder > state.quantity) {
                                 BlocProvider.of<ProductDetailsBloc>(context).add(IncreaseQuantity());
                               }
                             },

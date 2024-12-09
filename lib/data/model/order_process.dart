@@ -214,12 +214,12 @@ class OrderDelivered extends PurchaseProcess {
           status: PurchaseStatus.waiting,
         );
 
-  bool? get hasTheRightOfWithdrawalExpired {
+  bool?  hasTheRightOfWithdrawalExpired(int defaultReturnDay) {
     if (dateTime == null) return null;
 
     final difference = DateTime.now().difference(dateTime!).inDays.abs();
 
-    return difference > FakeAppDefaults.defaultReturnDay;
+    return difference > defaultReturnDay;
   }
 }
 

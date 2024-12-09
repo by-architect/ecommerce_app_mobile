@@ -1,6 +1,7 @@
 import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/data/fakerepository/fake_app_defaults.dart';
+import 'package:ecommerce_app_mobile/data/model/app_settings.dart';
 import 'package:ecommerce_app_mobile/data/model/order_process.dart';
 import 'package:ecommerce_app_mobile/data/model/return_process.dart';
 import 'package:ecommerce_app_mobile/data/model/user.dart';
@@ -24,10 +25,11 @@ import '../../../data/usecase/return_request_validation.dart';
 
 class RequestReturnScreen extends StatefulWidget {
   const RequestReturnScreen(
-      {super.key, required this.orderModel, required this.user});
+      {super.key, required this.orderModel, required this.user, required this.appSettings});
 
   final OrderModel orderModel;
   final User user;
+  final AppSettings appSettings;
 
   @override
   State<RequestReturnScreen> createState() => _RequestReturnScreenState();
@@ -72,14 +74,14 @@ class _RequestReturnScreenState extends State<RequestReturnScreen> {
         body: Padding(
           padding: const EdgeInsets.all(AppSizes.defaultPadding),
           child: widget.orderModel.statusDelivered
-                          .hasTheRightOfWithdrawalExpired ==
+                          .hasTheRightOfWithdrawalExpired(widget.appSettings.defaultReturnDay) ==
                       null ||
                   widget.orderModel.statusDelivered
-                      .hasTheRightOfWithdrawalExpired!
+                      .hasTheRightOfWithdrawalExpired(widget.appSettings.defaultReturnDay)!
               ? FormInfoSkeleton(
                   image: AppImages.timeManagement,
                   message: AppText.infoRightOfWithdrawal(
-                          FakeAppDefaults.defaultReturnDay)
+                          widget.appSettings.defaultReturnDay)
                       .capitalizeFirstWord
                       .get)
               : SingleChildScrollView(

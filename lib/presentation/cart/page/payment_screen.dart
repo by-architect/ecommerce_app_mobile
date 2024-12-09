@@ -2,6 +2,7 @@
 import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
+import 'package:ecommerce_app_mobile/data/model/app_settings.dart';
 import 'package:ecommerce_app_mobile/data/usecase/payment_validation.dart';
 import 'package:ecommerce_app_mobile/presentation/address/pages/addresses_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/address/widgets/address_card.dart';
@@ -29,9 +30,10 @@ import '../../../data/model/user.dart';
 
 
 class PaymentScreen extends StatefulWidget {
-  const PaymentScreen({super.key, required this.user});
+  const PaymentScreen({super.key, required this.user, required this.appSettings});
 
   final User user;
+  final AppSettings appSettings;
 
   @override
   State<PaymentScreen> createState() => _PaymentScreenState();
@@ -73,7 +75,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                 user: widget.user,
                                 onSelected: (address) {
                                   BlocProvider.of<CartBloc>(context).add(SelectAddress(address: address));
-                                },
+                                }, defaultLocation: widget.appSettings.defaultMapLocation,
                               )));
                     },
                     child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -165,6 +167,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 const SizedBox(height: AppSizes.spaceBtwVerticalFields),
                 OrderSummaryCard(
                   purchaseSummary: state.purchaseSummary,
+                 currency: widget.appSettings.defaultCurrency,
                  isReturn: false,
                   showOrderSummaryLabel: false,
                 ),

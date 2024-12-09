@@ -2,6 +2,7 @@ import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/common/util/category_util.dart';
+import 'package:ecommerce_app_mobile/data/model/app_settings.dart';
 import 'package:ecommerce_app_mobile/data/model/categories.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
 import 'package:ecommerce_app_mobile/data/model/user.dart';
@@ -20,12 +21,13 @@ class CategoriesWidget extends StatelessWidget {
   final Categories categoriesByLayer;
   final AllProductFeatures features;
   final User? user;
+  final AppSettings appSettings;
 
   const CategoriesWidget({
     super.key,
     required this.categoriesByLayer,
     required this.features,
-    required this.user,
+    required this.user, required this.appSettings,
   });
 
   @override
@@ -53,6 +55,7 @@ class CategoriesWidget extends StatelessWidget {
                               user: user,
                               features: features,
                               categories: categoriesByLayer,
+                          appSettings: appSettings,
                             )));
                   } else {
                     /// sending all categories of selected layer
@@ -62,6 +65,7 @@ class CategoriesWidget extends StatelessWidget {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => SearchScreen(
                               user: user,
+                              appSettings: appSettings,
                               features: features,
                               categories: categoriesByLayer,
                             )));

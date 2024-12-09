@@ -21,16 +21,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:latlong2/latlong.dart';
 
 import '../../../data/model/user.dart';
 import '../../common/widgets/fail_form.dart';
 import '../bloc/addresses_event.dart';
 
 class AddressesScreen extends StatefulWidget {
-  const AddressesScreen({super.key, required this.user, this.onSelected});
+  const AddressesScreen({super.key, required this.user, this.onSelected, required this.defaultLocation});
 
   final User user;
   final Function(Address address)? onSelected;
+  final LatLng defaultLocation;
 
   @override
   State<AddressesScreen> createState() => _AddressesScreenState();
@@ -65,7 +67,7 @@ class _AddressesScreenState extends State<AddressesScreen> {
                 ButtonSecondary(
                   onTap: () {
                     Navigator.push(
-                        context, MaterialPageRoute(builder: (context) => AddAddressScreen(user: widget.user)));
+                        context, MaterialPageRoute(builder: (context) => AddAddressScreen(user: widget.user,defaultLocation: widget.defaultLocation,)));
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,

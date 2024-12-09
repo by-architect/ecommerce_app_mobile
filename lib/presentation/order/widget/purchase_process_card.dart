@@ -1,6 +1,7 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppStyles.dart';
+import 'package:ecommerce_app_mobile/data/model/app_settings.dart';
 import 'package:ecommerce_app_mobile/data/model/order_process.dart';
 import 'package:ecommerce_app_mobile/data/model/purchase_process.dart';
 import 'package:ecommerce_app_mobile/data/model/return_process.dart';
@@ -20,12 +21,12 @@ class PurchaseCard extends StatelessWidget {
   const PurchaseCard({
     super.key,
     required this.purchaseModel,
-    required this.user,
+    required this.user,  required this.appSettings,
   });
 
   final PurchaseModel purchaseModel;
   final User user;
-
+  final AppSettings appSettings;
   @override
   Widget build(BuildContext context) {
     return ClickableWidgetOutlined(
@@ -36,11 +37,13 @@ class PurchaseCard extends StatelessWidget {
               builder: (context) => OrderDetailsScreen(
                     orderModel: purchaseModel as OrderModel,
                     user: user,
+                appSettings: appSettings,
                   )));
         }
         if (purchaseModel is ReturnModel) {
           Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => ReturnDetailsScreen(
+                appSettings: appSettings,
                     returnModel: purchaseModel as ReturnModel, user: user,
                   )));
         }

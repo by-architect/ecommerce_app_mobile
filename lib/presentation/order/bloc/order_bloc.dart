@@ -20,7 +20,6 @@ class OrdersBloc extends Bloc<OrderEvent, OrdersState> {
 
     on<CancelOrderEvent>((event, emit) async {
       final canceledOrder = event.canceledOrder.cancelOrder(event.message);
-      Log.test(title: "canceledOrder", data: canceledOrder);
       if (canceledOrder == null) return;
       emit(OrderCancelLoadingState(orders: state.orders));
       final resource = await service.cancelOrder(canceledOrder);

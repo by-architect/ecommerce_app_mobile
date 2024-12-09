@@ -1,3 +1,4 @@
+import 'package:ecommerce_app_mobile/data/model/app_settings.dart';
 import 'package:ecommerce_app_mobile/data/model/return_process.dart';
 import 'package:ecommerce_app_mobile/data/model/user.dart';
 import 'package:ecommerce_app_mobile/presentation/order/bloc/order_bloc.dart';
@@ -28,11 +29,12 @@ class ReturnDetailsScreen extends StatefulWidget {
   const ReturnDetailsScreen({
     super.key,
     required this.returnModel,
-    required this.user,
+    required this.user, required this.appSettings,
   });
 
   final ReturnModel returnModel;
   final User user;
+  final AppSettings appSettings;
 
   @override
   State<ReturnDetailsScreen> createState() => _ReturnDetailsScreenState();
@@ -207,7 +209,7 @@ class _ReturnDetailsScreenState extends State<ReturnDetailsScreen> {
                       height: AppSizes.spaceBtwVerticalFieldsSmall,
                     ),
                     ...List.generate(
-                        FakeAppDefaults.supportContacts.length,
+                      widget.appSettings.contacts.length,
                         (index) => Padding(
                               padding: const EdgeInsets.only(
                                   top: AppSizes.spaceBtwVerticalFieldsSmall / 2,
@@ -221,8 +223,8 @@ class _ReturnDetailsScreenState extends State<ReturnDetailsScreen> {
                                   Row(
                                     children: [
                                       Text(
-                                        FakeAppDefaults
-                                            .supportContacts[index]
+                                        widget.appSettings
+                                            .contacts[index]
                                             .type
                                             .userText
                                             .addColon
@@ -237,8 +239,8 @@ class _ReturnDetailsScreenState extends State<ReturnDetailsScreen> {
                                             AppSizes.spaceBtwHorizontalFields,
                                       ),
                                       Text(
-                                        FakeAppDefaults
-                                            .supportContacts[index].content,
+                                        widget.appSettings
+                                            .contacts[index].content,
                                         style: Theme.of(context)
                                             .textTheme
                                             .labelLarge,

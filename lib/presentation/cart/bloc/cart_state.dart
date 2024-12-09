@@ -13,14 +13,17 @@ class CartState {
   final String creditCardExpiryDate;
   final String creditCardCvv;
 
-  CartState(
+  final double defaultShippingFee;
+
+  CartState._(
       {required this.creditCardNameSurname,
       required this.creditCardNumber,
       required this.creditCardExpiryDate,
       required this.creditCardCvv,
       required this.items,
-      required this.selectedAddress}) {
-    purchaseSummary = PurchaseSummary.fromCartItems(items);
+        required this.defaultShippingFee,
+      required this.selectedAddress,}) {
+    purchaseSummary = PurchaseSummary.fromCartItems(items,defaultShippingFee);
   }
 
   CartState copyWith(
@@ -28,10 +31,12 @@ class CartState {
       String? creditCardNumber,
       String? creditCardExpiryDate,
       String? creditCardCvv,
+      double? defaultShippingFee,
       List<CartItem>? items,
       Address? selectedAddress}) {
-    return CartState(
+    return CartState._(
         items: items ?? this.items,
+        defaultShippingFee: defaultShippingFee ?? this.defaultShippingFee,
         selectedAddress: selectedAddress ?? this.selectedAddress,
         creditCardNameSurname:
             creditCardNameSurname ?? this.creditCardNameSurname,
@@ -41,9 +46,10 @@ class CartState {
   }
 
   CartState calculateAndCopyWith(
-      {required List<CartItem> items, Address? selectedAddress}) {
-    return CartState(
+      {required List<CartItem> items,required double defaultShippingFee, Address? selectedAddress}) {
+    return CartState._(
         items: items,
+        defaultShippingFee: defaultShippingFee,
         selectedAddress: selectedAddress ?? this.selectedAddress,
         creditCardNameSurname: creditCardNameSurname,
         creditCardNumber: creditCardNumber,
@@ -59,9 +65,10 @@ class CartState {
 
 class InitialState extends CartState {
   InitialState()
-      : super(
+      : super._(
             items: [],
             selectedAddress: null,
+            defaultShippingFee: 0,
             creditCardNameSurname: "",
             creditCardNumber: "",
             creditCardExpiryDate: "",
@@ -72,12 +79,13 @@ class CartLoadingState extends CartState {
   final CartState cartState;
 
   CartLoadingState(this.cartState)
-      : super(
+      : super._(
             creditCardNameSurname: cartState.creditCardNameSurname,
             creditCardNumber: cartState.creditCardNumber,
             creditCardExpiryDate: cartState.creditCardExpiryDate,
             creditCardCvv: cartState.creditCardCvv,
             items: cartState.items,
+            defaultShippingFee: cartState.defaultShippingFee,
             selectedAddress: cartState.selectedAddress);
 }
 
@@ -86,11 +94,12 @@ class CartFailState extends CartState {
   final CartState cartState;
 
   CartFailState({required this.fail, required this.cartState})
-      : super(
+      : super._(
             creditCardNameSurname: cartState.creditCardNameSurname,
             creditCardNumber: cartState.creditCardNumber,
             creditCardExpiryDate: cartState.creditCardExpiryDate,
             creditCardCvv: cartState.creditCardCvv,
+            defaultShippingFee: cartState.defaultShippingFee,
             items: cartState.items,
             selectedAddress: cartState.selectedAddress);
 }
@@ -99,11 +108,12 @@ class CartSuccessState extends CartState {
   final CartState cartState;
 
   CartSuccessState(this.cartState)
-      : super(
+      : super._(
             creditCardNameSurname: cartState.creditCardNameSurname,
             creditCardNumber: cartState.creditCardNumber,
             creditCardExpiryDate: cartState.creditCardExpiryDate,
             creditCardCvv: cartState.creditCardCvv,
             items: cartState.items,
+            defaultShippingFee: cartState.defaultShippingFee,
             selectedAddress: cartState.selectedAddress);
 }

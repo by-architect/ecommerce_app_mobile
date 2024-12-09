@@ -1,6 +1,7 @@
 import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
+import 'package:ecommerce_app_mobile/data/model/app_settings.dart';
 import 'package:ecommerce_app_mobile/data/model/product.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature_handler.dart';
 import 'package:ecommerce_app_mobile/data/model/user.dart';
@@ -29,12 +30,13 @@ class ProductDetailsScreen extends StatefulWidget {
     this.previousProduct,
     required this.product,
     this.previousProductFeatureHandler,
-    required this.user,
+    required this.user, required this.appSettings,
   });
 
   final Product? previousProduct;
   final Product product;
   final ProductFeatureHandler? previousProductFeatureHandler;
+  final AppSettings appSettings;
   final User? user;
 
   @override
@@ -81,6 +83,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> with Widget
                       height: MediaQuery.of(context).size.height * 0.92,
                       child: ProductBuyNowScreen(
                         user: widget.user,
+                        appSettings: widget.appSettings,
                         productFeatureHandler: productFeatureHandler,
                         product: widget.product,
                       ),
@@ -205,6 +208,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> with Widget
                         child: state is YouMayAlsoLikeLoadingState
                             ? const ProductCardSkeleton()
                             : ProductCard(
+                          appSettings: widget.appSettings,
                                 user: widget.user,
                                 product: state.youMayAlsoLike[index],
                                 previousProduct: widget.product,

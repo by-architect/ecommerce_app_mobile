@@ -3,7 +3,6 @@ import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/color_filters.dart';
-import 'package:ecommerce_app_mobile/data/fakerepository/fake_app_defaults.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/pages/email_verification_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/main/bloc/main_blocs.dart';
 import 'package:ecommerce_app_mobile/presentation/main/bloc/main_events.dart';
@@ -16,6 +15,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../common/constant/Screens.dart';
+import '../../../data/model/app_settings.dart';
 import '../../../data/model/user.dart';
 import '../../address/pages/addresses_screen.dart';
 import '../../gethelp/page/get_help_screen.dart';
@@ -26,8 +26,9 @@ import '../widget/profile_menu_item_list.dart';
 
 class ProfileForm extends StatelessWidget {
   final User user;
+  final AppSettings appSettings;
 
-  const ProfileForm({super.key, required this.user});
+  const ProfileForm({super.key, required this.user, required this.appSettings});
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +72,7 @@ class ProfileForm extends StatelessWidget {
             svgSrc: AppImages.orderIcon,
             press: () {
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => OrderScreen(user: user),
+                builder: (context) => OrderScreen(user: user, appSettings: appSettings,),
               ));
             },
           ),
@@ -80,7 +81,7 @@ class ProfileForm extends StatelessWidget {
             svgSrc: AppImages.returnIcon,
             press: () {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => ReturnsScreen(user: user)));
+                  builder: (context) => ReturnsScreen(user: user,appSettings: appSettings,)));
             },
           ),
           ProfileMenuListTile(
@@ -88,7 +89,7 @@ class ProfileForm extends StatelessWidget {
             svgSrc: AppImages.addressIcon,
             press: () {
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => AddressesScreen(user: user),
+                builder: (context) => AddressesScreen(user: user,defaultLocation: appSettings.defaultMapLocation,),
               ));
             },
           ),
@@ -139,7 +140,7 @@ class ProfileForm extends StatelessWidget {
             text: AppText.profilePageGetHelp.capitalizeEveryWord.get,
             svgSrc: AppImages.helpIcon,
             press: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => GetHelpScreen(contacts: FakeAppDefaults.supportContacts,)));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => GetHelpScreen(contacts: appSettings.contacts,)));
             },
           ),
           ProfileMenuListTile(

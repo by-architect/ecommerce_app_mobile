@@ -22,5 +22,6 @@ class FakeAppDefaults {
       type: ContactType.whatsapp,
       content: "0123456789",
     ),
+
   ];
 }

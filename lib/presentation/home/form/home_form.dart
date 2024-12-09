@@ -1,6 +1,7 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/fakerepository/fake_models.dart';
+import 'package:ecommerce_app_mobile/data/model/app_settings.dart';
 import 'package:ecommerce_app_mobile/data/model/categories.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/fail_form.dart';
@@ -18,9 +19,10 @@ class HomeForm extends StatefulWidget {
   final AllProductFeatures productFeatures;
   final Categories categories;
   final User? user;
+  final AppSettings appSettings;
 
   const HomeForm(
-      {super.key, required this.productFeatures, required this.categories, required this.user});
+      {super.key, required this.productFeatures, required this.categories, required this.user, required this.appSettings});
 
   @override
   State<HomeForm> createState() => _HomeFormState();
@@ -53,6 +55,7 @@ class _HomeFormState extends State<HomeForm> {
               SliverToBoxAdapter(
                 child: OffersCarouselAndCategories(
                   user: widget.user,
+                  appSettings: widget.appSettings,
                   isLoading: state is ProductsLoadingState,
                   bannerList: FakeProductModels.banners,
                   features: widget.productFeatures,
@@ -64,12 +67,13 @@ class _HomeFormState extends State<HomeForm> {
                   productFeatures: widget.productFeatures,
                   products: state.lastAddedProducts,
                   title: AppText.homePageNewProducts.capitalizeEveryWord.get,
-                  isLoading: state is ProductsLoadingState,
+                  isLoading: state is ProductsLoadingState, appSettings: widget.appSettings,
                 ),
               ),
               SliverToBoxAdapter(
                 child: ProductsHorizontalWidget(
                   user: widget.user,
+                  appSettings: widget.appSettings,
                   productFeatures: widget.productFeatures,
                   products: state.bestSellerProducts,
                   title: AppText.homePageBestSellerProducts.capitalizeEveryWord.get,
@@ -80,6 +84,7 @@ class _HomeFormState extends State<HomeForm> {
                 child: ProductsHorizontalWidget(
                   user: widget.user,
                   productFeatures: widget.productFeatures,
+                  appSettings: widget.appSettings,
                   products: state.discountedProducts,
                   title: AppText.homePageDiscountProducts.capitalizeEveryWord.get,
                   isLoading: state is ProductsLoadingState,

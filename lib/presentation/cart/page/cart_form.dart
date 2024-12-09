@@ -1,7 +1,7 @@
 import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
-import 'package:ecommerce_app_mobile/data/fakerepository/fake_app_defaults.dart';
+import 'package:ecommerce_app_mobile/data/model/app_settings.dart';
 import 'package:ecommerce_app_mobile/data/model/cart_item.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/pages/email_verification_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/cart/bloc/cart_bloc.dart';
@@ -22,8 +22,9 @@ import '../../../data/model/user.dart';
 
 class CartForm extends StatefulWidget {
   final User user;
+  final AppSettings appSettings;
 
-  const CartForm({super.key, required this.user});
+  const CartForm({super.key, required this.user, required this.appSettings});
 
   @override
   State<CartForm> createState() => _CartFormState();
@@ -48,7 +49,7 @@ class _CartFormState extends State<CartForm> {
                     fail: failState.fail,
                     onRefreshTap: () {
                       BlocProvider.of<CartBloc>(context)
-                          .add(GetCart(widget.user));
+                          .add(GetCart(widget.user,widget.appSettings.defaultShippingFee));
                     },
                   ),
                 CartSuccessState _ || CartState _ => state.items.isNotEmpty
@@ -78,20 +79,21 @@ class _CartFormState extends State<CartForm> {
                                 onIncrement: () {
                                   CartItem cartItem = state.items[index];
                                   if (cartItem.productWithQuantity.quantity ==
-                                          FakeAppDefaults
-                                              .maxProductQuantityCustomerCanBuyInOnce ||
+                                         widget.appSettings
+                                              .maxProductQuantityCustomerCanBuyInOrder ||
                                       cartItem.productWithQuantity.quantity ==
                                           cartItem.productWithQuantity
                                               .subProduct.quantity) {
                                   } else if (cartItem
                                           .productWithQuantity.quantity >
-                                      FakeAppDefaults
-                                          .maxProductQuantityCustomerCanBuyInOnce) {
+                                     widget
+                                          .appSettings.maxProductQuantityCustomerCanBuyInOrder) {
                                     BlocProvider.of<CartBloc>(context)
                                         .add(ChangeCartItem(
+                                      defaultShippingFee: widget.appSettings.defaultShippingFee,
                                       cartItem: cartItem.copyWith(
-                                          quantity: FakeAppDefaults
-                                              .maxProductQuantityCustomerCanBuyInOnce),
+                                          quantity: widget.appSettings
+                                              .maxProductQuantityCustomerCanBuyInOrder),
                                       user: widget.user,
                                     ));
                                   } else if (cartItem
@@ -100,6 +102,7 @@ class _CartFormState extends State<CartForm> {
                                           .quantity) {
                                     BlocProvider.of<CartBloc>(context)
                                         .add(ChangeCartItem(
+                                            defaultShippingFee: widget.appSettings.defaultShippingFee,
                                             cartItem: cartItem.copyWith(
                                               quantity: cartItem
                                                   .productWithQuantity
@@ -110,6 +113,7 @@ class _CartFormState extends State<CartForm> {
                                   } else {
                                     BlocProvider.of<CartBloc>(context).add(
                                         ChangeCartItem(
+                                            defaultShippingFee: widget.appSettings.defaultShippingFee,
                                             cartItem:
                                                 cartItem.increaseQuantity(),
                                             user: widget.user));
@@ -121,6 +125,7 @@ class _CartFormState extends State<CartForm> {
                                       0) {
                                     BlocProvider.of<CartBloc>(context).add(
                                       ChangeCartItem(
+                                          defaultShippingFee: widget.appSettings.defaultShippingFee,
                                           cartItem: cartItem.decreaseQuantity(),
                                           user: widget.user),
                                     );
@@ -137,7 +142,7 @@ class _CartFormState extends State<CartForm> {
                           SliverToBoxAdapter(
                             child: OrderSummaryCard(
                               purchaseSummary: state.purchaseSummary,
-                              isReturn: false,
+                              isReturn: false, currency: widget.appSettings.defaultCurrency,
                             ),
                           ),
                           const SliverToBoxAdapter(
@@ -163,6 +168,7 @@ class _CartFormState extends State<CartForm> {
                                     Navigator.of(context)
                                         .push(MaterialPageRoute(
                                       builder: (context) => PaymentScreen(
+                                        appSettings: widget.appSettings,
                                         user: widget.user,
                                       ),
                                     ));

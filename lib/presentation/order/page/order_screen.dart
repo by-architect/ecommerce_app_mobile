@@ -1,5 +1,6 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/data/fakerepository/fake_models.dart';
+import 'package:ecommerce_app_mobile/data/model/app_settings.dart';
 import 'package:ecommerce_app_mobile/data/model/user.dart';
 import 'package:ecommerce_app_mobile/presentation/common/skeleton/product_card_skeleton.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/fail_form.dart';
@@ -20,9 +21,10 @@ import '../../common/widgets/app_bar_pop_back.dart';
 import '../widget/purchase_status_widget.dart';
 
 class OrderScreen extends StatefulWidget {
-  const OrderScreen({super.key, required this.user});
+  const OrderScreen({super.key, required this.user, required this.appSettings});
 
   final User user;
+  final AppSettings appSettings;
 
   @override
   State<OrderScreen> createState() => _OrderScreenState();
@@ -60,6 +62,7 @@ class _OrderScreenState extends State<OrderScreen> {
                           bottom: AppSizes.spaceBtwVerticalFields),
                       child: PurchaseCard(
                         purchaseModel: state.orders[index],
+                      appSettings: widget.appSettings,
                         user: widget.user,
                       ),
                     ))

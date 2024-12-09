@@ -1,4 +1,5 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
+import 'package:ecommerce_app_mobile/data/model/app_settings.dart';
 import 'package:ecommerce_app_mobile/data/model/categories.dart';
 import 'package:ecommerce_app_mobile/data/model/category_struct.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
@@ -21,8 +22,9 @@ class DiscoverForm extends StatefulWidget {
   final AllProductFeatures features;
   final Categories categories;
   final User? user;
+  final AppSettings appSettings;
 
-  const DiscoverForm({super.key, required this.features, required this.categories, required this.user});
+  const DiscoverForm({super.key, required this.features, required this.categories, required this.user, required this.appSettings});
 
   @override
   State<DiscoverForm> createState() => _DiscoverFormState();
@@ -50,6 +52,7 @@ class _DiscoverFormState extends State<DiscoverForm> {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => SearchScreen(
                           user: widget.user,
+                          appSettings: widget.appSettings,
                           features: widget.features,
                           categories: widget.categories,
                         )));
@@ -67,6 +70,7 @@ class _DiscoverFormState extends State<DiscoverForm> {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => SearchScreen(
                             user: widget.user,
+                            appSettings: widget.appSettings,
                             features: widget.features,
                             categories: widget.categories,
                           )));
