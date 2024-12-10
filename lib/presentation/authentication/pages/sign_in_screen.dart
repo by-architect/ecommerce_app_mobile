@@ -31,6 +31,12 @@ class _SignInScreenState extends State<SignInScreen> {
   late StreamSubscription<SignInState>? streamSubscription;
 
   @override
+  void initState() {
+    streamSubscription = null;
+    super.initState();
+  }
+
+  @override
   void dispose() {
     streamSubscription?.cancel();
     streamSubscription = null;
@@ -46,10 +52,12 @@ class _SignInScreenState extends State<SignInScreen> {
       final userValidation = UserValidation.validateLogin(userState);
       if (userValidation.success) {
         BlocProvider.of<SignInBloc>(context).add(SignInRequestEvent());
-        streamSubscription = BlocProvider.of<SignInBloc>(context).stream.listen((state) {
+        streamSubscription =
+            BlocProvider.of<SignInBloc>(context).stream.listen((state) {
           switch (state) {
             case SignInSuccessState signInSuccessState:
-              BlocProvider.of<MainBlocs>(context).add(UserSignedInEvent(signInSuccessState.user));
+              BlocProvider.of<MainBlocs>(context)
+                  .add(UserSignedInEvent(signInSuccessState.user));
               Navigator.of(context).pushNamedAndRemoveUntil(
                 Screens.mainScreen,
                 (route) => false,
@@ -57,7 +65,8 @@ class _SignInScreenState extends State<SignInScreen> {
               streamSubscription?.cancel();
               break;
             case SignInFailState failState:
-              dialogUtil.info(AppText.errorTitle.capitalizeEveryWord.get, failState.fail.userMessage);
+              dialogUtil.info(AppText.errorTitle.capitalizeEveryWord.get,
+                  failState.fail.userMessage);
               break;
           }
         });
@@ -96,7 +105,8 @@ class _SignInScreenState extends State<SignInScreen> {
                   label: AppText.password.capitalizeFirstWord.get,
                   isPassword: true,
                   onChanged: (value) {
-                    BlocProvider.of<SignInBloc>(context).add(PasswordEvent(value));
+                    BlocProvider.of<SignInBloc>(context)
+                        .add(PasswordEvent(value));
                   },
                 ),
                 const SizedBox(
@@ -116,18 +126,23 @@ class _SignInScreenState extends State<SignInScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      AppText.signInPageDoNotHaveAnAccount.capitalizeFirstWord.get,
+                      AppText
+                          .signInPageDoNotHaveAnAccount.capitalizeFirstWord.get,
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     const SizedBox(
                       width: AppSizes.spaceBtwHorizontalFields,
                     ),
                     GestureDetector(
-                      onTap: () =>
-                          Navigator.of(context).pushNamedAndRemoveUntil(Screens.signUpScreen, (route) => false),
+                      onTap: () => Navigator.of(context)
+                          .pushNamedAndRemoveUntil(
+                              Screens.signUpScreen, (route) => false),
                       child: Text(
                         AppText.signUp.capitalizeEveryWord.get,
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.linkColor),
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyMedium
+                            ?.copyWith(color: AppColors.linkColor),
                       ),
                     ),
                   ],
