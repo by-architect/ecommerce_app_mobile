@@ -1,7 +1,7 @@
 import 'package:ecommerce_app_mobile/data/fakerepository/fake_app_defaults.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
-import 'package:hive/hive.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AppDatabase {
   static const _appDatabaseName = "app_database";
@@ -9,36 +9,34 @@ class AppDatabase {
   static const _lastLocationLatKey = "last_location_lat";
   static const _lastLocationLngKey = "last_location_lng";
 
-  late final Box box;
+  final SharedPreferencesWithCache _database;
 
-  Future<AppDatabase> open() async {
-    box = await Hive.openBox(_appDatabaseName);
-    return this;
-  }
+  AppDatabase._create(SharedPreferencesWithCache database) : _database = database;
 
-  Future<void> dispose() async {
-   await Hive.close();
+  static Future<AppDatabase> create() async {
+    final database = await SharedPreferencesWithCache.create(
+
+        cacheOptions: const SharedPreferencesWithCacheOptions(allowList: <String>{_hideWelcomeScreenKey, _lastLocationLatKey, _lastLocationLngKey}));
+    return AppDatabase._create(database);
   }
 
   Future<void> hideWelcomeScreen() async {
-    await box.put(_hideWelcomeScreenKey, true);
-    Log.test(data: await box.get(_hideWelcomeScreenKey));
+    await _database.setBool(_hideWelcomeScreenKey, true);
   }
 
-  Future<void> create() async {
-    await box.put(_hideWelcomeScreenKey, false);
-  }
-
-  Future<bool> get isHideWelcomeScreen async => await box.get(_hideWelcomeScreenKey, defaultValue: false);
+  Future<bool> get isHideWelcomeScreen async => (await _database.getBool(_hideWelcomeScreenKey)) ?? false;
 
   Future<void> addLastLocation(LatLng? location) async {
     if (location != null) {
-      await box.put(_lastLocationLatKey, location.latitude);
-      await box.put(_lastLocationLngKey, location.longitude);
+      await _database.setDouble(_lastLocationLatKey, location.latitude);
+      await _database.setDouble(_lastLocationLngKey, location.longitude);
     }
   }
 
   Future<LatLng> lastLocation(LatLng defaultStartLocation) async => LatLng(
-      await box.get(_lastLocationLatKey, defaultValue: defaultStartLocation.latitude) ?? defaultStartLocation.latitude,
-      await box.get(_lastLocationLngKey, defaultValue: defaultStartLocation.longitude) ?? defaultStartLocation.longitude);
+      await _database.getDouble(_lastLocationLatKey) ?? defaultStartLocation.latitude,
+      await _database.getDouble(
+            _lastLocationLngKey,
+          ) ??
+          defaultStartLocation.longitude);
 }

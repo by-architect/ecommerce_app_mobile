@@ -55,13 +55,12 @@ class MainBlocs extends Bloc<MainEvents, MainStates> {
           return;
         }
 
-        final AppDatabase appDatabase = AppDatabase();
-        final bool isHideWelcomeScreen = await (await appDatabase.open()).isHideWelcomeScreen;
+        final appDatabase = await AppDatabase.create();
+        final bool isHideWelcomeScreen = await appDatabase.isHideWelcomeScreen;
         if (!isHideWelcomeScreen) {
           emit(WelcomeScreenState(state: state));
           return;
         }
-        appDatabase.dispose();
 
         if (!state.userStatus.isAuthenticated) {
           userResource = await userService.getUser();

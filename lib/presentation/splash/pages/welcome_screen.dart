@@ -8,20 +8,12 @@ import 'package:ecommerce_app_mobile/presentation/common/widgets/ButtonPrimary.d
 import 'package:ecommerce_app_mobile/presentation/common/widgets/button_secondary.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/color_filters.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/text_button_default.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/helper/color_util.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../common/constant/Screens.dart';
-import '../../home/bloc/home_bloc.dart';
-import '../../home/bloc/home_event.dart';
-import '../../main/bloc/main_blocs.dart';
-import '../../main/bloc/main_events.dart';
-import '../../search/bloc/search_bloc.dart';
-import '../../search/bloc/search_event.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
@@ -47,10 +39,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   }
 
   Future<void> hideWelcomeScreen() async {
-    AppDatabase appDatabase = AppDatabase();
-    await appDatabase.open();
-   await appDatabase.hideWelcomeScreen();
-   await appDatabase.dispose();
+    AppDatabase appDatabase = await AppDatabase.create();
+    await appDatabase.hideWelcomeScreen();
   }
 
   @override
@@ -176,8 +166,7 @@ class _Page extends StatelessWidget {
                       SizedBox(
                         width: 400,
                         height: 50,
-                        child: TextButtonDefault(
-                            onPressed: onSkipButton!, text: AppText.commonSkip.capitalizeFirstWord.get),
+                        child: TextButtonDefault(onPressed: onSkipButton!, text: AppText.commonSkip.capitalizeFirstWord.get),
                       )
                   ],
                 )
