@@ -22,6 +22,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../common/constant/Screens.dart';
 import '../../cart/bloc/cart_bloc.dart';
 import '../../cart/bloc/cart_event.dart';
 import '../../home/bloc/home_bloc.dart';
@@ -44,6 +45,10 @@ class _MainScreenState extends State<MainScreen> {
     BlocProvider.of<SearchBloc>(context).add(GetRecentSearchesEvent());
     BlocProvider.of<MainBlocs>(context).stream.listen(
       (state) {
+        if(state.appSettings.isAppLocked){
+          Navigator.of(context).pushNamedAndRemoveUntil(Screens.appIsGettingReadyScreen, (route) => false);
+          FlutterNativeSplash.remove();
+        }
         if(pageController.hasClients) {
           pageController.jumpToPage(state.selectedPage);
         }

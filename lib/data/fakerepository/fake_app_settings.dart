@@ -16,6 +16,6 @@ class FakeAppSettingsService implements AppSettingsService {
         defaultMapLocation: FakeAppDefaults.defaultStartLocation,
         defaultCurrency: FakeAppDefaults.defaultCurrency,
         defaultReturnDay: FakeAppDefaults.defaultReturnDay,
-        contacts: FakeAppDefaults.supportContacts));
+        contacts: FakeAppDefaults.supportContacts, isAppLocked: FakeAppDefaults.isAppLocked));
   }
 }

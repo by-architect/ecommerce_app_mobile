@@ -10,6 +10,7 @@ import 'package:ecommerce_app_mobile/presentation/authentication/bloc/sign_up_bl
 import 'package:ecommerce_app_mobile/presentation/authentication/pages/sign_in_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/pages/sign_up_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/cart/bloc/cart_bloc.dart';
+import 'package:ecommerce_app_mobile/presentation/common/screen/app_is_getting_ready_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/home/bloc/home_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/main/bloc/main_blocs.dart';
 import 'package:ecommerce_app_mobile/presentation/main/page/main_screen.dart';
@@ -86,9 +87,11 @@ class MyApp extends StatelessWidget {
               Screens.signInScreen: (context) => const SignInScreen(),
               Screens.signUpScreen: (context) => const SignUpScreen(),
               Screens.mainScreen: (context) => const MainScreen(),
-
+              Screens.appIsGettingReadyScreen: (context) => const AppIsGettingReadyScreen(),
 
             },
-            home: isHideWelcomeScreen ? const MainScreen() : const WelcomeScreen()));
+          // home:  AppIsGettingReadyScreen(),
+            home: isHideWelcomeScreen ? const MainScreen() : const WelcomeScreen()
+     ));
   }
 }

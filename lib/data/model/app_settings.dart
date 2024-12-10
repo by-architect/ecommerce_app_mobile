@@ -11,6 +11,7 @@ class AppSettings {
   final LatLng defaultMapLocation;
   final Currency defaultCurrency;
   final int defaultReturnDay;
+  final bool isAppLocked;
 
   // final String defaultLanguage;
   final List<ContactModel> contacts;
@@ -18,12 +19,13 @@ class AppSettings {
   @TestOnly()
   const AppSettings.testOnly(
       {required this.maxProductQuantityCustomerCanBuyInOrder,
-        required this.defaultShippingFee,
-        required this.defaultMapLocation,
-        required this.defaultCurrency,
-        required this.defaultReturnDay,
-        // required this.defaultLanguage,
-        required this.contacts});
+      required this.defaultShippingFee,
+      required this.isAppLocked,
+      required this.defaultMapLocation,
+      required this.defaultCurrency,
+      required this.defaultReturnDay,
+      // required this.defaultLanguage,
+      required this.contacts});
 
   factory AppSettings.fromJson(Map<String, dynamic> json) {
     //todo: implement
@@ -33,18 +35,20 @@ class AppSettings {
   AppSettings._({
     required this.maxProductQuantityCustomerCanBuyInOrder,
     required this.defaultShippingFee,
+    required this.isAppLocked,
     required this.defaultMapLocation,
     required this.defaultCurrency,
     required this.contacts,
-    required this.defaultReturnDay,});
+    required this.defaultReturnDay,
+  });
 
-
-  static  AppSettings defaultAppSettings() {
+  static AppSettings defaultAppSettings() {
     return AppSettings._(
         maxProductQuantityCustomerCanBuyInOrder: 10,
         defaultShippingFee: Money(0),
         defaultMapLocation: const LatLng(39.9334, 32.8597),
         defaultCurrency: Currency.tl,
+        isAppLocked: false,
         contacts: [],
         defaultReturnDay: 14);
   }

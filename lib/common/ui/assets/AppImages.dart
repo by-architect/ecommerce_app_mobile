@@ -37,6 +37,8 @@ class AppImages{
   static const getHelpLight = '${_imagePath}help_light$_formatPng';
   static const noResultLight = '${_imagePath}NoResult$_formatPng';
   static const noResultDark = '${_imagePath}NoResultDarkTheme$_formatPng';
+  static const serverError = '${_imagePath}server_error$_formatPng';
+  static const serverErrorDark = '${_imagePath}server_error_dark$_formatPng';
 
 
 
