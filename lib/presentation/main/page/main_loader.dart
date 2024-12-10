@@ -1,0 +1,80 @@
+import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
+import 'package:ecommerce_app_mobile/presentation/common/screen/app_is_getting_ready_screen.dart';
+import 'package:ecommerce_app_mobile/presentation/common/screen/loading_screen.dart';
+import 'package:ecommerce_app_mobile/presentation/common/widgets/fail_form.dart';
+import 'package:ecommerce_app_mobile/presentation/main/bloc/main_blocs.dart';
+import 'package:ecommerce_app_mobile/presentation/main/bloc/main_events.dart';
+import 'package:ecommerce_app_mobile/presentation/main/bloc/main_states.dart';
+import 'package:ecommerce_app_mobile/presentation/main/form/main_fail_form.dart';
+import 'package:ecommerce_app_mobile/presentation/main/form/main_form.dart';
+import 'package:ecommerce_app_mobile/presentation/search/bloc/search_bloc.dart';
+import 'package:ecommerce_app_mobile/presentation/search/bloc/search_event.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
+
+import '../../../common/constant/Screens.dart';
+import '../../cart/bloc/cart_bloc.dart';
+import '../../cart/bloc/cart_event.dart';
+import '../../home/bloc/home_bloc.dart';
+import '../../home/bloc/home_event.dart';
+import '../../splash/pages/welcome_screen.dart';
+
+class MainLoader extends StatefulWidget {
+  const MainLoader({super.key});
+
+  @override
+  State<MainLoader> createState() => _MainLoaderState();
+}
+
+class _MainLoaderState extends State<MainLoader> {
+  PageController pageController = PageController(initialPage: 0);
+
+  @override
+  void initState() {
+    BlocProvider.of<MainBlocs>(context).add(GetInitItemsEvent());
+    BlocProvider.of<HomeBloc>(context).add(GetProductsHomeEvent());
+    BlocProvider.of<SearchBloc>(context).add(GetRecentSearchesEvent());
+    BlocProvider.of<MainBlocs>(context).stream.listen(
+      (state) {
+        if (pageController.hasClients) {
+          pageController.jumpToPage(state.selectedPage);
+        }
+        if (state is MainScreenState) {
+          if (state.userStatus.isAuthenticated) {
+            BlocProvider.of<CartBloc>(context).add(GetCart(state.userStatus.user!, state.appSettings.defaultShippingFee));
+          }
+        }
+        if (state is! MainLoadingState) {
+          FlutterNativeSplash.remove();
+        }
+      },
+    );
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    pageController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<MainBlocs, MainStates>(
+        builder: (BuildContext context, MainStates state) => SafeArea(
+              child: switch (state) {
+                MainLoadingState _ => const Scaffold(body: LoadingScreen()),
+                MainLoadFailState failState => MainFailForm(failState: failState),
+                WelcomeScreenState _ => const WelcomeScreen(),
+                UpdateScreenState _ => const Placeholder(),
+                AppIsGettingReadyState _ => const AppIsGettingReadyScreen(),
+                MainScreenState _ || MainStates() => MainForm(
+                    state: state,
+                    pageController: pageController,
+                  ),
+              },
+            ));
+  }
+}

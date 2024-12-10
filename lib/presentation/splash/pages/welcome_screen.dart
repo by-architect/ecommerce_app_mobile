@@ -9,6 +9,7 @@ import 'package:ecommerce_app_mobile/presentation/common/widgets/button_secondar
 import 'package:ecommerce_app_mobile/common/ui/theme/color_filters.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/text_button_default.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/color_util.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -36,17 +37,20 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   void initState() {
     FlutterNativeSplash.remove();
     hideWelcomeScreen();
+    Log.test(data: "Welcome Screen");
+/*
     BlocProvider.of<MainBlocs>(context).add(GetInitItemsEvent());
     BlocProvider.of<HomeBloc>(context).add(GetProductsHomeEvent());
     BlocProvider.of<SearchBloc>(context).add(GetRecentSearchesEvent());
+*/
     super.initState();
   }
 
   Future<void> hideWelcomeScreen() async {
     AppDatabase appDatabase = AppDatabase();
     await appDatabase.open();
-    appDatabase.hideWelcomeScreen();
-    appDatabase.dispose();
+   await appDatabase.hideWelcomeScreen();
+   await appDatabase.dispose();
   }
 
   @override

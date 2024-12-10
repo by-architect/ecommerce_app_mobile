@@ -1,4 +1,5 @@
 import 'package:ecommerce_app_mobile/data/fakerepository/fake_app_defaults.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:hive/hive.dart';
 import 'package:latlong2/latlong.dart';
 
@@ -10,33 +11,34 @@ class AppDatabase {
 
   late final Box box;
 
-  Future<void> open() async {
+  Future<AppDatabase> open() async {
     box = await Hive.openBox(_appDatabaseName);
+    return this;
   }
 
-  void dispose() {
-    Hive.close();
+  Future<void> dispose() async {
+   await Hive.close();
   }
 
-  void hideWelcomeScreen() {
-    box.put(_hideWelcomeScreenKey, true);
+  Future<void> hideWelcomeScreen() async {
+    await box.put(_hideWelcomeScreenKey, true);
+    Log.test(data: await box.get(_hideWelcomeScreenKey));
   }
 
-  bool get isHideWelcomeScreen =>
-      box.get(_hideWelcomeScreenKey, defaultValue: true);
+  Future<void> create() async {
+    await box.put(_hideWelcomeScreenKey, false);
+  }
 
-  void addLastLocation(LatLng? location) {
+  Future<bool> get isHideWelcomeScreen async => await box.get(_hideWelcomeScreenKey, defaultValue: false);
+
+  Future<void> addLastLocation(LatLng? location) async {
     if (location != null) {
-      box.put(_lastLocationLatKey, location.latitude);
-      box.put(_lastLocationLngKey, location.longitude);
+      await box.put(_lastLocationLatKey, location.latitude);
+      await box.put(_lastLocationLngKey, location.longitude);
     }
   }
 
-  LatLng lastLocation(LatLng defaultStartLocation) => LatLng(
-      box.get(_lastLocationLatKey,
-              defaultValue: defaultStartLocation.latitude) ??
-          defaultStartLocation.latitude,
-      box.get(_lastLocationLngKey,
-              defaultValue: defaultStartLocation.longitude) ??
-          defaultStartLocation.longitude);
+  Future<LatLng> lastLocation(LatLng defaultStartLocation) async => LatLng(
+      await box.get(_lastLocationLatKey, defaultValue: defaultStartLocation.latitude) ?? defaultStartLocation.latitude,
+      await box.get(_lastLocationLngKey, defaultValue: defaultStartLocation.longitude) ?? defaultStartLocation.longitude);
 }

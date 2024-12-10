@@ -46,7 +46,6 @@ class _RequestReturnScreenState extends State<RequestReturnScreen> {
     for (int i = 0; i < productBaseList.length; i++) {
       productBaseList[i] = productBaseList[i].setQuantity(0);
     }
-    Log.test(title: "productBaseList", data: productBaseList[0].quantity);
     BlocProvider.of<ReturnRequestBloc>(context)
         .add(InitialProductsEvent(products: productBaseList));
 

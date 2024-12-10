@@ -1,103 +1,30 @@
-import 'package:ecommerce_app_mobile/common/constant/app_durations.dart';
-import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
-import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
-import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
-import 'package:ecommerce_app_mobile/common/ui/theme/color_filters.dart';
-import 'package:ecommerce_app_mobile/presentation/authentication/widgets/app_bar_default.dart';
-import 'package:ecommerce_app_mobile/presentation/cart/page/cart_form.dart';
-import 'package:ecommerce_app_mobile/presentation/common/screen/loading_screen.dart';
-import 'package:ecommerce_app_mobile/presentation/common/widgets/fail_form.dart';
-import 'package:ecommerce_app_mobile/presentation/discover/page/discover_form.dart';
-import 'package:ecommerce_app_mobile/presentation/home/form/home_form.dart';
-import 'package:ecommerce_app_mobile/presentation/main/bloc/main_blocs.dart';
-import 'package:ecommerce_app_mobile/presentation/main/bloc/main_events.dart';
 import 'package:ecommerce_app_mobile/presentation/main/bloc/main_states.dart';
-import 'package:ecommerce_app_mobile/presentation/main/form/login_form.dart';
-import 'package:ecommerce_app_mobile/presentation/profile/page/profile_form.dart';
-import 'package:ecommerce_app_mobile/presentation/search/bloc/search_bloc.dart';
-import 'package:ecommerce_app_mobile/presentation/search/bloc/search_event.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/ui/widget_clickable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 
-import '../../../common/constant/Screens.dart';
-import '../../cart/bloc/cart_bloc.dart';
-import '../../cart/bloc/cart_event.dart';
-import '../../home/bloc/home_bloc.dart';
-import '../../home/bloc/home_event.dart';
+import '../../../common/ui/assets/AppImages.dart';
+import '../../../common/ui/theme/AppText.dart';
+import '../../../common/ui/theme/color_filters.dart';
+import '../../../sddklibrary/ui/widget_clickable.dart';
+import '../../authentication/widgets/app_bar_default.dart';
+import '../../cart/page/cart_form.dart';
+import '../../discover/page/discover_form.dart';
+import '../../home/form/home_form.dart';
+import '../../profile/page/profile_form.dart';
+import '../bloc/main_blocs.dart';
+import '../bloc/main_events.dart';
+import 'login_form.dart';
 
-class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
-
-  @override
-  State<MainScreen> createState() => _MainScreenState();
-}
-
-class _MainScreenState extends State<MainScreen> {
-  PageController pageController = PageController(initialPage: 0);
-
-  @override
-  void initState() {
-    BlocProvider.of<MainBlocs>(context).add(GetInitItemsEvent());
-    BlocProvider.of<HomeBloc>(context).add(GetProductsHomeEvent());
-    BlocProvider.of<SearchBloc>(context).add(GetRecentSearchesEvent());
-    BlocProvider.of<MainBlocs>(context).stream.listen(
-      (state) {
-        if(state.appSettings.isAppLocked){
-          Navigator.of(context).pushNamedAndRemoveUntil(Screens.appIsGettingReadyScreen, (route) => false);
-          FlutterNativeSplash.remove();
-        }
-        if(pageController.hasClients) {
-          pageController.jumpToPage(state.selectedPage);
-        }
-        if (state is InitItemsSuccessState) {
-          if (state.userStatus.isAuthenticated) {
-            BlocProvider.of<CartBloc>(context).add(GetCart(
-                state.userStatus.user!, state.appSettings.defaultShippingFee));
-          }
-        }
-        if (state is! InitItemsLoadingState) {
-          FlutterNativeSplash.remove();
-        }
-      },
-    );
-
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    pageController.dispose();
-    super.dispose();
-  }
+class MainForm extends StatelessWidget {
+  const MainForm({super.key, required this.state, required this.pageController});
+  final MainStates state;
+  final PageController pageController;
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MainBlocs, MainStates>(
-        builder: (BuildContext context, MainStates state) => switch (state) {
-              InitItemsLoadingState _ => const Scaffold(body: LoadingScreen()),
-              InitItemsFailState failState => Scaffold(
-                  body: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(AppSizes.defaultSpace),
-                      child: FailForm(
-                        fail: failState.fail,
-                        onRefreshTap: () {
-                          BlocProvider.of<MainBlocs>(context)
-                              .add(GetInitItemsEvent());
-                          BlocProvider.of<HomeBloc>(context)
-                              .add(GetProductsHomeEvent());
-                          BlocProvider.of<SearchBloc>(context)
-                              .add(GetRecentSearchesEvent());
-                        },
-                      ),
-                    ),
-                  ),
-                ),
-              InitItemsSuccessState _ || MainStates() => SafeArea(
-                    child: Scaffold(
+    return Scaffold(
                   body: Column(
                     children: [
                       Expanded(
@@ -194,11 +121,9 @@ class _MainScreenState extends State<MainScreen> {
                     features: state.features,
                     categories: state.categories,
                   ),
-                )),
-            });
+                );
   }
 }
-
 class _NavBarItem extends StatelessWidget {
   final String icon;
   final Function() onClicked;
@@ -206,9 +131,9 @@ class _NavBarItem extends StatelessWidget {
 
   const _NavBarItem(
       {super.key,
-      required this.icon,
-      required this.onClicked,
-      required this.isSelected});
+        required this.icon,
+        required this.onClicked,
+        required this.isSelected});
 
   @override
   Widget build(BuildContext context) {

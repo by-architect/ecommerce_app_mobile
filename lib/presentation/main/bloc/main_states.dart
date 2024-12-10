@@ -51,10 +51,10 @@ class InitMainStates extends MainStates {
             features: AllProductFeatures.empty());
 }
 
-class InitItemsLoadingState extends MainStates {
+class MainLoadingState extends MainStates {
   final MainStates state;
 
-  InitItemsLoadingState({required this.state})
+  MainLoadingState({required this.state})
       : super(
             themeMode: state.themeMode,
             features: state.features,
@@ -64,10 +64,10 @@ class InitItemsLoadingState extends MainStates {
             userStatus: state.userStatus);
 }
 
-class InitItemsSuccessState extends MainStates {
+class AppIsGettingReadyState extends MainStates {
   final MainStates state;
 
-  InitItemsSuccessState({required this.state})
+  AppIsGettingReadyState({required this.state})
       : super(
             themeMode: state.themeMode,
             features: state.features,
@@ -77,11 +77,50 @@ class InitItemsSuccessState extends MainStates {
             userStatus: state.userStatus);
 }
 
-class InitItemsFailState extends MainStates {
+class WelcomeScreenState extends MainStates {
+  final MainStates state;
+
+  WelcomeScreenState({required this.state})
+      : super(
+            themeMode: state.themeMode,
+            features: state.features,
+            categories: state.categories,
+            selectedPage: state.selectedPage,
+            appSettings: state.appSettings,
+            userStatus: state.userStatus);
+}
+
+class UpdateScreenState extends MainStates {
+  final MainStates state;
+
+  UpdateScreenState({required this.state})
+      : super(
+            themeMode: state.themeMode,
+            features: state.features,
+            categories: state.categories,
+            selectedPage: state.selectedPage,
+            appSettings: state.appSettings,
+            userStatus: state.userStatus);
+}
+
+class MainScreenState extends MainStates {
+  final MainStates state;
+
+  MainScreenState({required this.state})
+      : super(
+            themeMode: state.themeMode,
+            features: state.features,
+            categories: state.categories,
+            selectedPage: state.selectedPage,
+            appSettings: state.appSettings,
+            userStatus: state.userStatus);
+}
+
+class MainLoadFailState extends MainStates {
   final Fail fail;
   final MainStates state;
 
-  InitItemsFailState({required this.fail, required this.state})
+  MainLoadFailState({required this.fail, required this.state})
       : super(
             themeMode: state.themeMode,
             features: state.features,

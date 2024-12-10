@@ -12,6 +12,7 @@ class AppSettings {
   final Currency defaultCurrency;
   final int defaultReturnDay;
   final bool isAppLocked;
+  final bool updateAvailable;
 
   // final String defaultLanguage;
   final List<ContactModel> contacts;
@@ -20,6 +21,7 @@ class AppSettings {
   const AppSettings.testOnly(
       {required this.maxProductQuantityCustomerCanBuyInOrder,
       required this.defaultShippingFee,
+        required this.updateAvailable,
       required this.isAppLocked,
       required this.defaultMapLocation,
       required this.defaultCurrency,
@@ -35,6 +37,7 @@ class AppSettings {
   AppSettings._({
     required this.maxProductQuantityCustomerCanBuyInOrder,
     required this.defaultShippingFee,
+    required this.updateAvailable,
     required this.isAppLocked,
     required this.defaultMapLocation,
     required this.defaultCurrency,
@@ -46,6 +49,7 @@ class AppSettings {
     return AppSettings._(
         maxProductQuantityCustomerCanBuyInOrder: 10,
         defaultShippingFee: Money(0),
+        updateAvailable: false,
         defaultMapLocation: const LatLng(39.9334, 32.8597),
         defaultCurrency: Currency.tl,
         isAppLocked: false,

@@ -6,8 +6,10 @@ import 'package:ecommerce_app_mobile/data/model/user_status.dart';
 import 'package:ecommerce_app_mobile/data/provider/product_service_provider.dart';
 import 'package:ecommerce_app_mobile/data/service/impl/user_service_impl.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/constant/exceptions/exceptions.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../data/database/app_database.dart';
 import '../../../data/model/user.dart';
 import '../../../sddklibrary/util/resource.dart';
 import 'main_events.dart';
@@ -24,65 +26,75 @@ class MainBlocs extends Bloc<MainEvents, MainStates> {
     });
 
     on<ToggleThemeEvent>((event, emit) {
-      emit( state.copyWith(themeMode: event.themeMode));
+      emit(state.copyWith(themeMode: event.themeMode));
     });
 
     on<GetInitItemsEvent>(
       (event, emit) async {
-        emit(InitItemsLoadingState(state: state));
+        emit(MainLoadingState(state: state));
 
-        ResourceStatus<AppSettings> appSettingsResource =
-            await appSettingsService.getAppSettings();
+        ResourceStatus<AppSettings> appSettingsResource = await appSettingsService.getAppSettings();
         Resource<User> userResource = Resource.stable();
         Resource<Categories> categoriesResource = Resource.stable();
-        Resource<AllProductFeatures> productFeaturesResource =
-            Resource.stable();
+        Resource<AllProductFeatures> productFeaturesResource = Resource.stable();
 
         if (!appSettingsResource.isSuccess) {
-          emit(InitItemsFailState(
+          emit(MainLoadFailState(
             state: state,
             fail: appSettingsResource.error!,
           ));
           return;
         }
-        if (state.features.isEmpty) {
-          productFeaturesResource = await productService.getProductFeatures();
+
+        if (state.appSettings.updateAvailable) {
+          emit(UpdateScreenState(state: state));
+          return;
         }
-        if (state.categories.isEmpty) {
-          categoriesResource = await productService.getCategoriesByLayer();
+        if (state.appSettings.isAppLocked) {
+          emit(AppIsGettingReadyState(state: state));
+          return;
         }
+
+        final AppDatabase appDatabase = AppDatabase();
+        final bool isHideWelcomeScreen = await (await appDatabase.open()).isHideWelcomeScreen;
+        if (!isHideWelcomeScreen) {
+          emit(WelcomeScreenState(state: state));
+          return;
+        }
+        appDatabase.dispose();
+
         if (!state.userStatus.isAuthenticated) {
           userResource = await userService.getUser();
         }
         if (userResource.status == Status.fail) {
           if (userResource.error?.exception is! UserNotAuthenticatedException) {
-            emit(InitItemsFailState(fail: userResource.error!, state: state));
+            emit(MainLoadFailState(fail: userResource.error!, state: state));
             return;
           }
         }
-        if (categoriesResource.status == Status.fail) {
-          emit(InitItemsFailState(
-              fail: categoriesResource.error!, state: state));
-          return;
+        if (state.features.isEmpty) {
+          productFeaturesResource = await productService.getProductFeatures();
         }
         if (productFeaturesResource.status == Status.fail) {
-          emit(InitItemsFailState(
-              fail: productFeaturesResource.error!, state: state));
+          emit(MainLoadFailState(fail: productFeaturesResource.error!, state: state));
           return;
         }
-        emit(InitItemsSuccessState(
+        if (state.categories.isEmpty) {
+          categoriesResource = await productService.getCategoriesByLayer();
+        }
+
+        if (categoriesResource.status == Status.fail) {
+          emit(MainLoadFailState(fail: categoriesResource.error!, state: state));
+          return;
+        }
+
+        emit(MainScreenState(
             state: state.copyWith(
-                userStatus: userResource.stable
-                    ? state.userStatus
-                    : UserStatus(userResource.data),
+                userStatus: userResource.stable ? state.userStatus : UserStatus(userResource.data),
                 themeMode: state.themeMode,
                 appSettings: appSettingsResource.data!,
-                productFeatures: productFeaturesResource.stable
-                    ? state.features
-                    : productFeaturesResource.data!,
-                categories: categoriesResource.stable
-                    ? state.categories
-                    : categoriesResource.data!,
+                productFeatures: productFeaturesResource.stable ? state.features : productFeaturesResource.data!,
+                categories: categoriesResource.stable ? state.categories : categoriesResource.data!,
                 selectedPage: state.selectedPage)));
       },
     );
@@ -90,7 +102,7 @@ class MainBlocs extends Bloc<MainEvents, MainStates> {
       (event, emit) async {
         final resource = await userService.signOut();
         if (resource.isSuccess) {
-          emit(InitItemsSuccessState(
+          emit(MainScreenState(
               state: state.copyWith(
             userStatus: UserStatus(null),
           )));
@@ -100,15 +112,7 @@ class MainBlocs extends Bloc<MainEvents, MainStates> {
 
     on<UserSignedInEvent>(
       (event, emit) {
-        emit(InitItemsSuccessState(
-            state: state.copyWith(
-          userStatus: UserStatus(event.user),
-        )));
-      },
-    );
-    on<UserIsVerifiedEvent>(
-      (event, emit) {
-        emit(InitItemsSuccessState(
+        emit(MainScreenState(
             state: state.copyWith(
           userStatus: UserStatus(event.user),
         )));

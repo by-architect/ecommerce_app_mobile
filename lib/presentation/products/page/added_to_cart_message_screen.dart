@@ -6,7 +6,7 @@ import 'package:ecommerce_app_mobile/common/ui/theme/color_filters.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/ButtonPrimary.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/button_secondary.dart';
 import 'package:ecommerce_app_mobile/presentation/main/bloc/main_events.dart';
-import 'package:ecommerce_app_mobile/presentation/main/page/main_screen.dart';
+import 'package:ecommerce_app_mobile/presentation/main/page/main_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
