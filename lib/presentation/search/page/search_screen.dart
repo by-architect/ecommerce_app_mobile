@@ -1,6 +1,7 @@
 import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
+import 'package:ecommerce_app_mobile/common/ui/theme/AppStyles.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/color_filters.dart';
 import 'package:ecommerce_app_mobile/data/model/app_settings.dart';
@@ -8,12 +9,14 @@ import 'package:ecommerce_app_mobile/data/model/categories.dart';
 import 'package:ecommerce_app_mobile/presentation/common/skeleton/product_skeleton.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/app_bar_pop_up.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/fail_form.dart';
+import 'package:ecommerce_app_mobile/presentation/common/widgets/form_info_skeleton.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/product_card.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/text_button_default.dart';
 import 'package:ecommerce_app_mobile/presentation/search/bloc/search_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/search/bloc/search_event.dart';
 import 'package:ecommerce_app_mobile/presentation/search/bloc/search_state.dart';
 import 'package:ecommerce_app_mobile/presentation/search/widget/bottom_sheet_filter.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/helper/ui_helper.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -186,7 +189,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                 }),
                           ),
                         ProductSuccessState _ || SearchState _ => Expanded(
-                            child: GridView.builder(
+                            child: state.products.isEmpty  ? FormInfoSkeleton(image: context.isDarkMode ? AppImages.noResultDark : AppImages.noResultLight, message: AppText.searchPageNoResult.capitalizeEveryWord.get,notSvg: true,) : GridView.builder(
                               itemCount: state.products.length,
                               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,

@@ -35,6 +35,8 @@ class AppImages{
   static const timeManagement = '${_imagePath}time_management$_formatSvg';
   static const getHelpDark = '${_imagePath}help_dark$_formatPng';
   static const getHelpLight = '${_imagePath}help_light$_formatPng';
+  static const noResultLight = '${_imagePath}NoResult$_formatPng';
+  static const noResultDark = '${_imagePath}NoResultDarkTheme$_formatPng';
 
 
 

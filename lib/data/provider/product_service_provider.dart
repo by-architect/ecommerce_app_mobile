@@ -72,10 +72,6 @@ class ProductServiceProvider {
     return _productService.getProductsById(id);
   }
 
-  Future<Resource<List<Product>>> getProductsByCategory(String categoryId) async {
-    return _productService.getProductsByCategory(categoryId);
-  }
-
   Future<Resource<List<Product>>> getProductsBySearchEvent(
       {String? searchText,
       List<ProductFeatureOption>? selectedFeatureOptions,

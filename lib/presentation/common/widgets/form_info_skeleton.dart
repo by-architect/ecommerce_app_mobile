@@ -12,8 +12,15 @@ class FormInfoSkeleton extends StatelessWidget {
   final String message;
   final String? buttonText;
   final Function()? onTap;
+  final bool notSvg;
 
-  const FormInfoSkeleton({super.key, required this.image, required this.message, this.onTap, this.buttonText});
+  const FormInfoSkeleton(
+      {super.key,
+      required this.image,
+      required this.message,
+      this.onTap,
+      this.buttonText,
+      this.notSvg = false});
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +29,12 @@ class FormInfoSkeleton extends StatelessWidget {
       children: [
         Expanded(
             flex: 5,
-            child: SvgPicture.asset(
-              image,
-              colorFilter: ColorFilters.pinkToPrimaryColor(context),
-            )),
+            child: notSvg
+                ? Image.asset(image)
+                : SvgPicture.asset(
+                    image,
+                    colorFilter: ColorFilters.pinkToPrimaryColor(context),
+                  )),
         Flexible(
             flex: 2,
             child: Padding(

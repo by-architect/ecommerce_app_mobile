@@ -94,6 +94,7 @@ class FakeProductService implements ProductService {
       List<Tag>? selectedTags}) async {
     await Future.delayed(const Duration(seconds: 2));
 
+    // return ResourceStatus.success([]);
     return ResourceStatus.success(FakeProductModels.products);
     // return ResourceStatus.fail(Fail(userMessage: "Fake product service fail situation"));
 

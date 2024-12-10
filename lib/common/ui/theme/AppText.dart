@@ -235,6 +235,7 @@ class AppText {
 
 // Search Screen
   static const searchPageRecentSearches = AppText("Recent searches");
+  static const searchPageNoResult = AppText("No result");
 
 // Filter Page
   static const filterPageAvailableInStock = AppText("Available in stock");
