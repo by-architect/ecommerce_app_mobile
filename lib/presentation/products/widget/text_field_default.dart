@@ -35,6 +35,7 @@ class TextFieldDefault extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      style: Theme.of(context).textTheme.titleMedium,
       textAlignVertical: TextAlignVertical.top,
       maxLines: maxLines,
       onChanged: onChanged,
