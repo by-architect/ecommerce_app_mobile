@@ -13,6 +13,7 @@ import 'package:ecommerce_app_mobile/presentation/cart/page/payment_correction.d
 import 'package:ecommerce_app_mobile/presentation/cart/widget/order_summary.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/ButtonPrimary.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/app_bar_pop_back.dart';
+import 'package:ecommerce_app_mobile/presentation/gethelp/page/get_help_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/products/widget/text_field_default.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/string_helper.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/ui/dialog_util.dart';
@@ -175,7 +176,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 ButtonPrimary(
                   text: AppText.paymentPagePay.capitalizeEveryWord.get,
                   onTap: () {
-                    final dialogUtil = DialogUtil(context);
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) => GetHelpScreen(contacts: widget.appSettings.contacts)));
+/*
                     final validationResult = PaymentValidation.validate(state);
                     if (!validationResult.success) {
                       dialogUtil.info(AppText.errorCouldNotValidate.capitalizeEveryWord.get, validationResult.message);
@@ -184,6 +187,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       Navigator.of(context)
                           .push(MaterialPageRoute(builder: (context) => const PaymentCorrectionScreen()));
                     }
+*/
                   },
                 )
               ],

@@ -5,8 +5,7 @@ import 'package:latlong2/latlong.dart';
 import '../model/money.dart';
 
 class FakeAppDefaults {
-  static int maxProductQuantityCustomerCanBuyInOnce =
-      5; //disable if product has not its own max quantity
+  static int maxProductQuantityCustomerCanBuyInOnce = 5; //disable if product has not its own max quantity
   static Money shippingFee = Money(50);
   static LatLng defaultStartLocation = const LatLng(39.9334, 32.8597);
   static bool isAppLocked = false;
@@ -17,17 +16,15 @@ class FakeAppDefaults {
   static List<ContactModel> supportContacts = [
     const ContactModel(
       type: ContactType.email,
-      content: "qG7oN@example.com",
+      content: "emindevinfo@gmail.com",
     ),
     const ContactModel(
       type: ContactType.phoneNo,
-      content: "0123456789",
+      content: "05519373437",
     ),
     const ContactModel(
       type: ContactType.whatsapp,
-      content: "0123456789",
+      content: "05519373437",
     ),
-
   ];
-
 }

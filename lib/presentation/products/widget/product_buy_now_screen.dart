@@ -5,6 +5,7 @@ import 'package:ecommerce_app_mobile/data/model/product_feature_handler.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/pages/sign_in_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/app_bar_pop_back.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/network_image_with_loader.dart';
+import 'package:ecommerce_app_mobile/presentation/gethelp/page/get_help_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_event.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_state.dart';
@@ -42,6 +43,10 @@ class _ProductBuyNowScreenState extends State<ProductBuyNowScreen> {
   void initState() {
     BlocProvider.of<ProductDetailsBloc>(context).stream.listen(
       (state) {
+        if (state is AddToCartSuccessState) {
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => GetHelpScreen(contacts: widget.appSettings.contacts)));
+        }
+/*
         if (state is AddToCartFailState) {
           DialogUtil(context).toast(state.fail.userMessage);
         }
@@ -52,6 +57,7 @@ class _ProductBuyNowScreenState extends State<ProductBuyNowScreen> {
             child: const AddedToCartMessageScreen(),
           );
         }
+*/
       },
     );
     super.initState();

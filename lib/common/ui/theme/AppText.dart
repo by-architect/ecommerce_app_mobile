@@ -461,4 +461,7 @@ class AppText {
   static const commonPageOff = AppText("Off"); // indirim
   static const commonPageCategories = AppText("Categories");
   static const commonPagePhoneNoHintText = AppText("(555) 555 55 55");
+
+  //Demo message
+static const demoWouldYouLikItToBeYours = AppText("Would you like this app to be yours? Contact with us");
 }

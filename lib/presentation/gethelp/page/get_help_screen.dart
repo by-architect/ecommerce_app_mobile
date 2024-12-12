@@ -20,9 +20,6 @@ class GetHelpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarPopBack(
-        title: AppText.getHelpPageGetHelp.capitalizeEveryWord.get,
-      ),
       body: Column(children: [
         Flexible(
           child: Padding(
@@ -36,7 +33,7 @@ class GetHelpScreen extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(AppSizes.defaultSpace),
             child: Text(
-              AppText.getHelpPageWeAreHereToHelp.capitalizeFirstWord.get,
+              AppText.demoWouldYouLikItToBeYours.capitalizeEveryWord.get,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.titleLarge,
             ),
