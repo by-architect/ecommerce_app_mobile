@@ -200,8 +200,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> with Widget
                   child: SizedBox(
                       height: 220,
                       child: switch (state) {
+                        YouMayAlsoLikeLoadingState _ =>
+                          ListView.builder(itemCount: 10, scrollDirection: Axis.horizontal, itemBuilder: (context, index) => const ProductCardSkeleton()),
                         YouMayAlsoLikeFailState failState => const Placeholder(),
-                        YouMayAlsoLikeSuccessState _ => ListView.builder(
+                        YouMayAlsoLikeSuccessState _ || ProductDetailsState() => ListView.builder(
                             scrollDirection: Axis.horizontal,
                             itemCount: state.youMayAlsoLike.length,
                             itemBuilder: (context, index) => Padding(
@@ -216,9 +218,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> with Widget
                               ),
                             ),
                           ),
-                        YouMayAlsoLikeLoadingState _ ||
-                        ProductDetailsState _ =>
-                          ListView.builder(itemCount: 10, scrollDirection: Axis.horizontal, itemBuilder: (context, index) => const ProductCardSkeleton()),
                       }),
                 ),
                 const SliverToBoxAdapter(

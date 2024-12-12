@@ -1,4 +1,6 @@
+import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
+import 'package:ecommerce_app_mobile/common/ui/theme/AppStyles.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/provider/product_service_provider.dart';
 import 'package:ecommerce_app_mobile/data/usecase/review_validation.dart';
@@ -7,6 +9,7 @@ import 'package:ecommerce_app_mobile/presentation/common/widgets/app_bar_pop_bac
 import 'package:ecommerce_app_mobile/presentation/products/bloc/review_state.dart';
 import 'package:ecommerce_app_mobile/presentation/products/widget/review_product_info_card.dart';
 import 'package:ecommerce_app_mobile/presentation/products/widget/text_field_default.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/helper/ui_helper.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/resource.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/validation_result.dart';
@@ -66,7 +69,7 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                       initialRating: 0,
                       itemSize: 30,
                       itemPadding: const EdgeInsets.only(right: AppSizes.defaultPadding / 4),
-                      unratedColor: Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.08),
+                      unratedColor: context.isDarkMode ? AppColors.blackColor80 : AppColors.whiteColor90  ,
                       glow: false,
                       allowHalfRating: false,
                       ignoreGestures: false,
@@ -93,7 +96,7 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
               TextFieldDefault(
                 maxLength: 100,
                 onChanged: (value) {
-                    reviewState = reviewState.copyWith(title: value);
+                  reviewState = reviewState.copyWith(title: value);
                 },
                 labelOrHint: AppText.productDetailsPageSummarizeReview.capitalizeFirstWord.get,
               ),
