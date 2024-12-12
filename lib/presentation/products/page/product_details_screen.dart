@@ -30,7 +30,8 @@ class ProductDetailsScreen extends StatefulWidget {
     this.previousProduct,
     required this.product,
     this.previousProductFeatureHandler,
-    required this.user, required this.appSettings,
+    required this.user,
+    required this.appSettings,
   });
 
   final Product? previousProduct;
@@ -61,23 +62,19 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> with Widget
         canPop: true,
         onPopInvoked: (didPop) {
           if (widget.previousProduct != null) {
-            BlocProvider.of<ProductDetailsBloc>(context)
-                .add(GetReviewsEvent(widget.previousProduct!.id));
-            BlocProvider.of<ProductDetailsBloc>(context)
-                .add(GetYouMayAlsoLikeEvent(widget.previousProduct!.categoryId));
-            BlocProvider.of<ProductDetailsBloc>(context)
-                .add(GetProductDetailsEvent(widget.previousProduct!.id));
+            BlocProvider.of<ProductDetailsBloc>(context).add(GetReviewsEvent(widget.previousProduct!.id));
+            BlocProvider.of<ProductDetailsBloc>(context).add(GetYouMayAlsoLikeEvent(widget.previousProduct!.categoryId));
+            BlocProvider.of<ProductDetailsBloc>(context).add(GetProductDetailsEvent(widget.previousProduct!.id));
           }
           if (widget.previousProductFeatureHandler != null) {
-            BlocProvider.of<ProductDetailsBloc>(context)
-                .add(GetProductFeaturesEvent(widget.previousProductFeatureHandler!));
+            BlocProvider.of<ProductDetailsBloc>(context).add(GetProductFeaturesEvent(widget.previousProductFeatureHandler!));
           }
         },
         child: Scaffold(
           bottomNavigationBar: widget.product.subProducts.availableInStock
               ? Padding(
-                padding: const EdgeInsets.symmetric(vertical: 4),
-                child: ButtonCartBuy(
+                  padding: const EdgeInsets.symmetric(vertical: 4),
+                  child: ButtonCartBuy(
                     price: widget.product.subProducts.getIdealSubProduct.priceAfterDiscounting,
                     press: () {
                       customModalBottomSheet(
@@ -90,9 +87,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> with Widget
                           product: widget.product,
                         ),
                       );
-                    }, currency: widget.appSettings.defaultCurrency,
+                    },
+                    currency: widget.appSettings.defaultCurrency,
                   ),
-              )
+                )
               : const SizedBox.shrink(),
 
           /// If profuct is not available then show [NotifyMeCard]
@@ -200,27 +198,28 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> with Widget
                 ),
                 SliverToBoxAdapter(
                   child: SizedBox(
-                    height: 220,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: state is YouMayAlsoLikeLoadingState ? 10 : state.youMayAlsoLike.length,
-                      itemBuilder: (context, index) => Padding(
-                        padding: EdgeInsets.only(
-                            left: AppSizes.defaultPadding,
-                            right: index == 4 ? AppSizes.defaultPadding : 0),
-                        child: state is YouMayAlsoLikeLoadingState
-                            ? const ProductCardSkeleton()
-                            : ProductCard(
-                          currency: widget.appSettings.defaultCurrency,
-                          appSettings: widget.appSettings,
+                      height: 220,
+                      child: switch (state) {
+                        YouMayAlsoLikeFailState failState => const Placeholder(),
+                        YouMayAlsoLikeSuccessState _ => ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: state.youMayAlsoLike.length,
+                            itemBuilder: (context, index) => Padding(
+                              padding: EdgeInsets.only(left: AppSizes.defaultPadding, right: index == 4 ? AppSizes.defaultPadding : 0),
+                              child: ProductCard(
+                                currency: widget.appSettings.defaultCurrency,
+                                appSettings: widget.appSettings,
                                 user: widget.user,
                                 product: state.youMayAlsoLike[index],
                                 previousProduct: widget.product,
                                 previousProductFeatureHandler: productFeatureHandler,
                               ),
-                      ),
-                    ),
-                  ),
+                            ),
+                          ),
+                        YouMayAlsoLikeLoadingState _ ||
+                        ProductDetailsState _ =>
+                          ListView.builder(itemCount: 10, scrollDirection: Axis.horizontal, itemBuilder: (context, index) => const ProductCardSkeleton()),
+                      }),
                 ),
                 const SliverToBoxAdapter(
                   child: SizedBox(height: AppSizes.defaultPadding),

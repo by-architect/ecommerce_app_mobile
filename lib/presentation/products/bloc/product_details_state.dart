@@ -94,7 +94,17 @@ class ReviewsFailState extends ProductDetailsState {
       required super.quantity});
 }
 
-class YouMayAlsoLikeLoadingState extends ProductDetailsState {
+class YouMayAlsoLikeState extends ProductDetailsState {
+  YouMayAlsoLikeState(
+      {required super.reviews,
+      required super.youMayAlsoLike,
+      required super.productDetailsItems,
+      required super.optionMatrix,
+      required super.selectedSubProduct,
+      required super.quantity});
+}
+
+class YouMayAlsoLikeLoadingState extends YouMayAlsoLikeState {
   YouMayAlsoLikeLoadingState(
       {required super.reviews,
       required super.youMayAlsoLike,
@@ -104,7 +114,7 @@ class YouMayAlsoLikeLoadingState extends ProductDetailsState {
       required super.quantity});
 }
 
-class YouMayAlsoLikeSuccessState extends ProductDetailsState {
+class YouMayAlsoLikeSuccessState extends YouMayAlsoLikeState {
   YouMayAlsoLikeSuccessState(
       {required super.reviews,
       required super.youMayAlsoLike,
@@ -114,7 +124,7 @@ class YouMayAlsoLikeSuccessState extends ProductDetailsState {
       required super.quantity});
 }
 
-class YouMayAlsoLikeFailState extends ProductDetailsState {
+class YouMayAlsoLikeFailState extends YouMayAlsoLikeState {
   final Fail fail;
 
   YouMayAlsoLikeFailState(
