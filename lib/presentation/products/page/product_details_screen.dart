@@ -75,21 +75,24 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> with Widget
         },
         child: Scaffold(
           bottomNavigationBar: widget.product.subProducts.availableInStock
-              ? ButtonCartBuy(
-                  price: widget.product.subProducts.getIdealSubProduct.priceAfterDiscounting,
-                  press: () {
-                    customModalBottomSheet(
-                      context,
-                      height: MediaQuery.of(context).size.height * 0.92,
-                      child: ProductBuyNowScreen(
-                        user: widget.user,
-                        appSettings: widget.appSettings,
-                        productFeatureHandler: productFeatureHandler,
-                        product: widget.product,
-                      ),
-                    );
-                  }, currency: widget.appSettings.defaultCurrency,
-                )
+              ? Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4),
+                child: ButtonCartBuy(
+                    price: widget.product.subProducts.getIdealSubProduct.priceAfterDiscounting,
+                    press: () {
+                      customModalBottomSheet(
+                        context,
+                        height: MediaQuery.of(context).size.height * 0.92,
+                        child: ProductBuyNowScreen(
+                          user: widget.user,
+                          appSettings: widget.appSettings,
+                          productFeatureHandler: productFeatureHandler,
+                          product: widget.product,
+                        ),
+                      );
+                    }, currency: widget.appSettings.defaultCurrency,
+                  ),
+              )
               : const SizedBox.shrink(),
 
           /// If profuct is not available then show [NotifyMeCard]
