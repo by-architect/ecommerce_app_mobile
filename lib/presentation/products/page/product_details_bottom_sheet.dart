@@ -47,13 +47,11 @@ class ProductDetailsBottomSheet extends StatelessWidget {
                           Expanded(
                             child: SizedBox(
                                 child: Center(
-                              child: Flexible(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(6),
-                                  child: Text(
-                                    items[index].content,
-                                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 16,color: Theme.of(context).primaryColor),
-                                  ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(6),
+                                child: Text(
+                                  items[index].content,
+                                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 16,color: Theme.of(context).primaryColor),
                                 ),
                               ),
                             )),

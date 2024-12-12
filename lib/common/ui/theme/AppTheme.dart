@@ -21,6 +21,7 @@ class AppTheme {
       checkboxTheme: AppStyles.checkboxThemeData.copyWith(side: const BorderSide(color: AppColors.blackColor40)),
       bottomNavigationBarTheme: AppStyles.defaultNavigationBarThemeLight,
       appBarTheme: AppStyles.appBarLightTheme,
+      bottomSheetTheme: AppStyles.defaultBottomSheetThemeLight,
       chipTheme: AppStyles.chipThemeLight,
       scrollbarTheme: AppStyles.scrollbarThemeData,
       dataTableTheme: AppStyles.dataTableLightThemeData);
@@ -44,6 +45,7 @@ class AppTheme {
       elevatedButtonTheme: AppStyles.elevatedButtonThemeDataDark,
       textButtonTheme: AppStyles.textButtonThemeData,
       outlinedButtonTheme: AppStyles.outlinedButtonTheme(isDarkMode: true),
+      bottomSheetTheme: AppStyles.defaultBottomSheetThemeDark,
       inputDecorationTheme: AppStyles.inputDecorationThemeDark,
       checkboxTheme: AppStyles.checkboxThemeData.copyWith(side: const BorderSide(color: AppColors.whiteColor40)),
       bottomNavigationBarTheme: AppStyles.defaultNavigationBarThemeDark,

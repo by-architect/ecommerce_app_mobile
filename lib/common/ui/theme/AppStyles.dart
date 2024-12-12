@@ -256,6 +256,25 @@ class AppStyles {
         padding: WidgetStateProperty.all(EdgeInsets.zero),
       );
 
+  static BottomSheetThemeData defaultBottomSheetThemeLight = const BottomSheetThemeData(
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(AppSizes.defaultBorderRadius),
+        topRight: Radius.circular(AppSizes.defaultBorderRadius),
+      ),
+    ),
+  );
+
+  static BottomSheetThemeData defaultBottomSheetThemeDark = const BottomSheetThemeData(
+    shape: RoundedRectangleBorder(
+      side: BorderSide(color: AppColors.whiteColor, width: 5),
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(AppSizes.defaultBorderRadius),
+        topRight: Radius.circular(AppSizes.defaultBorderRadius),
+      ),
+    ),
+  );
+
   static BoxDecoration defaultBoxDecoration = BoxDecoration(
       borderRadius: BorderRadius.circular(AppSizes.defaultBorderRadius),
       border: Border.all(
