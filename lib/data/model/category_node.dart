@@ -11,8 +11,11 @@ class CategoryNode {
 
   String get nodeString => _categoryNodeToString(_node);
 
+  List<Category> get node => _node;
+
   int get length => _node.length;
   Category get last => _node.last;
+  Category get first => _node.first;
 
   add(Category category) => _node.add(category);
 

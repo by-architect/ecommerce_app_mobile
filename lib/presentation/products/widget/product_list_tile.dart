@@ -9,13 +9,14 @@ class ProductListTile extends StatelessWidget {
     this.svgSrc,
     required this.title,
     this.isShowBottomBorder = false,
-    required this.press,
+    required this.press, this.textStyle,
   });
 
   final String? svgSrc;
      final String title;
   final bool isShowBottomBorder;
   final VoidCallback press;
+  final TextStyle? textStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,7 @@ class ProductListTile extends StatelessWidget {
             height: 24,
             colorFilter: ColorFilters.iconThemeColor(context),
           ):null,
-          title: Text(title),
+          title: Text(title,style: textStyle,),
           trailing: SvgPicture.asset(
             AppImages.miniRightIcon,
             colorFilter: ColorFilters.iconThemeColor(context),

@@ -5,7 +5,7 @@ import 'package:ecommerce_app_mobile/data/model/categories.dart';
 import 'package:ecommerce_app_mobile/data/model/category.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/ButtonPrimary.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/button_secondary.dart';
-import 'package:ecommerce_app_mobile/presentation/common/widgets/chip_default,.dart';
+import 'package:ecommerce_app_mobile/presentation/common/widgets/chip_default.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/chip_primary.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/text_button_default.dart';
 import 'package:ecommerce_app_mobile/presentation/discover/widget/categories_lister_widget.dart';

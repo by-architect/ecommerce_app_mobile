@@ -235,6 +235,7 @@ class AppText {
 
 // Discover Page
   static const discoverPageFindSomething = AppText("Find something...");
+  static const discoverPageAll = AppText("all");
 
 // Search Screen
   static const searchPageRecentSearches = AppText("Recent searches");

@@ -57,6 +57,7 @@ class AppImages{
 
   static const discountTagIcon = "${_iconPath}Discount_tag$_formatSvg";
   static const arrowRight = "${_iconPath}Arrow - Right$_formatSvg";
+  static const arrowLeft = "${_iconPath}Arrow - Left$_formatSvg";
   static const dot = "${_iconPath}dot$_formatSvg";
 
   static const singleCheckIcon = "${_iconPath}Singlecheck$_formatSvg";

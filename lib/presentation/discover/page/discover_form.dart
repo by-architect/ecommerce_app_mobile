@@ -60,7 +60,7 @@ class _DiscoverFormState extends State<DiscoverForm> {
               },
             ),
             const SizedBox(
-              height: AppSizes.spaceBtwVerticalFields,
+              height: AppSizes.spaceBtwVerticalFieldsLarge,
             ),
             Expanded(
               child: CategoriesListerWidget(

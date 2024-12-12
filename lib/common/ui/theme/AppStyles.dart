@@ -64,13 +64,13 @@ class AppStyles {
 
   static const chipThemeLight = ChipThemeData(
     brightness: Brightness.light,
-    backgroundColor: Colors.transparent,
-    shape: defaultOutlinedBorder,
+    backgroundColor: AppColors.whiteColor,
+    shape: borderlessOutlinedBorder,
     labelStyle: TextStyle(fontSize: 12, color: AppColors.blackColor),
     secondarySelectedColor: AppColors.whiteColor,
     secondaryLabelStyle: TextStyle(color: AppColors.cyanColor),
     side: BorderSide(
-      color: AppColors.greyColor,
+      color: AppColors.whiteColor80,
     ),
   );
   static const chipThemeDark = ChipThemeData(
@@ -103,7 +103,8 @@ class AppStyles {
     style: TextButton.styleFrom(foregroundColor: AppColors.primaryColorDark),
   );
 
-  static InputDecorationTheme inputDecorationDefault(BuildContext context) => context.isDarkMode ? inputDecorationThemeDark : inputDecorationThemeLight;
+  static InputDecorationTheme inputDecorationDefault(BuildContext context) =>
+      context.isDarkMode ? inputDecorationThemeDark : inputDecorationThemeLight;
 
   static const InputDecorationTheme inputDecorationThemeLight = InputDecorationTheme(
     fillColor: AppColors.lightGreyColor,
@@ -129,6 +130,18 @@ class AppStyles {
 
   static const OutlinedBorder defaultOutlinedBorder = RoundedRectangleBorder(
     borderRadius: BorderRadius.all(Radius.circular(AppSizes.defaultBorderRadius)),
+    side: BorderSide(color: AppColors.greyColor, width: AppSizes.defaultBoxWidth),
+  );
+
+  static const OutlinedBorder borderlessOutlinedBorder = RoundedRectangleBorder(
+    borderRadius: BorderRadius.all(Radius.circular(AppSizes.defaultBorderRadius)),
+  );
+
+  static const OutlinedBorder rightArrowOutlinedBorder = RoundedRectangleBorder(
+    borderRadius: BorderRadius.only(
+      topRight: Radius.circular(AppSizes.defaultBorderRadius*4),
+      bottomRight: Radius.circular(AppSizes.defaultBorderRadius*4),
+    ),
     side: BorderSide(color: AppColors.greyColor, width: AppSizes.defaultBoxWidth),
   );
 
@@ -231,8 +244,8 @@ class AppStyles {
       disabledBackgroundColor: AppColors.whiteColor80,
       padding: const EdgeInsets.all(8));
 
-  static ButtonStyle _clickableWidgetOutlinedStyleDark({Size? minimumSize, Size? maximumSize}) =>
-      OutlinedButton.styleFrom(overlayColor: AppColors.greyColor, minimumSize: minimumSize, maximumSize: maximumSize, padding: const EdgeInsets.all(8));
+  static ButtonStyle _clickableWidgetOutlinedStyleDark({Size? minimumSize, Size? maximumSize}) => OutlinedButton.styleFrom(
+      overlayColor: AppColors.greyColor, minimumSize: minimumSize, maximumSize: maximumSize, padding: const EdgeInsets.all(8));
 
   static ButtonStyle clickableWidgetOutlinedStyle(BuildContext context, {Size? minimumSize, Size? maximumSize}) => context.isDarkMode
       ? _clickableWidgetOutlinedStyleDark(minimumSize: minimumSize, maximumSize: maximumSize)
