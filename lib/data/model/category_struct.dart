@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:ecommerce_app_mobile/data/model/categories.dart';
 import 'package:ecommerce_app_mobile/data/model/category_node.dart';
 
@@ -18,6 +19,9 @@ class CategoryStruct {
 
   Category get selectedCategory => categoryNode.last;
 
+   get _sort {
+    _categoryListNode.last.sort((Category a, Category b) => isLastLayer(a) ? 1 : -1);
+  }
 
   CategoryStruct.empty() {
     _categoryListNode = [];
@@ -28,20 +32,22 @@ class CategoryStruct {
   CategoryStruct(this._categories) {
     _categoryListNode = [_categories.firstLayer];
     categoryNode = CategoryNode.empty();
+    _sort;
   }
 
   bool isLastLayer(Category selectedCategory) {
-   if(_categories.layerCount <= currentLayerId +1) {
-     return true;
-   } else {
-     return _categories.getLayer(currentLayerId + 1).where((category) => category.superId == selectedCategory.id).toList().isEmpty;
-   }
+    if (_categories.layerCount <= currentLayerId + 1) {
+      return true;
+    } else {
+      return _categories.getLayer(currentLayerId + 1).where((category) => category.superId == selectedCategory.id).toList().isEmpty;
+    }
   }
 
   nextLayer(Category selectedCategory) {
     final nextLayer = _categories.getLayer(currentLayerId + 1).where((category) => category.superId == selectedCategory.id).toList();
-      _categoryListNode.add(nextLayer);
-      categoryNode.add(selectedCategory);
+    _categoryListNode.add(nextLayer);
+    categoryNode.add(selectedCategory);
+    _sort;
   }
 
   previousLayer() {

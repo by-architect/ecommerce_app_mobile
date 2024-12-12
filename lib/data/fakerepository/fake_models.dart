@@ -82,8 +82,11 @@ class FakeProductModels {
       Category(id: "2", name: "Bileklikler", superId: "", layer: 0);
   static Category category4 =
       Category(id: "3", name: "Pantolonlar", superId: "", layer: 0);
+  static Category category5  = Category(id: "4", name: "Armalar", superId: "", layer: 0);
+  // static Category category51  = Category(id: "41", name: "Güneş gözlikleri", superId: "4", layer: 1);
 
   static List<Category> categoriesUnSorted = [
+    category5,
     category1,
     category2,
     category21,
