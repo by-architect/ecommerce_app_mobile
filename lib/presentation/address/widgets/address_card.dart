@@ -4,6 +4,7 @@ import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppStyles.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/color_filters.dart';
 import 'package:ecommerce_app_mobile/data/model/address.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/helper/ui_helper.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/ui/widget_clickable.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/ui/widget_clickable_outlined.dart';
 import 'package:flutter/cupertino.dart';
@@ -48,7 +49,7 @@ class AddressCard extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           radius: 18,
-                          backgroundColor: AppColors.whiteColor90,
+                          backgroundColor: AppColors.blackColor40,
                           child: SvgPicture.asset(
                             AppImages.locationIcon,
                             width: 20,
@@ -82,7 +83,7 @@ class AddressCard extends StatelessWidget {
                             AppImages.editIcon,
                             colorFilter: isSelected
                                 ? ColorFilters.oneColorForIcon(selectedColor)
-                                : null,
+                                : context.isDarkMode ? ColorFilters.oneColorForIcon(AppColors.blackColor40) : null,
                           ),
                         ),
                       )
