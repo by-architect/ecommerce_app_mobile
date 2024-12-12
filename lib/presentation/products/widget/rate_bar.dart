@@ -1,3 +1,4 @@
+import 'package:ecommerce_app_mobile/sddklibrary/helper/ui_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -40,11 +41,8 @@ class RateBar extends StatelessWidget {
               child: LinearProgressIndicator(
                 minHeight: 6,
                 color: AppColors.warningColor,
-                backgroundColor: Theme.of(context)
-                    .textTheme
-                    .bodyLarge!
-                    .color!
-                    .withOpacity(0.05),
+                backgroundColor: context.isDarkMode ? AppColors.blackColor80 : AppColors.whiteColor90  ,
+
                 value: value,
               ),
             ),

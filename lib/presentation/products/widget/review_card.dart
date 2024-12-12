@@ -1,17 +1,20 @@
 import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
+import 'package:ecommerce_app_mobile/common/ui/theme/AppStyles.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/presentation/products/widget/rate_bar.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/helper/ui_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../common/ui/theme/AppColors.dart';
 import '../../../data/model/Reviews.dart';
-
 
 class ReviewCard extends StatelessWidget {
   const ReviewCard({
-    super.key, required this.reviews,
+    super.key,
+    required this.reviews,
   });
 
   final Reviews reviews;
@@ -21,11 +24,7 @@ class ReviewCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(AppSizes.defaultPadding),
       width: double.infinity,
-      decoration: BoxDecoration(
-        color: Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.035),
-        borderRadius:
-            const BorderRadius.all(Radius.circular(AppSizes.defaultBorderRadius)),
-      ),
+      decoration: AppStyles.borderlessGreyBoxDecoration(context.isDarkMode),
       child: Row(
         children: [
           Expanded(
@@ -35,10 +34,7 @@ class ReviewCard extends StatelessWidget {
                 Text.rich(
                   TextSpan(
                     text: "${reviews.ratingString} ",
-                    style: Theme.of(context)
-                        .textTheme
-                        .headlineSmall!
-                        .copyWith(fontWeight: FontWeight.w500),
+                    style: Theme.of(context).textTheme.headlineSmall!.copyWith(fontWeight: FontWeight.w500),
                     children: [
                       TextSpan(
                         text: "/5",
@@ -53,17 +49,12 @@ class ReviewCard extends StatelessWidget {
                   initialRating: reviews.rating,
                   itemSize: 20,
                   itemPadding: const EdgeInsets.only(right: AppSizes.defaultPadding / 4),
-                  unratedColor: Theme.of(context)
-                      .textTheme
-                      .bodyLarge!
-                      .color!
-                      .withOpacity(0.08),
+                  unratedColor: context.isDarkMode ? AppColors.blackColor80 : AppColors.whiteColor90,
                   glow: false,
                   allowHalfRating: true,
                   ignoreGestures: true,
                   onRatingUpdate: (value) {},
-                  itemBuilder: (context, index) =>
-                      SvgPicture.asset(AppImages.starFilledIcon),
+                  itemBuilder: (context, index) => SvgPicture.asset(AppImages.starFilledIcon),
                 ),
               ],
             ),
@@ -71,9 +62,11 @@ class ReviewCard extends StatelessWidget {
           const SizedBox(width: AppSizes.defaultPadding),
           Expanded(
             child: Column(
-              children: ReviewStar.values.map((reviewStar) {
-               return RateBar(reviewStar: reviewStar, value: reviews.getStarCountPercent(reviewStar));
-              },).toList(),
+              children: ReviewStar.values.map(
+                (reviewStar) {
+                  return RateBar(reviewStar: reviewStar, value: reviews.getStarCountPercent(reviewStar));
+                },
+              ).toList(),
             ),
           ),
         ],
@@ -81,4 +74,3 @@ class ReviewCard extends StatelessWidget {
     );
   }
 }
-

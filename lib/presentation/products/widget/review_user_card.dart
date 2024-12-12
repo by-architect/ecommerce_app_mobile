@@ -1,4 +1,5 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
+import 'package:ecommerce_app_mobile/common/ui/theme/AppStyles.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/color_filters.dart';
 import 'package:ecommerce_app_mobile/data/fakerepository/fake_models.dart';
 import 'package:ecommerce_app_mobile/data/model/review.dart';
@@ -6,6 +7,7 @@ import 'package:ecommerce_app_mobile/presentation/common/widgets/network_image_w
 import 'package:ecommerce_app_mobile/presentation/common/widgets/profile_image_widget.dart';
 import 'package:ecommerce_app_mobile/presentation/products/widget/rate_bar.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/date_helper.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/helper/ui_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -28,10 +30,7 @@ class ReviewUserCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(AppSizes.defaultPadding),
       width: double.infinity,
-      decoration: BoxDecoration(
-        color: Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.035),
-        borderRadius: const BorderRadius.all(Radius.circular(AppSizes.defaultBorderRadius)),
-      ),
+      decoration: AppStyles.borderlessGreyBoxDecoration(context.isDarkMode),
       child: Column(
         children: [
           Row(
@@ -49,7 +48,7 @@ class ReviewUserCard extends StatelessWidget {
                 initialRating: 3,
                 itemSize: 14,
                 itemPadding: const EdgeInsets.only(right: AppSizes.defaultPadding / 4),
-                unratedColor: Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.08),
+                unratedColor: context.isDarkMode ? AppColors.blackColor80 : AppColors.whiteColor90  ,
                 glow: false,
                 allowHalfRating: true,
                 ignoreGestures: true,

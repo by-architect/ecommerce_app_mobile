@@ -9,29 +9,25 @@ import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 class AppStyles {
   static const grandisExtendedFont = "GrandisExtended";
 
-  static final ElevatedButtonThemeData elevatedButtonThemeDataLight =
-      ElevatedButtonThemeData(
+  static final ElevatedButtonThemeData elevatedButtonThemeDataLight = ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       padding: const EdgeInsets.all(AppSizes.defaultPadding),
       backgroundColor: AppColors.primaryColor,
       foregroundColor: AppColors.whiteColor,
       minimumSize: const Size(double.infinity, 32),
       shape: const RoundedRectangleBorder(
-        borderRadius:
-            BorderRadius.all(Radius.circular(AppSizes.defaultBorderRadius)),
+        borderRadius: BorderRadius.all(Radius.circular(AppSizes.defaultBorderRadius)),
       ),
     ),
   );
-  static final ElevatedButtonThemeData elevatedButtonThemeDataDark =
-      ElevatedButtonThemeData(
+  static final ElevatedButtonThemeData elevatedButtonThemeDataDark = ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       padding: const EdgeInsets.all(AppSizes.defaultPadding),
       backgroundColor: AppColors.primaryColorDark,
       foregroundColor: AppColors.whiteColor80,
       minimumSize: const Size(double.infinity, 32),
       shape: const RoundedRectangleBorder(
-        borderRadius:
-            BorderRadius.all(Radius.circular(AppSizes.defaultBorderRadius)),
+        borderRadius: BorderRadius.all(Radius.circular(AppSizes.defaultBorderRadius)),
       ),
     ),
   );
@@ -87,22 +83,16 @@ class AppStyles {
     ),
   );
 
-  static OutlinedButtonThemeData outlinedButtonTheme(
-      {required bool isDarkMode}) {
+  static OutlinedButtonThemeData outlinedButtonTheme({required bool isDarkMode}) {
     return OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
         overlayColor: AppColors.whiteColor20,
-        foregroundColor:
-            isDarkMode ? AppColors.whiteColor80 : AppColors.blackColor80,
+        foregroundColor: isDarkMode ? AppColors.whiteColor80 : AppColors.blackColor80,
         padding: const EdgeInsets.all(AppSizes.defaultPadding),
         minimumSize: const Size(double.infinity, 32),
-        side: BorderSide(
-            width: 1,
-            color:
-                isDarkMode ? AppColors.whiteColor80 : AppColors.blackColor40),
+        side: BorderSide(width: 1, color: isDarkMode ? AppColors.whiteColor80 : AppColors.blackColor40),
         shape: const RoundedRectangleBorder(
-          borderRadius:
-              BorderRadius.all(Radius.circular(AppSizes.defaultBorderRadius)),
+          borderRadius: BorderRadius.all(Radius.circular(AppSizes.defaultBorderRadius)),
         ),
       ),
     );
@@ -113,11 +103,9 @@ class AppStyles {
     style: TextButton.styleFrom(foregroundColor: AppColors.primaryColorDark),
   );
 
-  static InputDecorationTheme inputDecorationDefault(BuildContext context) =>
-      context.isDarkMode ? inputDecorationThemeDark : inputDecorationThemeLight;
+  static InputDecorationTheme inputDecorationDefault(BuildContext context) => context.isDarkMode ? inputDecorationThemeDark : inputDecorationThemeLight;
 
-  static const InputDecorationTheme inputDecorationThemeLight =
-      InputDecorationTheme(
+  static const InputDecorationTheme inputDecorationThemeLight = InputDecorationTheme(
     fillColor: AppColors.lightGreyColor,
     filled: true,
     border: AppStyles.outlineInputBorder,
@@ -128,8 +116,7 @@ class AppStyles {
     errorBorder: errorOutlineInputBorder,
   );
 
-  static const InputDecorationTheme inputDecorationThemeDark =
-      InputDecorationTheme(
+  static const InputDecorationTheme inputDecorationThemeDark = InputDecorationTheme(
     fillColor: AppColors.darkGreyColor,
     filled: true,
     border: AppStyles.outlineInputBorder,
@@ -141,30 +128,23 @@ class AppStyles {
   );
 
   static const OutlinedBorder defaultOutlinedBorder = RoundedRectangleBorder(
-    borderRadius:
-        BorderRadius.all(Radius.circular(AppSizes.defaultBorderRadius)),
-    side:
-        BorderSide(color: AppColors.greyColor, width: AppSizes.defaultBoxWidth),
+    borderRadius: BorderRadius.all(Radius.circular(AppSizes.defaultBorderRadius)),
+    side: BorderSide(color: AppColors.greyColor, width: AppSizes.defaultBoxWidth),
   );
 
   //todo: handle
   static const OutlineInputBorder outlineInputBorder = OutlineInputBorder(
-    borderRadius:
-        BorderRadius.all(Radius.circular(AppSizes.defaultBorderRadius)),
-    borderSide:
-        BorderSide(color: AppColors.greyColor, width: AppSizes.defaultBoxWidth),
+    borderRadius: BorderRadius.all(Radius.circular(AppSizes.defaultBorderRadius)),
+    borderSide: BorderSide(color: AppColors.greyColor, width: AppSizes.defaultBoxWidth),
   );
 
-  static const OutlineInputBorder focusedOutlineInputBorder =
-      OutlineInputBorder(
-    borderRadius:
-        BorderRadius.all(Radius.circular(AppSizes.defaultBorderRadius)),
+  static const OutlineInputBorder focusedOutlineInputBorder = OutlineInputBorder(
+    borderRadius: BorderRadius.all(Radius.circular(AppSizes.defaultBorderRadius)),
     borderSide: BorderSide(color: AppColors.primaryColor),
   );
 
   static const OutlineInputBorder errorOutlineInputBorder = OutlineInputBorder(
-    borderRadius:
-        BorderRadius.all(Radius.circular(AppSizes.defaultBorderRadius)),
+    borderRadius: BorderRadius.all(Radius.circular(AppSizes.defaultBorderRadius)),
     borderSide: BorderSide(
       color: AppColors.errorColor,
     ),
@@ -172,8 +152,7 @@ class AppStyles {
 
   static OutlineInputBorder secondaryOutlineInputBorder(BuildContext context) {
     return OutlineInputBorder(
-      borderRadius:
-          const BorderRadius.all(Radius.circular(AppSizes.defaultBorderRadius)),
+      borderRadius: const BorderRadius.all(Radius.circular(AppSizes.defaultBorderRadius)),
       borderSide: BorderSide(
         color: Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.15),
       ),
@@ -221,8 +200,7 @@ class AppStyles {
     columnSpacing: 24,
     headingRowColor: WidgetStateProperty.all(Colors.black12),
     decoration: BoxDecoration(
-      borderRadius:
-          const BorderRadius.all(Radius.circular(AppSizes.defaultBorderRadius)),
+      borderRadius: const BorderRadius.all(Radius.circular(AppSizes.defaultBorderRadius)),
       border: Border.all(color: Colors.black12),
     ),
     dataTextStyle: const TextStyle(
@@ -236,8 +214,7 @@ class AppStyles {
     columnSpacing: 24,
     headingRowColor: WidgetStateProperty.all(Colors.white10),
     decoration: BoxDecoration(
-      borderRadius:
-          const BorderRadius.all(Radius.circular(AppSizes.defaultBorderRadius)),
+      borderRadius: const BorderRadius.all(Radius.circular(AppSizes.defaultBorderRadius)),
       border: Border.all(color: Colors.white10),
     ),
     dataTextStyle: const TextStyle(
@@ -247,33 +224,21 @@ class AppStyles {
     ),
   );
 
-  static ButtonStyle _clickableWidgetOutlinedStyleLight(
-          {Size? minimumSize, Size? maximumSize}) =>
-      OutlinedButton.styleFrom(
-          minimumSize: minimumSize,
-          maximumSize: maximumSize,
-          overlayColor: AppColors.greyColor,
-          disabledBackgroundColor: AppColors.whiteColor80,
-          padding: const EdgeInsets.all(8));
+  static ButtonStyle _clickableWidgetOutlinedStyleLight({Size? minimumSize, Size? maximumSize}) => OutlinedButton.styleFrom(
+      minimumSize: minimumSize,
+      maximumSize: maximumSize,
+      overlayColor: AppColors.greyColor,
+      disabledBackgroundColor: AppColors.whiteColor80,
+      padding: const EdgeInsets.all(8));
 
-  static ButtonStyle _clickableWidgetOutlinedStyleDark(
-          {Size? minimumSize, Size? maximumSize}) =>
-      OutlinedButton.styleFrom(
-          overlayColor: AppColors.greyColor,
-          minimumSize: minimumSize,
-          maximumSize: maximumSize,
-          padding: const EdgeInsets.all(8));
+  static ButtonStyle _clickableWidgetOutlinedStyleDark({Size? minimumSize, Size? maximumSize}) =>
+      OutlinedButton.styleFrom(overlayColor: AppColors.greyColor, minimumSize: minimumSize, maximumSize: maximumSize, padding: const EdgeInsets.all(8));
 
-  static ButtonStyle clickableWidgetOutlinedStyle(BuildContext context,
-          {Size? minimumSize, Size? maximumSize}) =>
-      context.isDarkMode
-          ? _clickableWidgetOutlinedStyleDark(
-              minimumSize: minimumSize, maximumSize: maximumSize)
-          : _clickableWidgetOutlinedStyleLight(
-              minimumSize: minimumSize, maximumSize: maximumSize);
+  static ButtonStyle clickableWidgetOutlinedStyle(BuildContext context, {Size? minimumSize, Size? maximumSize}) => context.isDarkMode
+      ? _clickableWidgetOutlinedStyleDark(minimumSize: minimumSize, maximumSize: maximumSize)
+      : _clickableWidgetOutlinedStyleLight(minimumSize: minimumSize, maximumSize: maximumSize);
 
-  static ButtonStyle clickableWidgetOutlinedStyleNoPadding(BuildContext context,
-          {Size? minimumSize, Size? maximumSize}) =>
+  static ButtonStyle clickableWidgetOutlinedStyleNoPadding(BuildContext context, {Size? minimumSize, Size? maximumSize}) =>
       clickableWidgetOutlinedStyle(context).copyWith(
         padding: WidgetStateProperty.all(EdgeInsets.zero),
       );
@@ -285,21 +250,23 @@ class AppStyles {
         width: AppSizes.defaultBoxWidth,
       ));
 
-  static BoxDecoration blackBoxDecoration(BuildContext context) =>
-      BoxDecoration(
-        borderRadius: const BorderRadius.all(
-            Radius.circular(AppSizes.defaultBorderRadius)),
+  static BoxDecoration borderlessDefaultBoxDecoration(Color backgroundColor) => BoxDecoration(
+        color: backgroundColor,
+        borderRadius: const BorderRadius.all(Radius.circular(AppSizes.defaultBorderRadius)),
+      );
+
+  static BoxDecoration borderlessGreyBoxDecoration(bool isDarkTheme) =>
+      borderlessDefaultBoxDecoration(isDarkTheme ? AppColors.whiteColor10 : AppColors.whiteColor80.withOpacity(0.2));
+
+  static BoxDecoration blackBoxDecoration(BuildContext context) => BoxDecoration(
+        borderRadius: const BorderRadius.all(Radius.circular(AppSizes.defaultBorderRadius)),
         border: Border.all(color: Theme.of(context).dividerColor),
       );
 
   static FloatingActionButtonThemeData floatActionThemeLight =
-      const FloatingActionButtonThemeData(
-          backgroundColor: AppColors.primaryColor,
-          foregroundColor: AppColors.whiteColor90);
+      const FloatingActionButtonThemeData(backgroundColor: AppColors.primaryColor, foregroundColor: AppColors.whiteColor90);
   static FloatingActionButtonThemeData floatActionThemeDark =
-      const FloatingActionButtonThemeData(
-          backgroundColor: AppColors.primaryColorDark,
-          foregroundColor: AppColors.whiteColor10);
+      const FloatingActionButtonThemeData(backgroundColor: AppColors.primaryColorDark, foregroundColor: AppColors.whiteColor10);
 
 /*
 
