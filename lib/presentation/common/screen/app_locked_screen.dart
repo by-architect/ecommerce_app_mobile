@@ -8,8 +8,8 @@ import '../../../common/ui/assets/AppImages.dart';
 import '../../../common/ui/theme/AppSizes.dart';
 import '../../../common/ui/theme/AppText.dart';
 
-class AppIsGettingReadyScreen extends StatelessWidget {
-  const AppIsGettingReadyScreen({super.key});
+class AppLockedScreen extends StatelessWidget {
+  const AppLockedScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class AppIsGettingReadyScreen extends StatelessWidget {
               ? AppImages.serverErrorDark
               : AppImages.serverError,
           message: AppText
-              .appIsGettingReadyPageAppIsGettingReady.capitalizeFirstWord.get,
+              .infoAppIsGettingReadyPageAppIsGettingReady.capitalizeFirstWord.get,
           notSvg: true,
         ),
       ),

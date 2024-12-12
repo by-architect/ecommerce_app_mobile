@@ -14,6 +14,7 @@ class FakeAppSettingsService implements AppSettingsService {
             FakeAppDefaults.maxProductQuantityCustomerCanBuyInOnce,
         defaultShippingFee: FakeAppDefaults.shippingFee,
         updateAvailable: FakeAppDefaults.updateAvailable,
+        forceUpdate: FakeAppDefaults.forceUpdate,
         defaultMapLocation: FakeAppDefaults.defaultStartLocation,
         defaultCurrency: FakeAppDefaults.defaultCurrency,
         defaultReturnDay: FakeAppDefaults.defaultReturnDay,

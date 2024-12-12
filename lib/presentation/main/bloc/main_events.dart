@@ -16,6 +16,8 @@ class ToggleThemeEvent extends MainEvents{
   
 }
 
+class ContinueAppWithoutUpdateEvent extends MainEvents{}
+
 
 class GetInitItemsEvent extends MainEvents{}
 class UserSignedInEvent extends MainEvents{

@@ -187,6 +187,9 @@ class AppText {
   static const infoExplainWhyYouReturn = AppText("Explain why you return");
   static const infoReturnRequestedSuccessfully =
       AppText("Return request sent successfully");
+  static const infoAppIsGettingReadyPageAppIsGettingReady = AppText("App is getting ready for you. Please try again later");
+  static const infoAppNeedsToUpdate = AppText("We have update for you, please update for access all features");
+  static const infoAppNeedsToUpdateForce = AppText("We have update for you. Update for continue using app");
 
   static AppText infoRightOfWithdrawal(int day) => AppText(
       "Since the $day day right of withdrawal has expired, a refund request cannot be accepted.");
@@ -438,8 +441,8 @@ class AppText {
   static const getHelpPageGetHelp = AppText("Get Help");
   static const getHelpPageWeAreHereToHelp = AppText("We are here to help so please get in touch with us");
 
-  //App is getting ready screen
-  static const appIsGettingReadyPageAppIsGettingReady = AppText("App is getting ready for you. Please try again later");
+  //Update screen
+  static const updatePageUpdate = AppText("Continue without update");
 
 
   // Pages Common

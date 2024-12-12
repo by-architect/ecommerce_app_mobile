@@ -13,6 +13,7 @@ class AppSettings {
   final int defaultReturnDay;
   final bool isAppLocked;
   final bool updateAvailable;
+  final bool forceUpdate;
 
   // final String defaultLanguage;
   final List<ContactModel> contacts;
@@ -22,6 +23,7 @@ class AppSettings {
       {required this.maxProductQuantityCustomerCanBuyInOrder,
       required this.defaultShippingFee,
         required this.updateAvailable,
+        required this.forceUpdate,
       required this.isAppLocked,
       required this.defaultMapLocation,
       required this.defaultCurrency,
@@ -37,6 +39,7 @@ class AppSettings {
   AppSettings._({
     required this.maxProductQuantityCustomerCanBuyInOrder,
     required this.defaultShippingFee,
+    required this.forceUpdate,
     required this.updateAvailable,
     required this.isAppLocked,
     required this.defaultMapLocation,
@@ -50,6 +53,7 @@ class AppSettings {
         maxProductQuantityCustomerCanBuyInOrder: 10,
         defaultShippingFee: Money(0),
         updateAvailable: false,
+        forceUpdate: false,
         defaultMapLocation: const LatLng(39.9334, 32.8597),
         defaultCurrency: Currency.tl,
         isAppLocked: false,

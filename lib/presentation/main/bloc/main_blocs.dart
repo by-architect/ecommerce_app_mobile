@@ -45,12 +45,13 @@ class MainBlocs extends Bloc<MainEvents, MainStates> {
           ));
           return;
         }
+        final appSettings = appSettingsResource.data!;
 
-        if (state.appSettings.updateAvailable) {
-          emit(UpdateScreenState(state: state));
+        if (appSettings.updateAvailable && appSettings.forceUpdate) {
+          emit(UpdateScreenState(state: state.copyWith(appSettings: appSettings)));
           return;
         }
-        if (state.appSettings.isAppLocked) {
+        if (appSettings.isAppLocked) {
           emit(AppIsGettingReadyState(state: state));
           return;
         }
@@ -87,6 +88,18 @@ class MainBlocs extends Bloc<MainEvents, MainStates> {
           return;
         }
 
+        if (appSettings.updateAvailable) {
+          emit(UpdateScreenState(
+              state: state.copyWith(
+                  userStatus: userResource.stable ? state.userStatus : UserStatus(userResource.data),
+                  themeMode: state.themeMode,
+                  appSettings: appSettingsResource.data!,
+                  productFeatures: productFeaturesResource.stable ? state.features : productFeaturesResource.data!,
+                  categories: categoriesResource.stable ? state.categories : categoriesResource.data!,
+                  selectedPage: state.selectedPage)));
+          return;
+        }
+
         emit(MainScreenState(
             state: state.copyWith(
                 userStatus: userResource.stable ? state.userStatus : UserStatus(userResource.data),
@@ -97,6 +110,10 @@ class MainBlocs extends Bloc<MainEvents, MainStates> {
                 selectedPage: state.selectedPage)));
       },
     );
+    on<ContinueAppWithoutUpdateEvent>((event, emit) {
+      emit(MainScreenState(state: state));
+    });
+
     on<LogOutEvent>(
       (event, emit) async {
         final resource = await userService.signOut();

@@ -39,6 +39,7 @@ class AppImages{
   static const noResultDark = '${_imagePath}NoResultDarkTheme$_formatPng';
   static const serverError = '${_imagePath}server_error$_formatPng';
   static const serverErrorDark = '${_imagePath}server_error_dark$_formatPng';
+  static const appUpdate = '${_imagePath}update_required$_formatSvg';
 
 
 

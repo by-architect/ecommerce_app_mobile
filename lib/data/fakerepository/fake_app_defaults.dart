@@ -11,6 +11,7 @@ class FakeAppDefaults {
   static LatLng defaultStartLocation = const LatLng(39.9334, 32.8597);
   static bool isAppLocked = false;
   static bool updateAvailable = false;
+  static bool forceUpdate = false;
   static Currency defaultCurrency = Currency.usd;
   static int defaultReturnDay = 14;
   static List<ContactModel> supportContacts = [
@@ -28,4 +29,5 @@ class FakeAppDefaults {
     ),
 
   ];
+
 }

@@ -1,6 +1,7 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
-import 'package:ecommerce_app_mobile/presentation/common/screen/app_is_getting_ready_screen.dart';
+import 'package:ecommerce_app_mobile/presentation/common/screen/app_locked_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/common/screen/loading_screen.dart';
+import 'package:ecommerce_app_mobile/presentation/common/screen/update_required_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/fail_form.dart';
 import 'package:ecommerce_app_mobile/presentation/main/bloc/main_blocs.dart';
 import 'package:ecommerce_app_mobile/presentation/main/bloc/main_events.dart';
@@ -68,8 +69,10 @@ class _MainLoaderState extends State<MainLoader> {
                 MainLoadingState _ => const Scaffold(body: LoadingScreen()),
                 MainLoadFailState failState => MainFailForm(failState: failState),
                 WelcomeScreenState _ => const WelcomeScreen(),
-                UpdateScreenState _ => const Placeholder(),
-                AppIsGettingReadyState _ => const AppIsGettingReadyScreen(),
+                UpdateScreenState _ => UpdateRequiredScreen(
+                    forceUpdate: state.appSettings.forceUpdate,
+                  ),
+                AppIsGettingReadyState _ => const AppLockedScreen(),
                 MainScreenState _ || MainStates() => MainForm(
                     state: state,
                     pageController: pageController,
