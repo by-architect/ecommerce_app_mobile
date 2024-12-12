@@ -3,7 +3,6 @@ import 'package:ecommerce_app_mobile/presentation/common/widgets/fail_form.dart'
 import 'package:ecommerce_app_mobile/presentation/products/widget/text_field_default.dart';
 import 'package:flutter/material.dart';
 
-import '../util/Log.dart';
 import '../util/fail.dart';
 
 class DialogUtil {
@@ -21,8 +20,7 @@ class DialogUtil {
     ScaffoldMessenger.of(_context).showSnackBar(snackBar);
   }
 
-  void toastWithButton(
-      String message, String buttonText, Function() onPressed) {
+  void toastWithButton(String message, String buttonText, Function() onPressed) {
     final snackBar = SnackBar(
       content: Text(message),
       action: SnackBarAction(
@@ -34,8 +32,7 @@ class DialogUtil {
     ScaffoldMessenger.of(_context).showSnackBar(snackBar);
   }
 
-  void showFullScreen(BuildContext context,
-      {String? message, Fail? fail, Function()? onTapRefresh}) {
+  void showFullScreen(BuildContext context, {String? message, Fail? fail, Function()? onTapRefresh}) {
     if (!_showingADialog) {
       _showingADialog = true;
       showDialog(
@@ -50,8 +47,7 @@ class DialogUtil {
     }
   }
 
-  void alert(String title, String content, String positiveButtonText,
-      String negativeButtonText, Function() onClick) {
+  void alert(String title, String content, String positiveButtonText, String negativeButtonText, Function() onClick) {
     if (!_showingADialog) {
       _showingADialog = true;
       showDialog(
@@ -82,11 +78,7 @@ class DialogUtil {
     }
   }
 
-  void inputDialog(
-      {required String title,
-      required String content,
-      required Function(String) onAccept,
-      Function()? onCancel}) {
+  void inputDialog({required String title, required String content, required Function(String) onAccept, Function()? onCancel}) {
     TextEditingController textController = TextEditingController();
     showDialog(
       context: _context,
@@ -167,8 +159,7 @@ class FullscreenLoadingDialog extends StatelessWidget {
   final Fail? fail;
   final Function()? onTapRefresh;
 
-  const FullscreenLoadingDialog(
-      {super.key, this.message, this.fail, this.onTapRefresh});
+  const FullscreenLoadingDialog({super.key, this.message, this.fail, this.onTapRefresh});
 
   static void hide(BuildContext context) {
     Navigator.of(context).pop();

@@ -85,6 +85,7 @@ class AppImages{
   static const helpIcon = "${_iconPath}Help$_formatSvg";
   static const fAQIcon = "${_iconPath}FAQ$_formatSvg";
   static const logoutIcon = "${_iconPath}Logout$_formatSvg";
+  static const themeIcon = "${_iconPath}theme$_formatSvg";
 
 
   static const editIcon = "${_iconPath}Edit-Bold$_formatSvg";

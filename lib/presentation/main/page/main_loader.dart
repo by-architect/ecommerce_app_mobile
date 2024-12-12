@@ -1,8 +1,6 @@
-import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/presentation/common/screen/app_locked_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/common/screen/loading_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/common/screen/update_required_screen.dart';
-import 'package:ecommerce_app_mobile/presentation/common/widgets/fail_form.dart';
 import 'package:ecommerce_app_mobile/presentation/main/bloc/main_blocs.dart';
 import 'package:ecommerce_app_mobile/presentation/main/bloc/main_events.dart';
 import 'package:ecommerce_app_mobile/presentation/main/bloc/main_states.dart';
@@ -14,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
-import '../../../common/constant/Screens.dart';
 import '../../cart/bloc/cart_bloc.dart';
 import '../../cart/bloc/cart_event.dart';
 import '../../home/bloc/home_bloc.dart';

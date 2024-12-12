@@ -1,16 +1,11 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
-import 'package:ecommerce_app_mobile/common/ui/theme/AppStyles.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/model/categories.dart';
-import 'package:ecommerce_app_mobile/data/model/category.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/ButtonPrimary.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/button_secondary.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/chip_default.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/chip_primary.dart';
 import 'package:ecommerce_app_mobile/presentation/common/widgets/text_button_default.dart';
-import 'package:ecommerce_app_mobile/presentation/discover/widget/categories_lister_widget.dart';
-import 'package:ecommerce_app_mobile/presentation/products/bloc/product_list_screen_event.dart';
-import 'package:ecommerce_app_mobile/presentation/products/widget/color_dot.dart';
 import 'package:ecommerce_app_mobile/presentation/products/widget/product_list_tile.dart';
 import 'package:ecommerce_app_mobile/presentation/search/widget/categories_lister_widget_sliver.dart';
 import 'package:ecommerce_app_mobile/presentation/search/widget/color_chip.dart';

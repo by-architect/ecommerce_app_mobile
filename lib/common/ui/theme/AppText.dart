@@ -315,8 +315,10 @@ class AppText {
   static const profilePageMarketing = AppText("Marketing");
   static const profilePageChangePassword = AppText("Change password");
   static const profilePageEditProfile = AppText("Edit profile");
-  static const profilePageFAQ = AppText("FAQ");
+  static const profilePagePrivacyPolicy = AppText("Privacy Policy");
   static const profilePageGetHelp = AppText("Get Help");
+  static const profilePageTheme = AppText("Theme");
+  static const profilePageAppSettings = AppText("App Settings");
   static const profilePageHelpAndSupport = AppText("Help & Support");
   static const profilePageVerifyEmailText =
       AppText("Your email is not verified yet");
@@ -444,6 +446,12 @@ class AppText {
 
   //Update screen
   static const updatePageUpdate = AppText("Continue without update");
+
+  //Theme settings
+  static const themeSettingsPageThemeSettings = AppText("Theme Settings");
+  static const themeSettingsPageDarkTheme = AppText("Dark Theme");
+  static const themeSettingsPageLightTheme = AppText("Light Theme");
+  static const themeSettingsPageSystemTheme = AppText("System Theme");
 
 
   // Pages Common

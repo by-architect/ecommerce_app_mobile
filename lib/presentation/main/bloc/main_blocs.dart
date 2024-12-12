@@ -7,6 +7,7 @@ import 'package:ecommerce_app_mobile/data/provider/product_service_provider.dart
 import 'package:ecommerce_app_mobile/data/service/impl/user_service_impl.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/constant/exceptions/exceptions.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../data/database/app_database.dart';
@@ -25,8 +26,10 @@ class MainBlocs extends Bloc<MainEvents, MainStates> {
       emit(state.copyWith(selectedPage: event.index));
     });
 
-    on<ToggleThemeEvent>((event, emit) {
+    on<ToggleThemeEvent>((event, emit) async {
       emit(state.copyWith(themeMode: event.themeMode));
+       AppDatabase.create().then((appDatabase) => appDatabase.setTheme(event.themeMode));
+
     });
 
     on<GetInitItemsEvent>(
@@ -58,6 +61,7 @@ class MainBlocs extends Bloc<MainEvents, MainStates> {
 
         final appDatabase = await AppDatabase.create();
         final bool isHideWelcomeScreen = await appDatabase.isHideWelcomeScreen;
+        final ThemeMode themeMode = await appDatabase.theme;
         if (!isHideWelcomeScreen) {
           emit(WelcomeScreenState(state: state));
           return;
@@ -92,7 +96,7 @@ class MainBlocs extends Bloc<MainEvents, MainStates> {
           emit(UpdateScreenState(
               state: state.copyWith(
                   userStatus: userResource.stable ? state.userStatus : UserStatus(userResource.data),
-                  themeMode: state.themeMode,
+                  themeMode: themeMode,
                   appSettings: appSettingsResource.data!,
                   productFeatures: productFeaturesResource.stable ? state.features : productFeaturesResource.data!,
                   categories: categoriesResource.stable ? state.categories : categoriesResource.data!,
@@ -103,7 +107,7 @@ class MainBlocs extends Bloc<MainEvents, MainStates> {
         emit(MainScreenState(
             state: state.copyWith(
                 userStatus: userResource.stable ? state.userStatus : UserStatus(userResource.data),
-                themeMode: state.themeMode,
+                themeMode: themeMode,
                 appSettings: appSettingsResource.data!,
                 productFeatures: productFeaturesResource.stable ? state.features : productFeaturesResource.data!,
                 categories: categoriesResource.stable ? state.categories : categoriesResource.data!,

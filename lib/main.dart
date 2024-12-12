@@ -13,6 +13,7 @@ import 'package:ecommerce_app_mobile/presentation/cart/bloc/cart_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/common/screen/app_locked_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/home/bloc/home_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/main/bloc/main_blocs.dart';
+import 'package:ecommerce_app_mobile/presentation/main/bloc/main_states.dart';
 import 'package:ecommerce_app_mobile/presentation/main/page/main_loader.dart';
 import 'package:ecommerce_app_mobile/presentation/order/bloc/order_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/order/page/order_screen.dart';
@@ -68,18 +69,22 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (BuildContext context) => ReturnsBloc()),
         BlocProvider(create: (BuildContext context) => ReturnRequestBloc()),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: AppTheme().lightTheme,
-        darkTheme: AppTheme().darkTheme,
-        routes: {
-          Screens.signInScreen: (context) => const SignInScreen(),
-          Screens.signUpScreen: (context) => const SignUpScreen(),
-          Screens.mainScreen: (context) => const MainLoader(),
-          Screens.appIsGettingReadyScreen: (context) => const AppLockedScreen(),
-        },
-        // home:  AppIsGettingReadyScreen(),
-        home: const MainLoader(),
+      child: BlocBuilder< MainBlocs, MainStates>(
+        builder: (BuildContext context, MainStates state) =>
+         MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: AppTheme().lightTheme,
+          darkTheme: AppTheme().darkTheme,
+          themeMode: state.themeMode,
+          routes: {
+            Screens.signInScreen: (context) => const SignInScreen(),
+            Screens.signUpScreen: (context) => const SignUpScreen(),
+            Screens.mainScreen: (context) => const MainLoader(),
+            Screens.appIsGettingReadyScreen: (context) => const AppLockedScreen(),
+          },
+          // home:  AppIsGettingReadyScreen(),
+          home: const MainLoader(),
+        ),
       ),
     );
   }

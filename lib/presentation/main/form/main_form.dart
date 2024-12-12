@@ -58,7 +58,7 @@ class MainForm extends StatelessWidget {
                             state.userStatus.isAuthenticated
                                 ? ProfileForm(
                                     appSettings: state.appSettings,
-                                    user: state.userStatus.user!,
+                                    user: state.userStatus.user!, themeMode: state.themeMode,
                                   )
                                 : LoginForm(
                                     message: AppText

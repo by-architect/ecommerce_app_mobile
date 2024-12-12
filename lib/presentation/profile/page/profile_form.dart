@@ -3,6 +3,7 @@ import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/color_filters.dart';
+import 'package:ecommerce_app_mobile/presentation/appsettings/page/theme_settings_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/authentication/pages/email_verification_screen.dart';
 import 'package:ecommerce_app_mobile/presentation/main/bloc/main_blocs.dart';
 import 'package:ecommerce_app_mobile/presentation/main/bloc/main_events.dart';
@@ -27,8 +28,9 @@ import '../widget/profile_menu_item_list.dart';
 class ProfileForm extends StatelessWidget {
   final User user;
   final AppSettings appSettings;
+  final ThemeMode themeMode;
 
-  const ProfileForm({super.key, required this.user, required this.appSettings});
+  const ProfileForm({super.key, required this.user, required this.appSettings, required this.themeMode});
 
   @override
   Widget build(BuildContext context) {
@@ -59,8 +61,7 @@ class ProfileForm extends StatelessWidget {
 
           const SizedBox(height: AppSizes.defaultPadding),
           Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding),
+            padding: const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding),
             child: Text(
               AppText.profilePageMarketing.capitalizeFirstWord.get,
               style: Theme.of(context).textTheme.titleSmall,
@@ -72,7 +73,10 @@ class ProfileForm extends StatelessWidget {
             svgSrc: AppImages.orderIcon,
             press: () {
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => OrderScreen(user: user, appSettings: appSettings,),
+                builder: (context) => OrderScreen(
+                  user: user,
+                  appSettings: appSettings,
+                ),
               ));
             },
           ),
@@ -81,7 +85,10 @@ class ProfileForm extends StatelessWidget {
             svgSrc: AppImages.returnIcon,
             press: () {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => ReturnsScreen(user: user,appSettings: appSettings,)));
+                  builder: (context) => ReturnsScreen(
+                        user: user,
+                        appSettings: appSettings,
+                      )));
             },
           ),
           ProfileMenuListTile(
@@ -89,15 +96,16 @@ class ProfileForm extends StatelessWidget {
             svgSrc: AppImages.addressIcon,
             press: () {
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => AddressesScreen(user: user,defaultLocation: appSettings.defaultMapLocation,),
+                builder: (context) => AddressesScreen(
+                  user: user,
+                  defaultLocation: appSettings.defaultMapLocation,
+                ),
               ));
             },
           ),
           const SizedBox(height: AppSizes.defaultPadding),
           Padding(
-            padding: const EdgeInsets.symmetric(
-                horizontal: AppSizes.defaultPadding,
-                vertical: AppSizes.defaultPadding / 2),
+            padding: const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding, vertical: AppSizes.defaultPadding / 2),
             child: Text(
               AppText.account.capitalizeFirstWord.get,
               style: Theme.of(context).textTheme.titleSmall,
@@ -126,11 +134,23 @@ class ProfileForm extends StatelessWidget {
             },
           ),
           const SizedBox(height: AppSizes.defaultPadding),
-
           Padding(
-            padding: const EdgeInsets.symmetric(
-                horizontal: AppSizes.defaultPadding,
-                vertical: AppSizes.defaultPadding / 2),
+            padding: const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding, vertical: AppSizes.defaultPadding / 2),
+            child: Text(
+              AppText.profilePageAppSettings.capitalizeEveryWord.get,
+              style: Theme.of(context).textTheme.titleSmall,
+            ),
+          ),
+          ProfileMenuListTile(
+            text: AppText.profilePageTheme.capitalizeEveryWord.get,
+            svgSrc: AppImages.themeIcon,
+            press: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => ThemeSettingsScreen(themeMode: themeMode,)));
+            },
+          ),
+          const SizedBox(height: AppSizes.defaultPadding),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding, vertical: AppSizes.defaultPadding / 2),
             child: Text(
               AppText.profilePageHelpAndSupport.capitalizeEveryWord.get,
               style: Theme.of(context).textTheme.titleSmall,
@@ -140,11 +160,16 @@ class ProfileForm extends StatelessWidget {
             text: AppText.profilePageGetHelp.capitalizeEveryWord.get,
             svgSrc: AppImages.helpIcon,
             press: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => GetHelpScreen(contacts: appSettings.contacts,)));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => GetHelpScreen(
+                            contacts: appSettings.contacts,
+                          )));
             },
           ),
           ProfileMenuListTile(
-            text: AppText.profilePageFAQ.capitalizeFirstWord.get,
+            text: AppText.profilePagePrivacyPolicy.capitalizeFirstWord.get,
             svgSrc: AppImages.fAQIcon,
             press: () {},
             isShowDivider: false,
@@ -164,8 +189,7 @@ class ProfileForm extends StatelessWidget {
             ),
             title: Text(
               AppText.logOut.capitalizeEveryWord.get,
-              style: const TextStyle(
-                  color: AppColors.errorColor, fontSize: 14, height: 1),
+              style: const TextStyle(color: AppColors.errorColor, fontSize: 14, height: 1),
             ),
           )
         ],
