@@ -25,38 +25,41 @@ class ProductDetailsBottomSheet extends StatelessWidget {
         child: Row(
           children: [
             Expanded(
-              child: ListView.builder(
-                itemCount: items.length,
-                itemBuilder: (context, index) => Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 3, horizontal: AppSizes.defaultPadding / 2),
-                  child: Container(
-                    decoration: AppStyles.defaultBoxDecoration.copyWith(border: Border.all(color: AppColors.greyColor)),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: SizedBox(
-                              child: Center(
-                            child: Text(
-                              items[index].title,
-                              style: Theme.of(context).textTheme.titleMedium,
-                            ),
-                          )),
-                        ),
-                        Expanded(
-                          child: SizedBox(
-                              child: Center(
-                            child: Flexible(
-                              child: Padding(
-                                padding: const EdgeInsets.all(6),
-                                child: Text(
-                                  items[index].content,
-                                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 16,color: Theme.of(context).primaryColor),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: AppSizes.defaultPadding, horizontal: AppSizes.defaultPadding / 2),
+                child: ListView.builder(
+                  itemCount: items.length,
+                  itemBuilder: (context, index) => Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 3, horizontal: AppSizes.defaultPadding / 2),
+                    child: Container(
+                      decoration: AppStyles.defaultBoxDecoration.copyWith(border: Border.all(color: AppColors.greyColor)),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: SizedBox(
+                                child: Center(
+                              child: Text(
+                                items[index].title,
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
+                            )),
+                          ),
+                          Expanded(
+                            child: SizedBox(
+                                child: Center(
+                              child: Flexible(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(6),
+                                  child: Text(
+                                    items[index].content,
+                                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 16,color: Theme.of(context).primaryColor),
+                                  ),
                                 ),
                               ),
-                            ),
-                          )),
-                        ),
-                      ],
+                            )),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
