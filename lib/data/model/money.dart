@@ -30,4 +30,5 @@ class Money {
         ? "${currency.sign} $_clearZero"
         : "$_clearZero ${currency.sign}";
   }
+
 }

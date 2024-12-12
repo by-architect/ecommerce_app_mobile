@@ -1,3 +1,4 @@
+import 'package:ecommerce_app_mobile/common/constant/currency.dart';
 import 'package:ecommerce_app_mobile/data/model/product.dart';
 import 'package:ecommerce_app_mobile/data/model/user.dart';
 import 'package:ecommerce_app_mobile/presentation/products/page/product_details_screen.dart';
@@ -10,11 +11,12 @@ import '../../../sddklibrary/ui/widget_clickable_outlined.dart';
 import 'network_image_with_loader.dart';
 
 class ProductCardLarge extends StatelessWidget {
-  const ProductCardLarge({super.key, required this.product, required this.onPressed, this.subProductValue});
+  const ProductCardLarge({super.key, required this.product, required this.onPressed, this.subProductValue, required this.currency});
 
   final Product product;
   final SubProduct? subProductValue;
   final Function()? onPressed;
+  final Currency currency;
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +91,7 @@ class ProductCardLarge extends StatelessWidget {
                           ? Row(
                         children: [
                           Text(
-                            "\$${subProduct.priceAfterDiscounting}",
+                            subProduct.priceAfterDiscounting.displayAmount(currency),
                             style: const TextStyle(
                               color: Color(0xFF31B0D8),
                               fontWeight: FontWeight.w500,
@@ -99,7 +101,7 @@ class ProductCardLarge extends StatelessWidget {
                           const SizedBox(
                               width: AppSizes.defaultPadding / 4),
                           Text(
-                            "\$${subProduct.price}",
+                            subProduct.price.displayAmount(currency),
                             style: TextStyle(
                               color: Theme
                                   .of(context)
@@ -113,7 +115,7 @@ class ProductCardLarge extends StatelessWidget {
                         ],
                       )
                           : Text(
-                        "\$${subProduct.price}",
+                        subProduct.price.displayAmount(currency),
                         style: const TextStyle(
                           color: Color(0xFF31B0D8),
                           fontWeight: FontWeight.w500,

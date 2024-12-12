@@ -183,6 +183,7 @@ class _ReturnDetailsScreenState extends State<ReturnDetailsScreen> {
                     children: [
                       Expanded(
                           child: ProductCardLarge(
+                            currency: widget.appSettings.defaultCurrency,
                               product:
                                   widget.returnModel.products[index].product,
                               onPressed: () {})),

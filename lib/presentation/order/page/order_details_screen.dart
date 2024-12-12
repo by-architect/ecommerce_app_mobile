@@ -206,7 +206,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                           child: ProductCardLarge(
                               product:
                                   widget.orderModel.products[index].product,
-                              onPressed: () {})),
+                              onPressed: () {}, currency: widget.appSettings.defaultCurrency,)),
                     ],
                   ),
                 );

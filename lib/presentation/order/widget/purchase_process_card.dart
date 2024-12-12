@@ -96,7 +96,7 @@ class PurchaseCard extends StatelessWidget {
                         Expanded(
                             child: ProductCardLarge(
                                 product: purchaseModel.products[index].product,
-                                onPressed: () {})),
+                                onPressed: () {}, currency: appSettings.defaultCurrency,)),
                       ],
                     ),
                   );
