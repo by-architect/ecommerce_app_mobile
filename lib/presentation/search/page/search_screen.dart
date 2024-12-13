@@ -1,7 +1,6 @@
 import 'package:ecommerce_app_mobile/common/ui/assets/AppImages.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
-import 'package:ecommerce_app_mobile/common/ui/theme/AppStyles.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/color_filters.dart';
 import 'package:ecommerce_app_mobile/data/model/app_settings.dart';
@@ -17,10 +16,7 @@ import 'package:ecommerce_app_mobile/presentation/search/bloc/search_event.dart'
 import 'package:ecommerce_app_mobile/presentation/search/bloc/search_state.dart';
 import 'package:ecommerce_app_mobile/presentation/search/widget/bottom_sheet_filter.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/ui_helper.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -39,9 +35,10 @@ class SearchScreen extends StatefulWidget {
   const SearchScreen({
     super.key,
     required this.features,
-    required this.categories, required this.user, required this.appSettings,
+    required this.categories,
+    required this.user,
+    required this.appSettings,
   });
-
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();
@@ -90,12 +87,11 @@ class _SearchScreenState extends State<SearchScreen> {
           resizeToAvoidBottomInset: false,
           appBar: AppBarPopUp(
             onCloseTap: () {
-             if(state.canPopState) {
-               Navigator.of(context).pop();
-             }else{
-               focusNode.unfocus();
-             }
-
+              if (state.canPopState) {
+                Navigator.of(context).pop();
+              } else {
+                focusNode.unfocus();
+              }
             },
           ),
           body: Padding(
@@ -109,8 +105,8 @@ class _SearchScreenState extends State<SearchScreen> {
                   textEditingController: textEditingController,
                   onFieldSubmitted: (text) {
                     BlocProvider.of<SearchBloc>(context).add(GetProductsEvent());
-                    if (text != null) {
-                      BlocProvider.of<SearchBloc>(context).add(AddRecentSearchEvent(text));
+                    if (text != null && widget.user != null) {
+                      BlocProvider.of<SearchBloc>(context).add(AddRecentSearchEvent(text, widget.user!.uid));
                     }
                     focusNode.unfocus();
                   },
@@ -123,7 +119,8 @@ class _SearchScreenState extends State<SearchScreen> {
                       context: context,
                       isScrollControlled: true,
                       builder: (context) => FilterBottomSheet(
-                        features: widget.features, categories: widget.categories,
+                        features: widget.features,
+                        categories: widget.categories,
                       ),
                     );
                     // BlocProvider.of<SearchBloc>(context).add(ToggleContainerEvent());
@@ -148,8 +145,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                 TextButtonDefault(
                                     text: AppText.commonPageClearAll.capitalizeEveryWord.get,
                                     onPressed: () {
-                                      BlocProvider.of<SearchBloc>(context)
-                                          .add(ClearAllRecentSearchEvent());
+                                      BlocProvider.of<SearchBloc>(context).add(ClearAllRecentSearchEvent());
                                     }),
                               ],
                             ),
@@ -168,19 +164,16 @@ class _SearchScreenState extends State<SearchScreen> {
                                         focusNode.unfocus();
                                       },
                                       onDeleteTap: () {
-                                        BlocProvider.of<SearchBloc>(context).add(
-                                            ClearSelectedRecentSearchEvent(
-                                                state.getSearchReversed[index]));
+                                        BlocProvider.of<SearchBloc>(context)
+                                            .add(ClearSelectedRecentSearchEvent(state.getSearchReversed[index]));
                                       })),
                             )
                           ],
                         ),
                       )
                     : switch (state) {
-                        ProductLoadingState _ => Expanded(
-                            child: ListView.builder(
-                                itemCount: 6,
-                                itemBuilder: (context, index) => const ProductsSkeleton())),
+                        ProductLoadingState _ =>
+                          Expanded(child: ListView.builder(itemCount: 6, itemBuilder: (context, index) => const ProductsSkeleton())),
                         ProductFailState failState => Expanded(
                             child: FailForm(
                                 fail: failState.fail,
@@ -189,21 +182,27 @@ class _SearchScreenState extends State<SearchScreen> {
                                 }),
                           ),
                         ProductSuccessState _ || SearchState _ => Expanded(
-                            child: state.products.isEmpty  ? FormInfoSkeleton(image: context.isDarkMode ? AppImages.noResultDark : AppImages.noResultLight, message: AppText.searchPageNoResult.capitalizeEveryWord.get,notSvg: true,) : GridView.builder(
-                              itemCount: state.products.length,
-                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                childAspectRatio: 0.75,
-                                mainAxisSpacing: 10,
-                                crossAxisSpacing: 10,
-                              ),
-                              itemBuilder: (context, index) => ProductCard(
-                                currency: widget.appSettings.defaultCurrency,
-                                user: widget.user,
-                                appSettings: widget.appSettings,
-                                product: state.products[index],
-                              ),
-                            ),
+                            child: state.products.isEmpty
+                                ? FormInfoSkeleton(
+                                    image: context.isDarkMode ? AppImages.noResultDark : AppImages.noResultLight,
+                                    message: AppText.searchPageNoResult.capitalizeEveryWord.get,
+                                    notSvg: true,
+                                  )
+                                : GridView.builder(
+                                    itemCount: state.products.length,
+                                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2,
+                                      childAspectRatio: 0.75,
+                                      mainAxisSpacing: 10,
+                                      crossAxisSpacing: 10,
+                                    ),
+                                    itemBuilder: (context, index) => ProductCard(
+                                      currency: widget.appSettings.defaultCurrency,
+                                      user: widget.user,
+                                      appSettings: widget.appSettings,
+                                      product: state.products[index],
+                                    ),
+                                  ),
                           ),
                       }
               ],

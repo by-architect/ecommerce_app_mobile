@@ -70,9 +70,6 @@ class ProductServiceProvider {
   }
 */
 
-  Future<Resource<Product>> getProductById(String id) async {
-    return _fakeProductService.getProductsById(id);
-  }
 
   Future<Resource<List<Product>>> getProductsBySearchEvent(
       {String? searchText,
@@ -86,8 +83,8 @@ class ProductServiceProvider {
         selectedTags: selectedTags);
   }
 
-  Future<ResourceStatus<RecentSearch>> addRecentSearch(String recentSearch) {
-    return _fakeProductService.addRecentSearch(recentSearch);
+  Future<ResourceStatus> addRecentSearch(String recentSearch,String uid) {
+    return _productService.addRecentSearch(recentSearch,uid);
   }
 
   Future<ResourceStatus> clearRecentSearch(RecentSearch recentSearch) {

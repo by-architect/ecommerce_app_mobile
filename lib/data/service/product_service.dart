@@ -24,11 +24,12 @@ abstract class ProductService {
 
   Future<ResourceStatus<List<Category>>> getCategories();
   Future<ResourceStatus<AllProductFeatures>> getProductFeatures();
-  Future<ResourceStatus<Product>> getProductsById(String id);
-  Future<ResourceStatus> clearRecentSearch(RecentSearch recentSearchList);
-  Future<ResourceStatus<RecentSearch>> addRecentSearch(String recentSearch);
-  Future<ResourceStatus> clearAllRecentSearch();
+
+  Future<ResourceStatus<RecentSearch>> addRecentSearch(String recentSearch, String uid);
   Future<ResourceStatus<List<RecentSearch>>> getRecentSearches();
+  Future<ResourceStatus> clearRecentSearch(RecentSearch recentSearchList);
+  Future<ResourceStatus> clearAllRecentSearch();
+
   Future<ResourceStatus<List<Product>>> getProductByDiscount(int count);
   Future<ResourceStatus<List<Product>>> getProductByBestSeller(int count);
   Future<ResourceStatus<List<Product>>> getProductByLastAdded(int count);
@@ -37,12 +38,12 @@ abstract class ProductService {
       List<ProductFeatureOption>? selectedFeatureOptions,
       List<Category>? selectedCategories,
       List<Tag>? selectedTags});
+  Future<ResourceStatus<List<ProductDetailsItem>>> getProductDetails(String productId);
 
 
   Future<ResourceStatus<Reviews>> getReviews(String productId);
   Future<ResourceStatus> addReview(ReviewState reviewState);
   Future<ResourceStatus<List<Product>>> getYouMayAlsoLike(String categoryId);
-  Future<ResourceStatus<List<ProductDetailsItem>>> getProductDetails(String productId);
 
   Future<ResourceStatus> addOrder(OrderState order, String uid);
   Future<ResourceStatus<List<OrderModel>>> getOrderList(String uid);

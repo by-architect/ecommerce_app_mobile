@@ -13,10 +13,12 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     on<ClearStateEvent>(_clearState);
     on<LoadCachedFiltersEvent>(_loadCachedFilters);
     on<SearchTextEvent>(_editText);
-    on<SearchTextAndGetProductsEvent>( (event, emit) async {
-    await _editText(event, emit) ;
-    await _getProducts(event, emit);
-    },);
+    on<SearchTextAndGetProductsEvent>(
+      (event, emit) async {
+        await _editText(event, emit);
+        await _getProducts(event, emit);
+      },
+    );
     on<FocusSearchTextEvent>(_focusSearchText);
     on<AddFilterToCacheEvent>(_addFilterToCache);
     on<ClearCachedFiltersOfFeatureOptionEvent>(_clearCachedFiltersOfFeatureOption);
@@ -44,15 +46,13 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     on<AddRecentSearchEvent>(_addRecentSearch);
     on<GetRecentSearchesEvent>(_getRecentSearches);
     on<GetProductsEvent>(_getProducts);
-
   }
 
   _loadCachedFilters(LoadCachedFiltersEvent event, Emitter<SearchState> emit) {
     emit(state.copyWith(
-        categoriesFilterCache: state.selectedCategories.toList(),
-        productFeatureOptionsFilterCache: state.selectedFeatureOptions.toList()
-    ));
+        categoriesFilterCache: state.selectedCategories.toList(), productFeatureOptionsFilterCache: state.selectedFeatureOptions.toList()));
   }
+
   _clearState(ClearStateEvent event, Emitter<SearchState> emit) {
     emit(state.copyWith(
         searchText: "",
@@ -74,8 +74,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   _addFilterToCache(FilterSelectorEvent event, Emitter<SearchState> emit) {
     emit(state.copyWith(
         categoriesFilterCache: event.categories ?? state.categoriesFilterCache,
-        productFeatureOptionsFilterCache:
-            event.featureOptions ?? event.featureOptions ?? state.productFeatureOptionsFilterCache));
+        productFeatureOptionsFilterCache: event.featureOptions ?? event.featureOptions ?? state.productFeatureOptionsFilterCache));
   }
 
   _clearCachedFiltersOfFeatureOption(ClearCachedFiltersOfFeatureOptionEvent event, Emitter<SearchState> emit) {
@@ -117,7 +116,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   }
 
   _addRecentSearch(AddRecentSearchEvent event, Emitter<SearchState> emit) async {
-    final resource = await service.addRecentSearch(event.recentSearch);
+    final resource = await service.addRecentSearch(event.recentSearch, event.uid);
 
     resource.onSuccess((recentSearch) {
       List<RecentSearch> recentSearches = state.recentSearches;
@@ -141,13 +140,11 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     }
   }
 
- Future _getProducts(SearchEvent event, Emitter<SearchState> emit) async {
+  Future _getProducts(SearchEvent event, Emitter<SearchState> emit) async {
     emit(ProductLoadingState(state: state.copyWith(isSearchFocused: false)));
 
     final response = await service.getProductsBySearchEvent(
-        searchText: state.searchText,
-        selectedFeatureOptions: state.selectedFeatureOptions,
-        selectedCategories: state.selectedCategories);
+        searchText: state.searchText, selectedFeatureOptions: state.selectedFeatureOptions, selectedCategories: state.selectedCategories);
 
     switch (response.status) {
       case Status.success:

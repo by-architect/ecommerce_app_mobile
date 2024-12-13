@@ -49,14 +49,6 @@ class FakeProductService implements ProductService {
   }
 
   @override
-  Future<ResourceStatus<Product>> getProductsById(String id) async {
-    await Future.delayed(const Duration(seconds: 2));
-    return random.nextBool()
-        ? ResourceStatus.success(FakeProductModels.product1)
-        : ResourceStatus.fail(Fail(userMessage: "Fake product service fail situation"));
-  }
-
-  @override
   Future<ResourceStatus<AllProductFeatures>> getProductFeatures() async {
     await Future.delayed(const Duration(seconds: 2));
     return ResourceStatus.success(FakeProductModels.allProductFeatures);
@@ -83,7 +75,7 @@ class FakeProductService implements ProductService {
   }
 
   @override
-  Future<ResourceStatus<RecentSearch>> addRecentSearch(String recentSearch) async {
+  Future<ResourceStatus<RecentSearch>> addRecentSearch(String recentSearch,String uid) async {
     await Future.delayed(const Duration(seconds: 1));
     return ResourceStatus.success(RecentSearch(random.nextDouble().toString(), "", recentSearch));
   }

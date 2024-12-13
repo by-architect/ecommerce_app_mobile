@@ -233,4 +233,6 @@ class ProductServiceCreator {
     _fireStore.collection(FireStoreCollections.productFeatures).add(productFeatureNeckType.toMap());
     _fireStore.collection(FireStoreCollections.productFeatures).add(productFeatureSleeveType.toMap());
   }
+
+
 }

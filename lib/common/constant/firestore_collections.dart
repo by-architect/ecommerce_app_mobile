@@ -1,6 +1,7 @@
 class FireStoreCollections{
   static const users = 'users';
   static const categories = 'categories';
+  static const searchHistory = 'search_history';
   static const products = 'products';
   static const productFeatures = 'product_features';
   static const cart = 'cart';

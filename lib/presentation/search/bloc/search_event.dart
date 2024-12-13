@@ -26,8 +26,9 @@ class FocusSearchTextEvent extends SearchEvent {
 
 class AddRecentSearchEvent extends SearchEvent {
   final String recentSearch;
+  final String uid;
 
-  AddRecentSearchEvent(this.recentSearch);
+  AddRecentSearchEvent(this.recentSearch, this.uid);
 }
 
 ///Filters
