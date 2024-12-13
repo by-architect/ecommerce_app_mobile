@@ -24,7 +24,6 @@ abstract class ProductService {
 
   Future<ResourceStatus<List<Category>>> getCategories();
   Future<ResourceStatus<AllProductFeatures>> getProductFeatures();
-  // Future<ResourceStatus<List<Product>>> getProducts();
   Future<ResourceStatus<Product>> getProductsById(String id);
   Future<ResourceStatus> clearRecentSearch(RecentSearch recentSearchList);
   Future<ResourceStatus<RecentSearch>> addRecentSearch(String recentSearch);

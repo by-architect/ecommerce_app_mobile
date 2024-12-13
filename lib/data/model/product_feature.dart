@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:ecommerce_app_mobile/data/model/product.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/annotation/test_annotation.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/string_helper.dart';
 
 class ProductFeature {
@@ -20,12 +21,17 @@ class ProductFeature {
     id = map['id'];
     name = map['name'];
     productFeatureType = ProductFeatureType.fromString(map['type']);
-    options = (map['options'] as List<dynamic>)
-        .map((option) => ProductFeatureOption(
-              option['id'].toString(),
-              option['name'],
-            ))
-        .toList();
+    options = (map['options'] as List<dynamic>).map((option) => ProductFeatureOption.fromMap(option)).toList();
+  }
+
+  @TestOnly()
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'type': productFeatureType.toStringValue,
+      'options': options.map((option) => option.toMap()).toList(),
+    };
   }
 
   ProductFeature copyWith({
@@ -53,11 +59,26 @@ enum ProductFeatureType {
   character,
   color;
 
-  static ProductFeatureType fromString(String type) {
-    if (type == "text") {
-      return ProductFeatureType.text;
+  @TestOnly()
+  String get toStringValue {
+    if (this == ProductFeatureType.color) {
+      return "color";
+    }
+    if (this == ProductFeatureType.character) {
+      return "character";
     } else {
+      return "text";
+    }
+  }
+
+  static ProductFeatureType fromString(String type) {
+    if (type == "color") {
       return ProductFeatureType.color;
+    }
+    if (type == "character") {
+      return ProductFeatureType.character;
+    } else {
+      return ProductFeatureType.text;
     }
   }
 }
@@ -72,7 +93,17 @@ class ProductFeatureOption {
 
   bool get isColor => name.isHexColor;
 
+  factory ProductFeatureOption.fromMap(Map<String, dynamic> map) {
+    return ProductFeatureOption(map['id'], map['name']);
+  }
 
+  @TestOnly()
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+    };
+  }
 
   @override
   String toString() {
@@ -110,4 +141,3 @@ class AllProductFeatures {
     return selectedFeatures;
   }
 }
-

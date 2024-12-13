@@ -1,9 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce_app_mobile/common/constant/firestore_collections.dart';
 import 'package:ecommerce_app_mobile/data/model/category.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
-
-import 'fake_models.dart';
+import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
+import 'package:flutter/material.dart';
 
 class ProductServiceCreator {
   final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
@@ -44,9 +43,6 @@ class ProductServiceCreator {
   final Category _categoryFootwearFormal = Category(id: "31", name: "Formal Shoes", superId: "3", layer: 1);
   final Category _categoryFootwearSandals = Category(id: "32", name: "Sandals", superId: "3", layer: 1);
 
-
-
-
   createCategory() async {
     _fireStore.collection(FireStoreCollections.categories).add(_categoryMan.toMap());
     _fireStore.collection(FireStoreCollections.categories).add(_categoryManTops.toMap());
@@ -79,5 +75,162 @@ class ProductServiceCreator {
     _fireStore.collection(FireStoreCollections.categories).add(_categoryFootwearCasual.toMap());
     _fireStore.collection(FireStoreCollections.categories).add(_categoryFootwearFormal.toMap());
     _fireStore.collection(FireStoreCollections.categories).add(_categoryFootwearSandals.toMap());
+  }
+
+  // Size Feature
+  static final ProductFeatureOption productFeatureOptionSizeSmall = ProductFeatureOption("0", "S");
+  static final ProductFeatureOption productFeatureOptionSizeMedium = ProductFeatureOption("1", "M");
+  static final ProductFeatureOption productFeatureOptionSizeLarge = ProductFeatureOption("2", "L");
+  static final ProductFeatureOption productFeatureOptionSizeXLarge = ProductFeatureOption("3", "XL");
+  static final ProductFeature productFeatureSize = ProductFeature(
+    id: "0",
+    name: "Size",
+    options: [
+      productFeatureOptionSizeSmall,
+      productFeatureOptionSizeMedium,
+      productFeatureOptionSizeLarge,
+      productFeatureOptionSizeXLarge,
+    ],
+    productFeatureType: ProductFeatureType.character, // Character for size
+  );
+
+// Color Feature
+  static final ProductFeatureOption productFeatureOptionColorCyan = ProductFeatureOption("0", Colors.cyan.value.toString());
+  static final ProductFeatureOption productFeatureOptionColorBlue = ProductFeatureOption("1", Colors.blue.value.toString());
+  static final ProductFeatureOption productFeatureOptionColorRed = ProductFeatureOption("2", Colors.red.value.toString());
+  static final ProductFeatureOption productFeatureOptionColorBlack = ProductFeatureOption("3", Colors.black.value.toString());
+  static final ProductFeatureOption productFeatureOptionColorWhite = ProductFeatureOption("4", Colors.white.value.toString());
+  static final ProductFeature productFeatureColor = ProductFeature(
+    id: "1",
+    name: "Color",
+    options: [
+      productFeatureOptionColorCyan,
+      productFeatureOptionColorBlue,
+      productFeatureOptionColorRed,
+      productFeatureOptionColorBlack,
+      productFeatureOptionColorWhite,
+    ],
+    productFeatureType: ProductFeatureType.color, // Color type
+  );
+
+// Material Feature
+  static final ProductFeatureOption productFeatureOptionMaterialCotton = ProductFeatureOption("0", "Cotton");
+  static final ProductFeatureOption productFeatureOptionMaterialPolyester = ProductFeatureOption("1", "Polyester");
+  static final ProductFeatureOption productFeatureOptionMaterialWool = ProductFeatureOption("2", "Wool");
+  static final ProductFeatureOption productFeatureOptionMaterialLeather = ProductFeatureOption("3", "Leather");
+  static final ProductFeature productFeatureMaterial = ProductFeature(
+    id: "2",
+    name: "Material",
+    options: [
+      productFeatureOptionMaterialCotton,
+      productFeatureOptionMaterialPolyester,
+      productFeatureOptionMaterialWool,
+      productFeatureOptionMaterialLeather,
+    ],
+    productFeatureType: ProductFeatureType.text, // Text type
+  );
+
+// Fit Feature (Loose, Regular, Slim)
+  static final ProductFeatureOption productFeatureOptionFitLoose = ProductFeatureOption("0", "Loose");
+  static final ProductFeatureOption productFeatureOptionFitRegular = ProductFeatureOption("1", "Regular");
+  static final ProductFeatureOption productFeatureOptionFitSlim = ProductFeatureOption("2", "Slim");
+  static final ProductFeature productFeatureFit = ProductFeature(
+    id: "3",
+    name: "Fit",
+    options: [
+      productFeatureOptionFitLoose,
+      productFeatureOptionFitRegular,
+      productFeatureOptionFitSlim,
+    ],
+    productFeatureType: ProductFeatureType.text, // Text type
+  );
+
+// Length Feature (Short, Regular, Long)
+  static final ProductFeatureOption productFeatureOptionLengthShort = ProductFeatureOption("0", "Short");
+  static final ProductFeatureOption productFeatureOptionLengthRegular = ProductFeatureOption("1", "Regular");
+  static final ProductFeatureOption productFeatureOptionLengthLong = ProductFeatureOption("2", "Long");
+  static final ProductFeature productFeatureLength = ProductFeature(
+    id: "4",
+    name: "Length",
+    options: [
+      productFeatureOptionLengthShort,
+      productFeatureOptionLengthRegular,
+      productFeatureOptionLengthLong,
+    ],
+    productFeatureType: ProductFeatureType.text, // Text type
+  );
+
+// Style Feature (Casual, Formal, Sporty, etc.)
+  static final ProductFeatureOption productFeatureOptionStyleCasual = ProductFeatureOption("0", "Casual");
+  static final ProductFeatureOption productFeatureOptionStyleFormal = ProductFeatureOption("1", "Formal");
+  static final ProductFeatureOption productFeatureOptionStyleSporty = ProductFeatureOption("2", "Sporty");
+  static final ProductFeatureOption productFeatureOptionStyleBoho = ProductFeatureOption("3", "Boho");
+  static final ProductFeature productFeatureStyle = ProductFeature(
+    id: "5",
+    name: "Style",
+    options: [
+      productFeatureOptionStyleCasual,
+      productFeatureOptionStyleFormal,
+      productFeatureOptionStyleSporty,
+      productFeatureOptionStyleBoho,
+    ],
+    productFeatureType: ProductFeatureType.text, // Text type
+  );
+
+// Occasion Feature (Casual, Party, Work)
+  static final ProductFeatureOption productFeatureOptionOccasionCasual = ProductFeatureOption("0", "Casual");
+  static final ProductFeatureOption productFeatureOptionOccasionParty = ProductFeatureOption("1", "Party");
+  static final ProductFeatureOption productFeatureOptionOccasionWork = ProductFeatureOption("2", "Work");
+  static final ProductFeature productFeatureOccasion = ProductFeature(
+    id: "6",
+    name: "Occasion",
+    options: [
+      productFeatureOptionOccasionCasual,
+      productFeatureOptionOccasionParty,
+      productFeatureOptionOccasionWork,
+    ],
+    productFeatureType: ProductFeatureType.text, // Text type
+  );
+
+// Neck Type Feature (V-neck, Crew neck, etc.)
+  static final ProductFeatureOption productFeatureOptionNeckVNeck = ProductFeatureOption("0", "V-neck");
+  static final ProductFeatureOption productFeatureOptionNeckCrew = ProductFeatureOption("1", "Crew neck");
+  static final ProductFeatureOption productFeatureOptionNeckCollar = ProductFeatureOption("2", "Collar");
+  static final ProductFeature productFeatureNeckType = ProductFeature(
+    id: "7",
+    name: "Neck Type",
+    options: [
+      productFeatureOptionNeckVNeck,
+      productFeatureOptionNeckCrew,
+      productFeatureOptionNeckCollar,
+    ],
+    productFeatureType: ProductFeatureType.text, // Text type
+  );
+
+// Sleeve Type Feature (Short, Long, Sleeveless)
+  static final ProductFeatureOption productFeatureOptionSleeveShort = ProductFeatureOption("0", "Short");
+  static final ProductFeatureOption productFeatureOptionSleeveLong = ProductFeatureOption("1", "Long");
+  static final ProductFeatureOption productFeatureOptionSleeveSleeveless = ProductFeatureOption("2", "Sleeveless");
+  static final ProductFeature productFeatureSleeveType = ProductFeature(
+    id: "8",
+    name: "Sleeve Type",
+    options: [
+      productFeatureOptionSleeveShort,
+      productFeatureOptionSleeveLong,
+      productFeatureOptionSleeveSleeveless,
+    ],
+    productFeatureType: ProductFeatureType.text, // Text type
+  );
+
+  createProductFeatures() async {
+    _fireStore.collection(FireStoreCollections.productFeatures).add(productFeatureSize.toMap());
+    _fireStore.collection(FireStoreCollections.productFeatures).add(productFeatureColor.toMap());
+    _fireStore.collection(FireStoreCollections.productFeatures).add(productFeatureMaterial.toMap());
+    _fireStore.collection(FireStoreCollections.productFeatures).add(productFeatureFit.toMap());
+    _fireStore.collection(FireStoreCollections.productFeatures).add(productFeatureLength.toMap());
+    _fireStore.collection(FireStoreCollections.productFeatures).add(productFeatureStyle.toMap());
+    _fireStore.collection(FireStoreCollections.productFeatures).add(productFeatureOccasion.toMap());
+    _fireStore.collection(FireStoreCollections.productFeatures).add(productFeatureNeckType.toMap());
+    _fireStore.collection(FireStoreCollections.productFeatures).add(productFeatureSleeveType.toMap());
   }
 }

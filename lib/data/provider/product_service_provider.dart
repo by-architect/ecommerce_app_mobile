@@ -109,7 +109,7 @@ class ProductServiceProvider {
   }
 
   Future<ResourceStatus<AllProductFeatures>> getProductFeatures() {
-    return _fakeProductService.getProductFeatures();
+    return _productService.getProductFeatures();
   }
 
 /*

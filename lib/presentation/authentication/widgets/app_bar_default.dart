@@ -107,7 +107,7 @@ Future<void> testScope(User? user) async {
 */
 
   ProductServiceCreator productServiceCreator = ProductServiceCreator();
-  productServiceCreator.createCategory();
+  productServiceCreator.createProductFeatures();
 
   // final resource = await userService.changePassword(user, );
   // Log.test(resource: resource);

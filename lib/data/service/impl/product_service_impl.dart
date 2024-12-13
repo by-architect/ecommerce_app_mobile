@@ -1,24 +1,24 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecommerce_app_mobile/common/constant/app_durations.dart';
+import 'package:ecommerce_app_mobile/common/constant/firestore_collections.dart';
+import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/model/Reviews.dart';
 import 'package:ecommerce_app_mobile/data/model/address.dart';
 import 'package:ecommerce_app_mobile/data/model/cart_item.dart';
-import 'package:ecommerce_app_mobile/data/model/product_details_item.dart';
+import 'package:ecommerce_app_mobile/data/model/category.dart';
 import 'package:ecommerce_app_mobile/data/model/order_process.dart';
+import 'package:ecommerce_app_mobile/data/model/product.dart';
+import 'package:ecommerce_app_mobile/data/model/product_details_item.dart';
+import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
 import 'package:ecommerce_app_mobile/data/model/recent_search.dart';
 import 'package:ecommerce_app_mobile/data/model/return_process.dart';
-import 'package:ecommerce_app_mobile/presentation/address/bloc/add_address_state.dart';
-import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_state.dart';
-import 'package:ecommerce_app_mobile/presentation/products/bloc/order_state.dart';
-import 'package:ecommerce_app_mobile/presentation/return/bloc/return_state.dart';
-import 'package:ecommerce_app_mobile/presentation/products/bloc/review_state.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/constant/exceptions/exception_handler.dart';
-import 'package:ecommerce_app_mobile/common/constant/firestore_collections.dart';
-import 'package:ecommerce_app_mobile/common/constant/app_durations.dart';
-import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
-import 'package:ecommerce_app_mobile/data/model/category.dart';
-import 'package:ecommerce_app_mobile/data/model/product.dart';
-import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
 import 'package:ecommerce_app_mobile/data/service/product_service.dart';
+import 'package:ecommerce_app_mobile/presentation/address/bloc/add_address_state.dart';
+import 'package:ecommerce_app_mobile/presentation/products/bloc/order_state.dart';
+import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_state.dart';
+import 'package:ecommerce_app_mobile/presentation/products/bloc/review_state.dart';
+import 'package:ecommerce_app_mobile/presentation/return/bloc/return_state.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/constant/exceptions/exception_handler.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/fail.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/resource.dart';
 
@@ -43,13 +43,6 @@ class ProductServiceImpl extends ProductService {
         categoryList.add(Category.fromMap(doc.data()));
       }
 
-      //todo: if there is no category in server, it is fatal error, check it
-      //todo: return into app is getting ready for you
-      if (categoryList.isEmpty) {
-        return ResourceStatus.fail(Fail(
-            userMessage: AppText.errorCategoriesNotFound.capitalizeFirstWord.get,
-            exception: NullDataException("Categories not found \n there might be no category added in server, fatal error")));
-      }
       return ResourceStatus.success(categoryList);
     } catch (exception, stackTrace) {
       return ExceptionHandler.firebaseResourceExceptionHandler(exception, stackTrace);
@@ -67,9 +60,9 @@ class ProductServiceImpl extends ProductService {
 
       final productFeaturesResponse =
           await _firestore.collection(FireStoreCollections.productFeatures).get().timeout(AppDurations.postTimeout);
-      productFeaturesResponse.docs.forEach((doc) {
+      for (var doc in productFeaturesResponse.docs) {
         productFeatureList.add(ProductFeature.fromMap(doc.data()));
-      });
+      }
       return ResourceStatus.success(AllProductFeatures(productFeatureList));
     } catch (exception, stackTrace) {
       return ExceptionHandler.firebaseResourceExceptionHandler(exception, stackTrace);
@@ -120,6 +113,7 @@ class ProductServiceImpl extends ProductService {
     }
   }
 
+/*
   @override
   Future<ResourceStatus<List<Product>>> getProductsByCategory(String categoryId) async {
     List<Product> productList = [];
@@ -150,6 +144,7 @@ class ProductServiceImpl extends ProductService {
       return ExceptionHandler.firebaseResourceExceptionHandler(e, s);
     }
   }
+*/
 
   @override
   Future<ResourceStatus<RecentSearch>> addRecentSearch(String recentSearch) {
