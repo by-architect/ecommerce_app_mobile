@@ -17,6 +17,8 @@ class Categories {
     _list = [];
   }
 
+  int get length => _list.length;
+
   List<Category> get firstLayer => _list.first;
   List<Category> get lastLayer => _list.last;
   List<Category> getLayer(int layerId) => _list[layerId];

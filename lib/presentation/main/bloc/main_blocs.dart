@@ -5,6 +5,7 @@ import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
 import 'package:ecommerce_app_mobile/data/model/user_status.dart';
 import 'package:ecommerce_app_mobile/data/provider/product_service_provider.dart';
 import 'package:ecommerce_app_mobile/data/service/impl/user_service_impl.dart';
+import 'package:ecommerce_app_mobile/data/usecase/app_safe.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/constant/exceptions/exceptions.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:flutter/material.dart';
@@ -28,8 +29,7 @@ class MainBlocs extends Bloc<MainEvents, MainStates> {
 
     on<ToggleThemeEvent>((event, emit) async {
       emit(state.copyWith(themeMode: event.themeMode));
-       AppDatabase.create().then((appDatabase) => appDatabase.setTheme(event.themeMode));
-
+      AppDatabase.create().then((appDatabase) => appDatabase.setTheme(event.themeMode));
     });
 
     on<GetInitItemsEvent>(
@@ -89,6 +89,11 @@ class MainBlocs extends Bloc<MainEvents, MainStates> {
 
         if (categoriesResource.status == Status.fail) {
           emit(MainLoadFailState(fail: categoriesResource.error!, state: state));
+          return;
+        }
+
+        if (!AppSafe.isAppSafe(categoriesResource.data!)) {
+          emit(AppIsGettingReadyState(state: state));
           return;
         }
 
