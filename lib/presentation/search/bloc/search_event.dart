@@ -68,7 +68,11 @@ class GetRecentSearchesEvent extends SearchEvent {
   GetRecentSearchesEvent(this.uid);
 }
 
-class ClearAllRecentSearchEvent extends SearchEvent {}
+class ClearAllRecentSearchEvent extends SearchEvent {
+  final String uid;
+
+  ClearAllRecentSearchEvent(this.uid);
+}
 
 class ClearSelectedRecentSearchEvent extends SearchEvent {
   final RecentSearch recentSearch;

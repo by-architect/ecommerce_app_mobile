@@ -147,7 +147,9 @@ class _SearchScreenState extends State<SearchScreen> {
                                 TextButtonDefault(
                                     text: AppText.commonPageClearAll.capitalizeEveryWord.get,
                                     onPressed: () {
-                                      BlocProvider.of<SearchBloc>(context).add(ClearAllRecentSearchEvent());
+                                      if (widget.user != null) {
+                                        BlocProvider.of<SearchBloc>(context).add(ClearAllRecentSearchEvent(widget.user!.uid));
+                                      }
                                     }),
                               ],
                             ),

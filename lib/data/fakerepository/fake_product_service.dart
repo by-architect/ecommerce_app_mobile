@@ -81,7 +81,7 @@ class FakeProductService implements ProductService {
   }
 
   @override
-  Future<ResourceStatus> clearAllRecentSearch() async {
+  Future<ResourceStatus> clearAllRecentSearch(String uid) async {
     return random.nextBool()
         ? const ResourceStatus.success("")
         : ResourceStatus.fail(Fail(userMessage: "Fake product service fail situation"));

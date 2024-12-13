@@ -63,8 +63,8 @@ class ProductServiceProvider {
     return _productService.clearRecentSearch(recentSearch);
   }
 
-  Future<ResourceStatus> clearAllRecentSearch() {
-    return _fakeProductService.clearAllRecentSearch();
+  Future<ResourceStatus> clearAllRecentSearch(String uid) {
+    return _productService.clearAllRecentSearch(uid);
   }
 
   Future<ResourceStatus<List<RecentSearch>>> getRecentSearches(String uid) {

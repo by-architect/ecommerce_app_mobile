@@ -129,9 +129,23 @@ class ProductServiceImpl extends ProductService {
   }
 
   @override
-  Future<ResourceStatus> clearAllRecentSearch() {
-    // TODO: implement clearAllRecentSearch
-    throw UnimplementedError();
+  Future<ResourceStatus> clearAllRecentSearch(String uid) async {
+    try {
+      final networkConnection = await NetworkHelper().isConnectedToNetwork();
+      if (!networkConnection.isConnected) {
+        throw NetworkDeviceDisconnectedException("Network Device is down");
+      }
+
+      final querySnapshot = await _firestore.collection(FireStoreCollections.searchHistory).where('uid', isEqualTo: uid).get();
+
+      for (var doc in querySnapshot.docs) {
+        await doc.reference.delete();
+      }
+
+      return const ResourceStatus.success("");
+    } catch (exception, stackTrace) {
+      return ExceptionHandler.firebaseResourceExceptionHandler(exception, stackTrace);
+    }
   }
 
   @override

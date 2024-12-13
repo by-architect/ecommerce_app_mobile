@@ -101,8 +101,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         productFeatureOptionsFilterCache: []));
   }
 
-  _clearRecentSearches(SearchEvent event, Emitter<SearchState> emit) {
-    service.clearAllRecentSearch();
+  _clearRecentSearches(ClearAllRecentSearchEvent event, Emitter<SearchState> emit) {
+    service.clearAllRecentSearch(event.uid);
     emit(state.copyWith(recentSearches: []));
   }
 
