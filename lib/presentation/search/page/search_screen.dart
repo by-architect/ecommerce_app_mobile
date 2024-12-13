@@ -137,6 +137,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     ? Expanded(
                         child: Column(
                           children: [
+                            if(state.recentSearches.isNotEmpty)
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
