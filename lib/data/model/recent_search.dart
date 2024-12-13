@@ -5,7 +5,7 @@ class RecentSearch {
 
   RecentSearch(this.id, this.uid, this.text);
 
-  factory RecentSearch.fromJson(Map<String, dynamic> json, String id) {
+  factory RecentSearch.fromMap(Map<String, dynamic> json, String id) {
     return RecentSearch(id, json['uid'], json['search']);
   }
 

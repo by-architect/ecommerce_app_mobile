@@ -1,9 +1,9 @@
 import 'package:ecommerce_app_mobile/presentation/main/bloc/main_states.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../common/ui/theme/AppSizes.dart';
+import '../../../data/model/user.dart';
 import '../../common/widgets/fail_form.dart';
 import '../../home/bloc/home_bloc.dart';
 import '../../home/bloc/home_event.dart';
@@ -13,9 +13,10 @@ import '../bloc/main_blocs.dart';
 import '../bloc/main_events.dart';
 
 class MainFailForm extends StatelessWidget {
-  const MainFailForm({super.key, required this.failState});
+  const MainFailForm({super.key, required this.failState, required this.user});
 
   final MainLoadFailState failState;
+  final User? user;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,10 @@ class MainFailForm extends StatelessWidget {
             onRefreshTap: () {
               BlocProvider.of<MainBlocs>(context).add(GetInitItemsEvent());
               BlocProvider.of<HomeBloc>(context).add(GetProductsHomeEvent());
-              BlocProvider.of<SearchBloc>(context).add(GetRecentSearchesEvent());
+              final user = this.user;
+              if (user != null) {
+                BlocProvider.of<SearchBloc>(context).add(GetRecentSearchesEvent(user.uid));
+              }
             },
           ),
         ),

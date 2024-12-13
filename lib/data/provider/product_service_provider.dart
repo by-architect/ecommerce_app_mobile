@@ -12,17 +12,16 @@ import 'package:ecommerce_app_mobile/data/model/user.dart';
 import 'package:ecommerce_app_mobile/data/service/impl/product_service_impl.dart';
 import 'package:ecommerce_app_mobile/data/service/product_service.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/add_address_state.dart';
-import 'package:ecommerce_app_mobile/presentation/address/bloc/addresses_state.dart';
-import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_state.dart';
 import 'package:ecommerce_app_mobile/presentation/products/bloc/order_state.dart';
+import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_state.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/fail.dart';
 
-import '../../presentation/return/bloc/return_state.dart';
 import '../../presentation/products/bloc/review_state.dart';
+import '../../presentation/return/bloc/return_state.dart';
 import '../../sddklibrary/util/resource.dart';
+import '../model/order_process.dart';
 import '../model/product.dart';
 import '../model/product_feature.dart';
-import '../model/order_process.dart';
 import '../model/tag.dart';
 
 class ProductServiceProvider {
@@ -70,7 +69,6 @@ class ProductServiceProvider {
   }
 */
 
-
   Future<Resource<List<Product>>> getProductsBySearchEvent(
       {String? searchText,
       List<ProductFeatureOption>? selectedFeatureOptions,
@@ -83,8 +81,8 @@ class ProductServiceProvider {
         selectedTags: selectedTags);
   }
 
-  Future<ResourceStatus> addRecentSearch(String recentSearch,String uid) {
-    return _productService.addRecentSearch(recentSearch,uid);
+  Future<ResourceStatus<RecentSearch>> addRecentSearch(String recentSearch, String uid) {
+    return _productService.addRecentSearch(recentSearch, uid);
   }
 
   Future<ResourceStatus> clearRecentSearch(RecentSearch recentSearch) {
@@ -95,8 +93,8 @@ class ProductServiceProvider {
     return _fakeProductService.clearAllRecentSearch();
   }
 
-  Future<ResourceStatus<List<RecentSearch>>> getRecentSearches() {
-    return _fakeProductService.getRecentSearches();
+  Future<ResourceStatus<List<RecentSearch>>> getRecentSearches(String uid) {
+    return _productService.getRecentSearches(uid);
   }
 
   Future<ResourceStatus> deleteSearchHistory(List<RecentSearch> search) async {
@@ -177,10 +175,10 @@ class ProductServiceProvider {
     return _fakeProductService.addOrder(purchaseProcessState, uid);
   }
 
-
   Future<ResourceStatus<List<OrderModel>>> getOrderList(String uid) {
     return _fakeProductService.getOrderList(uid);
   }
+
   Future<ResourceStatus> cancelOrder(OrderModel order) {
     return _fakeProductService.cancelOrder(order);
   }
@@ -188,7 +186,6 @@ class ProductServiceProvider {
   Future<ResourceStatus> addReturnProcess(ReturnState returnProcess, String uid) {
     return _fakeProductService.addReturn(returnProcess, uid);
   }
-
 
   Future<ResourceStatus<List<ReturnModel>>> getReturnProcessList(String uid) {
     return _fakeProductService.getReturnProcessList(uid);
@@ -224,9 +221,8 @@ class ProductServiceProvider {
     return _fakeProductService.removeAddress(addressState);
   }
 
-  Future<ResourceStatus<List<Address>>> selectAddress(AddressState addressState,String uid) {
-    return _fakeProductService.selectAddress(addressState,uid);
-
+  Future<ResourceStatus<List<Address>>> selectAddress(AddressState addressState, String uid) {
+    return _fakeProductService.selectAddress(addressState, uid);
   }
 
   Future<ResourceStatus<List<Address>>> getAddresses(User user) {
@@ -254,6 +250,4 @@ class ProductServiceProvider {
         break;
     }
   }
-
-
 }

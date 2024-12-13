@@ -7,7 +7,6 @@ import 'package:ecommerce_app_mobile/data/provider/product_service_provider.dart
 import 'package:ecommerce_app_mobile/data/service/impl/user_service_impl.dart';
 import 'package:ecommerce_app_mobile/data/usecase/app_safe.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/constant/exceptions/exceptions.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -92,7 +91,7 @@ class MainBlocs extends Bloc<MainEvents, MainStates> {
           return;
         }
 
-        if (!AppSafe.isAppSafe(categoriesResource.data!)) {
+        if (state.categories.isEmpty && !AppSafe.isAppSafe(categoriesResource.data!)) {
           emit(AppIsGettingReadyState(state: state));
           return;
         }

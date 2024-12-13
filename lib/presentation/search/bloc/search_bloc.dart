@@ -129,9 +129,9 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     });
   }
 
-  _getRecentSearches(SearchEvent event, Emitter<SearchState> emit) async {
+  _getRecentSearches(GetRecentSearchesEvent event, Emitter<SearchState> emit) async {
     if (state.recentSearches.isEmpty) {
-      final resource = await service.getRecentSearches();
+      final resource = await service.getRecentSearches(event.uid);
       resource.onSuccess(
         (data) {
           emit(state.copyWith(recentSearches: data));

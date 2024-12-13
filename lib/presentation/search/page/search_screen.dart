@@ -50,7 +50,9 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   void initState() {
-    BlocProvider.of<SearchBloc>(context).add(GetRecentSearchesEvent());
+    if (widget.user != null) {
+      BlocProvider.of<SearchBloc>(context).add(GetRecentSearchesEvent(widget.user!.uid));
+    }
 
     focusNode.addListener(
       () {

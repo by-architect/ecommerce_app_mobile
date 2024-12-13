@@ -62,7 +62,11 @@ class SelectFilterAndGetProductsDirectlyEvent extends FilterSelectorEvent {
 ///Service Requests
 class GetProductsEvent extends SearchEvent {}
 
-class GetRecentSearchesEvent extends SearchEvent {}
+class GetRecentSearchesEvent extends SearchEvent {
+  final String uid;
+
+  GetRecentSearchesEvent(this.uid);
+}
 
 class ClearAllRecentSearchEvent extends SearchEvent {}
 

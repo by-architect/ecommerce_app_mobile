@@ -95,7 +95,7 @@ class FakeProductService implements ProductService {
   }
 
   @override
-  Future<ResourceStatus<List<RecentSearch>>> getRecentSearches() async {
+  Future<ResourceStatus<List<RecentSearch>>> getRecentSearches(String uid) async {
     return ResourceStatus.success(FakeProductModels.recentSearches);
     return random.nextBool()
         ? ResourceStatus.success(FakeProductModels.recentSearches)

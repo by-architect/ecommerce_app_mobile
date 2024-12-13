@@ -85,8 +85,26 @@ class ProductServiceImpl extends ProductService {
         throw NullDataException("Could not get added recent search");
       }
 
-      return ResourceStatus.success(RecentSearch.fromJson(doc.data()!,doc.id));
+      return ResourceStatus.success(RecentSearch.fromMap(doc.data()!, doc.id));
+    } catch (exception, stackTrace) {
+      return ExceptionHandler.firebaseResourceExceptionHandler(exception, stackTrace);
+    }
+  }
 
+  @override
+  Future<ResourceStatus<List<RecentSearch>>> getRecentSearches(String uid) async {
+    List<RecentSearch> searchHistory = [];
+    try {
+      final networkConnection = await NetworkHelper().isConnectedToNetwork();
+      if (!networkConnection.isConnected) {
+        throw NetworkDeviceDisconnectedException("Network Device is down");
+      }
+
+      final searchHistoryResponse = await _firestore.collection(FireStoreCollections.searchHistory).get().timeout(AppDurations.postTimeout);
+      for (var doc in searchHistoryResponse.docs) {
+        searchHistory.add(RecentSearch.fromMap(doc.data(), uid));
+      }
+      return ResourceStatus.success(searchHistory);
     } catch (exception, stackTrace) {
       return ExceptionHandler.firebaseResourceExceptionHandler(exception, stackTrace);
     }
@@ -112,12 +130,6 @@ class ProductServiceImpl extends ProductService {
       List<Tag>? selectedTags}) {
     //todo:get products which include one of the selected categories
     //todo: get products which include all of the selected tags
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<ResourceStatus<List<RecentSearch>>> getRecentSearches() {
-    // TODO: implement getRecentSearches
     throw UnimplementedError();
   }
 

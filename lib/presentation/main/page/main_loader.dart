@@ -8,6 +8,7 @@ import 'package:ecommerce_app_mobile/presentation/main/form/main_fail_form.dart'
 import 'package:ecommerce_app_mobile/presentation/main/form/main_form.dart';
 import 'package:ecommerce_app_mobile/presentation/search/bloc/search_bloc.dart';
 import 'package:ecommerce_app_mobile/presentation/search/bloc/search_event.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -32,15 +33,19 @@ class _MainLoaderState extends State<MainLoader> {
   void initState() {
     BlocProvider.of<MainBlocs>(context).add(GetInitItemsEvent());
     BlocProvider.of<HomeBloc>(context).add(GetProductsHomeEvent());
-    BlocProvider.of<SearchBloc>(context).add(GetRecentSearchesEvent());
     BlocProvider.of<MainBlocs>(context).stream.listen(
       (state) {
+        if (!mounted) {
+          return;
+        }
+        Log.test(title: "main state", data: state);
         if (pageController.hasClients) {
           pageController.jumpToPage(state.selectedPage);
         }
         if (state is MainScreenState) {
           if (state.userStatus.isAuthenticated) {
             BlocProvider.of<CartBloc>(context).add(GetCart(state.userStatus.user!, state.appSettings.defaultShippingFee));
+            BlocProvider.of<SearchBloc>(context).add(GetRecentSearchesEvent(state.userStatus.user!.uid));
           }
         }
         if (state is! MainLoadingState) {
@@ -64,7 +69,10 @@ class _MainLoaderState extends State<MainLoader> {
         builder: (BuildContext context, MainStates state) => SafeArea(
               child: switch (state) {
                 MainLoadingState _ => const Scaffold(body: LoadingScreen()),
-                MainLoadFailState failState => MainFailForm(failState: failState),
+                MainLoadFailState failState => MainFailForm(
+                    failState: failState,
+                    user: state.userStatus.user,
+                  ),
                 WelcomeScreenState _ => const WelcomeScreen(),
                 UpdateScreenState _ => UpdateRequiredScreen(
                     forceUpdate: state.appSettings.forceUpdate,
