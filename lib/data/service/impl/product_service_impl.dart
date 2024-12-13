@@ -18,6 +18,7 @@ import 'package:ecommerce_app_mobile/presentation/products/bloc/product_details_
 import 'package:ecommerce_app_mobile/presentation/products/bloc/review_state.dart';
 import 'package:ecommerce_app_mobile/presentation/return/bloc/return_state.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/constant/exceptions/exception_handler.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/resource.dart';
 
 import '../../../sddklibrary/constant/exceptions/exceptions.dart';
@@ -85,6 +86,7 @@ class ProductServiceImpl extends ProductService {
         throw NullDataException("Could not get added recent search");
       }
 
+      Log.test(data: doc.id);
       return ResourceStatus.success(RecentSearch.fromMap(doc.data()!, doc.id));
     } catch (exception, stackTrace) {
       return ExceptionHandler.firebaseResourceExceptionHandler(exception, stackTrace);
@@ -102,7 +104,7 @@ class ProductServiceImpl extends ProductService {
 
       final searchHistoryResponse = await _firestore.collection(FireStoreCollections.searchHistory).get().timeout(AppDurations.postTimeout);
       for (var doc in searchHistoryResponse.docs) {
-        searchHistory.add(RecentSearch.fromMap(doc.data(), uid));
+        searchHistory.add(RecentSearch.fromMap(doc.data(), doc.id));
       }
       return ResourceStatus.success(searchHistory);
     } catch (exception, stackTrace) {
@@ -111,14 +113,24 @@ class ProductServiceImpl extends ProductService {
   }
 
   @override
-  Future<ResourceStatus> clearAllRecentSearch() {
-    // TODO: implement clearAllRecentSearch
-    throw UnimplementedError();
+  Future<ResourceStatus> clearRecentSearch(RecentSearch recentSearch) async {
+    try {
+      final networkConnection = await NetworkHelper().isConnectedToNetwork();
+      if (!networkConnection.isConnected) {
+        throw NetworkDeviceDisconnectedException("Network Device is down");
+      }
+
+      await _firestore.collection(FireStoreCollections.searchHistory).doc(recentSearch.id).delete().timeout(AppDurations.postTimeout);
+
+      return const ResourceStatus.success("");
+    } catch (exception, stackTrace) {
+      return ExceptionHandler.firebaseResourceExceptionHandler(exception, stackTrace);
+    }
   }
 
   @override
-  Future<ResourceStatus> clearRecentSearch(RecentSearch recentSearchList) {
-    // TODO: implement clearRecentSearch
+  Future<ResourceStatus> clearAllRecentSearch() {
+    // TODO: implement clearAllRecentSearch
     throw UnimplementedError();
   }
 

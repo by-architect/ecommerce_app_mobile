@@ -43,32 +43,6 @@ class ProductServiceProvider {
     }
   }
 
-/*
-  getCategoriesByLayerResource(Function(Resource<Categories>) emit) async {
-    emit(Resource.loading());
-    try {
-      final categoriesResource = await productService.getCategories();
-      if (categoriesResource.status == Status.fail) {
-        emit(ResourceStatus.fail(categoriesResource.error!));
-      }
-
-      final categories = categoriesResource.data!;
-      emit(ResourceStatus.success(Categories(categories)));
-    } catch (e, s) {
-      emit(ResourceStatus.fail(Fail(
-          userMessage: AppText.errorFetchingData.capitalizeFirstWord.get,
-          stackTrace: s,
-          exception: e.toString())));
-    }
-  }
-*/
-
-/*
-  Future<Resource<List<Product>>> getProducts() async {
-    return productService.getProducts();
-  }
-*/
-
   Future<Resource<List<Product>>> getProductsBySearchEvent(
       {String? searchText,
       List<ProductFeatureOption>? selectedFeatureOptions,
@@ -86,7 +60,7 @@ class ProductServiceProvider {
   }
 
   Future<ResourceStatus> clearRecentSearch(RecentSearch recentSearch) {
-    return _fakeProductService.clearRecentSearch(recentSearch);
+    return _productService.clearRecentSearch(recentSearch);
   }
 
   Future<ResourceStatus> clearAllRecentSearch() {
@@ -106,24 +80,6 @@ class ProductServiceProvider {
   Future<ResourceStatus<AllProductFeatures>> getProductFeatures() {
     return _productService.getProductFeatures();
   }
-
-/*
-  getProductFeaturesResource(Function(Resource<ProductFeatures>) emit) async {
-    emit(Resource.loading());
-    try {
-      final productFeatureResource = await productService.getProductFeatures();
-      if (productFeatureResource.status == Status.fail) {
-        emit(ResourceStatus.fail(productFeatureResource.error!));
-      }
-      emit(ResourceStatus.success(productFeatureResource.data!));
-    } catch (e, s) {
-      emit(ResourceStatus.fail(Fail(
-          userMessage: AppText.errorFetchingData.capitalizeFirstWord.get,
-          stackTrace: s,
-          exception: e.toString())));
-    }
-  }
-*/
 
   Future<ResourceStatus<List<Product>>> getProductByDiscount(int count) {
     return _fakeProductService.getProductByDiscount(count);
@@ -251,3 +207,45 @@ class ProductServiceProvider {
     }
   }
 }
+/*
+  getCategoriesByLayerResource(Function(Resource<Categories>) emit) async {
+    emit(Resource.loading());
+    try {
+      final categoriesResource = await productService.getCategories();
+      if (categoriesResource.status == Status.fail) {
+        emit(ResourceStatus.fail(categoriesResource.error!));
+      }
+
+      final categories = categoriesResource.data!;
+      emit(ResourceStatus.success(Categories(categories)));
+    } catch (e, s) {
+      emit(ResourceStatus.fail(Fail(
+          userMessage: AppText.errorFetchingData.capitalizeFirstWord.get,
+          stackTrace: s,
+          exception: e.toString())));
+    }
+  }
+*/
+
+/*
+  Future<Resource<List<Product>>> getProducts() async {
+    return productService.getProducts();
+  }
+*/
+/*
+  getProductFeaturesResource(Function(Resource<ProductFeatures>) emit) async {
+    emit(Resource.loading());
+    try {
+      final productFeatureResource = await productService.getProductFeatures();
+      if (productFeatureResource.status == Status.fail) {
+        emit(ResourceStatus.fail(productFeatureResource.error!));
+      }
+      emit(ResourceStatus.success(productFeatureResource.data!));
+    } catch (e, s) {
+      emit(ResourceStatus.fail(Fail(
+          userMessage: AppText.errorFetchingData.capitalizeFirstWord.get,
+          stackTrace: s,
+          exception: e.toString())));
+    }
+  }
+*/
