@@ -9,6 +9,7 @@ import 'package:ecommerce_app_mobile/data/model/product_details_item.dart';
 import 'package:ecommerce_app_mobile/data/model/recent_search.dart';
 import 'package:ecommerce_app_mobile/data/model/return_process.dart';
 import 'package:ecommerce_app_mobile/data/model/user.dart';
+import 'package:ecommerce_app_mobile/data/service/impl/product_service_impl.dart';
 import 'package:ecommerce_app_mobile/data/service/product_service.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/add_address_state.dart';
 import 'package:ecommerce_app_mobile/presentation/address/bloc/addresses_state.dart';
@@ -25,7 +26,8 @@ import '../model/order_process.dart';
 import '../model/tag.dart';
 
 class ProductServiceProvider {
-  final ProductService _productService = FakeProductService();
+  final ProductService _fakeProductService = FakeProductService();
+  final ProductService _productService = ProductServiceImpl();
 
   Future<ResourceStatus<Categories>> getCategoriesByLayer() async {
     try {
@@ -69,7 +71,7 @@ class ProductServiceProvider {
 */
 
   Future<Resource<Product>> getProductById(String id) async {
-    return _productService.getProductsById(id);
+    return _fakeProductService.getProductsById(id);
   }
 
   Future<Resource<List<Product>>> getProductsBySearchEvent(
@@ -77,7 +79,7 @@ class ProductServiceProvider {
       List<ProductFeatureOption>? selectedFeatureOptions,
       List<Category>? selectedCategories,
       List<Tag>? selectedTags}) async {
-    return _productService.getProductsBySearchEvents(
+    return _fakeProductService.getProductsBySearchEvents(
         selectedFeatureOptions: selectedFeatureOptions,
         selectedCategories: selectedCategories,
         searchText: searchText,
@@ -85,19 +87,19 @@ class ProductServiceProvider {
   }
 
   Future<ResourceStatus<RecentSearch>> addRecentSearch(String recentSearch) {
-    return _productService.addRecentSearch(recentSearch);
+    return _fakeProductService.addRecentSearch(recentSearch);
   }
 
   Future<ResourceStatus> clearRecentSearch(RecentSearch recentSearch) {
-    return _productService.clearRecentSearch(recentSearch);
+    return _fakeProductService.clearRecentSearch(recentSearch);
   }
 
   Future<ResourceStatus> clearAllRecentSearch() {
-    return _productService.clearAllRecentSearch();
+    return _fakeProductService.clearAllRecentSearch();
   }
 
   Future<ResourceStatus<List<RecentSearch>>> getRecentSearches() {
-    return _productService.getRecentSearches();
+    return _fakeProductService.getRecentSearches();
   }
 
   Future<ResourceStatus> deleteSearchHistory(List<RecentSearch> search) async {
@@ -107,7 +109,7 @@ class ProductServiceProvider {
   }
 
   Future<ResourceStatus<AllProductFeatures>> getProductFeatures() {
-    return _productService.getProductFeatures();
+    return _fakeProductService.getProductFeatures();
   }
 
 /*
@@ -129,36 +131,36 @@ class ProductServiceProvider {
 */
 
   Future<ResourceStatus<List<Product>>> getProductByDiscount(int count) {
-    return _productService.getProductByDiscount(count);
+    return _fakeProductService.getProductByDiscount(count);
   }
 
   Future<ResourceStatus<List<Product>>> getProductByBestSeller(int count) {
-    return _productService.getProductByBestSeller(count);
+    return _fakeProductService.getProductByBestSeller(count);
   }
 
   Future<ResourceStatus<List<Product>>> getProductByLastAdded(int count) {
-    return _productService.getProductByLastAdded(count);
+    return _fakeProductService.getProductByLastAdded(count);
   }
 
   Future<ResourceStatus<Reviews>> getReviews(String productId) {
-    return _productService.getReviews(productId);
+    return _fakeProductService.getReviews(productId);
   }
 
   Future<ResourceStatus<List<Product>>> getYouMayAlsoLike(String categoryId) {
-    return _productService.getYouMayAlsoLike(categoryId);
+    return _fakeProductService.getYouMayAlsoLike(categoryId);
   }
 
   Future<ResourceStatus<List<ProductDetailsItem>>> getProductDetails(String productId) {
-    return _productService.getProductDetails(productId);
+    return _fakeProductService.getProductDetails(productId);
   }
 
   Future<ResourceStatus> addReview(ReviewState reviewState) async {
-    return _productService.addReview(reviewState);
+    return _fakeProductService.addReview(reviewState);
   }
 
   addReviewAsResource(ReviewState reviewState, Function(Resource) resource) async {
     resource(Resource.loading());
-    final reviewResource = await _productService.addReview(reviewState);
+    final reviewResource = await _fakeProductService.addReview(reviewState);
     switch (reviewResource.status) {
       case Status.success:
         resource(Resource.success(reviewResource.data));
@@ -175,72 +177,72 @@ class ProductServiceProvider {
   }
 
   Future<ResourceStatus> addOrder(OrderState purchaseProcessState, String uid) {
-    return _productService.addOrder(purchaseProcessState, uid);
+    return _fakeProductService.addOrder(purchaseProcessState, uid);
   }
 
 
   Future<ResourceStatus<List<OrderModel>>> getOrderList(String uid) {
-    return _productService.getOrderList(uid);
+    return _fakeProductService.getOrderList(uid);
   }
   Future<ResourceStatus> cancelOrder(OrderModel order) {
-    return _productService.cancelOrder(order);
+    return _fakeProductService.cancelOrder(order);
   }
 
   Future<ResourceStatus> addReturnProcess(ReturnState returnProcess, String uid) {
-    return _productService.addReturn(returnProcess, uid);
+    return _fakeProductService.addReturn(returnProcess, uid);
   }
 
 
   Future<ResourceStatus<List<ReturnModel>>> getReturnProcessList(String uid) {
-    return _productService.getReturnProcessList(uid);
+    return _fakeProductService.getReturnProcessList(uid);
   }
 
   Future<ResourceStatus> updateReturnProcess(ReturnModel returnProcess) {
-    return _productService.updateReturnProcess(returnProcess);
+    return _fakeProductService.updateReturnProcess(returnProcess);
   }
 
   Future<ResourceStatus<List<CartItem>>> getCart(User user) {
-    return _productService.getCart(user.uid);
+    return _fakeProductService.getCart(user.uid);
   }
 
   Future updateCartItem(CartItem cartItem, User user) {
-    return _productService.updateCartItem(
+    return _fakeProductService.updateCartItem(
       cartItem,
     );
   }
 
   Future<ResourceStatus> addCartItem(CartItemState cartItem, String uid) {
-    return _productService.addToCart(cartItem, uid);
+    return _fakeProductService.addToCart(cartItem, uid);
   }
 
   Future deleteCartItem(String cartItem) {
-    return _productService.deleteCartItem(cartItem);
+    return _fakeProductService.deleteCartItem(cartItem);
   }
 
   Future<ResourceStatus> addAddress(AddressState addressState) {
-    return _productService.addAddress(addressState);
+    return _fakeProductService.addAddress(addressState);
   }
 
   Future<ResourceStatus> removeAddress(AddressState addressState) {
-    return _productService.removeAddress(addressState);
+    return _fakeProductService.removeAddress(addressState);
   }
 
   Future<ResourceStatus<List<Address>>> selectAddress(AddressState addressState,String uid) {
-    return _productService.selectAddress(addressState,uid);
+    return _fakeProductService.selectAddress(addressState,uid);
 
   }
 
   Future<ResourceStatus<List<Address>>> getAddresses(User user) {
-    return _productService.getAddresses(user.uid);
+    return _fakeProductService.getAddresses(user.uid);
   }
 
   Future<ResourceStatus<Address>> getSelectedAddress(User user) {
-    return _productService.getSelectedAddress(user.uid);
+    return _fakeProductService.getSelectedAddress(user.uid);
   }
 
   getProductsOnCartAsResource(Function(Resource) resource, User user) async {
     resource(Resource.loading());
-    final productResource = await _productService.getCart(user.uid);
+    final productResource = await _fakeProductService.getCart(user.uid);
     switch (productResource.status) {
       case Status.success:
         resource(Resource.success(productResource.data));

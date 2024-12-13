@@ -58,7 +58,7 @@ class _HomeFormState extends State<HomeForm> {
                   appSettings: widget.appSettings,
                   isLoading: state is ProductsLoadingState,
                   bannerList: FakeProductModels.banners,
-                  features: widget.productFeatures,
+                  features: widget.productFeatures, categoriesByLayer: widget.categories,
                 ),
               ),
               SliverToBoxAdapter(

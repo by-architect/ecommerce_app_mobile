@@ -5,6 +5,7 @@ import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/fakerepository/fake_models.dart';
 import 'package:ecommerce_app_mobile/data/model/app_settings.dart';
 import 'package:ecommerce_app_mobile/data/model/banner.dart';
+import 'package:ecommerce_app_mobile/data/model/categories.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
 import 'package:ecommerce_app_mobile/data/model/user.dart';
 import 'package:ecommerce_app_mobile/presentation/home/widget/offers_skeleton.dart';
@@ -23,13 +24,16 @@ class OffersCarouselAndCategories extends StatelessWidget {
   final AllProductFeatures features;
   final User? user;
   final AppSettings appSettings;
+  final Categories categoriesByLayer;
 
   const OffersCarouselAndCategories({
     super.key,
     required this.bannerList,
     required this.isLoading,
     required this.features,
-    required this.user, required this.appSettings,
+    required this.user,
+    required this.appSettings,
+    required this.categoriesByLayer,
   });
 
   @override
@@ -42,7 +46,8 @@ class OffersCarouselAndCategories extends StatelessWidget {
             : OffersCarousel(
                 user: user,
                 features: features,
-                bannerList: bannerList, appSettings: appSettings,
+                bannerList: bannerList,
+                appSettings: appSettings,
               ),
         const SizedBox(height: AppSizes.spaceBtwVerticalFields),
         Padding(
@@ -53,13 +58,8 @@ class OffersCarouselAndCategories extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal:  AppSizes.defaultPadding /2),
-          child: CategoriesWidget(
-            appSettings: appSettings,
-            user: user,
-            features: features,
-            categoriesByLayer: FakeProductModels.categories,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding / 2),
+          child: CategoriesWidget(appSettings: appSettings, user: user, features: features, categoriesByLayer: categoriesByLayer),
         ),
       ],
     );
@@ -76,7 +76,8 @@ class OffersCarousel extends StatefulWidget {
     super.key,
     required this.bannerList,
     required this.features,
-    required this.user, required this.appSettings,
+    required this.user,
+    required this.appSettings,
   });
 
   @override

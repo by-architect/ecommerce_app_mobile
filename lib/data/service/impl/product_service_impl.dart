@@ -38,20 +38,17 @@ class ProductServiceImpl extends ProductService {
         throw NetworkDeviceDisconnectedException("Network Device is down");
       }
 
-      final data = await _firestore
-          .collection(FireStoreCollections.categories)
-          .get()
-          .timeout(AppDurations.postTimeout);
-      data.docs.forEach((doc) {
+      final data = await _firestore.collection(FireStoreCollections.categories).get().timeout(AppDurations.postTimeout);
+      for (var doc in data.docs) {
         categoryList.add(Category.fromMap(doc.data()));
-      });
+      }
 
       //todo: if there is no category in server, it is fatal error, check it
+      //todo: return into app is getting ready for you
       if (categoryList.isEmpty) {
         return ResourceStatus.fail(Fail(
             userMessage: AppText.errorCategoriesNotFound.capitalizeFirstWord.get,
-            exception: NullDataException(
-                "Categories not found \n there might be no category added in server, fatal error")));
+            exception: NullDataException("Categories not found \n there might be no category added in server, fatal error")));
       }
       return ResourceStatus.success(categoryList);
     } catch (exception, stackTrace) {
@@ -68,10 +65,8 @@ class ProductServiceImpl extends ProductService {
         throw NetworkDeviceDisconnectedException("Network Device is down");
       }
 
-      final productFeaturesResponse = await _firestore
-          .collection(FireStoreCollections.productFeatures)
-          .get()
-          .timeout(AppDurations.postTimeout);
+      final productFeaturesResponse =
+          await _firestore.collection(FireStoreCollections.productFeatures).get().timeout(AppDurations.postTimeout);
       productFeaturesResponse.docs.forEach((doc) {
         productFeatureList.add(ProductFeature.fromMap(doc.data()));
       });
@@ -113,14 +108,9 @@ class ProductServiceImpl extends ProductService {
       }
 
       //get products
-      final productResponse = await _firestore
-          .collection(FireStoreCollections.products)
-          .doc(id)
-          .get()
-          .timeout(AppDurations.postTimeout);
+      final productResponse = await _firestore.collection(FireStoreCollections.products).doc(id).get().timeout(AppDurations.postTimeout);
       if (!productResponse.exists) {
-        return ResourceStatus.fail(
-            Fail(userMessage: AppText.errorProductDoesNotExist.capitalizeFirstWord.get));
+        return ResourceStatus.fail(Fail(userMessage: AppText.errorProductDoesNotExist.capitalizeFirstWord.get));
       }
       final Product product = Product.fromMap(productResponse.data()!);
 
@@ -238,9 +228,8 @@ class ProductServiceImpl extends ProductService {
     throw UnimplementedError();
   }
 
-
   @override
-  Future<ResourceStatus> addOrder(OrderState purchaseProcess,String uid) {
+  Future<ResourceStatus> addOrder(OrderState purchaseProcess, String uid) {
     //todo: add all purchase states, paid process will be done, next one will be loading, others will be waiting
     throw UnimplementedError();
   }
@@ -264,7 +253,6 @@ class ProductServiceImpl extends ProductService {
     // TODO: implement deleteCartItem
     throw UnimplementedError();
   }
-
 
   @override
   Future<ResourceStatus<List<Address>>> getAddresses(String uid) {
@@ -302,16 +290,11 @@ class ProductServiceImpl extends ProductService {
     throw UnimplementedError();
   }
 
-
   @override
   Future<ResourceStatus<List<OrderModel>>> getOrderList(String uid) {
     // TODO: implement getPurchaseProcessList
     throw UnimplementedError();
   }
-
-
-
-
 
   @override
   Future<ResourceStatus<List<ReturnModel>>> getReturnProcessList(String uid) {
@@ -348,5 +331,4 @@ class ProductServiceImpl extends ProductService {
     /// where return.orderId == orderId
     throw UnimplementedError();
   }
-
 }

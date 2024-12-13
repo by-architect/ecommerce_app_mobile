@@ -18,6 +18,7 @@ import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../data/fakerepository/fake_service_creator.dart';
 import '../../../data/model/user.dart';
 
 class AppBarMain extends StatelessWidget implements PreferredSizeWidget {
@@ -64,10 +65,10 @@ class AppBarMain extends StatelessWidget implements PreferredSizeWidget {
             ),
           ),
         ),
-/*
         IconButton(
           onPressed: () {
             testScope(user);
+/*
             if (user != null) {
               Navigator.push(
                   context,
@@ -75,6 +76,7 @@ class AppBarMain extends StatelessWidget implements PreferredSizeWidget {
                     builder: (context) => EmailVerificationScreen(user: user!),
                   ));
             }
+*/
           },
           icon: SvgPicture.asset(
             AppImages.notificationIcon,
@@ -82,7 +84,6 @@ class AppBarMain extends StatelessWidget implements PreferredSizeWidget {
             colorFilter: ColorFilters.iconThemeColor(context),
           ),
         ),
-*/
       ],
       /*SvgPicture.asset(
     "assets/logo/Shoplon.svg",
@@ -98,10 +99,16 @@ class AppBarMain extends StatelessWidget implements PreferredSizeWidget {
 Future<void> testScope(User? user) async {
   UserService userService = UserServiceImpl();
 
+/*
   if (user == null) {
     Log.info(title: "change user password", message: "null user");
     return;
   }
+*/
+
+  ProductServiceCreator productServiceCreator = ProductServiceCreator();
+  productServiceCreator.createCategory();
+
   // final resource = await userService.changePassword(user, );
   // Log.test(resource: resource);
 
