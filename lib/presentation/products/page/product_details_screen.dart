@@ -158,7 +158,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> with Widget
                         context,
                         height: MediaQuery.of(context).size.height * 0.92,
                         child: ProductReturnsScreen(
-                          returnText: widget.product.returns,
+                          returnText: widget.product.returnCondition,
                         ),
                       );
                     },

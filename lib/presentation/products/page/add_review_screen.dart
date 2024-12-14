@@ -1,6 +1,5 @@
 import 'package:ecommerce_app_mobile/common/ui/theme/AppColors.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppSizes.dart';
-import 'package:ecommerce_app_mobile/common/ui/theme/AppStyles.dart';
 import 'package:ecommerce_app_mobile/common/ui/theme/AppText.dart';
 import 'package:ecommerce_app_mobile/data/provider/product_service_provider.dart';
 import 'package:ecommerce_app_mobile/data/usecase/review_validation.dart';
@@ -10,11 +9,10 @@ import 'package:ecommerce_app_mobile/presentation/products/bloc/review_state.dar
 import 'package:ecommerce_app_mobile/presentation/products/widget/review_product_info_card.dart';
 import 'package:ecommerce_app_mobile/presentation/products/widget/text_field_default.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/helper/ui_helper.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/ui/dialog_util.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/Log.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/resource.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/validation_result.dart';
-import 'package:ecommerce_app_mobile/sddklibrary/ui/dialog_util.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
@@ -69,12 +67,12 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                       initialRating: 0,
                       itemSize: 30,
                       itemPadding: const EdgeInsets.only(right: AppSizes.defaultPadding / 4),
-                      unratedColor: context.isDarkMode ? AppColors.blackColor80 : AppColors.whiteColor90  ,
+                      unratedColor: context.isDarkMode ? AppColors.blackColor80 : AppColors.whiteColor90,
                       glow: false,
                       allowHalfRating: false,
                       ignoreGestures: false,
                       onRatingUpdate: (value) {
-                        reviewState = reviewState.copyWith(star: ReviewStar.getByInt(value.toInt()));
+                        reviewState = reviewState.changeStar(ReviewStar.getByInt(value.toInt()));
                       },
                       itemBuilder: (context, index) => SvgPicture.asset(AppImages.starFilledIcon),
                     ),
@@ -126,7 +124,8 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                 text: AppText.productDetailsPageSubmitReview.capitalizeEveryWord.get,
                 onTap: () {
                   final dialog = DialogUtil(context);
-                  ValidationResult validationResult = ReviewValidation(reviewState).validate();
+                  Log.test(message: reviewState.toString());
+                  final ValidationResult validationResult = ReviewValidation(reviewState).validate();
                   if (!validationResult.success) {
                     dialog.toast(validationResult.message);
                     return;

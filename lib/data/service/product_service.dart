@@ -41,8 +41,8 @@ Future<ResourceStatus<List<RecentSearch>>> getRecentSearches(String uid);
   Future<ResourceStatus<List<ProductDetailsItem>>> getProductDetails(String productId);
 
 
-  Future<ResourceStatus<Reviews>> getReviews(String productId);
   Future<ResourceStatus> addReview(ReviewState reviewState);
+  Future<ResourceStatus<Reviews>> getReviews(String productId);
   Future<ResourceStatus<List<Product>>> getYouMayAlsoLike(String categoryId);
 
   Future<ResourceStatus> addOrder(OrderState order, String uid);

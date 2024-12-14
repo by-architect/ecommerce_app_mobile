@@ -697,7 +697,7 @@ class FakeProductModels {
   }
 
   static Product product1 = Product(
-      returns: productPageReturnText,
+      returnCondition: productPageReturnText,
       allProductFeatures: allProductFeatures,
       id: "0",
       name: "Nike Ayakkabı",
@@ -718,7 +718,7 @@ class FakeProductModels {
       ]));
 
   static Product product2 = Product(
-      returns: "This product has not returns",
+      returnCondition: "This product has not returns",
       allProductFeatures: allProductFeatures,
       id: "1",
       name: "Adidas Sandalet",
@@ -731,7 +731,7 @@ class FakeProductModels {
 
   static Product product3 = Product(
       allProductFeatures: allProductFeatures,
-      returns: "This product has not returns",
+      returnCondition: "This product has not returns",
       id: "2",
       name: "Clarks Kundura",
       categoryId: "13",
@@ -743,7 +743,7 @@ class FakeProductModels {
 
   static Product product4 = Product(
       allProductFeatures: allProductFeatures,
-      returns: productPageReturnText,
+      returnCondition: productPageReturnText,
       id: "3",
       name: "Timberland Bot",
       categoryId: "14",
@@ -755,7 +755,7 @@ class FakeProductModels {
 
   static Product product5 = Product(
       allProductFeatures: allProductFeatures,
-      returns: productPageReturnText,
+      returnCondition: productPageReturnText,
       id: "4",
       name: "Deri Bot",
       categoryId: "15",

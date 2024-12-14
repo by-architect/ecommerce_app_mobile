@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce_app_mobile/common/constant/firestore_collections.dart';
 import 'package:ecommerce_app_mobile/data/model/category.dart';
+import 'package:ecommerce_app_mobile/data/model/money.dart';
+import 'package:ecommerce_app_mobile/data/model/product.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
 import 'package:flutter/material.dart';
 
@@ -233,6 +235,5 @@ class ProductServiceCreator {
     _fireStore.collection(FireStoreCollections.productFeatures).add(productFeatureNeckType.toMap());
     _fireStore.collection(FireStoreCollections.productFeatures).add(productFeatureSleeveType.toMap());
   }
-
-
+  
 }

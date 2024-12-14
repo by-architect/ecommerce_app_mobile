@@ -12,7 +12,7 @@ class Product {
   late final String name;
   late final String categoryId;
   late final String info;
-  late final String returns;
+  late final String returnCondition;
   late final Money? cargoPrice;
   late final String? brandName;
   late final List<String> images;
@@ -29,7 +29,7 @@ class Product {
     required this.categoryId,
     required this.info,
     required this.cargoPrice,
-    required this.returns,
+    required this.returnCondition,
     required this.images,
     this.brandName,
     required this.subProducts,
@@ -98,7 +98,7 @@ class Product {
         ' name: $name,\n'
         ' categoryId: $categoryId,\n'
         ' info: $info,\n'
-        ' returns: $returns,\n'
+        ' returns: $returnCondition,\n'
         ' cargoPrice: $cargoPrice,\n'
         ' brandName: $brandName,\n'
         ' images: $images,\n'
