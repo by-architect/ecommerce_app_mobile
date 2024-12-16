@@ -57,6 +57,7 @@ dependencies:
   latlong2: ^0.9.1
   location: ^6.0.2
   shared_preferences: ^2.3.3
+  flutter_launcher_icons: ^0.14.2
 
 dev_dependencies:
   flutter_test:
