@@ -48,6 +48,7 @@ class FakeProductService implements ProductService {
 
   @override
   Future<ResourceStatus<Product>> getProductsById(String id) async {
+    return ResourceStatus.success(FakeProductModels.product1);
     return random.nextBool()
         ? ResourceStatus.success(FakeProductModels.product1)
         : ResourceStatus.fail(Fail(userMessage: "Fake product service fail situation"));
@@ -84,6 +85,7 @@ class FakeProductService implements ProductService {
 
   @override
   Future<ResourceStatus> clearAllRecentSearch() async {
+    return const ResourceStatus.success("");
     return random.nextBool()
         ? const ResourceStatus.success("")
         : ResourceStatus.fail(Fail(userMessage: "Fake product service fail situation"));
@@ -91,6 +93,7 @@ class FakeProductService implements ProductService {
 
   @override
   Future<ResourceStatus> clearRecentSearch(RecentSearch recentSearchList) async {
+    return const ResourceStatus.success("");
     return random.nextBool()
         ? const ResourceStatus.success("")
         : ResourceStatus.fail(Fail(userMessage: "Fake product service fail situation"));
@@ -184,6 +187,7 @@ class FakeProductService implements ProductService {
 
   @override
   Future<ResourceStatus> removeAddress(AddressState addressState) async {
+    return const ResourceStatus.success("");
     return ResourceStatus.fail(
       Fail(userMessage: "Fake product service fail situation"),
     );
