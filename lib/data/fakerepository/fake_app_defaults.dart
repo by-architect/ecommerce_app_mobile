@@ -16,7 +16,7 @@ class FakeAppDefaults {
   static List<ContactModel> supportContacts = [
     const ContactModel(
       type: ContactType.email,
-      content: "emindesupport@proton.me",
+      content: "emindevsupport@proton.me",
     ),
     const ContactModel(
       type: ContactType.phoneNo,
