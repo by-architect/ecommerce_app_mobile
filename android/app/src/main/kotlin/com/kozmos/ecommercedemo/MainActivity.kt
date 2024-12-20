@@ -1,4 +1,4 @@
-package com.emindev.ecommerce.ecommerce_app_mobile
+package com.kozmos.ecommercedemo
 
 import io.flutter.embedding.android.FlutterActivity
 
