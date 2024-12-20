@@ -2,14 +2,14 @@
   "project_info": {
     "project_number": "240812689676",
     "project_id": "ecommerce-demo-f7a07",
-    "storage_bucket": "ecommerce-demo-f7a07.appspot.com"
+    "storage_bucket": "ecommerce-demo-f7a07.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:240812689676:android:89ad560bbbda5ad3552129",
+        "mobilesdk_app_id": "1:240812689676:android:ec2c362655f16c0e552129",
         "android_client_info": {
-          "package_name": "com.emindev.ecommerce.ecommerce_app_mobile"
+          "package_name": "com.kozmos.ecommercedemo"
         }
       },
       "oauth_client": [],
