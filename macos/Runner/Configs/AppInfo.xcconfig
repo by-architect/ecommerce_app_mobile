@@ -8,7 +8,7 @@
 PRODUCT_NAME = ecommerce_app_mobile
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.emindevsoftware.ecommerce.demo.ecommerceAppMobile
+PRODUCT_BUNDLE_IDENTIFIER = com.kozmos.ecommercedemo
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2024 com.emindevsoftware.ecommerce.demo. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2024 com.kozmos.ecommercedemo All rights reserved.

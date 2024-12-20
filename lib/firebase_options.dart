@@ -54,7 +54,7 @@ class DefaultFirebaseOptions {
     appId: '1:240812689676:android:89ad560bbbda5ad3552129',
     messagingSenderId: '240812689676',
     projectId: 'ecommerce-demo-f7a07',
-    storageBucket: 'ecommerce-demo-f7a07.appspot.com',
+    storageBucket: 'ecommerce-demo-f7a07.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
@@ -62,8 +62,8 @@ class DefaultFirebaseOptions {
     appId: '1:240812689676:ios:c726ea2ece44f9a5552129',
     messagingSenderId: '240812689676',
     projectId: 'ecommerce-demo-f7a07',
-    storageBucket: 'ecommerce-demo-f7a07.appspot.com',
-    iosBundleId: 'com.emindev.ecommerce.ecommerceAppMobile',
+    storageBucket: 'ecommerce-demo-f7a07.firebasestorage.app',
+    iosBundleId: 'com.kozmos.ecommercedemo',
   );
 
 }
