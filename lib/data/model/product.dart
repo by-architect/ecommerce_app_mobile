@@ -1,23 +1,26 @@
 import 'package:ecommerce_app_mobile/data/model/categories.dart';
+import 'package:ecommerce_app_mobile/data/model/product_details_item.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/constant/exceptions/exceptions.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/resource.dart';
 
 import '../../common/constant/api_constants.dart';
+import '../../sddklibrary/annotation/test_annotation.dart';
 import 'category_node.dart';
 import 'money.dart';
 
 class Product {
-  late final String id;
-  late final String name;
-  late final String categoryId;
-  late final String info;
-  late final String returnCondition;
-  late final Money? cargoPrice;
-  late final String? brandName;
-  late final List<String> images;
-  late final SubProducts subProducts;
-  late final List<ProductFeature> features;
+  final String id;
+  final String name;
+  final String categoryId;
+  final String info;
+  final String returnCondition;
+  final Money? cargoPrice;
+  final String? brandName;
+  final List<String> images;
+  final SubProducts subProducts;
+  final List<ProductFeature> features;
+  final List<ProductDetailsItem> productDetails;
 
   String get firstImageOrEmpty => images.firstOrNull ?? "";
 
@@ -25,21 +28,49 @@ class Product {
 
   Product({
     required this.id,
+    required this.productDetails,
     required this.name,
     required this.categoryId,
     required this.info,
     required this.cargoPrice,
     required this.returnCondition,
     required this.images,
-    this.brandName,
+    required this.brandName,
     required this.subProducts,
+    required this.features,
+  });
+
+  @TestOnly()
+  factory Product.testOnly({
+    required String id,
+    required String name,
+    required String categoryId,
+    required String info,
+    required String returnCondition,
+    required Money? cargoPrice,
+    required String? brandName,
+    required List<String> images,
+    required SubProducts subProducts,
+    required List<ProductDetailsItem> productDetails,
     required AllProductFeatures allProductFeatures,
   }) {
-    features = allProductFeatures
-        .getProductFeaturesFromSubProduct(subProducts.get.first);
+    return Product(
+      id: id,
+      name: name,
+      categoryId: categoryId,
+      info: info,
+      cargoPrice: cargoPrice,
+      returnCondition: returnCondition,
+      images: images,
+      productDetails: productDetails,
+      subProducts: subProducts,
+      brandName: brandName,
+      features: allProductFeatures.getProductFeaturesFromSubProduct(subProducts.get.first),
+    );
   }
 
-  Product.fromMap(Map<String, dynamic> map) {
+  factory Product.fromMap(Map<String, dynamic> map) {
+    throw UnimplementedError();
 /*
     id = map['productId'];
     name = map['name'];

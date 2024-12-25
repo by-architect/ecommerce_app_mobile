@@ -696,7 +696,7 @@ class FakeProductModels {
     return subProductList;
   }
 
-  static Product product1 = Product(
+  static Product product1 = Product.testOnly(
       returnCondition: productPageReturnText,
       allProductFeatures: allProductFeatures,
       id: "0",
@@ -715,10 +715,13 @@ class FakeProductModels {
         subProduct6,
         subProduct7,
         subProduct8,
-      ]));
+      ]),
+      productDetails: []
+  );
 
-  static Product product2 = Product(
-      returnCondition: "This product has not returns",
+  static Product product2 = Product.testOnly(
+      productDetails: [],
+      returnCondition: "This product has not returnCondition",
       allProductFeatures: allProductFeatures,
       id: "1",
       name: "Adidas Sandalet",
@@ -729,9 +732,10 @@ class FakeProductModels {
       subProducts: SubProducts(_subProductList(5, 1)),
       brandName: "Adidas");
 
-  static Product product3 = Product(
+  static Product product3 = Product.testOnly(
+      productDetails: [],
       allProductFeatures: allProductFeatures,
-      returnCondition: "This product has not returns",
+      returnCondition: "This product has not returnCondition",
       id: "2",
       name: "Clarks Kundura",
       categoryId: "13",
@@ -741,7 +745,8 @@ class FakeProductModels {
       subProducts: SubProducts(_subProductList(5, 2)),
       brandName: "Clarks");
 
-  static Product product4 = Product(
+  static Product product4 = Product.testOnly(
+      productDetails: [],
       allProductFeatures: allProductFeatures,
       returnCondition: productPageReturnText,
       id: "3",
@@ -753,7 +758,8 @@ class FakeProductModels {
       subProducts: SubProducts(_subProductList(5, 3)),
       brandName: "Timberland");
 
-  static Product product5 = Product(
+  static Product product5 = Product.testOnly(
+      productDetails: [],
       allProductFeatures: allProductFeatures,
       returnCondition: productPageReturnText,
       id: "4",
@@ -823,5 +829,5 @@ class FakeProductModels {
         tag: holidayTag),
   ];
   static const productPageReturnText =
-      "Free pre-paid returns and exchanges for orders shipped to the US. Get refunded faster with easy online returns and print a FREE pre-paid return SmartLabel@ online! Return or exchange any unused or defective merchandise by mail or at one of our US or Canada store locations. Made to order items cannot be canceled, exchange or returned.";
+      "Free pre-paid returnCondition and exchanges for orders shipped to the US. Get refunded faster with easy online returnCondition and print a FREE pre-paid return SmartLabel@ online! Return or exchange any unused or defective merchandise by mail or at one of our US or Canada store locations. Made to order items cannot be canceled, exchange or returned.";
 }
