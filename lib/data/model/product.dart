@@ -1,4 +1,5 @@
 import 'package:ecommerce_app_mobile/data/model/categories.dart';
+import 'package:ecommerce_app_mobile/data/model/product_details_item.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/constant/exceptions/exceptions.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/util/resource.dart';
@@ -12,12 +13,13 @@ class Product {
   late final String name;
   late final String categoryId;
   late final String info;
-  late final String returns;
+  late final String returnCondition;
   late final Money? cargoPrice;
   late final String? brandName;
   late final List<String> images;
   late final SubProducts subProducts;
   late final List<ProductFeature> features;
+  late final List<ProductDetailsItem> productDetails;
 
   String get firstImageOrEmpty => images.firstOrNull ?? "";
 
@@ -29,11 +31,12 @@ class Product {
     required this.categoryId,
     required this.info,
     required this.cargoPrice,
-    required this.returns,
+    required this.returnCondition,
     required this.images,
     this.brandName,
     required this.subProducts,
     required AllProductFeatures allProductFeatures,
+    required this.productDetails,
   }) {
     features = allProductFeatures
         .getProductFeaturesFromSubProduct(subProducts.get.first);
@@ -98,7 +101,7 @@ class Product {
         ' name: $name,\n'
         ' categoryId: $categoryId,\n'
         ' info: $info,\n'
-        ' returns: $returns,\n'
+        ' returns: $returnCondition,\n'
         ' cargoPrice: $cargoPrice,\n'
         ' brandName: $brandName,\n'
         ' images: $images,\n'

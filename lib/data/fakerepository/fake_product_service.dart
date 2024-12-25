@@ -38,7 +38,7 @@ class FakeProductService implements ProductService {
       FakeProductModels.category231
     ];
 
-    return ResourceStatus.success(categories);
+    return ResourceStatus.success(FakeProductModelsNew.categoriesUnsorted);
     // return ResourceStatus.fail(Fail(userMessage: "Fake product service fail situation"));
 
     return random.nextBool()
@@ -48,7 +48,7 @@ class FakeProductService implements ProductService {
 
   @override
   Future<ResourceStatus<Product>> getProductsById(String id) async {
-    return ResourceStatus.success(FakeProductModels.product1);
+    return ResourceStatus.success(FakeProductModelsNew.productSlimFitJeans);
     return random.nextBool()
         ? ResourceStatus.success(FakeProductModels.product1)
         : ResourceStatus.fail(Fail(userMessage: "Fake product service fail situation"));
@@ -56,7 +56,7 @@ class FakeProductService implements ProductService {
 
   @override
   Future<ResourceStatus<AllProductFeatures>> getProductFeatures() async {
-    return ResourceStatus.success(FakeProductModels.allProductFeatures);
+    return ResourceStatus.success(FakeProductModelsNew.productFeatureList);
     return random.nextBool()
         ? ResourceStatus.success(FakeProductModels.allProductFeatures)
         : ResourceStatus.fail(Fail(userMessage: "Fake product service fail situation"));
@@ -70,7 +70,8 @@ class FakeProductService implements ProductService {
       List<Tag>? selectedTags}) async {
     // return ResourceStatus.success([]);
     await Future.delayed(const Duration(seconds: 1));
-    return ResourceStatus.success(FakeProductModels.products);
+
+    return ResourceStatus.success(FakeProductModelsNew.products);
     // return ResourceStatus.fail(Fail(userMessage: "Fake product service fail situation"));
 
     return random.nextBool()
@@ -101,7 +102,7 @@ class FakeProductService implements ProductService {
 
   @override
   Future<ResourceStatus<List<RecentSearch>>> getRecentSearches() async {
-    return ResourceStatus.success(FakeProductModels.recentSearches);
+    return ResourceStatus.success(FakeProductModelsNew.recentSearches);
     return random.nextBool()
         ? ResourceStatus.success(FakeProductModels.recentSearches)
         : ResourceStatus.fail(Fail(userMessage: "Fake product service fail situation"));
@@ -110,18 +111,18 @@ class FakeProductService implements ProductService {
   @override
   Future<ResourceStatus<List<Product>>> getProductByDiscount(int count) async {
     final List<Product> products =
-        FakeProductModels.products.where((product) => product.subProducts.getIdealSubProduct.hasDiscount).toList();
+        FakeProductModelsNew.products.where((product) => product.subProducts.getIdealSubProduct.hasDiscount).toList();
     return ResourceStatus.success(products);
   }
 
   @override
   Future<ResourceStatus<List<Product>>> getProductByBestSeller(int count) async {
-    return ResourceStatus.success(FakeProductModels.products);
+    return ResourceStatus.success(FakeProductModelsNew.products);
   }
 
   @override
   Future<ResourceStatus<List<Product>>> getProductByLastAdded(int count) async {
-    return ResourceStatus.success(FakeProductModels.products);
+    return ResourceStatus.success(FakeProductModelsNew.products);
   }
 
   @override
@@ -136,17 +137,14 @@ class FakeProductService implements ProductService {
 
   @override
   Future<ResourceStatus<List<Product>>> getYouMayAlsoLike(String categoryId) async {
-    return ResourceStatus.success(switch (random.nextInt(2)) {
-      0 => FakeProductModels.products,
-      1 => FakeProductModels.products2,
-      2 => FakeProductModels.products3,
-      int() => FakeProductModels.products4,
-    });
+    return ResourceStatus.success(FakeProductModelsNew.products.where((product) => product.categoryId == categoryId).toList());
   }
 
   @override
   Future<ResourceStatus<List<ProductDetailsItem>>> getProductDetails(String productId) async {
-    return ResourceStatus.success(FakeProductModels.productDetails);
+    final Product product = FakeProductModelsNew.products.firstWhere((product) => product.id == productId);
+
+    return ResourceStatus.success(product.productDetails);
   }
 
   @override
@@ -161,7 +159,7 @@ class FakeProductService implements ProductService {
 
   @override
   Future<ResourceStatus<List<CartItem>>> getCart(String uid) async {
-    final cartItems = FakeProductModels.cartItems.where((element) => element.productWithQuantity.subProduct.availableInStock).toList();
+    final cartItems = FakeProductModelsNew.cartItems.where((element) => element.productWithQuantity.subProduct.availableInStock).toList();
     return ResourceStatus.success(cartItems);
   }
 
@@ -220,11 +218,11 @@ class FakeProductService implements ProductService {
   @override
   Future<ResourceStatus<List<OrderModel>>> getOrderList(String uid) async {
     return ResourceStatus.success([
-      FakeProductModels.orderPaidSuccess,
-      FakeProductModels.orderDeliveredSuccess,
-      FakeProductModels.orderPaidCanceled,
-      FakeProductModels.orderShippedSuccess,
-      FakeProductModels.orderTakenSuccess,
+      FakeProductModelsNew.orderPaidSuccess,
+      FakeProductModelsNew.orderDeliveredSuccess,
+      FakeProductModelsNew.orderPaidCanceled,
+      FakeProductModelsNew.orderShippedSuccess,
+      FakeProductModelsNew.orderTakenSuccess,
     ]);
   }
 
@@ -248,20 +246,20 @@ class FakeProductService implements ProductService {
     bool random = Random().nextBool();
     return ResourceStatus.success([
       random
-          ? FakeProductModels.returnProcessSuccess
-          : FakeProductModels.returnProcessSuccess.cancelReturn("canceled") ?? FakeProductModels.returnProcessSuccess,
+          ? FakeProductModelsNew.returnProcessSuccess
+          : FakeProductModelsNew.returnProcessSuccess.cancelReturn("canceled") ?? FakeProductModelsNew.returnProcessSuccess,
       random
-          ? FakeProductModels.returnProcessRejected
-          : FakeProductModels.returnProcessRejected.cancelReturn("canceled") ?? FakeProductModels.returnProcessRejected,
+          ? FakeProductModelsNew.returnProcessRejected
+          : FakeProductModelsNew.returnProcessRejected.cancelReturn("canceled") ?? FakeProductModelsNew.returnProcessRejected,
       random
-          ? FakeProductModels.returnProcessCanceledByCustomer
-          : FakeProductModels.returnProcessCanceledByCustomer.cancelReturn("canceled") ?? FakeProductModels.returnProcessCanceledByCustomer
+          ? FakeProductModelsNew.returnProcessCanceledByCustomer
+          : FakeProductModelsNew.returnProcessCanceledByCustomer.cancelReturn("canceled") ?? FakeProductModelsNew.returnProcessCanceledByCustomer
     ]);
   }
 
   @override
   Future<ResourceStatus> getActiveReturnOfOrder(String orderId) async {
     return ResourceStatus.success(
-        FakeProductModels.returnProcessSuccess.orderId == orderId ? FakeProductModels.returnProcessSuccess : null);
+        FakeProductModelsNew.returnProcessSuccess.orderId == orderId ? FakeProductModelsNew.returnProcessSuccess : null);
   }
 }

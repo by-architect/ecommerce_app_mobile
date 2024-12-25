@@ -58,7 +58,7 @@ class OffersCarouselAndCategories extends StatelessWidget {
             appSettings: appSettings,
             user: user,
             features: features,
-            categoriesByLayer: FakeProductModels.categories,
+            categoriesByLayer: FakeProductModelsNew.categories,
           ),
         ),
       ],
