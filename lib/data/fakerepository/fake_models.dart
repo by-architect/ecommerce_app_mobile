@@ -604,7 +604,7 @@ class FakeProductModels {
     return subProductList;
   }
 
-  static Product product1 = Product(
+  static Product product1 = Product.testOnly(
       returnCondition: productPageReturnText,
       allProductFeatures: allProductFeatures,
       productDetails: productDetails,
@@ -628,7 +628,7 @@ class FakeProductModels {
         subProduct8,
       ]));
 
-  static Product product2 = Product(
+  static Product product2 = Product.testOnly(
       returnCondition: "This product has not returns",
       productDetails: productDetails,
       allProductFeatures: allProductFeatures,
@@ -643,7 +643,7 @@ class FakeProductModels {
       subProducts: SubProducts(_subProductList(5, 1)),
       brandName: "Adidas");
 
-  static Product product3 = Product(
+  static Product product3 = Product.testOnly(
       productDetails: productDetails,
       allProductFeatures: allProductFeatures,
       returnCondition: "This product has not returns",
@@ -658,7 +658,7 @@ class FakeProductModels {
       subProducts: SubProducts(_subProductList(5, 2)),
       brandName: "Clarks");
 
-  static Product product4 = Product(
+  static Product product4 = Product.testOnly(
       productDetails: productDetails,
       allProductFeatures: allProductFeatures,
       returnCondition: productPageReturnText,
@@ -673,7 +673,7 @@ class FakeProductModels {
       subProducts: SubProducts(_subProductList(5, 3)),
       brandName: "Timberland");
 
-  static Product product5 = Product(
+  static Product product5 = Product.testOnly(
       productDetails: productDetails,
       allProductFeatures: allProductFeatures,
       returnCondition: productPageReturnText,
@@ -1032,7 +1032,7 @@ class FakeProductModelsNew {
     discount: Money(20),
     productFeatureOptionIds: [productFeatureOptionColorRed.id, productFeatureOptionMaterialCotton.id],
   );
-  static final Product productSweater = Product(
+  static final Product productSweater = Product.testOnly(
     id: "1",
     productDetails: [
       ProductDetailsItem("Sweater", "A stylish and warm sweater made from premium materials. Perfect for chilly days."),
@@ -1111,7 +1111,7 @@ class FakeProductModelsNew {
     discount: Money(5),
     productFeatureOptionIds: [productFeatureOptionColorBlue.id, productFeatureOptionMaterialPolyester.id],
   );
-  static final Product productTShirt = Product(
+  static final Product productTShirt = Product.testOnly(
     brandName: "LCW",
     id: "2",
     name: "T-Shirt",
@@ -1197,7 +1197,7 @@ class FakeProductModelsNew {
   );
 
 // Polo Shirts Product
-  static final Product productPoloShirt = Product(
+  static final Product productPoloShirt = Product.testOnly(
     brandName: "Mavi",
     id: "3",
     name: "Polo Shirt",
@@ -1291,7 +1291,7 @@ class FakeProductModelsNew {
   );
 
 // Hoodies Product
-  static final Product productHoodie = Product(
+  static final Product productHoodie = Product.testOnly(
     brandName: "H&M",
     id: "6",
     name: "Hoodie",
@@ -1368,7 +1368,7 @@ class FakeProductModelsNew {
   );
 
 // Slim Fit Jeans Product
-  static final Product productSlimFitJeans = Product(
+  static final Product productSlimFitJeans = Product.testOnly(
     brandName: "Hatemoğlu",
     id: "8",
     name: "Slim Fit Jeans",
@@ -1441,7 +1441,7 @@ class FakeProductModelsNew {
   );
 
 // Classic Formal Trousers Product
-  static final Product productClassicFormalTrousers = Product(
+  static final Product productClassicFormalTrousers = Product.testOnly(
     brandName: "Defacto",
     id: "9",
     name: "Classic Formal Trousers",
@@ -1514,7 +1514,7 @@ class FakeProductModelsNew {
   );
 
 // Sporty Running Shorts Product
-  static final Product productRunningShorts = Product(
+  static final Product productRunningShorts = Product.testOnly(
     brandName: "Calvin Klein",
     id: "12",
     name: "Sporty Running Shorts",
@@ -1604,7 +1604,7 @@ class FakeProductModelsNew {
   );
 
 // Women's Cotton Crewneck T-Shirt Product
-  static final Product productCottonCrewneckTShirt = Product(
+  static final Product productCottonCrewneckTShirt = Product.testOnly(
     brandName: "Defacto",
     id: "13",
     name: "Women's Cotton Crewneck T-Shirt",
@@ -1696,7 +1696,7 @@ class FakeProductModelsNew {
   );
 
 // Women's V-Neck Polyester T-Shirt Product
-  static final Product productVNeckPolyesterTShirt = Product(
+  static final Product productVNeckPolyesterTShirt = Product.testOnly(
     brandName: "Koton",
     id: "14",
     name: "Women's V-Neck Polyester T-Shirt",
