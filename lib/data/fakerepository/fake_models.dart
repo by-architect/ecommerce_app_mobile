@@ -1038,6 +1038,7 @@ class FakeProductModelsNew {
       ProductDetailsItem("Sweater", "A stylish and warm sweater made from premium materials. Perfect for chilly days."),
     ],
     name: "Sweater",
+    brandName: "Koton",
     categoryId: "004",
     // Men's Tops -> Sweaters
     info: "A stylish and warm sweater made from premium materials. Perfect for chilly days.",
@@ -1111,6 +1112,7 @@ class FakeProductModelsNew {
     productFeatureOptionIds: [productFeatureOptionColorBlue.id, productFeatureOptionMaterialPolyester.id],
   );
   static final Product productTShirt = Product(
+    brandName: "LCW",
     id: "2",
     name: "T-Shirt",
     productDetails: [
@@ -1196,6 +1198,7 @@ class FakeProductModelsNew {
 
 // Polo Shirts Product
   static final Product productPoloShirt = Product(
+    brandName: "Mavi",
     id: "3",
     name: "Polo Shirt",
     productDetails: [
@@ -1289,6 +1292,7 @@ class FakeProductModelsNew {
 
 // Hoodies Product
   static final Product productHoodie = Product(
+    brandName: "H&M",
     id: "6",
     name: "Hoodie",
     categoryId: "001",
@@ -1365,6 +1369,7 @@ class FakeProductModelsNew {
 
 // Slim Fit Jeans Product
   static final Product productSlimFitJeans = Product(
+    brandName: "Hatemoğlu",
     id: "8",
     name: "Slim Fit Jeans",
     categoryId: "010",
@@ -1437,6 +1442,7 @@ class FakeProductModelsNew {
 
 // Classic Formal Trousers Product
   static final Product productClassicFormalTrousers = Product(
+    brandName: "Defacto",
     id: "9",
     name: "Classic Formal Trousers",
     categoryId: "011",
@@ -1509,6 +1515,7 @@ class FakeProductModelsNew {
 
 // Sporty Running Shorts Product
   static final Product productRunningShorts = Product(
+    brandName: "Calvin Klein",
     id: "12",
     name: "Sporty Running Shorts",
     categoryId: "012",
@@ -1598,6 +1605,7 @@ class FakeProductModelsNew {
 
 // Women's Cotton Crewneck T-Shirt Product
   static final Product productCottonCrewneckTShirt = Product(
+    brandName: "Defacto",
     id: "13",
     name: "Women's Cotton Crewneck T-Shirt",
     categoryId: "005",
@@ -1689,6 +1697,7 @@ class FakeProductModelsNew {
 
 // Women's V-Neck Polyester T-Shirt Product
   static final Product productVNeckPolyesterTShirt = Product(
+    brandName: "Koton",
     id: "14",
     name: "Women's V-Neck Polyester T-Shirt",
     productDetails: [
