@@ -696,7 +696,7 @@ class FakeProductModels {
     return subProductList;
   }
 
-  static Product product1 = Product(
+  static Product product1 = Product.testOnly(
       returns: productPageReturnText,
       allProductFeatures: allProductFeatures,
       id: "0",
@@ -717,7 +717,7 @@ class FakeProductModels {
         subProduct8,
       ]));
 
-  static Product product2 = Product(
+  static Product product2 = Product.testOnly(
       returns: "This product has not returns",
       allProductFeatures: allProductFeatures,
       id: "1",
@@ -729,7 +729,7 @@ class FakeProductModels {
       subProducts: SubProducts(_subProductList(5, 1)),
       brandName: "Adidas");
 
-  static Product product3 = Product(
+  static Product product3 = Product.testOnly(
       allProductFeatures: allProductFeatures,
       returns: "This product has not returns",
       id: "2",
@@ -741,7 +741,7 @@ class FakeProductModels {
       subProducts: SubProducts(_subProductList(5, 2)),
       brandName: "Clarks");
 
-  static Product product4 = Product(
+  static Product product4 = Product.testOnly(
       allProductFeatures: allProductFeatures,
       returns: productPageReturnText,
       id: "3",
@@ -753,7 +753,7 @@ class FakeProductModels {
       subProducts: SubProducts(_subProductList(5, 3)),
       brandName: "Timberland");
 
-  static Product product5 = Product(
+  static Product product5 = Product.testOnly(
       allProductFeatures: allProductFeatures,
       returns: productPageReturnText,
       id: "4",
