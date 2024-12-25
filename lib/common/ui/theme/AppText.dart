@@ -34,7 +34,7 @@ class AppText {
 
   ///write string values first words first character big
 
-  static const marketName = AppText("Perfect Market");
+  static const marketName = AppText("Shopper");
 
 // Common
   static const commonContinue = AppText("Continue");
