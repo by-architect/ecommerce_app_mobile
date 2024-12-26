@@ -1,7 +1,8 @@
+import 'package:ecommerce_app_mobile/sddklibrary/annotation/test_annotation.dart';
+
 import '../ui/theme/AppText.dart';
 
-enum Currency{
-
+enum Currency {
   usd(AppText.uSDollar, "USD", "\$", toLeft: true),
   vnd(AppText.vietnameseDong, "VND", "₫", toLeft: false),
   eur(AppText.euro, "EUR", "€", toLeft: true),
@@ -18,13 +19,10 @@ enum Currency{
   tl(AppText.turkishLira, "TL", "₺", toLeft: false),
   ;
 
-
   final AppText name;
   final String short;
   final String sign;
   final bool toLeft;
 
-  const Currency(this.name, this.short, this.sign, {required this.toLeft });
-
-
+  const Currency(this.name, this.short, this.sign, {required this.toLeft});
 }

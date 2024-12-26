@@ -3,9 +3,7 @@ import 'package:ecommerce_app_mobile/common/constant/currency.dart';
 class Money {
   final double amount;
 
-  String get _clearZero => amount.truncate() == amount
-      ? amount.toStringAsFixed(0)
-      : amount.toStringAsFixed(2);
+  String get _clearZero => amount.truncate() == amount ? amount.toStringAsFixed(0) : amount.toStringAsFixed(2);
 
   Money(this.amount);
 
@@ -25,10 +23,13 @@ class Money {
     return amount == 0.0;
   }
 
-  String  displayAmount(Currency currency) {
-    return currency.toLeft
-        ? "${currency.sign} $_clearZero"
-        : "$_clearZero ${currency.sign}";
+  String displayAmount(Currency currency) {
+    return currency.toLeft ? "${currency.sign} $_clearZero" : "$_clearZero ${currency.sign}";
   }
 
+  factory Money.fromJson(double data) {
+    return Money(data);
+  }
+
+  double toMapData() => amount;
 }
