@@ -6,6 +6,26 @@ import 'package:ecommerce_app_mobile/data/model/product.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
 import 'package:flutter/material.dart';
 
+import '../model/app_settings.dart';
+import 'fake_app_defaults.dart';
+
+class AppServiceCreator {
+  final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
+
+  setAppSettings() {
+    _fireStore.collection(FireStoreCollections.serverSettings).doc(FireStoreCollections.appSettings).set(AppSettings.testOnly(
+        maxProductQuantityCustomerCanBuyInOrder: FakeAppDefaults.maxProductQuantityCustomerCanBuyInOnce,
+        defaultShippingFee: FakeAppDefaults.shippingFee,
+        updateAvailable: FakeAppDefaults.updateAvailable,
+        forceUpdate: FakeAppDefaults.forceUpdate,
+        defaultMapLocation: FakeAppDefaults.defaultStartLocation,
+        defaultCurrency: FakeAppDefaults.defaultCurrency,
+        defaultReturnDay: FakeAppDefaults.defaultReturnDay,
+        contacts: FakeAppDefaults.supportContacts,
+        isAppLocked: FakeAppDefaults.isAppLocked).toJson());
+  }
+}
+
 class ProductServiceCreator {
   final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
 
@@ -235,5 +255,4 @@ class ProductServiceCreator {
     _fireStore.collection(FireStoreCollections.productFeatures).add(productFeatureNeckType.toMap());
     _fireStore.collection(FireStoreCollections.productFeatures).add(productFeatureSleeveType.toMap());
   }
-  
 }

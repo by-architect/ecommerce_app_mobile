@@ -1,9 +1,9 @@
-import 'package:ecommerce_app_mobile/data/fakerepository/fake_app_settings.dart';
 import 'package:ecommerce_app_mobile/data/model/app_settings.dart';
 import 'package:ecommerce_app_mobile/data/model/categories.dart';
 import 'package:ecommerce_app_mobile/data/model/product_feature.dart';
 import 'package:ecommerce_app_mobile/data/model/user_status.dart';
 import 'package:ecommerce_app_mobile/data/provider/product_service_provider.dart';
+import 'package:ecommerce_app_mobile/data/service/impl/app_settings_service_impl.dart';
 import 'package:ecommerce_app_mobile/data/service/impl/user_service_impl.dart';
 import 'package:ecommerce_app_mobile/data/usecase/app_safe.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/constant/exceptions/exceptions.dart';
@@ -20,7 +20,7 @@ class MainBlocs extends Bloc<MainEvents, MainStates> {
   MainBlocs() : super(InitMainStates()) {
     final productService = ProductServiceProvider();
     final userService = UserServiceImpl();
-    final appSettingsService = FakeAppSettingsService();
+    final appSettingsService = AppSettingsServiceImpl();
 
     on<ChangePageEvent>((event, emit) {
       emit(state.copyWith(selectedPage: event.index));

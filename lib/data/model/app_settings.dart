@@ -1,6 +1,7 @@
 import 'package:ecommerce_app_mobile/common/constant/currency.dart';
 import 'package:ecommerce_app_mobile/data/model/communication_model.dart';
 import 'package:ecommerce_app_mobile/sddklibrary/annotation/test_annotation.dart';
+import 'package:ecommerce_app_mobile/sddklibrary/helper/enum_helper.dart';
 import 'package:latlong2/latlong.dart';
 
 import 'money.dart';
@@ -22,8 +23,8 @@ class AppSettings {
   const AppSettings.testOnly(
       {required this.maxProductQuantityCustomerCanBuyInOrder,
       required this.defaultShippingFee,
-        required this.updateAvailable,
-        required this.forceUpdate,
+      required this.updateAvailable,
+      required this.forceUpdate,
       required this.isAppLocked,
       required this.defaultMapLocation,
       required this.defaultCurrency,
@@ -32,8 +33,31 @@ class AppSettings {
       required this.contacts});
 
   factory AppSettings.fromJson(Map<String, dynamic> json) {
-    //todo: implement
-    throw UnimplementedError();
+    return AppSettings._(
+        maxProductQuantityCustomerCanBuyInOrder: json['maxProductQuantityCustomerCanBuyInOrder'] as int,
+        defaultShippingFee: Money.fromJson(json['defaultShippingFee']),
+        updateAvailable: json['updateAvailable'] as bool,
+        forceUpdate: json['forceUpdate'] as bool,
+        isAppLocked: json['isAppLocked'] as bool,
+        defaultMapLocation: LatLng.fromJson(json['defaultMapLocation'] as Map<String, dynamic>),
+        defaultCurrency: EnumHelper.fromJson(Currency.values, json['defaultCurrency'] as String),
+        defaultReturnDay: json['defaultReturnDay'] as int,
+        contacts: (json['contacts'] as List<dynamic>).map((e) => ContactModel.fromJson(e as Map<String, dynamic>)).toList());
+  }
+
+  @TestOnly()
+  Map<String, dynamic> toJson() {
+    return {
+      'maxProductQuantityCustomerCanBuyInOrder': maxProductQuantityCustomerCanBuyInOrder,
+      'defaultShippingFee': defaultShippingFee.amount,
+      'updateAvailable': updateAvailable,
+      'forceUpdate': forceUpdate,
+      'isAppLocked': isAppLocked,
+      'defaultMapLocation': defaultMapLocation.toJson(),
+      'defaultCurrency': defaultCurrency.toJson(),
+      'defaultReturnDay': defaultReturnDay,
+      'contacts': contacts.map((contact) => contact.toJson()).toList(),
+    };
   }
 
   AppSettings._({
