@@ -57,7 +57,7 @@ class _HomeFormState extends State<HomeForm> {
                   user: widget.user,
                   appSettings: widget.appSettings,
                   isLoading: state is ProductsLoadingState,
-                  bannerList: FakeProductModels.banners,
+                  bannerList: FakeProductModelsNew.banners,
                   features: widget.productFeatures,
                 ),
               ),

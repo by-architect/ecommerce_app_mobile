@@ -1,13 +1,8 @@
+import 'package:ecommerce_app_mobile/presentation/common/widgets/network_image_with_loader.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
 
 class BannerM extends StatelessWidget {
-  const BannerM(
-      {super.key,
-      required this.image,
-      required this.press,
-      required this.children});
+  const BannerM({super.key, required this.image, required this.press, required this.children});
 
   final String image;
   final VoidCallback press;
@@ -21,7 +16,7 @@ class BannerM extends StatelessWidget {
         onTap: press,
         child: Stack(
           children: [
-            SvgPicture.asset(image),
+            NetworkImageWithLoader(image),
             Container(color: Colors.black45),
             ...children,
           ],

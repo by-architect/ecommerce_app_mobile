@@ -1926,4 +1926,37 @@ class FakeProductModelsNew {
   static const productDemoImg5 = "https://i.imgur.com/MsppAcx.png";
   static const productDemoImg6 = "https://i.imgur.com/JfyZlnO.png";
   static const loginDemoImage = AppImages.loginImage;
+
+  static const offersDemoImg1 = "https://i.imgur.com/UP7xhPG.png";
+  static const offersDemoImg2 = "https://i.imgur.com/J1Qjut7.png";
+  static const offersDemoImg3 = "https://i.imgur.com/8REExBV.png";
+  static const offersDemoImg4 = "https://i.imgur.com/R4iKkDD.png";
+
+  static final Tag summerTag = Tag("Summer");
+  static final Tag winterTag = Tag("Winter");
+  static final Tag holidayTag = Tag("Holiday");
+
+  static List<BannerModel> banners = [
+    BannerModel(
+        title: "Grab yours own",
+        subtitle: "Collections",
+        discount: 30,
+        image: offersDemoImg1,
+        style: BannerStyle.bannerM1Style,
+        tag: summerTag),
+    BannerModel(
+        title: "Summer Sale",
+        subtitle: "Collections",
+        discount: 59,
+        image: offersDemoImg2,
+        style: BannerStyle.bannerM2Style,
+        tag: winterTag),
+    BannerModel(
+        title: "New items",
+        subtitle: "Collections",
+        discount: 30,
+        image: offersDemoImg3,
+        style: BannerStyle.bannerM1Style,
+        tag: holidayTag),
+  ];
 }
