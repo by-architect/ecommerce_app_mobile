@@ -91,11 +91,13 @@ class ProductCard extends StatelessWidget {
                         )
                       : const SizedBox.shrink(),
                   const SizedBox(height: AppSizes.defaultPadding / 2),
-                  Text(
-                    product.name,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.titleSmall!.copyWith(fontSize: 12),
+                  Flexible(
+                    child: Text(
+                      product.name,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(fontSize: 12),
+                    ),
                   ),
                   const Spacer(),
                   product.subProducts.getIdealSubProduct.discountPercent != 0

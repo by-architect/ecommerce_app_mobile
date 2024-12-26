@@ -37,7 +37,6 @@ class ProductInfo extends StatelessWidget {
             const SizedBox(height: AppSizes.defaultPadding / 2),
             Text(
               title,
-              maxLines: 2,
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: AppSizes.defaultPadding),
