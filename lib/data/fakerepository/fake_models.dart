@@ -633,7 +633,7 @@ class FakeProductModels {
       productDetails: productDetails,
       allProductFeatures: allProductFeatures,
       id: "1",
-      name: "Adidas Sandalet",
+      name: "Adidas Sandalet aosdfjlasdjflkasdjflksfdjasldfj  thisis whait ist is",
       categoryId: "12",
       info: "Rahat sandalet",
       cargoPrice: Money(
