@@ -156,7 +156,7 @@ class _CartFormState extends State<CartForm> {
                                 text: AppText
                                     .commonContinue.capitalizeFirstWord.get,
                                 onTap: () {
-                                  if (!widget.user.firebaseUser.emailVerified) {
+                                  if (!widget.user.firebaseUser!.emailVerified) {
                                     DialogUtil(context).toast(
                                         AppText.errorEmailNotVerified.get);
                                     Navigator.of(context)

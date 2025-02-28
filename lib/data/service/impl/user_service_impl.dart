@@ -63,7 +63,7 @@ class UserServiceImpl extends UserService {
       var networkConnection = await NetworkHelper().isConnectedToNetwork();
       if (!networkConnection.isConnected) throw NetworkDeviceDisconnectedException("Network Device is down");
 
-      await user.firebaseUser.sendEmailVerification();
+      await user.firebaseUser!.sendEmailVerification();
 
       return ResourceStatus.success(user);
     } catch (exception, stackTrace) {
@@ -77,7 +77,7 @@ class UserServiceImpl extends UserService {
       var networkConnection = await NetworkHelper().isConnectedToNetwork();
       if (!networkConnection.isConnected) throw NetworkDeviceDisconnectedException("Network Device is down");
 
-      await user.firebaseUser.reauthenticateWithCredential(
+      await user.firebaseUser!.reauthenticateWithCredential(
           firebase_auth.EmailAuthProvider.credential(email: user.email, password: state.oldPassword));
 
       firebase_auth.User? firebaseUser = firebase_auth.FirebaseAuth.instance.currentUser;

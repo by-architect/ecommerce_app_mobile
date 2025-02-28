@@ -38,7 +38,7 @@ class ReviewUserCard extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  ProfileImageWidget(radius: 12,imageSrc:  user.firebaseUser.photoURL ,),
+                  ProfileImageWidget(radius: 12,imageSrc:  user.firebaseUser?.photoURL ,),
                   const SizedBox(width: AppSizes.spaceBtwHorizontalFields,),
                   Text("${user.name} ${user.surname}",style: Theme.of(context).textTheme.titleMedium,),
                 ],

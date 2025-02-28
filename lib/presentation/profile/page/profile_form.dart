@@ -40,7 +40,7 @@ class ProfileForm extends StatelessWidget {
           ProfileCard(
             name: user.name,
             email: user.email,
-            imageSrc: user.firebaseUser.photoURL,
+            imageSrc: user.firebaseUser!.photoURL,
             isShowArrow: false,
             // proLableText: "Sliver",
             // isPro: true, if the user is pro
@@ -50,7 +50,7 @@ class ProfileForm extends StatelessWidget {
             },
           ),
 
-          if (!user.firebaseUser.emailVerified)
+          if (!user.firebaseUser!.emailVerified)
             VerifyEmailCard(
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(

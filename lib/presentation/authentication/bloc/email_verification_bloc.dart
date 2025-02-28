@@ -26,7 +26,7 @@ class EmailVerificationBloc extends Bloc<EmailVerificationEvent, EmailVerificati
       final resource = await userService.isEmailVerified();
       if (!resource.isSuccess) {
         emit(EmailVerificationFailState(resource.error!));
-      } else if (resource.data!.firebaseUser.emailVerified) {
+      } else if (resource.data!.firebaseUser!.emailVerified) {
         emit(EmailVerifiedState(resource.data!));
       } else {
         emit(EmailNotVerifiedState());

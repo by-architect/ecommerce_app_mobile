@@ -13,7 +13,7 @@ class User {
   late int birthYear;
   late Authority authority;
   late Gender gender;
-  late firebase_auth.User firebaseUser;
+  late firebase_auth.User? firebaseUser;
   late firebase_auth.UserCredential? userCredential;
 
   User(this.uid, this.name, this.surname, this.email, this.birthYear, this.gender, this.firebaseUser,
@@ -27,19 +27,21 @@ class User {
     this.birthYear,
     this.gender,
   ) {
+/*
     final testUser = firebase_auth.FirebaseAuth.instance.currentUser;
     if (testUser != null) {
       /// throws if firebase user is empty
-      firebaseUser = testUser;
     }
+*/
+    firebaseUser = null;
     userCredential = null;
   }
 
   User.fromUserState(SignUpState userState, this.firebaseUser, this.userCredential) {
-    uid = firebaseUser.uid;
+    uid = firebaseUser!.uid;
     name = userState.name;
     surname = userState.surname;
-    email = firebaseUser.email ?? userState.email;
+    email = firebaseUser!.email ?? userState.email;
     birthYear = userState.birthYear.toInt;
     authority = Authority.user;
     gender = userState.gender;
