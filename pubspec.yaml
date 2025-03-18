@@ -58,6 +58,7 @@ dependencies:
   location: ^6.0.2
   shared_preferences: ^2.3.3
   flutter_launcher_icons: ^0.14.2
+  rename_app: ^1.6.2
 
 dev_dependencies:
   flutter_test:
