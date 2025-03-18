@@ -40,7 +40,11 @@ class _MainLoaderState extends State<MainLoader> {
         }
         if (state is MainScreenState) {
           if (state.userStatus.isAuthenticated) {
-            BlocProvider.of<CartBloc>(context).add(GetCart(state.userStatus.user!, state.appSettings.defaultShippingFee));
+            if (mounted) {
+              BlocProvider.of<CartBloc>(context).add(GetCart(
+                  state.userStatus.user!,
+                  state.appSettings.defaultShippingFee));
+            }
           }
         }
         if (state is! MainLoadingState) {
@@ -64,7 +68,8 @@ class _MainLoaderState extends State<MainLoader> {
         builder: (BuildContext context, MainStates state) => SafeArea(
               child: switch (state) {
                 MainLoadingState _ => const Scaffold(body: LoadingScreen()),
-                MainLoadFailState failState => MainFailForm(failState: failState),
+                MainLoadFailState failState =>
+                  MainFailForm(failState: failState),
                 WelcomeScreenState _ => const WelcomeScreen(),
                 UpdateScreenState _ => UpdateRequiredScreen(
                     forceUpdate: state.appSettings.forceUpdate,

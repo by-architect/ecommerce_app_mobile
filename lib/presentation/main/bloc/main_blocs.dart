@@ -134,6 +134,7 @@ class MainBlocs extends Bloc<MainEvents, MainStates> {
       (event, emit) {
         emit(MainScreenState(
             state: state.copyWith(
+              selectedPage: 0,
           userStatus: UserStatus(event.user),
         )));
       },

@@ -38,6 +38,11 @@ class MainStates {
         appSettings: appSettings ?? this.appSettings,
         userStatus: userStatus ?? this.userStatus);
   }
+
+  @override
+  String toString() {
+    return 'MainStates{themeMode: $themeMode, categories: $categories, features: $features, userStatus: $userStatus, appSettings: $appSettings, selectedPage: $selectedPage}';
+  }
 }
 
 class InitMainStates extends MainStates {
