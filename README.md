@@ -35,12 +35,13 @@ Planned future features for commercial release:
 
 📸 Screenshots
 
-  ![image](https://github.com/user-attachments/assets/e1e04456-bf73-4d5a-8069-2ed8624b049e)
-  ![image](https://github.com/user-attachments/assets/71773195-6bdc-4ca2-8cf9-721c92e1e89e)
-  ![image](https://github.com/user-attachments/assets/87f4ddb8-68d5-4556-a3f9-eface44a057b)
-  ![image](https://github.com/user-attachments/assets/340de598-2f91-4e1b-9a71-8b9b940d1c85)
-  ![image](https://github.com/user-attachments/assets/e06a45cb-ec14-4371-8c92-fda392b83e36)
-  ![image](https://github.com/user-attachments/assets/7952b587-afc5-41e5-a24a-f92e9d26d128)
+<img src="https://github.com/user-attachments/assets/e1e04456-bf73-4d5a-8069-2ed8624b049e" width="250"/>
+<img src="https://github.com/user-attachments/assets/71773195-6bdc-4ca2-8cf9-721c92e1e89e" width="250"/>
+<img src="https://github.com/user-attachments/assets/87f4ddb8-68d5-4556-a3f9-eface44a057b" width="250"/>
+<img src="https://github.com/user-attachments/assets/340de598-2f91-4e1b-9a71-8b9b940d1c85" width="250"/>
+<img src="https://github.com/user-attachments/assets/e06a45cb-ec14-4371-8c92-fda392b83e36" width="250"/>
+<img src="https://github.com/user-attachments/assets/7952b587-afc5-41e5-a24a-f92e9d26d128" width="250"/>
+
 
 
 This app is a demo project and not connected to any real products or services. All data is static or mock-based.
